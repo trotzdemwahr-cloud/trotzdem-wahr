@@ -36,3 +36,18 @@ workbookInputs.forEach((input, index) => {
   });
 
 });
+
+
+let currentPage = 0;
+
+const pages = document.querySelectorAll(".workbook-page");
+
+function showPage(index){
+
+    pages.forEach(page=>{
+        page.classList.remove("active");
+    });
+
+    pages[index].classList.add("active");
+
+}
