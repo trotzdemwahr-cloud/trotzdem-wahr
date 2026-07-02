@@ -762,3 +762,12 @@ border-radius:14px;
 }
 
 }
+
+
+.workbook-page{
+    display:none;
+}
+
+.workbook-page.active{
+    display:block;
+}
