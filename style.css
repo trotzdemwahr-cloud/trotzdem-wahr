@@ -764,10 +764,513 @@ border-radius:14px;
 }
 
 
+/* ======================================
+   WORKBOOK
+====================================== */
+
 .workbook-page{
     display:none;
+    animation:fadeIn .4s ease;
 }
 
 .workbook-page.active{
     display:block;
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.workbook-progress{
+
+    margin:40px 0;
+
+}
+
+.workbook-progress span{
+
+    display:block;
+    font-size:.9rem;
+    color:#7d7d7d;
+    margin-bottom:10px;
+
+}
+
+.progress-bar{
+
+    width:100%;
+    height:10px;
+
+    background:#e8e3dc;
+
+    border-radius:999px;
+
+    overflow:hidden;
+
+}
+
+.progress-fill{
+
+    height:100%;
+
+    width:0;
+
+    background:#7f8f7b;
+
+    transition:.4s;
+
+}
+
+.workbook-progress p{
+
+    margin-top:10px;
+
+    font-size:.9rem;
+
+    color:#7d7d7d;
+
+}
+
+/* ======================================
+   Eingabefelder
+====================================== */
+
+.workbook-textarea{
+
+    width:100%;
+
+    min-height:140px;
+
+    padding:16px;
+
+    margin-top:15px;
+
+    border:1px solid #d8d3cb;
+
+    border-radius:14px;
+
+    background:#faf8f5;
+
+    color:#3d3d3d;
+
+    font-family:inherit;
+
+    font-size:1rem;
+
+    line-height:1.7;
+
+    resize:vertical;
+
+    transition:.3s;
+
+}
+
+.workbook-textarea:focus{
+
+    outline:none;
+
+    border-color:#7f8f7b;
+
+    box-shadow:0 0 0 4px rgba(127,143,123,.15);
+
+}
+
+
+
+/* ======================================
+   Checkboxen
+====================================== */
+
+.workbook-checklist{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    margin-top:30px;
+
+}
+
+.workbook-checklist label{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:14px;
+
+    line-height:1.6;
+
+    cursor:pointer;
+
+}
+
+.workbook-checklist input{
+
+    width:20px;
+
+    height:20px;
+
+    margin-top:2px;
+
+}
+
+
+
+/* ======================================
+   Radio Buttons
+====================================== */
+
+.workbook-options{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+    margin:30px 0;
+
+}
+
+.workbook-options label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    cursor:pointer;
+
+}
+
+.workbook-options input{
+
+    width:20px;
+
+    height:20px;
+
+}
+/* ======================================
+   Bewertungsskalen
+====================================== */
+
+.workbook-scale{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:30px;
+
+    margin-top:40px;
+
+}
+
+.scale-row{
+
+    background:#faf8f5;
+
+    border:1px solid #e6e0d8;
+
+    border-radius:18px;
+
+    padding:22px;
+
+}
+
+.scale-row p{
+
+    margin-bottom:18px;
+
+    font-weight:600;
+
+    color:#4a4a4a;
+
+}
+
+.scale-options{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:18px;
+
+}
+
+.scale-options label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    cursor:pointer;
+
+}
+
+.scale-options input{
+
+    width:18px;
+
+    height:18px;
+
+}
+
+
+
+/* ======================================
+   Downloadbereich
+====================================== */
+
+.download-box{
+
+    background:#f8f5f1;
+
+    border:1px solid #e5ddd4;
+
+    border-radius:22px;
+
+    padding:40px;
+
+    text-align:center;
+
+    margin:60px 0;
+
+}
+
+.download-box h3{
+
+    margin-bottom:15px;
+
+}
+
+.download-box p{
+
+    max-width:650px;
+
+    margin:0 auto 25px;
+
+}
+
+
+
+/* ======================================
+   Zitat
+====================================== */
+
+.quote-box{
+
+    background:#ffffff;
+
+    border-left:5px solid #7f8f7b;
+
+    padding:35px;
+
+    border-radius:18px;
+
+    margin:50px 0;
+
+}
+
+.quote-box p{
+
+    font-size:1.2rem;
+
+    line-height:1.8;
+
+    font-style:italic;
+
+}
+
+.quote-box h3{
+
+    margin-top:25px;
+
+    color:#7f8f7b;
+
+}
+
+
+
+/* ======================================
+   Mobile
+====================================== */
+
+@media(max-width:768px){
+
+    .scale-options{
+
+        flex-direction:column;
+
+        gap:12px;
+
+    }
+
+    .download-box{
+
+        padding:25px;
+
+    }
+
+    .quote-box{
+
+        padding:25px;
+
+    }
+
+}
+/* ======================================
+   Workbook Karten
+====================================== */
+
+.workbook-card{
+
+    display:grid;
+
+    grid-template-columns:320px 1fr;
+
+    gap:50px;
+
+    align-items:center;
+
+    background:#ffffff;
+
+    border:1px solid #e7e2db;
+
+    border-radius:24px;
+
+    padding:40px;
+
+    margin:50px 0;
+
+}
+
+.workbook-image img{
+
+    width:100%;
+
+    border-radius:16px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+}
+
+.workbook-label{
+
+    display:inline-block;
+
+    background:#eef3ec;
+
+    color:#6f816c;
+
+    padding:8px 16px;
+
+    border-radius:999px;
+
+    font-size:.9rem;
+
+    margin-bottom:20px;
+
+}
+
+.workbook-features{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin:25px 0 35px;
+
+}
+
+.workbook-features span{
+
+    background:#f7f5f2;
+
+    border:1px solid #e7e2db;
+
+    padding:10px 16px;
+
+    border-radius:999px;
+
+    font-size:.9rem;
+
+}
+
+
+
+/* ======================================
+   Navigation
+====================================== */
+
+.workbook-navigation{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:60px;
+
+}
+
+.workbook-navigation span{
+
+    color:#888;
+
+    font-size:.95rem;
+
+}
+
+
+
+/* ======================================
+   Mobile
+====================================== */
+
+@media (max-width:900px){
+
+    .workbook-card{
+
+        grid-template-columns:1fr;
+
+        text-align:center;
+
+        gap:30px;
+
+    }
+
+    .workbook-features{
+
+        justify-content:center;
+
+    }
+
+    .workbook-navigation{
+
+        flex-direction:column;
+
+        gap:20px;
+
+    }
+
 }
