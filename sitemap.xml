@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://trotzdemwahr-cloud.github.io/trotzdem-wahr/</loc>
+    <loc>https://trotzdemwahr.de/</loc>
   </url>
 
   <url>
-    <loc>https://trotzdemwahr-cloud.github.io/trotzdem-wahr/hilfe.html</loc>
+    <loc>https://trotzdemwahr.de/hilfe.html</loc>
   </url>
 
   <url>
-    <loc>https://trotzdemwahr-cloud.github.io/trotzdem-wahr/verstehen.html</loc>
+    <loc>https://trotzdemwahr.de/verstehen.html</loc>
   </url>
 
   <url>
-    <loc>https://trotzdemwahr-cloud.github.io/trotzdem-wahr/ueber.html</loc>
+    <loc>https://trotzdemwahr.de/workbooks.html</loc>
   </url>
 
   <url>
-    <loc>https://trotzdemwahr-cloud.github.io/trotzdem-wahr/faq.html</loc>
+    <loc>https://trotzdemwahr.de/faq.html</loc>
   </url>
 
   <url>
-    <loc>https://trotzdemwahr-cloud.github.io/trotzdem-wahr/impressum.html</loc>
+    <loc>https://trotzdemwahr.de/ueber.html</loc>
   </url>
 
   <url>
-    <loc>https://trotzdemwahr-cloud.github.io/trotzdem-wahr/datenschutz.html</loc>
+    <loc>https://trotzdemwahr.de/impressum.html</loc>
+  </url>
+
+  <url>
+    <loc>https://trotzdemwahr.de/datenschutz.html</loc>
   </url>
 
 </urlset>
