@@ -447,10 +447,37 @@ function resetWorkbook() {
 
 function exportWorkbook() {
 
-    window.print();
+    preparePDF();
+
+    setTimeout(() => {
+
+        window.print();
+
+    }, 300);
+
+}
+function preparePDF() {
+
+    document.body.classList.add("pdf-export");
+
+    document
+        .querySelectorAll(".chapter")
+        .forEach(chapter => {
+
+            chapter.classList.add("active");
+
+        });
 
 }
 
+
+function cleanupPDF() {
+
+    document.body.classList.remove("pdf-export");
+
+    showChapter(state.currentChapter);
+
+}
 
 // ======================================================
 // HILFSFUNKTIONEN
@@ -547,7 +574,7 @@ function debugWorkbook() {
 // ======================================================
 
 window.Workbook = {
-
+window.addEventListener("afterprint", cleanupPDF);
     next: nextChapter,
 
     back: previousChapter,
