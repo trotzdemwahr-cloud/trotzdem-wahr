@@ -574,7 +574,7 @@ function debugWorkbook() {
 // ======================================================
 
 window.Workbook = {
-window.addEventListener("afterprint", cleanupPDF);
+
     next: nextChapter,
 
     back: previousChapter,
@@ -588,3 +588,4 @@ window.addEventListener("afterprint", cleanupPDF);
     state
 
 };
+window.addEventListener("afterprint", cleanupPDF);
