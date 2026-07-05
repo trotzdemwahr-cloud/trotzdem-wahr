@@ -1017,6 +1017,59 @@ input:focus-visible{
     border-radius:32px;
 
 }
+.pdf-chapter-number{
+
+    position:absolute;
+
+    top:16mm;
+
+    right:20mm;
+
+    font-size:6.5rem;
+
+    font-weight:800;
+
+    line-height:1;
+
+    color:rgba(127,154,138,.08);
+
+    letter-spacing:-.05em;
+
+    user-select:none;
+
+}
+
+
+.pdf-chapter h2{
+
+    margin-top:0;
+
+    margin-bottom:16px;
+
+    font-size:2.5rem;
+
+    line-height:1.15;
+
+    color:#40574B;
+
+    max-width:70%;
+
+}
+
+
+.pdf-lead{
+
+    max-width:640px;
+
+    font-size:1.08rem;
+
+    line-height:1.9;
+
+    color:#6D746F;
+
+    margin-bottom:38px;
+
+}
 /* ----------------------------------------
    Grid
 ---------------------------------------- */
