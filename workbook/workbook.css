@@ -7,36 +7,49 @@ Digitales Workbook
 trotzdem.wahr
 
 workbook.css
+Version 2.0
 
 ========================================================
 */
 
 
 /* ========================================
-   Grundeinstellungen
+   Design System
 ======================================== */
 
 :root{
 
-    --background:#F7F5F2;
+    --bg:#F7F5F2;
 
     --surface:#FFFFFF;
 
-    --primary:#7A9E8B;
+    --surface-soft:#FBFAF8;
 
-    --primary-light:#EAF4EE;
+    --primary:#7F9A8A;
 
-    --text:#2F3A36;
+    --primary-light:#EAF2ED;
 
-    --text-light:#66706B;
+    --primary-dark:#5F7B6B;
 
     --border:#DCE4DF;
 
+    --text:#2F3A36;
+
+    --text-light:#6E7772;
+
+    --success:#DDEBDD;
+
+    --radius-small:12px;
+
     --radius:18px;
 
-    --shadow:0 10px 30px rgba(0,0,0,.05);
+    --radius-large:28px;
 
-    --transition:.3s ease;
+    --shadow-soft:0 10px 30px rgba(0,0,0,.05);
+
+    --shadow-hover:0 18px 40px rgba(0,0,0,.08);
+
+    --transition:.28s ease;
 
     --content-width:760px;
 
@@ -68,20 +81,30 @@ html{
 body{
 
     font-family:
+
         Inter,
+
         system-ui,
+
         -apple-system,
+
         BlinkMacSystemFont,
+
         "Segoe UI",
+
         sans-serif;
 
-    background:var(--background);
+    background:var(--bg);
 
     color:var(--text);
 
-    line-height:1.7;
-
     font-size:18px;
+
+    line-height:1.75;
+
+    text-rendering:optimizeLegibility;
+
+    -webkit-font-smoothing:antialiased;
 
 }
 
@@ -93,13 +116,13 @@ body{
 main{
 
     width:min(
-        100% - 40px,
+        calc(100% - 40px),
         var(--content-width)
     );
 
-    margin:auto;
+    margin:0 auto;
 
-    padding:50px 0 80px;
+    padding:56px 0 96px;
 
 }
 
@@ -118,30 +141,51 @@ main{
     display:block;
 
 }
-
-
 /* ========================================
    Überschriften
 ======================================== */
 
 h1{
 
-    font-size:2.4rem;
+    font-size:2.5rem;
 
     font-weight:700;
 
-    margin-bottom:10px;
+    line-height:1.2;
+
+    letter-spacing:-0.02em;
 
     color:var(--text);
+
+    margin-bottom:12px;
 
 }
 
 
 h2{
 
-    font-size:1.8rem;
+    font-size:1.9rem;
 
-    margin-top:45px;
+    font-weight:650;
+
+    line-height:1.3;
+
+    color:var(--text);
+
+    margin:52px 0 18px;
+
+}
+
+
+h3{
+
+    font-size:1.25rem;
+
+    font-weight:600;
+
+    line-height:1.4;
+
+    color:var(--text);
 
     margin-bottom:16px;
 
@@ -152,27 +196,86 @@ h2{
 
     color:var(--text-light);
 
-    margin-bottom:45px;
+    font-size:1.15rem;
 
-    font-size:1.1rem;
+    margin-bottom:48px;
 
 }
 
 
 /* ========================================
-   Text
+   Fließtext
 ======================================== */
 
 p{
 
     margin-bottom:22px;
 
+    color:var(--text);
+
 }
 
 
 strong{
 
-    font-weight:600;
+    font-weight:650;
+
+}
+
+
+b{
+
+    font-weight:650;
+
+}
+
+
+small{
+
+    color:var(--text-light);
+
+}
+
+
+/* ========================================
+   Links
+======================================== */
+
+a{
+
+    color:var(--primary-dark);
+
+    text-decoration:none;
+
+    transition:var(--transition);
+
+}
+
+
+a:hover{
+
+    color:var(--primary);
+
+}
+
+
+/* ========================================
+   Listen
+======================================== */
+
+ul,
+ol{
+
+    margin:20px 0;
+
+    padding-left:26px;
+
+}
+
+
+li{
+
+    margin-bottom:10px;
 
 }
 /* ========================================
@@ -187,14 +290,27 @@ strong{
 
     border-radius:var(--radius);
 
-    padding:28px;
+    padding:32px;
 
-    margin:32px 0;
+    margin:36px 0;
 
-    box-shadow:var(--shadow);
+    box-shadow:var(--shadow-soft);
+
+    transition:var(--transition);
 
 }
 
+
+.card + .card{
+
+    margin-top:28px;
+
+}
+
+
+/* ========================================
+   Wissenschaft
+======================================== */
 
 .science-card{
 
@@ -205,11 +321,22 @@ strong{
 }
 
 
+.science-card h3{
+
+    color:var(--primary-dark);
+
+}
+
+
+/* ========================================
+   Reflexion
+======================================== */
+
 .reflection-card{
 
     display:none;
 
-    background:#F5F8F6;
+    background:#F8FBF9;
 
     border-left:6px solid var(--primary);
 
@@ -226,34 +353,105 @@ strong{
 
 
 /* ========================================
+   Hinweise
+======================================== */
+
+.note{
+
+    background:var(--surface-soft);
+
+    border-left:5px solid var(--primary);
+
+    border-radius:var(--radius-small);
+
+    padding:22px 24px;
+
+    margin:30px 0;
+
+}
+
+
+.note h3{
+
+    margin-bottom:12px;
+
+}
+
+
+.note p:last-child{
+
+    margin-bottom:0;
+
+}
+
+
+/* ========================================
+   Trennbereiche
+======================================== */
+
+.section{
+
+    margin:60px 0;
+
+}
+
+
+/* ========================================
+   Zitate / Hervorhebungen
+======================================== */
+
+blockquote{
+
+    margin:30px 0;
+
+    padding:22px 28px;
+
+    border-left:4px solid var(--primary);
+
+    background:var(--surface-soft);
+
+    border-radius:0 var(--radius-small) var(--radius-small) 0;
+
+    color:var(--text);
+
+    font-style:italic;
+
+}
+
+
+/* ========================================
+   Kleine Hervorhebungen
+======================================== */
+
+.highlight{
+
+    background:var(--primary-light);
+
+    border-radius:10px;
+
+    padding:.15em .45em;
+
+}
+/* ========================================
    Fragen
 ======================================== */
 
 .question{
 
-    margin:42px 0;
+    margin:52px 0;
 
 }
 
 
 .question h3{
 
-    font-size:1.2rem;
+    font-size:1.25rem;
 
     font-weight:600;
 
-    margin-bottom:22px;
+    margin-bottom:24px;
 
-}
-
-
-.answers{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:16px;
+    color:var(--text);
 
 }
 
@@ -262,21 +460,34 @@ strong{
    Antwortmöglichkeiten
 ======================================== */
 
+.answers{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+}
+
+
 .answers label{
 
     display:flex;
 
     align-items:flex-start;
 
-    gap:14px;
+    gap:16px;
 
-    cursor:pointer;
+    padding:18px 20px;
 
-    padding:16px 18px;
+    background:var(--surface);
 
     border:1px solid transparent;
 
-    border-radius:14px;
+    border-radius:var(--radius-small);
+
+    cursor:pointer;
 
     transition:var(--transition);
 
@@ -285,14 +496,18 @@ strong{
 
 .answers label:hover{
 
-    background:rgba(122,158,139,.08);
+    background:var(--primary-light);
+
+    border-color:rgba(127,154,138,.25);
 
 }
 
 
 .answers input{
 
-    margin-top:3px;
+    flex-shrink:0;
+
+    margin-top:2px;
 
 }
 
@@ -301,16 +516,14 @@ strong{
    Kreise
 ======================================== */
 
-input[type="radio"],
-input[type="checkbox"]{
+input[type="checkbox"],
+input[type="radio"]{
 
     width:22px;
 
     height:22px;
 
     accent-color:var(--primary);
-
-    flex-shrink:0;
 
 }
 
@@ -323,13 +536,15 @@ textarea{
 
     width:100%;
 
-    min-height:150px;
+    min-height:170px;
 
-    margin-top:20px;
+    margin-top:22px;
 
-    padding:18px;
+    padding:18px 20px;
 
     font:inherit;
+
+    line-height:1.7;
 
     color:var(--text);
 
@@ -337,11 +552,18 @@ textarea{
 
     border:1px solid var(--border);
 
-    border-radius:14px;
+    border-radius:var(--radius);
 
     resize:vertical;
 
     transition:var(--transition);
+
+}
+
+
+textarea::placeholder{
+
+    color:var(--text-light);
 
 }
 
@@ -352,24 +574,20 @@ textarea:focus{
 
     border-color:var(--primary);
 
+    box-shadow:0 0 0 4px rgba(127,154,138,.12);
+
 }
 
 
 /* ========================================
-   Hinweise
+   Eingabefelder allgemein
 ======================================== */
 
-.note{
+input,
+textarea,
+button{
 
-    background:#F8F7F3;
-
-    border-left:5px solid var(--primary);
-
-    padding:18px 22px;
-
-    border-radius:12px;
-
-    margin:28px 0;
+    font-family:inherit;
 
 }
 /* ========================================
@@ -380,21 +598,44 @@ textarea:focus{
 
     display:flex;
 
-    justify-content:space-between;
+    justify-content:center;
 
     align-items:center;
 
-    margin-bottom:40px;
+    margin-bottom:56px;
 
     color:var(--text-light);
 
     font-size:.95rem;
 
+    letter-spacing:.03em;
+
+}
+
+
+#progress{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:10px 18px;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:999px;
+
+    box-shadow:var(--shadow-soft);
+
 }
 
 
 /* ========================================
-   Buttons
+   Navigation
 ======================================== */
 
 .button-group{
@@ -403,14 +644,22 @@ textarea:focus{
 
     justify-content:space-between;
 
-    gap:16px;
+    align-items:center;
 
-    margin-top:50px;
+    gap:18px;
+
+    margin-top:60px;
 
 }
 
 
+/* ========================================
+   Buttons
+======================================== */
+
 button{
+
+    appearance:none;
 
     border:none;
 
@@ -418,24 +667,32 @@ button{
 
     font:inherit;
 
-    transition:var(--transition);
+    transition:all var(--transition);
 
 }
 
 
 .button-primary{
 
+    display:inline-flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-height:56px;
+
+    padding:16px 34px;
+
     background:var(--primary);
 
-    color:white;
+    color:#fff;
 
-    padding:16px 32px;
-
-    border-radius:14px;
-
-    min-height:54px;
+    border-radius:999px;
 
     font-weight:600;
+
+    box-shadow:var(--shadow-soft);
 
 }
 
@@ -444,12 +701,31 @@ button{
 
     transform:translateY(-2px);
 
-    box-shadow:0 8px 20px rgba(122,158,139,.25);
+    background:var(--primary-dark);
+
+    box-shadow:var(--shadow-hover);
+
+}
+
+
+.button-primary:active{
+
+    transform:translateY(0);
 
 }
 
 
 .button-secondary{
+
+    display:inline-flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-height:56px;
+
+    padding:16px 34px;
 
     background:transparent;
 
@@ -457,22 +733,49 @@ button{
 
     border:1px solid var(--border);
 
-    padding:16px 32px;
-
-    border-radius:14px;
-
-    min-height:54px;
+    border-radius:999px;
 
 }
 
 
 .button-secondary:hover{
 
-    background:#ffffff;
+    background:var(--surface);
+
+    border-color:var(--primary);
 
 }
 
 
+.button-secondary:active{
+
+    transform:translateY(0);
+
+}
+
+
+button:disabled{
+
+    opacity:.5;
+
+    cursor:not-allowed;
+
+}
+
+
+/* ========================================
+   Fokus (Barrierefreiheit)
+======================================== */
+
+button:focus-visible,
+textarea:focus-visible,
+input:focus-visible{
+
+    outline:3px solid rgba(127,154,138,.25);
+
+    outline-offset:3px;
+
+}
 /* ========================================
    Abschluss
 ======================================== */
@@ -481,7 +784,7 @@ button{
 
     display:none;
 
-    padding:60px 0;
+    padding:80px 0;
 
 }
 
@@ -495,6 +798,10 @@ button{
 
 .finish-card{
 
+    max-width:700px;
+
+    margin:0 auto;
+
     text-align:center;
 
 }
@@ -502,7 +809,7 @@ button{
 
 .finish-card h2{
 
-    margin-bottom:20px;
+    margin-bottom:24px;
 
 }
 
@@ -511,7 +818,7 @@ button{
 
     max-width:620px;
 
-    margin:0 auto 30px;
+    margin:0 auto 28px;
 
 }
 
@@ -542,6 +849,118 @@ button{
 
 
 /* ========================================
+   PDF
+======================================== */
+
+#pdf-export{
+
+    display:none;
+
+}
+
+
+.pdf-page{
+
+    background:#FFFFFF;
+
+    color:var(--text);
+
+    padding:28mm 22mm;
+
+    min-height:260mm;
+
+}
+
+
+.pdf-cover{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+.pdf-cover-content{
+
+    max-width:520px;
+
+    text-align:center;
+
+}
+
+
+.pdf-kicker{
+
+    text-transform:uppercase;
+
+    letter-spacing:.18em;
+
+    color:var(--text-light);
+
+    margin-bottom:22px;
+
+}
+
+
+.pdf-cover h1{
+
+    color:var(--primary-dark);
+
+    margin-bottom:14px;
+
+}
+
+
+.pdf-subtitle{
+
+    color:var(--text-light);
+
+    margin-bottom:36px;
+
+}
+
+
+.pdf-divider{
+
+    width:80px;
+
+    height:2px;
+
+    background:var(--border);
+
+    margin:0 auto 36px;
+
+}
+
+
+.pdf-card{
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:24px;
+
+    margin-bottom:24px;
+
+}
+
+
+.pdf-answer{
+
+    margin-top:18px;
+
+    padding-top:14px;
+
+    border-top:1px solid var(--border);
+
+}
+
+
+/* ========================================
    Responsive
 ======================================== */
 
@@ -557,7 +976,7 @@ button{
 
         width:calc(100% - 32px);
 
-        padding:32px 0 60px;
+        padding:36px 0 64px;
 
     }
 
@@ -569,19 +988,21 @@ button{
 
     h2{
 
-        font-size:1.5rem;
+        font-size:1.55rem;
 
     }
 
     .card{
 
-        padding:22px;
+        padding:24px;
 
     }
 
     .button-group{
 
         flex-direction:column-reverse;
+
+        align-items:stretch;
 
     }
 
@@ -590,181 +1011,54 @@ button{
 
         width:100%;
 
+        justify-content:center;
+
     }
 
 }
 
 
 /* ========================================
-   Druck / PDF
+   Druck
 ======================================== */
 
+@page{
 
-@page {
+    size:A4;
 
-    size: A4;
-
-    margin: 18mm;
-
-}
-
-
-@media print {
-/* ========================================
-   Nur PDF-Version drucken
-======================================== */
-
-main {
-
-    display: none !important;
+    margin:18mm;
 
 }
 
-#pdf-export {
 
-    display: block !important;
+@media print{
 
-}
+    main{
 
-.pdf-page {
-
-    page-break-after: always;
-
-    break-after: page;
-
-    min-height: 260mm;
-
-}
-
-.pdf-page:last-child {
-
-    page-break-after: auto;
-
-    break-after: auto;
-
-}
-    html,
-    body {
-
-        background: white !important;
-
-        color: black !important;
+        display:none !important;
 
     }
 
+    #pdf-export{
 
-    #workbook-content {
-
-        width: 100%;
-
-        max-width: none;
-
-        margin: 0;
-
-        padding: 0;
+        display:block !important;
 
     }
 
+    .pdf-page{
 
-    .chapter {
+        page-break-after:always;
 
-        display: block !important;
-
-        page-break-after: always;
-
-        break-after: page;
-
-        animation: none !important;
+        break-after:page;
 
     }
 
+    .pdf-page:last-child{
 
-    .chapter:last-child {
+        page-break-after:auto;
 
-        page-break-after: auto;
-
-        break-after: auto;
-
-    }
-
-
-    .button-group,
-    .progress {
-
-        display: none !important;
+        break-after:auto;
 
     }
-
-   .reflection-card {
-
-    display:block !important;
-
-    visibility:visible !important;
-
-    opacity:1 !important;
-
-}
-   input[type="checkbox"],
-input[type="radio"]{
-
-    transform:scale(1.1);
-
-}
-
-    textarea {
-
-        border: 1px solid #BBBBBB;
-
-        min-height: 140px;
-
-    }
-
-
-    .card,
-    .science-card,
-    .reflection-card,
-    .note {
-
-        box-shadow: none;
-
-        break-inside: avoid;
-
-        page-break-inside: avoid;
-
-    }
-
-
-    h1,
-    h2,
-    h3 {
-
-        break-after: avoid;
-
-        page-break-after: avoid;
-
-    }
-
-
-    p {
-
-        orphans: 3;
-
-        widows: 3;
-
-    }
-textarea{
-
-    overflow:visible;
-
-}
-}
-
-/* ========================================
-   PDF-Bereich
-======================================== */
-
-#pdf-export {
-
-    display: none;
 
 }
