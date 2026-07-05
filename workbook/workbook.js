@@ -474,16 +474,47 @@ function preparePDF() {
 
     document.body.classList.add("pdf-export");
 
-    document
-        .querySelectorAll(".chapter")
-        .forEach(chapter => {
+    const pdf = document.getElementById("pdf-export");
 
-            chapter.classList.add("active");
+    pdf.hidden = false;
+
+    document.getElementById("pdf-date").textContent =
+        new Date().toLocaleDateString("de-DE");
+
+    fillPDFAnswers();
+
+}
+function fillPDFAnswers() {
+
+    document
+        .querySelectorAll("[data-pdf-answer]")
+        .forEach(element => {
+
+            const key = element.dataset.pdfAnswer;
+
+            const value = state.answers[key];
+
+            if (value === undefined || value === "") {
+
+                element.textContent = "—";
+
+                return;
+
+            }
+
+            if (Array.isArray(value)) {
+
+                element.textContent = value.join(", ");
+
+                return;
+
+            }
+
+            element.textContent = value;
 
         });
 
 }
-
 
 function cleanupPDF() {
 
