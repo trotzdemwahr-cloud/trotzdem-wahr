@@ -1,1 +1,636 @@
+/*
+========================================================
 
+Zurück zu dir
+Digitales Workbook
+
+trotzdem.wahr
+
+workbook.css
+
+========================================================
+*/
+
+
+/* ========================================
+   Grundeinstellungen
+======================================== */
+
+:root{
+
+    --background:#F7F5F2;
+
+    --surface:#FFFFFF;
+
+    --primary:#7A9E8B;
+
+    --primary-light:#EAF4EE;
+
+    --text:#2F3A36;
+
+    --text-light:#66706B;
+
+    --border:#DCE4DF;
+
+    --radius:18px;
+
+    --shadow:0 10px 30px rgba(0,0,0,.05);
+
+    --transition:.3s ease;
+
+    --content-width:760px;
+
+}
+
+
+/* ========================================
+   Reset
+======================================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+
+body{
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background:var(--background);
+
+    color:var(--text);
+
+    line-height:1.7;
+
+    font-size:18px;
+
+}
+
+
+/* ========================================
+   Layout
+======================================== */
+
+main{
+
+    width:min(
+        100% - 40px,
+        var(--content-width)
+    );
+
+    margin:auto;
+
+    padding:50px 0 80px;
+
+}
+
+
+.chapter{
+
+    display:none;
+
+    animation:fade .35s ease;
+
+}
+
+
+.chapter.active{
+
+    display:block;
+
+}
+
+
+/* ========================================
+   Überschriften
+======================================== */
+
+h1{
+
+    font-size:2.4rem;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+    color:var(--text);
+
+}
+
+
+h2{
+
+    font-size:1.8rem;
+
+    margin-top:45px;
+
+    margin-bottom:16px;
+
+}
+
+
+.subtitle{
+
+    color:var(--text-light);
+
+    margin-bottom:45px;
+
+    font-size:1.1rem;
+
+}
+
+
+/* ========================================
+   Text
+======================================== */
+
+p{
+
+    margin-bottom:22px;
+
+}
+
+
+strong{
+
+    font-weight:600;
+
+}
+/* ========================================
+   Karten
+======================================== */
+
+.card{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:28px;
+
+    margin:32px 0;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+.science-card{
+
+    background:var(--primary-light);
+
+    border-left:6px solid var(--primary);
+
+}
+
+
+.reflection-card{
+
+    display:none;
+
+    background:#F5F8F6;
+
+    border-left:6px solid var(--primary);
+
+}
+
+
+.reflection-card.visible{
+
+    display:block;
+
+    animation:fade .35s ease;
+
+}
+
+
+/* ========================================
+   Fragen
+======================================== */
+
+.question{
+
+    margin:42px 0;
+
+}
+
+
+.question h3{
+
+    font-size:1.2rem;
+
+    font-weight:600;
+
+    margin-bottom:22px;
+
+}
+
+
+.answers{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+}
+
+
+/* ========================================
+   Antwortmöglichkeiten
+======================================== */
+
+.answers label{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:14px;
+
+    cursor:pointer;
+
+    padding:16px 18px;
+
+    border:1px solid transparent;
+
+    border-radius:14px;
+
+    transition:var(--transition);
+
+}
+
+
+.answers label:hover{
+
+    background:rgba(122,158,139,.08);
+
+}
+
+
+.answers input{
+
+    margin-top:3px;
+
+}
+
+
+/* ========================================
+   Kreise
+======================================== */
+
+input[type="radio"],
+input[type="checkbox"]{
+
+    width:22px;
+
+    height:22px;
+
+    accent-color:var(--primary);
+
+    flex-shrink:0;
+
+}
+
+
+/* ========================================
+   Freitext
+======================================== */
+
+textarea{
+
+    width:100%;
+
+    min-height:150px;
+
+    margin-top:20px;
+
+    padding:18px;
+
+    font:inherit;
+
+    color:var(--text);
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    resize:vertical;
+
+    transition:var(--transition);
+
+}
+
+
+textarea:focus{
+
+    outline:none;
+
+    border-color:var(--primary);
+
+}
+
+
+/* ========================================
+   Hinweise
+======================================== */
+
+.note{
+
+    background:#F8F7F3;
+
+    border-left:5px solid var(--primary);
+
+    padding:18px 22px;
+
+    border-radius:12px;
+
+    margin:28px 0;
+
+}
+/* ========================================
+   Fortschritt
+======================================== */
+
+.progress{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:40px;
+
+    color:var(--text-light);
+
+    font-size:.95rem;
+
+}
+
+
+/* ========================================
+   Buttons
+======================================== */
+
+.button-group{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:16px;
+
+    margin-top:50px;
+
+}
+
+
+button{
+
+    border:none;
+
+    cursor:pointer;
+
+    font:inherit;
+
+    transition:var(--transition);
+
+}
+
+
+.button-primary{
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:16px 32px;
+
+    border-radius:14px;
+
+    min-height:54px;
+
+    font-weight:600;
+
+}
+
+
+.button-primary:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 8px 20px rgba(122,158,139,.25);
+
+}
+
+
+.button-secondary{
+
+    background:transparent;
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+    padding:16px 32px;
+
+    border-radius:14px;
+
+    min-height:54px;
+
+}
+
+
+.button-secondary:hover{
+
+    background:#ffffff;
+
+}
+
+
+/* ========================================
+   Abschluss
+======================================== */
+
+#workbook-finished{
+
+    display:none;
+
+    padding:60px 0;
+
+}
+
+
+#workbook-finished.active{
+
+    display:block;
+
+}
+
+
+.finish-card{
+
+    text-align:center;
+
+}
+
+
+.finish-card h2{
+
+    margin-bottom:20px;
+
+}
+
+
+.finish-card p{
+
+    max-width:620px;
+
+    margin:0 auto 30px;
+
+}
+
+
+/* ========================================
+   Animationen
+======================================== */
+
+@keyframes fade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(12px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+/* ========================================
+   Responsive
+======================================== */
+
+@media (max-width:768px){
+
+    body{
+
+        font-size:17px;
+
+    }
+
+    main{
+
+        width:calc(100% - 32px);
+
+        padding:32px 0 60px;
+
+    }
+
+    h1{
+
+        font-size:2rem;
+
+    }
+
+    h2{
+
+        font-size:1.5rem;
+
+    }
+
+    .card{
+
+        padding:22px;
+
+    }
+
+    .button-group{
+
+        flex-direction:column-reverse;
+
+    }
+
+    .button-primary,
+    .button-secondary{
+
+        width:100%;
+
+    }
+
+}
+
+
+/* ========================================
+   Druck / PDF
+======================================== */
+
+@media print{
+
+    body{
+
+        background:white;
+
+    }
+
+    .button-group{
+
+        display:none;
+
+    }
+
+    .chapter{
+
+        display:block !important;
+
+        page-break-after:always;
+
+    }
+
+    .chapter:last-child{
+
+        page-break-after:auto;
+
+    }
+
+    textarea{
+
+        border:1px solid #cccccc;
+
+    }
+
+}
