@@ -852,25 +852,45 @@ input:focus-visible{
    PDF
 ======================================== */
 
+/* ========================================
+   PDF
+======================================== */
+
 #pdf-export{
 
     display:none;
 
+    background:#F7F4EE;
+
+    color:#33413C;
+
 }
 
+
+/* ----------------------------------------
+   Seite
+---------------------------------------- */
 
 .pdf-page{
 
-    background:#FFFFFF;
+    position:relative;
 
-    color:var(--text);
+    min-height:297mm;
 
-    padding:28mm 22mm;
+    padding:26mm 22mm;
 
-    min-height:260mm;
+    background:#FCFBF8;
+
+    overflow:hidden;
+
+    page-break-after:always;
 
 }
 
+
+/* ----------------------------------------
+   Deckblatt
+---------------------------------------- */
 
 .pdf-cover{
 
@@ -880,86 +900,546 @@ input:focus-visible{
 
     justify-content:center;
 
+    text-align:center;
+
+    background:linear-gradient(
+
+        180deg,
+
+        #F7F4EE 0%,
+
+        #EEF5EF 100%
+
+    );
+
 }
 
 
 .pdf-cover-content{
 
-    max-width:520px;
-
-    text-align:center;
+    max-width:560px;
 
 }
 
 
 .pdf-kicker{
 
+    display:inline-block;
+
+    padding:8px 18px;
+
+    border-radius:999px;
+
+    background:#EAF2ED;
+
+    color:#5F7B6B;
+
+    font-size:.85rem;
+
+    letter-spacing:.14em;
+
     text-transform:uppercase;
 
-    letter-spacing:.18em;
-
-    color:var(--text-light);
-
-    margin-bottom:22px;
+    margin-bottom:34px;
 
 }
 
 
 .pdf-cover h1{
 
-    color:var(--primary-dark);
+    font-size:3.4rem;
 
-    margin-bottom:14px;
+    line-height:1.1;
+
+    color:#41584D;
+
+    margin-bottom:18px;
 
 }
 
 
 .pdf-subtitle{
 
-    color:var(--text-light);
+    font-size:1.35rem;
 
-    margin-bottom:36px;
+    color:#7B817D;
+
+    margin-bottom:38px;
 
 }
 
 
 .pdf-divider{
 
-    width:80px;
+    width:110px;
 
-    height:2px;
+    height:4px;
 
-    background:var(--border);
+    border-radius:999px;
 
-    margin:0 auto 36px;
+    background:#BFD3C6;
+
+    margin:0 auto 40px;
+
+}
+
+
+.pdf-date{
+
+    margin-top:60px;
+
+    color:#6D746F;
+
+    font-size:.95rem;
+
+}
+
+/* ----------------------------------------
+   Kapitel
+---------------------------------------- */
+
+.pdf-chapter{
+
+    position:relative;
+
+    background:
+
+        linear-gradient(
+
+            180deg,
+
+            #FCFBF8 0%,
+
+            #FFFFFF 100%
+
+        );
+
+    border-radius:32px;
+
+}
+/* ----------------------------------------
+   Grid
+---------------------------------------- */
+
+.pdf-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:22px;
+
+    margin:34px 0;
 
 }
 
 
-.pdf-card{
+/* ----------------------------------------
+   Karten
+---------------------------------------- */
 
-    border:1px solid var(--border);
+.pdf-panel{
 
-    border-radius:var(--radius);
+    border-radius:22px;
 
-    padding:24px;
+    padding:28px;
 
-    margin-bottom:24px;
+    box-shadow:0 10px 28px rgba(0,0,0,.05);
+
+    break-inside:avoid;
 
 }
 
+
+.pdf-panel h3{
+
+    font-size:1.1rem;
+
+    margin-bottom:16px;
+
+    color:#3E554A;
+
+}
+
+
+.pdf-panel p{
+
+    margin-bottom:14px;
+
+    line-height:1.8;
+
+}
+
+
+/* ----------------------------------------
+   Farben
+---------------------------------------- */
+
+.pdf-panel-green{
+
+    background:#EAF4ED;
+
+}
+
+
+.pdf-panel-blue{
+
+    background:#EDF5FA;
+
+}
+
+
+.pdf-panel-peach{
+
+    background:#FDF1EA;
+
+}
+
+
+.pdf-panel-sand{
+
+    background:#F8F2E7;
+
+}
+/* ----------------------------------------
+   Antworten
+---------------------------------------- */
 
 .pdf-answer{
 
     margin-top:18px;
 
-    padding-top:14px;
+    padding-top:16px;
 
-    border-top:1px solid var(--border);
+    border-top:1px solid rgba(62,85,74,.10);
+
+    line-height:1.8;
 
 }
 
 
+.pdf-answer strong{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#3E554A;
+
+    font-size:.95rem;
+
+    letter-spacing:.02em;
+
+}
+
+
+.pdf-answer p,
+.pdf-answer div,
+.pdf-answer span{
+
+    color:#47534E;
+
+    font-size:1rem;
+
+}
+
+
+/* ----------------------------------------
+   Zitat
+---------------------------------------- */
+
+.pdf-quote{
+
+    position:relative;
+
+    margin:34px 0;
+
+    padding:30px 34px 30px 42px;
+
+    background:#FFFFFF;
+
+    border-left:6px solid #BFD3C6;
+
+    border-radius:22px;
+
+    box-shadow:0 10px 28px rgba(0,0,0,.04);
+
+}
+
+
+.pdf-quote::before{
+
+    content:"“";
+
+    position:absolute;
+
+    left:18px;
+
+    top:-12px;
+
+    font-size:4.5rem;
+
+    color:#D9E6DE;
+
+    font-family:Georgia, serif;
+
+    line-height:1;
+
+}
+
+
+.pdf-quote p{
+
+    margin-bottom:10px;
+
+}
+
+
+.pdf-quote p:last-child{
+
+    margin-bottom:0;
+
+}
+
+
+/* ----------------------------------------
+   Seitenfuß
+---------------------------------------- */
+
+.pdf-footer-note{
+
+    position:absolute;
+
+    left:22mm;
+
+    right:22mm;
+
+    bottom:16mm;
+
+    padding-top:12px;
+
+    border-top:1px solid rgba(62,85,74,.08);
+
+    font-size:.82rem;
+
+    letter-spacing:.06em;
+
+    text-transform:uppercase;
+
+    color:#8A918D;
+
+}
+
+
+/* ----------------------------------------
+   Vorwort
+---------------------------------------- */
+
+.pdf-introduction{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+}
+
+
+.pdf-intro-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    margin-bottom:28px;
+
+}
+
+
+.pdf-icon{
+
+    width:72px;
+
+    height:72px;
+
+    border-radius:50%;
+
+    background:#FDF1EA;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:2rem;
+
+}
+
+
+.pdf-introduction h2{
+
+    font-size:2.4rem;
+
+    color:#3E554A;
+
+}
+
+
+.pdf-introduction p{
+
+    max-width:620px;
+
+    line-height:1.9;
+
+    margin-bottom:18px;
+
+}
+/* ----------------------------------------
+   Dekorative Elemente
+---------------------------------------- */
+
+.pdf-page::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+
+    height:180px;
+
+    border-radius:50%;
+
+    background:rgba(127,154,138,.08);
+
+    top:-70px;
+
+    right:-70px;
+
+}
+
+
+.pdf-page::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:50%;
+
+    background:rgba(253,241,234,.75);
+
+    bottom:-45px;
+
+    left:-45px;
+
+}
+
+
+.pdf-panel{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+.pdf-panel::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.25);
+
+    right:-25px;
+
+    top:-25px;
+
+}
+
+
+.pdf-panel-green::before{
+
+    content:"🌿";
+
+    position:absolute;
+
+    right:22px;
+
+    bottom:18px;
+
+    opacity:.12;
+
+    font-size:2rem;
+
+}
+
+
+.pdf-panel-blue::before{
+
+    content:"◌";
+
+    position:absolute;
+
+    right:24px;
+
+    bottom:12px;
+
+    color:rgba(90,120,150,.18);
+
+    font-size:3rem;
+
+}
+
+
+.pdf-panel-peach::before{
+
+    content:"✿";
+
+    position:absolute;
+
+    right:20px;
+
+    bottom:14px;
+
+    color:rgba(210,145,110,.18);
+
+    font-size:2.3rem;
+
+}
+
+
+.pdf-panel-sand::before{
+
+    content:"✦";
+
+    position:absolute;
+
+    right:22px;
+
+    bottom:18px;
+
+    color:rgba(180,155,95,.18);
+
+    font-size:1.8rem;
+
+}
 /* ========================================
    Responsive
 ======================================== */
