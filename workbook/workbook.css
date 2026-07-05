@@ -599,37 +599,110 @@ button{
    Druck / PDF
 ======================================== */
 
-@media print{
 
-    body{
+@page {
 
-        background:white;
+    size: A4;
 
-    }
+    margin: 18mm;
 
-    .button-group{
+}
 
-        display:none;
 
-    }
+@media print {
 
-    .chapter{
+    html,
+    body {
 
-        display:block !important;
+        background: white !important;
 
-        page-break-after:always;
-
-    }
-
-    .chapter:last-child{
-
-        page-break-after:auto;
+        color: black !important;
 
     }
 
-    textarea{
 
-        border:1px solid #cccccc;
+    #workbook-content {
+
+        width: 100%;
+
+        max-width: none;
+
+        margin: 0;
+
+        padding: 0;
+
+    }
+
+
+    .chapter {
+
+        display: block !important;
+
+        page-break-after: always;
+
+        break-after: page;
+
+        animation: none !important;
+
+    }
+
+
+    .chapter:last-child {
+
+        page-break-after: auto;
+
+        break-after: auto;
+
+    }
+
+
+    .button-group,
+    .progress {
+
+        display: none !important;
+
+    }
+
+
+    textarea {
+
+        border: 1px solid #BBBBBB;
+
+        min-height: 140px;
+
+    }
+
+
+    .card,
+    .science-card,
+    .reflection-card,
+    .note {
+
+        box-shadow: none;
+
+        break-inside: avoid;
+
+        page-break-inside: avoid;
+
+    }
+
+
+    h1,
+    h2,
+    h3 {
+
+        break-after: avoid;
+
+        page-break-after: avoid;
+
+    }
+
+
+    p {
+
+        orphans: 3;
+
+        widows: 3;
 
     }
 
