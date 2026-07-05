@@ -4,14 +4,10 @@
 Zurück zu dir
 Digitales Workbook
 
-Projekt:
 trotzdem.wahr
 
-Datei:
 workbook.js
-
-Version:
-1.0
+Version 2.0
 
 ========================================================
 */
@@ -44,7 +40,9 @@ const state = {
 
     started: false,
 
-    finished: false
+    finished: false,
+
+    pdfMode: false
 
 };
 
@@ -53,12 +51,20 @@ const state = {
 // INITIALISIERUNG
 // ======================================================
 
-document.addEventListener("DOMContentLoaded", initializeWorkbook);
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    initializeWorkbook
+
+);
 
 
-function initializeWorkbook() {
+function initializeWorkbook(){
 
     loadWorkbook();
+
+    cacheElements();
 
     bindEvents();
 
@@ -68,42 +74,210 @@ function initializeWorkbook() {
 
     updateProgress();
 
+    updateReflectionCards();
+
     state.started = true;
 
 }
 
 
 // ======================================================
+// ELEMENTE
+// ======================================================
+
+const ui = {
+
+    chapters:[],
+
+    progress:null,
+
+    pdf:null
+
+};
+
+
+function cacheElements(){
+
+    ui.chapters=[
+
+        ...document.querySelectorAll(".chapter")
+
+    ];
+
+    ui.progress=document.getElementById("progress");
+
+    ui.pdf=document.getElementById("pdf-export");
+
+}
+// ======================================================
+// NAVIGATION
+// ======================================================
+
+function showChapter(chapterNumber){
+
+    if(
+        chapterNumber < 1 ||
+        chapterNumber > WORKBOOK.totalChapters
+    ){
+        return;
+    }
+
+    ui.chapters.forEach(chapter=>{
+
+        chapter.classList.remove("active");
+
+    });
+
+    const active=document.getElementById(
+
+        `chapter-${chapterNumber}`
+
+    );
+
+    if(!active){
+
+        return;
+
+    }
+
+    active.classList.add("active");
+
+    state.currentChapter=chapterNumber;
+
+    updateProgress();
+
+    saveWorkbook();
+
+    scrollToTop();
+
+}
+
+
+function nextChapter(){
+
+    if(state.currentChapter>=WORKBOOK.totalChapters){
+
+        finishWorkbook();
+
+        return;
+
+    }
+
+    showChapter(
+
+        state.currentChapter+1
+
+    );
+
+}
+
+
+function previousChapter(){
+
+    if(state.currentChapter<=1){
+
+        return;
+
+    }
+
+    showChapter(
+
+        state.currentChapter-1
+
+    );
+
+}
+
+
+// ======================================================
+// FORTSCHRITT
+// ======================================================
+
+function updateProgress(){
+
+    if(!ui.progress){
+
+        return;
+
+    }
+
+    ui.progress.textContent=
+
+        `Kapitel ${state.currentChapter} von ${WORKBOOK.totalChapters}`;
+
+}
+
+
+// ======================================================
+// SCROLL
+// ======================================================
+
+function scrollToTop(){
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+}
+// ======================================================
 // EVENTS
 // ======================================================
 
-function bindEvents() {
+function bindEvents(){
 
-    document.querySelectorAll("[data-next]").forEach(button => {
+    document
+        .querySelectorAll("[data-next]")
+        .forEach(button=>{
 
-        button.addEventListener("click", nextChapter);
+            button.addEventListener(
 
-    });
+                "click",
 
+                nextChapter
 
-    document.querySelectorAll("[data-back]").forEach(button => {
+            );
 
-        button.addEventListener("click", previousChapter);
+        });
 
-    });
+    document
+        .querySelectorAll("[data-back]")
+        .forEach(button=>{
 
+            button.addEventListener(
 
-    document.querySelectorAll("input").forEach(input => {
+                "click",
 
-    input.addEventListener("change", handleAnswer);
+                previousChapter
 
-});
+            );
 
-document.querySelectorAll("textarea").forEach(textarea => {
+        });
 
-    textarea.addEventListener("input", handleAnswer);
+    document
+        .querySelectorAll("input, textarea")
+        .forEach(field=>{
 
-});
+            const event=
+
+                field.tagName==="TEXTAREA"
+
+                ? "input"
+
+                : "change";
+
+            field.addEventListener(
+
+                event,
+
+                handleAnswer
+
+            );
+
+        });
 
 }
 
@@ -112,58 +286,72 @@ document.querySelectorAll("textarea").forEach(textarea => {
 // ANTWORTEN
 // ======================================================
 
-function handleAnswer(event) {
+function handleAnswer(event){
 
-    const element = event.target;
+    const field=event.target;
 
-    const question = element.name;
+    const question=field.name;
 
-    let value;
+    if(!question){
 
-if (element.tagName === "TEXTAREA") {
+        return;
 
-    state.answers[question] = element.value;
+    }
 
-    saveWorkbook();
 
-    return;
+    // Textfelder
 
-}
-    if (element.type === "checkbox") {
+    if(field.tagName==="TEXTAREA"){
 
-        value = Array.from(
+        state.answers[question]=
 
-            document.querySelectorAll(
+            field.value;
+
+        saveWorkbook();
+
+        return;
+
+    }
+
+
+    // Checkboxen
+
+    if(field.type==="checkbox"){
+
+        state.answers[question]=
+
+            [...document.querySelectorAll(
 
                 `input[name="${question}"]:checked`
 
-            )
+            )]
 
-        ).map(item => item.value);
-
-    }
-
-    else {
-
-        value = element.value;
+            .map(item=>item.value);
 
     }
 
 
-    state.answers[question] = value;
+    // Radiobuttons
 
-    saveWorkbook();
+    else{
+
+        state.answers[question]=
+
+            field.value;
+
+    }
+
 
     updateReflectionCards();
 
+    saveWorkbook();
+
 }
-
-
 // ======================================================
 // SPEICHERN
 // ======================================================
 
-function saveWorkbook() {
+function saveWorkbook(){
 
     localStorage.setItem(
 
@@ -176,59 +364,81 @@ function saveWorkbook() {
 }
 
 
-function loadWorkbook() {
+function loadWorkbook(){
 
-    const saved = localStorage.getItem(
+    const saved=
 
-        WORKBOOK.storageKey
+        localStorage.getItem(
 
-    );
+            WORKBOOK.storageKey
 
+        );
 
-    if (!saved) {
+    if(!saved){
 
         return;
 
     }
 
+    try{
 
-    try {
+        const data=JSON.parse(saved);
 
-        const data = JSON.parse(saved);
+        state.currentChapter=
 
-        state.currentChapter = data.currentChapter || 1;
+            data.currentChapter || 1;
 
-        state.answers = data.answers || {};
+        state.answers=
 
-        state.finished = data.finished || false;
+            data.answers || {};
+
+        state.finished=
+
+            data.finished || false;
 
     }
 
-    catch {
+    catch(error){
 
-        console.warn("Workbook konnte nicht geladen werden.");
+        console.warn(
+
+            "Workbook konnte nicht geladen werden.",
+
+            error
+
+        );
 
     }
 
 }
+
+
 // ======================================================
 // WIEDERHERSTELLEN
 // ======================================================
 
-function restoreAnswers() {
+function restoreAnswers(){
 
-    Object.entries(state.answers).forEach(([question, value]) => {
+    Object.entries(state.answers)
 
-        if (Array.isArray(value)) {
+        .forEach(([question,value])=>{
 
-            value.forEach(answer => {
+        // Checkboxen
 
-                const input = document.querySelector(
+        if(Array.isArray(value)){
+
+            value.forEach(answer=>{
+
+                const checkbox=document.querySelector(
+
                     `input[name="${question}"][value="${answer}"]`
+
                 );
 
-                if (input) {
-                    input.checked = true;
+                if(checkbox){
+
+                    checkbox.checked=true;
+
                 }
 
             });
@@ -237,150 +447,224 @@ function restoreAnswers() {
 
         }
 
-        const input = document.querySelector(
-            `input[name="${question}"][value="${value}"]`
+
+        // Radio
+
+        const radio=document.querySelector(
+
+            `input[type="radio"][name="${question}"][value="${value}"]`
+
         );
 
-        if (input) {
+        if(radio){
 
-            input.checked = true;
+            radio.checked=true;
+
             return;
 
         }
 
-        const textarea = document.querySelector(
+
+        // Textarea
+
+        const textarea=document.querySelector(
+
             `textarea[name="${question}"]`
+
         );
 
-        if (textarea) {
+        if(textarea){
 
-            textarea.value = value;
+            textarea.value=value;
+
+            return;
 
         }
 
     });
 
 }
+// ======================================================
+// PDF
+// ======================================================
+
+function exportWorkbook(){
+
+    preparePDF();
+
+    window.setTimeout(()=>{
+
+        window.print();
+
+    },200);
+
+}
+
+
+function preparePDF(){
+
+    state.pdfMode=true;
+
+    document.body.classList.add(
+
+        "pdf-mode"
+
+    );
+
+    if(ui.pdf){
+
+        ui.pdf.hidden=false;
+
+    }
+
+    fillPDF();
+
+}
+
+
+function cleanupPDF(){
+
+    state.pdfMode=false;
+
+    document.body.classList.remove(
+
+        "pdf-mode"
+
+    );
+
+    if(ui.pdf){
+
+        ui.pdf.hidden=true;
+
+    }
+
+}
+
+
+window.addEventListener(
+
+    "afterprint",
+
+    cleanupPDF
+
+);
 
 
 // ======================================================
-// KAPITEL
+// PDF INHALTE
 // ======================================================
 
-function showChapter(chapterNumber) {
+function fillPDF(){
+
+    fillPDFDate();
+
+    fillPDFAnswers();
+
+}
+
+
+function fillPDFDate(){
+
+    const date=document.getElementById(
+
+        "pdf-date"
+
+    );
+
+    if(!date){
+
+        return;
+
+    }
+
+    date.textContent=
+
+        new Date().toLocaleDateString(
+
+            "de-DE"
+
+        );
+
+}
+
+
+function fillPDFAnswers(){
 
     document
-        .querySelectorAll(".chapter")
-        .forEach(chapter => {
 
-            chapter.classList.remove("active");
+        .querySelectorAll(
+
+            "[data-pdf-answer]"
+
+        )
+
+        .forEach(element=>{
+
+            const key=
+
+                element.dataset.pdfAnswer;
+
+            const value=
+
+                state.answers[key];
+
+            if(value===undefined){
+
+                element.textContent="—";
+
+                return;
+
+            }
+
+            if(Array.isArray(value)){
+
+                element.textContent=
+
+                    value.join(", ");
+
+                return;
+
+            }
+
+            if(value===""){
+
+                element.textContent="—";
+
+                return;
+
+            }
+
+            element.textContent=value;
 
         });
 
-
-    const activeChapter = document.getElementById(
-        `chapter-${chapterNumber}`
-    );
-
-    if (!activeChapter) {
-
-        return;
-
-    }
-
-
-    activeChapter.classList.add("active");
-
-    state.currentChapter = chapterNumber;
-
-    updateProgress();
-
-    scrollToTop();
-
-    saveWorkbook();
-
-}
-
-
-function nextChapter() {
-
-    if (state.currentChapter >= WORKBOOK.totalChapters) {
-
-        finishWorkbook();
-
-        return;
-
-    }
-
-    showChapter(state.currentChapter + 1);
-
-}
-
-
-function previousChapter() {
-
-    if (state.currentChapter <= 1) {
-
-        return;
-
-    }
-
-    showChapter(state.currentChapter - 1);
-
-}
-
-
-// ======================================================
-// FORTSCHRITT
-// ======================================================
-
-function updateProgress() {
-
-    const progress = document.getElementById(
-        "progress"
-    );
-
-    if (!progress) {
-
-        return;
-
-    }
-
-    progress.textContent =
-        `Kapitel ${state.currentChapter} von ${WORKBOOK.totalChapters}`;
-
 }
 // ======================================================
-// DYNAMISCHE EINBLENDUNGEN
+// REFLECTION CARDS
 // ======================================================
 
-function updateReflectionCards() {
+function updateReflectionCards(){
 
     document
         .querySelectorAll(".reflection-card")
-        .forEach(card => {
+        .forEach(card=>{
 
             card.classList.remove("visible");
 
-        });
+            const question=card.dataset.question;
+            const trigger=card.dataset.value;
 
-    document
-        .querySelectorAll(".reflection-card")
-        .forEach(card => {
+            if(!question || !trigger){
 
-            const question = card.dataset.question;
-
-            const trigger = card.dataset.value;
-
-            if (!question || !trigger) {
                 return;
+
             }
 
-            const answer = state.answers[question];
+            const answer=state.answers[question];
 
-            if (Array.isArray(answer)) {
+            if(Array.isArray(answer)){
 
-                if (answer.includes(trigger)) {
+                if(answer.includes(trigger)){
 
                     card.classList.add("visible");
 
@@ -390,7 +674,7 @@ function updateReflectionCards() {
 
             }
 
-            if (answer === trigger) {
+            if(answer===trigger){
 
                 card.classList.add("visible");
 
@@ -402,53 +686,47 @@ function updateReflectionCards() {
 
 
 // ======================================================
-// WORKBOOK ABSCHLIESSEN
+// ABSCHLUSS
 // ======================================================
 
-function finishWorkbook() {
+function finishWorkbook(){
 
-    state.finished = true;
+    state.finished=true;
 
     saveWorkbook();
 
-    const ending = document.getElementById(
-        "workbook-finished"
-    );
-
-    if (ending) {
-
-        ending.classList.add("active");
-
-        scrollToTop();
-
-    }
+    showChapter(WORKBOOK.totalChapters);
 
 }
 
 
 // ======================================================
-// WORKBOOK ZURÜCKSETZEN
+// ZURÜCKSETZEN
 // ======================================================
 
-function resetWorkbook() {
+function resetWorkbook(){
 
-    if (!confirm(
+    if(!confirm(
+
         "Möchtest du wirklich alle Antworten löschen?"
-    )) {
+
+    )){
 
         return;
 
     }
 
     localStorage.removeItem(
+
         WORKBOOK.storageKey
+
     );
 
-    state.currentChapter = 1;
+    state.currentChapter=1;
 
-    state.answers = {};
+    state.answers={};
 
-    state.finished = false;
+    state.finished=false;
 
     location.reload();
 
@@ -456,181 +734,51 @@ function resetWorkbook() {
 
 
 // ======================================================
-// PDF EXPORT
-// ======================================================
-
-function exportWorkbook() {
-
-    preparePDF();
-
-    setTimeout(() => {
-
-        window.print();
-
-    }, 300);
-
-}
-function preparePDF() {
-
-    document.body.classList.add("pdf-export");
-
-    const pdf = document.getElementById("pdf-export");
-
-    pdf.hidden = false;
-
-    document.getElementById("pdf-date").textContent =
-        new Date().toLocaleDateString("de-DE");
-
-    fillPDFAnswers();
-
-}
-function fillPDFAnswers() {
-
-    document
-        .querySelectorAll("[data-pdf-answer]")
-        .forEach(element => {
-
-            const key = element.dataset.pdfAnswer;
-
-            const value = state.answers[key];
-
-            if (value === undefined || value === "") {
-
-                element.textContent = "—";
-
-                return;
-
-            }
-
-            if (Array.isArray(value)) {
-
-                element.textContent = value.join(", ");
-
-                return;
-
-            }
-
-            element.textContent = value;
-
-        });
-
-}
-
-function cleanupPDF() {
-
-    document.body.classList.remove("pdf-export");
-
-    showChapter(state.currentChapter);
-
-}
-
-// ======================================================
 // HILFSFUNKTIONEN
 // ======================================================
 
-function scrollToTop() {
+function hasAnswers(){
 
-    window.scrollTo({
+    return Object.keys(
 
-        top: 0,
+        state.answers
 
-        behavior: "smooth"
-
-    });
+    ).length>0;
 
 }
 
 
-function isAnswered(question) {
+window.addEventListener(
 
-    return question in state.answers;
+    "beforeunload",
 
-}
+    ()=>{
 
+        if(hasAnswers()){
 
-function getAnswers() {
+            saveWorkbook();
 
-    return state.answers;
-
-}
-// ======================================================
-// VALIDIERUNG
-// ======================================================
-
-function hasUnsavedChanges() {
-
-    return Object.keys(state.answers).length > 0;
-
-}
-
-window.addEventListener("beforeunload", function (event) {
-
-    if (!hasUnsavedChanges()) {
-
-        return;
+        }
 
     }
 
-    saveWorkbook();
-
-});
+);
 
 
 // ======================================================
-// TASTATURBEDIENUNG
+// ÖFFENTLICHE API
 // ======================================================
 
-document.addEventListener("keydown", function (event) {
+window.Workbook={
 
-    // Pfeil rechts = Weiter
-    if (event.key === "ArrowRight") {
+    next:nextChapter,
 
-        nextChapter();
+    back:previousChapter,
 
-    }
+    reset:resetWorkbook,
 
-    // Pfeil links = Zurück
-    if (event.key === "ArrowLeft") {
-
-        previousChapter();
-
-    }
-
-});
-
-
-// ======================================================
-// DEBUG (nur Entwicklung)
-// ======================================================
-
-function debugWorkbook() {
-
-    console.log("Aktuelles Kapitel:", state.currentChapter);
-
-    console.log("Antworten:", state.answers);
-
-    console.log("Workbook beendet:", state.finished);
-
-}
-
-
-// ======================================================
-// ÖFFENTLICHE FUNKTIONEN
-// ======================================================
-
-window.Workbook = {
-
-    next: nextChapter,
-
-    back: previousChapter,
-
-    reset: resetWorkbook,
-
-    exportPDF: exportWorkbook,
-
-    debug: debugWorkbook,
+    exportPDF:exportWorkbook,
 
     state
 
 };
-window.addEventListener("afterprint", cleanupPDF);
