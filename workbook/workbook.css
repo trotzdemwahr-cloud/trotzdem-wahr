@@ -663,6 +663,21 @@ button{
 
     }
 
+   .reflection-card {
+
+    display:block !important;
+
+    visibility:visible !important;
+
+    opacity:1 !important;
+
+}
+   input[type="checkbox"],
+input[type="radio"]{
+
+    transform:scale(1.1);
+
+}
 
     textarea {
 
@@ -705,5 +720,9 @@ button{
         widows: 3;
 
     }
+textarea{
 
+    overflow:visible;
+
+}
 }
