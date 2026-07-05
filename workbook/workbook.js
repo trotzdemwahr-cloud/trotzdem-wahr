@@ -95,9 +95,15 @@ function bindEvents() {
 
     document.querySelectorAll("input").forEach(input => {
 
-        input.addEventListener("change", handleAnswer);
+    input.addEventListener("change", handleAnswer);
 
-    });
+});
+
+document.querySelectorAll("textarea").forEach(textarea => {
+
+    textarea.addEventListener("input", handleAnswer);
+
+});
 
 }
 
@@ -114,7 +120,15 @@ function handleAnswer(event) {
 
     let value;
 
+if (element.tagName === "TEXTAREA") {
 
+    state.answers[question] = element.value;
+
+    saveWorkbook();
+
+    return;
+
+}
     if (element.type === "checkbox") {
 
         value = Array.from(
