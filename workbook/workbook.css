@@ -610,7 +610,39 @@ button{
 
 
 @media print {
+/* ========================================
+   Nur PDF-Version drucken
+======================================== */
 
+main {
+
+    display: none !important;
+
+}
+
+#pdf-export {
+
+    display: block !important;
+
+}
+
+.pdf-page {
+
+    page-break-after: always;
+
+    break-after: page;
+
+    min-height: 260mm;
+
+}
+
+.pdf-page:last-child {
+
+    page-break-after: auto;
+
+    break-after: auto;
+
+}
     html,
     body {
 
@@ -725,4 +757,14 @@ textarea{
     overflow:visible;
 
 }
+}
+
+/* ========================================
+   PDF-Bereich
+======================================== */
+
+#pdf-export {
+
+    display: none;
+
 }
