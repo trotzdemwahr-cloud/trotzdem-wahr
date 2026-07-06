@@ -665,30 +665,25 @@ img{
 
 .pdf-page{
 
-    position:relative;
-
     width:210mm;
 
-    min-height:297mm;
+    height:297mm;
 
-    margin:0 auto;
+    margin:0;
 
-    padding:22mm 20mm;
+    padding:16mm;
 
-    background:#ffffff;
+    box-sizing:border-box;
 
-    overflow:hidden;
+    box-shadow:none;
 
     page-break-after:always;
 
     break-after:page;
 
-    display:flex;
-
-    flex-direction:column;
+    overflow:hidden;
 
 }
-
 
 .pdf-page:last-child{
 
