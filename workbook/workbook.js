@@ -696,7 +696,39 @@ function fillPDFAnswers() {
     return;
 
 }
+function fitPDFPages() {
 
+    document.querySelectorAll(".pdf-page").forEach(page => {
+
+        let fontSize = 16;
+        let padding = 16;
+
+        while (page.scrollHeight > page.clientHeight && fontSize > 13) {
+
+            fontSize--;
+            padding--;
+
+            page.querySelectorAll(".pdf-answer").forEach(el => {
+
+                el.style.fontSize = fontSize + "px";
+                el.style.padding = padding + "px";
+                el.style.lineHeight = "1.5";
+
+            });
+
+            page.querySelectorAll(
+                ".pdf-card, .pdf-intro-card, .pdf-note, .pdf-reflection, .pdf-science"
+            ).forEach(el => {
+
+                el.style.padding = padding + "px";
+
+            });
+
+        }
+
+    });
+
+}
 
 // Radiobuttons als vollständigen Text anzeigen
 
