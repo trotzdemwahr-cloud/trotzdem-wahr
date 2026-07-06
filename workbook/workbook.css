@@ -841,7 +841,11 @@ img{
     white-space:pre-wrap;
 
 }
+.pdf-answer:empty{
 
+    display:none;
+
+}
 
 .pdf-closing{
 
