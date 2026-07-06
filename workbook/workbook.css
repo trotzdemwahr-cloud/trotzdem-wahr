@@ -664,7 +664,7 @@ img{
 
 
 .pdf-page{
-
+   position:relative;
     width:210mm;
 
     height:297mm;
