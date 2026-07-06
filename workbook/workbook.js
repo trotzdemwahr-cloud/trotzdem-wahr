@@ -1,784 +1,334 @@
-/*
-========================================================
+/* ==========================================================
+   ZURÜCK ZU DIR
+   workbook.js
+========================================================== */
 
-Zurück zu dir
-Digitales Workbook
-
-trotzdem.wahr
-
-workbook.js
-Version 2.0
-
-========================================================
-*/
-
-
-// ======================================================
-// KONFIGURATION
-// ======================================================
-
-const WORKBOOK = {
-
-    totalChapters: 6,
-
-    storageKey: "zurueckZuDirWorkbook",
-
-    animationDuration: 300
-
-};
-
-
-// ======================================================
-// STATUS
-// ======================================================
-
-const state = {
+const Workbook = {
 
     currentChapter: 1,
 
-    answers: {},
+    totalChapters: 6,
 
-    started: false,
+    init() {
 
-    finished: false,
+        this.cache();
 
-    pdfMode: false
+        this.bindNavigation();
 
-};
+        this.updateProgress();
 
+        this.updateConditionalCards();
 
-// ======================================================
-// INITIALISIERUNG
-// ======================================================
+    },
 
-document.addEventListener(
+    cache() {
 
-    "DOMContentLoaded",
+        this.chapters = [
+            ...document.querySelectorAll(".chapter")
+        ];
 
-    initializeWorkbook
+        this.progress = document.getElementById("progress");
 
-);
+    },
 
+    showChapter(index) {
 
-function initializeWorkbook(){
+        this.currentChapter = index;
 
-    loadWorkbook();
+        this.chapters.forEach((chapter, i) => {
 
-    cacheElements();
-
-    bindEvents();
-
-    restoreAnswers();
-
-    showChapter(state.currentChapter);
-
-    updateProgress();
-
-    updateReflectionCards();
-
-    state.started = true;
-
-}
-
-
-// ======================================================
-// ELEMENTE
-// ======================================================
-
-const ui = {
-
-    chapters:[],
-
-    progress:null,
-
-    pdf:null
-
-};
-
-
-function cacheElements(){
-
-    ui.chapters=[
-
-        ...document.querySelectorAll(".chapter")
-
-    ];
-
-    ui.progress=document.getElementById("progress");
-
-    ui.pdf=document.getElementById("pdf-export");
-
-}
-// ======================================================
-// NAVIGATION
-// ======================================================
-
-function showChapter(chapterNumber){
-
-    if(
-        chapterNumber < 1 ||
-        chapterNumber > WORKBOOK.totalChapters
-    ){
-        return;
-    }
-
-    ui.chapters.forEach(chapter=>{
-
-        chapter.classList.remove("active");
-
-    });
-
-    const active=document.getElementById(
-
-        `chapter-${chapterNumber}`
-
-    );
-
-    if(!active){
-
-        return;
-
-    }
-
-    active.classList.add("active");
-
-    state.currentChapter=chapterNumber;
-
-    updateProgress();
-
-    saveWorkbook();
-
-    scrollToTop();
-
-}
-
-
-function nextChapter(){
-
-    if(state.currentChapter>=WORKBOOK.totalChapters){
-
-        finishWorkbook();
-
-        return;
-
-    }
-
-    showChapter(
-
-        state.currentChapter+1
-
-    );
-
-}
-
-
-function previousChapter(){
-
-    if(state.currentChapter<=1){
-
-        return;
-
-    }
-
-    showChapter(
-
-        state.currentChapter-1
-
-    );
-
-}
-
-
-// ======================================================
-// FORTSCHRITT
-// ======================================================
-
-function updateProgress(){
-
-    if(!ui.progress){
-
-        return;
-
-    }
-
-    ui.progress.textContent=
-
-        `Kapitel ${state.currentChapter} von ${WORKBOOK.totalChapters}`;
-
-}
-
-
-// ======================================================
-// SCROLL
-// ======================================================
-
-function scrollToTop(){
-
-    window.scrollTo({
-
-        top:0,
-
-        behavior:"smooth"
-
-    });
-
-}
-// ======================================================
-// EVENTS
-// ======================================================
-
-function bindEvents(){
-
-    document
-        .querySelectorAll("[data-next]")
-        .forEach(button=>{
-
-            button.addEventListener(
-
-                "click",
-
-                nextChapter
-
+            chapter.classList.toggle(
+                "active",
+                i === index - 1
             );
 
         });
 
-    document
-        .querySelectorAll("[data-back]")
-        .forEach(button=>{
+        window.scrollTo({
 
-            button.addEventListener(
+            top: 0,
 
-                "click",
-
-                previousChapter
-
-            );
+            behavior: "smooth"
 
         });
 
-    document
-        .querySelectorAll("input, textarea")
-        .forEach(field=>{
+        this.updateProgress();
 
-            const event=
+        this.updateConditionalCards();
 
-                field.tagName==="TEXTAREA"
+    },
 
-                ? "input"
+    nextChapter() {
 
-                : "change";
+        if (this.currentChapter < this.totalChapters) {
 
-            field.addEventListener(
-
-                event,
-
-                handleAnswer
-
+            this.showChapter(
+                this.currentChapter + 1
             );
 
-        });
+        }
 
-}
+    },
 
+    previousChapter() {
 
-// ======================================================
-// ANTWORTEN
-// ======================================================
+        if (this.currentChapter > 1) {
 
-function handleAnswer(event){
+            this.showChapter(
+                this.currentChapter - 1
+            );
 
-    const field=event.target;
+        }
 
-    const question=field.name;
+    },
+        bindNavigation() {
 
-    if(!question){
+        document
+            .querySelectorAll("[data-next]")
+            .forEach(button => {
 
-        return;
+                button.addEventListener("click", () => {
 
-    }
+                    this.nextChapter();
 
-
-    // Textfelder
-
-    if(field.tagName==="TEXTAREA"){
-
-        state.answers[question]=
-
-            field.value;
-
-        saveWorkbook();
-
-        return;
-
-    }
-
-
-    // Checkboxen
-
-    if(field.type==="checkbox"){
-
-        state.answers[question]=
-
-            [...document.querySelectorAll(
-
-                `input[name="${question}"]:checked`
-
-            )]
-
-            .map(item=>item.value);
-
-    }
-
-
-    // Radiobuttons
-
-    else{
-
-        state.answers[question]=
-
-            field.value;
-
-    }
-
-
-    updateReflectionCards();
-
-    saveWorkbook();
-
-}
-// ======================================================
-// SPEICHERN
-// ======================================================
-
-function saveWorkbook(){
-
-    localStorage.setItem(
-
-        WORKBOOK.storageKey,
-
-        JSON.stringify(state)
-
-    );
-
-}
-
-
-function loadWorkbook(){
-
-    const saved=
-
-        localStorage.getItem(
-
-            WORKBOOK.storageKey
-
-        );
-
-    if(!saved){
-
-        return;
-
-    }
-
-    try{
-
-        const data=JSON.parse(saved);
-
-        state.currentChapter=
-
-            data.currentChapter || 1;
-
-        state.answers=
-
-            data.answers || {};
-
-        state.finished=
-
-            data.finished || false;
-
-    }
-
-    catch(error){
-
-        console.warn(
-
-            "Workbook konnte nicht geladen werden.",
-
-            error
-
-        );
-
-    }
-
-}
-
-
-// ======================================================
-// WIEDERHERSTELLEN
-// ======================================================
-
-function restoreAnswers(){
-
-    Object.entries(state.answers)
-
-        .forEach(([question,value])=>{
-
-        // Checkboxen
-
-        if(Array.isArray(value)){
-
-            value.forEach(answer=>{
-
-                const checkbox=document.querySelector(
-
-                    `input[name="${question}"][value="${answer}"]`
-
-                );
-
-                if(checkbox){
-
-                    checkbox.checked=true;
-
-                }
+                });
 
             });
 
-            return;
+        document
+            .querySelectorAll("[data-back]")
+            .forEach(button => {
 
-        }
+                button.addEventListener("click", () => {
 
+                    this.previousChapter();
 
-        // Radio
+                });
 
-        const radio=document.querySelector(
+            });
 
-            `input[type="radio"][name="${question}"][value="${value}"]`
+        document.addEventListener("keydown", (event) => {
 
-        );
+            if (event.key === "ArrowRight") {
 
-        if(radio){
-
-            radio.checked=true;
-
-            return;
-
-        }
-
-
-        // Textarea
-
-        const textarea=document.querySelector(
-
-            `textarea[name="${question}"]`
-
-        );
-
-        if(textarea){
-
-            textarea.value=value;
-
-            return;
-
-        }
-
-    });
-
-}
-// ======================================================
-// PDF
-// ======================================================
-
-function exportWorkbook(){
-
-    preparePDF();
-
-    window.setTimeout(()=>{
-
-        window.print();
-
-    },200);
-
-}
-
-
-function preparePDF(){
-
-    state.pdfMode=true;
-
-    document.body.classList.add(
-
-        "pdf-mode"
-
-    );
-
-    if(ui.pdf){
-
-        ui.pdf.hidden=false;
-
-    }
-
-    fillPDF();
-
-}
-
-
-function cleanupPDF(){
-
-    state.pdfMode=false;
-
-    document.body.classList.remove(
-
-        "pdf-mode"
-
-    );
-
-    if(ui.pdf){
-
-        ui.pdf.hidden=true;
-
-    }
-
-}
-
-
-window.addEventListener(
-
-    "afterprint",
-
-    cleanupPDF
-
-);
-
-
-// ======================================================
-// PDF INHALTE
-// ======================================================
-
-function fillPDF(){
-
-    fillPDFDate();
-
-    fillPDFAnswers();
-
-}
-
-
-function fillPDFDate(){
-
-    const date=document.getElementById(
-
-        "pdf-date"
-
-    );
-
-    if(!date){
-
-        return;
-
-    }
-
-    date.textContent=
-
-        new Date().toLocaleDateString(
-
-            "de-DE"
-
-        );
-
-}
-
-
-function fillPDFAnswers(){
-
-    document
-
-        .querySelectorAll(
-
-            "[data-pdf-answer]"
-
-        )
-
-        .forEach(element=>{
-
-            const key=
-
-                element.dataset.pdfAnswer;
-
-            const value=
-
-                state.answers[key];
-
-            if(value===undefined){
-
-                element.textContent="—";
-
-                return;
+                this.nextChapter();
 
             }
 
-            if(Array.isArray(value)){
+            if (event.key === "ArrowLeft") {
 
-                element.textContent=
-
-                    value.join(", ");
-
-                return;
+                this.previousChapter();
 
             }
-
-            if(value===""){
-
-                element.textContent="—";
-
-                return;
-
-            }
-
-            element.textContent=value;
 
         });
 
-}
-// ======================================================
-// REFLECTION CARDS
-// ======================================================
+    },
 
-function updateReflectionCards(){
+    updateProgress() {
 
-    document
-        .querySelectorAll(".reflection-card")
-        .forEach(card=>{
+        this.progress.textContent =
 
-            card.classList.remove("visible");
+            `Kapitel ${this.currentChapter} von ${this.totalChapters}`;
 
-            const question=card.dataset.question;
-            const trigger=card.dataset.value;
+    },
 
-            if(!question || !trigger){
+    updateConditionalCards() {
 
-                return;
+        document
+            .querySelectorAll("[data-question]")
+            .forEach(card => {
 
-            }
+                const question = card.dataset.question;
 
-            const answer=state.answers[question];
+                const value = card.dataset.value;
 
-            if(Array.isArray(answer)){
+                const input = document.querySelector(
 
-                if(answer.includes(trigger)){
+                    `input[name="${question}"][value="${value}"]`
 
-                    card.classList.add("visible");
+                );
+
+                if (!input) return;
+
+                card.classList.toggle(
+
+                    "visible",
+
+                    input.checked
+
+                );
+
+            });
+
+    },
+        collectAnswers() {
+
+        const answers = {};
+
+        document
+            .querySelectorAll("input, textarea")
+            .forEach(field => {
+
+                if (!field.name) return;
+
+                if (field.type === "checkbox") {
+
+                    if (!answers[field.name]) {
+
+                        answers[field.name] = [];
+
+                    }
+
+                    if (field.checked) {
+
+                        const label =
+                            field.closest("label")?.textContent.trim() ||
+                            field.value;
+
+                        answers[field.name].push(label);
+
+                    }
+
+                    return;
 
                 }
 
-                return;
+                if (field.type === "radio") {
 
-            }
+                    if (field.checked) {
 
-            if(answer===trigger){
+                        answers[field.name] =
+                            field.closest("label")?.textContent.trim() ||
+                            field.value;
 
-                card.classList.add("visible");
+                    }
 
-            }
+                    return;
 
-        });
+                }
 
-}
+                answers[field.name] = field.value.trim();
 
+            });
 
-// ======================================================
-// ABSCHLUSS
-// ======================================================
+        return answers;
 
-function finishWorkbook(){
+    },
 
-    state.finished=true;
+    fillPDF() {
 
-    saveWorkbook();
+        const answers = this.collectAnswers();
 
-    showChapter(WORKBOOK.totalChapters);
+        document
+            .querySelectorAll("[data-pdf-answer]")
+            .forEach(element => {
 
-}
+                const key = element.dataset.pdfAnswer;
 
+                const value = answers[key];
 
-// ======================================================
-// ZURÜCKSETZEN
-// ======================================================
+                if (Array.isArray(value)) {
 
-function resetWorkbook(){
+                    element.textContent = value.join(", ");
 
-    if(!confirm(
+                    return;
 
-        "Möchtest du wirklich alle Antworten löschen?"
+                }
 
-    )){
+                element.textContent = value || "—";
 
-        return;
+            });
 
-    }
+        const date = new Date();
 
-    localStorage.removeItem(
+        const pdfDate = document.getElementById("pdf-date");
 
-        WORKBOOK.storageKey
+        if (pdfDate) {
 
-    );
-
-    state.currentChapter=1;
-
-    state.answers={};
-
-    state.finished=false;
-
-    location.reload();
-
-}
-
-
-// ======================================================
-// HILFSFUNKTIONEN
-// ======================================================
-
-function hasAnswers(){
-
-    return Object.keys(
-
-        state.answers
-
-    ).length>0;
-
-}
-
-
-window.addEventListener(
-
-    "beforeunload",
-
-    ()=>{
-
-        if(hasAnswers()){
-
-            saveWorkbook();
+            pdfDate.textContent =
+                date.toLocaleDateString("de-DE");
 
         }
 
+    },
+        exportPDF() {
+
+        this.fillPDF();
+
+        const pdf = document.getElementById("pdf-export");
+
+        pdf.hidden = false;
+
+        const options = {
+
+            margin: 0,
+
+            filename: "zurueck-zu-dir-workbook.pdf",
+
+            image: {
+
+                type: "jpeg",
+
+                quality: 1
+
+            },
+
+            html2canvas: {
+
+                scale: 2,
+
+                useCORS: true,
+
+                scrollY: 0
+
+            },
+
+            jsPDF: {
+
+                unit: "mm",
+
+                format: "a4",
+
+                orientation: "portrait"
+
+            },
+
+            pagebreak: {
+
+                mode: ["css", "legacy"]
+
+            }
+
+        };
+
+        html2pdf()
+
+            .set(options)
+
+            .from(pdf)
+
+            .save()
+
+            .then(() => {
+
+                pdf.hidden = true;
+
+            })
+
+            .catch(() => {
+
+                pdf.hidden = true;
+
+            });
+
     }
 
-);
-
-
-// ======================================================
-// ÖFFENTLICHE API
-// ======================================================
-
-window.Workbook={
-
-    next:nextChapter,
-
-    back:previousChapter,
-
-    reset:resetWorkbook,
-
-    exportPDF:exportWorkbook,
-
-    state
-
 };
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    Workbook.init();
+
+});
