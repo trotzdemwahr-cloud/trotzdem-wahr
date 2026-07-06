@@ -602,7 +602,7 @@ function fillPDF() {
     fillPDFDate();
 
     fillPDFAnswers();
-
+fitPDFPages();
 }
 
 
