@@ -821,28 +821,6 @@ img{
 }
 
 
-.pdf-science{
-
-    background:#eef5ef;
-
-    border-left:6px solid #6d8c74;
-
-}
-
-
-.pdf-highlight{
-
-    background:#faf5ec;
-
-}
-
-
-.pdf-note{
-
-    background:#fffdf8;
-
-}
-
 
 .pdf-answer{
 
@@ -896,6 +874,10 @@ img{
 ========================================================== */
 
 .pdf-cover{
+
+    position:relative;
+
+    overflow:hidden;
 
     display:flex;
 
