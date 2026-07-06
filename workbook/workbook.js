@@ -653,11 +653,11 @@ function fillPDFAnswers() {
 
             if (value === undefined) {
 
-                element.textContent = "—";
+    element.innerHTML = "";
 
-                return;
+    return;
 
-            }
+}
 
             if (Array.isArray(value)) {
 
@@ -691,7 +691,7 @@ function fillPDFAnswers() {
 
             if (value === "") {
 
-    element.textContent = "—";
+    element.innerHTML = "";
 
     return;
 
