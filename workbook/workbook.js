@@ -696,6 +696,24 @@ function fillPDFAnswers() {
     return;
 
 }
+
+// Radiobuttons als vollständigen Text anzeigen
+
+const radio = document.querySelector(
+
+    `input[type="radio"][value="${value}"]`
+
+);
+
+if (radio) {
+
+    element.textContent =
+
+        radio.parentElement.textContent.trim();
+
+    return;
+
+}
 function fitPDFPages() {
 
     document.querySelectorAll(".pdf-page").forEach(page => {
@@ -729,25 +747,6 @@ function fitPDFPages() {
     });
 
 }
-
-// Radiobuttons als vollständigen Text anzeigen
-
-const radio = document.querySelector(
-
-    `input[type="radio"][value="${value}"]`
-
-);
-
-if (radio) {
-
-    element.textContent =
-
-        radio.parentElement.textContent.trim();
-
-    return;
-
-}
-
 
 // Textfelder
 
