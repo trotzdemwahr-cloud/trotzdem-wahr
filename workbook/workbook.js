@@ -691,13 +691,35 @@ function fillPDFAnswers() {
 
             if (value === "") {
 
-                element.textContent = "—";
+    element.textContent = "—";
 
-                return;
+    return;
 
-            }
+}
 
-            element.textContent = value;
+
+// Radiobuttons als vollständigen Text anzeigen
+
+const radio = document.querySelector(
+
+    `input[type="radio"][value="${value}"]`
+
+);
+
+if (radio) {
+
+    element.textContent =
+
+        radio.parentElement.textContent.trim();
+
+    return;
+
+}
+
+
+// Textfelder
+
+element.textContent = value;
 
         });
 
