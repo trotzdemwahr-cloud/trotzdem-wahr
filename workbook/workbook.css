@@ -1331,23 +1331,27 @@ img{
 
     }
 
-    .pdf-page{
+  .pdf-page{
 
-        width:210mm;
+    width:210mm;
 
-        min-height:297mm;
+    height:297mm;
 
-        margin:0;
+    margin:0;
 
-        padding:20mm;
+    padding:16mm;
 
-        box-shadow:none;
+    box-sizing:border-box;
 
-        page-break-after:always;
+    overflow:hidden;
 
-        break-after:page;
+    box-shadow:none;
 
-    }
+    page-break-after:always;
+
+    break-after:page;
+
+}
 
     .pdf-page:last-child{
 
