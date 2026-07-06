@@ -661,13 +661,33 @@ function fillPDFAnswers() {
 
             if (Array.isArray(value)) {
 
-                element.textContent =
+    const answers = value.map(answer => {
 
-                    value.join(", ");
+        const input = document.querySelector(
 
-                return;
+            `input[value="${answer}"]`
 
-            }
+        );
+
+        if (!input) {
+
+            return answer;
+
+        }
+
+        return input.parentElement.textContent.trim();
+
+    });
+
+    element.innerHTML = answers
+
+        .map(text => `• ${text}`)
+
+        .join("<br>");
+
+    return;
+
+}
 
             if (value === "") {
 
