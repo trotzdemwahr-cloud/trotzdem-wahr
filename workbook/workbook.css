@@ -7,7 +7,7 @@ Digitales Workbook
 trotzdem.wahr
 
 workbook.css
-Version 2.0
+Version 3.0
 
 ========================================================
 */
@@ -23,37 +23,36 @@ Version 2.0
 
     --surface:#FFFFFF;
 
-    --surface-soft:#FBFAF8;
+    --surface-soft:#FBF9F6;
 
-    --primary:#7F9A8A;
+    --green:#7F9A8A;
 
-    --primary-light:#EAF2ED;
+    --green-light:#EAF3ED;
 
-    --primary-dark:#5F7B6B;
+    --green-dark:#4F6559;
 
-    --border:#DCE4DF;
+    --sand:#F6EEE2;
 
-    --text:#2F3A36;
+    --peach:#FBEDE6;
 
-    --text-light:#6E7772;
+    --blue:#EDF5FA;
 
-    --success:#DDEBDD;
+    --border:#DCE3DE;
 
-    --radius-small:12px;
+    --text:#2F3935;
 
-    --radius:18px;
+    --text-light:#6C756F;
 
-    --radius-large:28px;
+    --shadow:0 12px 34px rgba(0,0,0,.05);
 
-    --shadow-soft:0 10px 30px rgba(0,0,0,.05);
+    --radius:22px;
 
-    --shadow-hover:0 18px 40px rgba(0,0,0,.08);
-
-    --transition:.28s ease;
+    --radius-small:14px;
 
     --content-width:760px;
 
 }
+
 
 
 /* ========================================
@@ -71,11 +70,13 @@ Version 2.0
 }
 
 
+
 html{
 
     scroll-behavior:smooth;
 
 }
+
 
 
 body{
@@ -85,12 +86,6 @@ body{
         Inter,
 
         system-ui,
-
-        -apple-system,
-
-        BlinkMacSystemFont,
-
-        "Segoe UI",
 
         sans-serif;
 
@@ -102,11 +97,10 @@ body{
 
     line-height:1.75;
 
-    text-rendering:optimizeLegibility;
-
     -webkit-font-smoothing:antialiased;
 
 }
+
 
 
 /* ========================================
@@ -116,24 +110,27 @@ body{
 main{
 
     width:min(
+
         calc(100% - 40px),
+
         var(--content-width)
+
     );
 
     margin:0 auto;
 
-    padding:56px 0 96px;
+    padding:60px 0 90px;
 
 }
+
 
 
 .chapter{
 
     display:none;
 
-    animation:fade .35s ease;
-
 }
+
 
 
 .chapter.active{
@@ -141,38 +138,74 @@ main{
     display:block;
 
 }
+
+
+
 /* ========================================
-   Überschriften
+   Animation
+======================================== */
+
+@keyframes fade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(10px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+
+.chapter.active{
+
+    animation:fade .35s ease;
+
+}
+/* ========================================
+   Typografie
 ======================================== */
 
 h1{
 
-    font-size:2.5rem;
+    font-size:2.7rem;
 
     font-weight:700;
 
-    line-height:1.2;
+    line-height:1.15;
 
-    letter-spacing:-0.02em;
+    letter-spacing:-0.03em;
 
     color:var(--text);
 
-    margin-bottom:12px;
+    margin-bottom:16px;
 
 }
 
 
 h2{
 
-    font-size:1.9rem;
+    font-size:2rem;
 
     font-weight:650;
 
-    line-height:1.3;
+    line-height:1.25;
+
+    letter-spacing:-0.02em;
 
     color:var(--text);
 
-    margin:52px 0 18px;
+    margin:52px 0 20px;
 
 }
 
@@ -192,21 +225,6 @@ h3{
 }
 
 
-.subtitle{
-
-    color:var(--text-light);
-
-    font-size:1.15rem;
-
-    margin-bottom:48px;
-
-}
-
-
-/* ========================================
-   Fließtext
-======================================== */
-
 p{
 
     margin-bottom:22px;
@@ -216,14 +234,22 @@ p{
 }
 
 
-strong{
+.subtitle{
 
-    font-weight:650;
+    max-width:620px;
+
+    margin:0 auto 52px;
+
+    font-size:1.15rem;
+
+    line-height:1.8;
+
+    color:var(--text-light);
 
 }
 
 
-b{
+strong{
 
     font-weight:650;
 
@@ -237,47 +263,7 @@ small{
 }
 
 
-/* ========================================
-   Links
-======================================== */
 
-a{
-
-    color:var(--primary-dark);
-
-    text-decoration:none;
-
-    transition:var(--transition);
-
-}
-
-
-a:hover{
-
-    color:var(--primary);
-
-}
-
-
-/* ========================================
-   Listen
-======================================== */
-
-ul,
-ol{
-
-    margin:20px 0;
-
-    padding-left:26px;
-
-}
-
-
-li{
-
-    margin-bottom:10px;
-
-}
 /* ========================================
    Karten
 ======================================== */
@@ -290,146 +276,87 @@ li{
 
     border-radius:var(--radius);
 
-    padding:32px;
+    padding:34px;
 
-    margin:36px 0;
+    margin:34px 0;
 
-    box-shadow:var(--shadow-soft);
-
-    transition:var(--transition);
+    box-shadow:var(--shadow);
 
 }
 
-
-.card + .card{
-
-    margin-top:28px;
-
-}
-
-
-/* ========================================
-   Wissenschaft
-======================================== */
 
 .science-card{
 
-    background:var(--primary-light);
+    margin:34px 0;
 
-    border-left:6px solid var(--primary);
+    padding:28px;
+
+    border-radius:var(--radius);
+
+    background:var(--green-light);
+
+    border-left:6px solid var(--green);
 
 }
 
-
-.science-card h3{
-
-    color:var(--primary-dark);
-
-}
-
-
-/* ========================================
-   Reflexion
-======================================== */
 
 .reflection-card{
 
-    display:none;
+    margin:34px 0;
 
-    background:#F8FBF9;
+    padding:28px;
 
-    border-left:6px solid var(--primary);
+    border-radius:var(--radius);
 
-}
+    background:var(--sand);
 
-
-.reflection-card.visible{
-
-    display:block;
-
-    animation:fade .35s ease;
+    border-left:6px solid #D6B48B;
 
 }
 
-
-/* ========================================
-   Hinweise
-======================================== */
 
 .note{
 
+    margin:34px 0;
+
+    padding:24px 28px;
+
+    border-radius:var(--radius);
+
     background:var(--surface-soft);
 
-    border-left:5px solid var(--primary);
-
-    border-radius:var(--radius-small);
-
-    padding:22px 24px;
-
-    margin:30px 0;
+    border-left:5px solid var(--green);
 
 }
 
 
-.note h3{
+blockquote{
 
-    margin-bottom:12px;
+    margin:36px 0;
+
+    padding:28px 34px;
+
+    border-left:5px solid var(--green);
+
+    border-radius:0 var(--radius) var(--radius) 0;
+
+    background:var(--surface-soft);
+
+    font-style:italic;
+
+    color:var(--text);
 
 }
 
-
-.note p:last-child{
-
-    margin-bottom:0;
-
-}
 
 
 /* ========================================
-   Trennbereiche
+   Abstände
 ======================================== */
 
 .section{
 
-    margin:60px 0;
-
-}
-
-
-/* ========================================
-   Zitate / Hervorhebungen
-======================================== */
-
-blockquote{
-
-    margin:30px 0;
-
-    padding:22px 28px;
-
-    border-left:4px solid var(--primary);
-
-    background:var(--surface-soft);
-
-    border-radius:0 var(--radius-small) var(--radius-small) 0;
-
-    color:var(--text);
-
-    font-style:italic;
-
-}
-
-
-/* ========================================
-   Kleine Hervorhebungen
-======================================== */
-
-.highlight{
-
-    background:var(--primary-light);
-
-    border-radius:10px;
-
-    padding:.15em .45em;
+    margin:70px 0;
 
 }
 /* ========================================
@@ -438,26 +365,21 @@ blockquote{
 
 .question{
 
-    margin:52px 0;
+    margin:54px 0;
 
 }
 
 
 .question h3{
 
-    font-size:1.25rem;
-
-    font-weight:600;
-
     margin-bottom:24px;
-
-    color:var(--text);
 
 }
 
 
+
 /* ========================================
-   Antwortmöglichkeiten
+   Antworten
 ======================================== */
 
 .answers{
@@ -466,7 +388,7 @@ blockquote{
 
     flex-direction:column;
 
-    gap:14px;
+    gap:16px;
 
 }
 
@@ -481,24 +403,24 @@ blockquote{
 
     padding:18px 20px;
 
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
     background:var(--surface);
-
-    border:1px solid transparent;
-
-    border-radius:var(--radius-small);
 
     cursor:pointer;
 
-    transition:var(--transition);
+    transition:.25s ease;
 
 }
 
 
 .answers label:hover{
 
-    background:var(--primary-light);
+    background:var(--green-light);
 
-    border-color:rgba(127,154,138,.25);
+    border-color:var(--green);
 
 }
 
@@ -507,44 +429,35 @@ blockquote{
 
     flex-shrink:0;
 
+    width:22px;
+
+    height:22px;
+
+    accent-color:var(--green);
+
     margin-top:2px;
 
 }
 
 
-/* ========================================
-   Kreise
-======================================== */
-
-input[type="checkbox"],
-input[type="radio"]{
-
-    width:22px;
-
-    height:22px;
-
-    accent-color:var(--primary);
-
-}
-
 
 /* ========================================
-   Freitext
+   Textfelder
 ======================================== */
 
 textarea{
 
     width:100%;
 
-    min-height:170px;
+    min-height:180px;
 
     margin-top:22px;
 
-    padding:18px 20px;
+    padding:20px 22px;
 
     font:inherit;
 
-    line-height:1.7;
+    line-height:1.8;
 
     color:var(--text);
 
@@ -552,11 +465,11 @@ textarea{
 
     border:1px solid var(--border);
 
-    border-radius:var(--radius);
+    border-radius:18px;
 
     resize:vertical;
 
-    transition:var(--transition);
+    transition:.25s ease;
 
 }
 
@@ -572,24 +485,14 @@ textarea:focus{
 
     outline:none;
 
-    border-color:var(--primary);
+    border-color:var(--green);
 
     box-shadow:0 0 0 4px rgba(127,154,138,.12);
 
 }
 
 
-/* ========================================
-   Eingabefelder allgemein
-======================================== */
 
-input,
-textarea,
-button{
-
-    font-family:inherit;
-
-}
 /* ========================================
    Fortschritt
 ======================================== */
@@ -600,15 +503,7 @@ button{
 
     justify-content:center;
 
-    align-items:center;
-
     margin-bottom:56px;
-
-    color:var(--text-light);
-
-    font-size:.95rem;
-
-    letter-spacing:.03em;
 
 }
 
@@ -621,17 +516,22 @@ button{
 
     justify-content:center;
 
-    padding:10px 18px;
+    padding:10px 20px;
+
+    border-radius:999px;
 
     background:var(--surface);
 
     border:1px solid var(--border);
 
-    border-radius:999px;
+    box-shadow:var(--shadow);
 
-    box-shadow:var(--shadow-soft);
+    color:var(--text-light);
+
+    font-size:.95rem;
 
 }
+
 
 
 /* ========================================
@@ -653,6 +553,7 @@ button{
 }
 
 
+
 /* ========================================
    Buttons
 ======================================== */
@@ -667,7 +568,7 @@ button{
 
     font:inherit;
 
-    transition:all var(--transition);
+    transition:.25s ease;
 
 }
 
@@ -676,41 +577,32 @@ button{
 
     display:inline-flex;
 
-    justify-content:center;
-
     align-items:center;
+
+    justify-content:center;
 
     min-height:56px;
 
     padding:16px 34px;
 
-    background:var(--primary);
+    border-radius:999px;
+
+    background:var(--green);
 
     color:#fff;
 
-    border-radius:999px;
-
     font-weight:600;
 
-    box-shadow:var(--shadow-soft);
+    box-shadow:var(--shadow);
 
 }
 
 
 .button-primary:hover{
 
+    background:var(--green-dark);
+
     transform:translateY(-2px);
-
-    background:var(--primary-dark);
-
-    box-shadow:var(--shadow-hover);
-
-}
-
-
-.button-primary:active{
-
-    transform:translateY(0);
 
 }
 
@@ -719,21 +611,21 @@ button{
 
     display:inline-flex;
 
-    justify-content:center;
-
     align-items:center;
+
+    justify-content:center;
 
     min-height:56px;
 
     padding:16px 34px;
 
-    background:transparent;
+    border-radius:999px;
 
-    color:var(--text);
+    background:transparent;
 
     border:1px solid var(--border);
 
-    border-radius:999px;
+    color:var(--text);
 
 }
 
@@ -742,40 +634,12 @@ button{
 
     background:var(--surface);
 
-    border-color:var(--primary);
+    border-color:var(--green);
 
 }
 
 
-.button-secondary:active{
 
-    transform:translateY(0);
-
-}
-
-
-button:disabled{
-
-    opacity:.5;
-
-    cursor:not-allowed;
-
-}
-
-
-/* ========================================
-   Fokus (Barrierefreiheit)
-======================================== */
-
-button:focus-visible,
-textarea:focus-visible,
-input:focus-visible{
-
-    outline:3px solid rgba(127,154,138,.25);
-
-    outline-offset:3px;
-
-}
 /* ========================================
    Abschluss
 ======================================== */
@@ -784,7 +648,7 @@ input:focus-visible{
 
     display:none;
 
-    padding:80px 0;
+    padding:90px 0;
 
 }
 
@@ -798,7 +662,7 @@ input:focus-visible{
 
 .finish-card{
 
-    max-width:700px;
+    max-width:720px;
 
     margin:0 auto;
 
@@ -807,692 +671,7 @@ input:focus-visible{
 }
 
 
-.finish-card h2{
 
-    margin-bottom:24px;
-
-}
-
-
-.finish-card p{
-
-    max-width:620px;
-
-    margin:0 auto 28px;
-
-}
-
-
-/* ========================================
-   Animationen
-======================================== */
-
-@keyframes fade{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(12px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
-}
-
-
-/* ========================================
-   PDF
-======================================== */
-
-/* ========================================
-   PDF
-======================================== */
-
-#pdf-export{
-
-    display:none;
-
-    background:#F7F4EE;
-
-    color:#33413C;
-
-}
-
-
-/* ----------------------------------------
-   Seite
----------------------------------------- */
-
-.pdf-page{
-
-    position:relative;
-
-    min-height:297mm;
-
-    padding:26mm 22mm;
-
-    background:#FCFBF8;
-
-    overflow:hidden;
-
-    page-break-after:always;
-
-}
-
-
-/* ----------------------------------------
-   Deckblatt
----------------------------------------- */
-
-.pdf-cover{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    text-align:center;
-
-    background:linear-gradient(
-
-        180deg,
-
-        #F7F4EE 0%,
-
-        #EEF5EF 100%
-
-    );
-
-}
-
-
-.pdf-cover-content{
-
-    max-width:560px;
-
-}
-
-
-.pdf-kicker{
-
-    display:inline-block;
-
-    padding:8px 18px;
-
-    border-radius:999px;
-
-    background:#EAF2ED;
-
-    color:#5F7B6B;
-
-    font-size:.85rem;
-
-    letter-spacing:.14em;
-
-    text-transform:uppercase;
-
-    margin-bottom:34px;
-
-}
-
-
-.pdf-cover h1{
-
-    font-size:3.4rem;
-
-    line-height:1.1;
-
-    color:#41584D;
-
-    margin-bottom:18px;
-
-}
-
-
-.pdf-subtitle{
-
-    font-size:1.35rem;
-
-    color:#7B817D;
-
-    margin-bottom:38px;
-
-}
-
-
-.pdf-divider{
-
-    width:110px;
-
-    height:4px;
-
-    border-radius:999px;
-
-    background:#BFD3C6;
-
-    margin:0 auto 40px;
-
-}
-
-
-.pdf-date{
-
-    margin-top:60px;
-
-    color:#6D746F;
-
-    font-size:.95rem;
-
-}
-
-/* ----------------------------------------
-   Kapitel
----------------------------------------- */
-
-.pdf-chapter{
-
-    position:relative;
-
-    background:
-
-        linear-gradient(
-
-            180deg,
-
-            #FCFBF8 0%,
-
-            #FFFFFF 100%
-
-        );
-
-    border-radius:32px;
-
-}
-.pdf-chapter-number{
-
-    position:absolute;
-
-    top:16mm;
-
-    right:20mm;
-
-    font-size:6.5rem;
-
-    font-weight:800;
-
-    line-height:1;
-
-    color:rgba(127,154,138,.08);
-
-    letter-spacing:-.05em;
-
-    user-select:none;
-
-}
-
-
-.pdf-chapter h2{
-
-    margin-top:0;
-
-    margin-bottom:16px;
-
-    font-size:2.5rem;
-
-    line-height:1.15;
-
-    color:#40574B;
-
-    max-width:70%;
-
-}
-
-
-.pdf-lead{
-
-    max-width:640px;
-
-    font-size:1.08rem;
-
-    line-height:1.9;
-
-    color:#6D746F;
-
-    margin-bottom:38px;
-
-}
-/* ----------------------------------------
-   Grid
----------------------------------------- */
-
-.pdf-grid{
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:22px;
-
-    margin:34px 0;
-
-}
-
-
-/* ----------------------------------------
-   Karten
----------------------------------------- */
-
-.pdf-panel{
-
-    border-radius:22px;
-
-    padding:28px;
-
-    box-shadow:0 10px 28px rgba(0,0,0,.05);
-
-    break-inside:avoid;
-
-}
-
-
-.pdf-panel h3{
-
-    font-size:1.1rem;
-
-    margin-bottom:16px;
-
-    color:#3E554A;
-
-}
-
-
-.pdf-panel p{
-
-    margin-bottom:14px;
-
-    line-height:1.8;
-
-}
-
-
-/* ----------------------------------------
-   Farben
----------------------------------------- */
-
-.pdf-panel-green{
-
-    background:#EAF4ED;
-
-}
-
-
-.pdf-panel-blue{
-
-    background:#EDF5FA;
-
-}
-
-
-.pdf-panel-peach{
-
-    background:#FDF1EA;
-
-}
-
-
-.pdf-panel-sand{
-
-    background:#F8F2E7;
-
-}
-/* ----------------------------------------
-   Antworten
----------------------------------------- */
-
-.pdf-answer{
-
-    margin-top:18px;
-
-    padding-top:16px;
-
-    border-top:1px solid rgba(62,85,74,.10);
-
-    line-height:1.8;
-
-}
-
-
-.pdf-answer strong{
-
-    display:block;
-
-    margin-bottom:8px;
-
-    color:#3E554A;
-
-    font-size:.95rem;
-
-    letter-spacing:.02em;
-
-}
-
-
-.pdf-answer p,
-.pdf-answer div,
-.pdf-answer span{
-
-    color:#47534E;
-
-    font-size:1rem;
-
-}
-
-
-/* ----------------------------------------
-   Zitat
----------------------------------------- */
-
-.pdf-quote{
-
-    position:relative;
-
-    margin:34px 0;
-
-    padding:30px 34px 30px 42px;
-
-    background:#FFFFFF;
-
-    border-left:6px solid #BFD3C6;
-
-    border-radius:22px;
-
-    box-shadow:0 10px 28px rgba(0,0,0,.04);
-
-}
-
-
-.pdf-quote::before{
-
-    content:"“";
-
-    position:absolute;
-
-    left:18px;
-
-    top:-12px;
-
-    font-size:4.5rem;
-
-    color:#D9E6DE;
-
-    font-family:Georgia, serif;
-
-    line-height:1;
-
-}
-
-
-.pdf-quote p{
-
-    margin-bottom:10px;
-
-}
-
-
-.pdf-quote p:last-child{
-
-    margin-bottom:0;
-
-}
-
-
-/* ----------------------------------------
-   Seitenfuß
----------------------------------------- */
-
-.pdf-footer-note{
-
-    position:absolute;
-
-    left:22mm;
-
-    right:22mm;
-
-    bottom:16mm;
-
-    padding-top:12px;
-
-    border-top:1px solid rgba(62,85,74,.08);
-
-    font-size:.82rem;
-
-    letter-spacing:.06em;
-
-    text-transform:uppercase;
-
-    color:#8A918D;
-
-}
-
-
-/* ----------------------------------------
-   Vorwort
----------------------------------------- */
-
-.pdf-introduction{
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-}
-
-
-.pdf-intro-header{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:20px;
-
-    margin-bottom:28px;
-
-}
-
-
-.pdf-icon{
-
-    width:72px;
-
-    height:72px;
-
-    border-radius:50%;
-
-    background:#FDF1EA;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:2rem;
-
-}
-
-
-.pdf-introduction h2{
-
-    font-size:2.4rem;
-
-    color:#3E554A;
-
-}
-
-
-.pdf-introduction p{
-
-    max-width:620px;
-
-    line-height:1.9;
-
-    margin-bottom:18px;
-
-}
-/* ----------------------------------------
-   Dekorative Elemente
----------------------------------------- */
-
-.pdf-page::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:180px;
-
-    height:180px;
-
-    border-radius:50%;
-
-    background:rgba(127,154,138,.08);
-
-    top:-70px;
-
-    right:-70px;
-
-}
-
-
-.pdf-page::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:120px;
-
-    height:120px;
-
-    border-radius:50%;
-
-    background:rgba(253,241,234,.75);
-
-    bottom:-45px;
-
-    left:-45px;
-
-}
-
-
-.pdf-panel{
-
-    position:relative;
-
-    overflow:hidden;
-
-}
-
-
-.pdf-panel::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:90px;
-
-    height:90px;
-
-    border-radius:50%;
-
-    background:rgba(255,255,255,.25);
-
-    right:-25px;
-
-    top:-25px;
-
-}
-
-
-.pdf-panel-green::before{
-
-    content:"🌿";
-
-    position:absolute;
-
-    right:22px;
-
-    bottom:18px;
-
-    opacity:.12;
-
-    font-size:2rem;
-
-}
-
-
-.pdf-panel-blue::before{
-
-    content:"◌";
-
-    position:absolute;
-
-    right:24px;
-
-    bottom:12px;
-
-    color:rgba(90,120,150,.18);
-
-    font-size:3rem;
-
-}
-
-
-.pdf-panel-peach::before{
-
-    content:"✿";
-
-    position:absolute;
-
-    right:20px;
-
-    bottom:14px;
-
-    color:rgba(210,145,110,.18);
-
-    font-size:2.3rem;
-
-}
-
-
-.pdf-panel-sand::before{
-
-    content:"✦";
-
-    position:absolute;
-
-    right:22px;
-
-    bottom:18px;
-
-    color:rgba(180,155,95,.18);
-
-    font-size:1.8rem;
-
-}
 /* ========================================
    Responsive
 ======================================== */
@@ -1509,19 +688,7 @@ input:focus-visible{
 
         width:calc(100% - 32px);
 
-        padding:36px 0 64px;
-
-    }
-
-    h1{
-
-        font-size:2rem;
-
-    }
-
-    h2{
-
-        font-size:1.55rem;
+        padding:36px 0 72px;
 
     }
 
@@ -1549,22 +716,556 @@ input:focus-visible{
     }
 
 }
+/* ========================================
+   PDF
+======================================== */
+
+#pdf-export{
+
+    display:none;
+
+    background:#F7F5F2;
+
+    color:var(--text);
+
+}
+
 
 
 /* ========================================
-   Druck
+   PDF – Seite
+======================================== */
+
+.pdf-page{
+
+    position:relative;
+
+    width:210mm;
+
+    min-height:297mm;
+
+    padding:22mm;
+
+    background:#FCFBF8;
+
+    overflow:hidden;
+
+    page-break-after:always;
+
+    break-after:page;
+
+}
+
+
+
+.pdf-page:last-child{
+
+    page-break-after:auto;
+
+}
+
+
+
+/* ========================================
+   Allgemeiner Seitenkopf
+======================================== */
+
+.pdf-page-header{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:28px;
+
+    margin-bottom:36px;
+
+}
+
+
+
+.pdf-number{
+
+    flex-shrink:0;
+
+    width:78px;
+
+    height:78px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:var(--green-light);
+
+    color:var(--green-dark);
+
+    font-size:2rem;
+
+    font-weight:700;
+
+}
+
+
+
+.pdf-page-label{
+
+    display:inline-block;
+
+    margin-bottom:10px;
+
+    font-size:.85rem;
+
+    letter-spacing:.12em;
+
+    text-transform:uppercase;
+
+    color:var(--green-dark);
+
+}
+
+
+
+.pdf-page-header h2{
+
+    margin:0 0 14px;
+
+    font-size:2.2rem;
+
+}
+
+
+
+.pdf-lead{
+
+    margin:0;
+
+    max-width:620px;
+
+    color:var(--text-light);
+
+    line-height:1.8;
+
+}
+
+
+
+/* ========================================
+   Grid
+======================================== */
+
+.pdf-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:24px;
+
+    margin:38px 0;
+
+}
+
+
+
+/* ========================================
+   Karten
+======================================== */
+
+.pdf-card{
+
+    padding:28px;
+
+    border-radius:22px;
+
+    background:#FFFFFF;
+
+    border:1px solid #E4E7E4;
+
+    box-shadow:0 10px 26px rgba(0,0,0,.04);
+
+    break-inside:avoid;
+
+}
+
+
+
+.pdf-card h3{
+
+    margin-bottom:16px;
+
+    color:var(--green-dark);
+
+}
+
+
+
+.pdf-card-primary{
+
+    background:var(--green-light);
+
+}
+
+
+
+.pdf-card-secondary{
+
+    background:var(--sand);
+
+    margin:30px 0;
+
+}
+/* ========================================
+   PDF – Cover
+======================================== */
+
+.pdf-cover{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:linear-gradient(
+        180deg,
+        #F7F5F2 0%,
+        #EEF4EF 100%
+    );
+
+    text-align:center;
+
+}
+
+
+.pdf-cover::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:320px;
+
+    height:320px;
+
+    border-radius:50%;
+
+    background:rgba(127,154,138,.10);
+
+    top:-120px;
+
+    right:-120px;
+
+}
+
+
+.pdf-cover::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:240px;
+
+    height:240px;
+
+    border-radius:50%;
+
+    background:rgba(251,237,230,.65);
+
+    bottom:-100px;
+
+    left:-100px;
+
+}
+
+
+.pdf-cover-content{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:560px;
+
+}
+
+
+.pdf-brand{
+
+    display:inline-block;
+
+    padding:8px 18px;
+
+    border-radius:999px;
+
+    background:var(--green-light);
+
+    color:var(--green-dark);
+
+    font-size:.85rem;
+
+    font-weight:600;
+
+    letter-spacing:.12em;
+
+    text-transform:uppercase;
+
+    margin-bottom:34px;
+
+}
+
+
+.pdf-cover h1{
+
+    margin:0;
+
+    font-size:3.5rem;
+
+    line-height:1.05;
+
+    color:var(--green-dark);
+
+}
+
+
+.pdf-subtitle{
+
+    margin:22px 0 34px;
+
+    font-size:1.3rem;
+
+    color:var(--text-light);
+
+}
+
+
+.pdf-divider{
+
+    width:90px;
+
+    height:4px;
+
+    margin:0 auto 36px;
+
+    border-radius:999px;
+
+    background:var(--green);
+
+}
+
+
+.pdf-cover-intro{
+
+    font-size:1.1rem;
+
+    font-weight:600;
+
+    margin-bottom:24px;
+
+}
+
+
+.pdf-cover-text{
+
+    color:var(--text-light);
+
+    line-height:1.9;
+
+}
+
+
+.pdf-cover-box{
+
+    margin:44px auto 0;
+
+    padding:26px;
+
+    max-width:420px;
+
+    border-radius:20px;
+
+    background:#FFFFFF;
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow);
+
+}
+
+
+.pdf-cover-box p:last-child{
+
+    margin-bottom:0;
+
+}
+
+
+.pdf-date{
+
+    margin-top:52px;
+
+    color:var(--text-light);
+
+    font-size:.95rem;
+
+}
+
+
+
+/* ========================================
+   PDF – Vorwort
+======================================== */
+
+.pdf-introduction{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+}
+
+
+.pdf-introduction .pdf-card{
+
+    margin:26px 0;
+
+}
+
+
+
+/* ========================================
+   PDF – Antworten
+======================================== */
+
+.pdf-answer{
+
+    margin-top:16px;
+
+    padding-top:14px;
+
+    border-top:1px solid rgba(0,0,0,.08);
+
+    line-height:1.8;
+
+    white-space:pre-wrap;
+
+    word-break:break-word;
+
+}
+
+
+
+/* ========================================
+   PDF – Zitat
+======================================== */
+
+.pdf-quote{
+
+    position:relative;
+
+    margin:34px 0;
+
+    padding:30px 36px;
+
+    border-left:6px solid var(--green);
+
+    border-radius:20px;
+
+    background:#FFFFFF;
+
+    box-shadow:0 10px 24px rgba(0,0,0,.04);
+
+}
+
+
+.pdf-quote::before{
+
+    content:"“";
+
+    position:absolute;
+
+    top:-16px;
+
+    left:16px;
+
+    font-size:4rem;
+
+    color:#D9E4DD;
+
+    font-family:Georgia, serif;
+
+}
+
+
+.pdf-quote p{
+
+    margin:0;
+
+    font-style:italic;
+
+}
+
+
+
+/* ========================================
+   PDF – Fußzeile
+======================================== */
+
+.pdf-footer{
+
+    position:absolute;
+
+    left:22mm;
+
+    right:22mm;
+
+    bottom:16mm;
+
+    padding-top:12px;
+
+    border-top:1px solid rgba(0,0,0,.08);
+
+    text-align:center;
+
+    font-size:.8rem;
+
+    letter-spacing:.12em;
+
+    text-transform:uppercase;
+
+    color:var(--text-light);
+
+}
+
+
+
+/* ========================================
+   Drucken
 ======================================== */
 
 @page{
 
     size:A4;
 
-    margin:18mm;
+    margin:0;
 
 }
 
 
 @media print{
+
+    body{
+
+        background:#FFFFFF;
+
+    }
 
     main{
 
@@ -1582,15 +1283,11 @@ input:focus-visible{
 
         page-break-after:always;
 
-        break-after:page;
-
     }
 
     .pdf-page:last-child{
 
         page-break-after:auto;
-
-        break-after:auto;
 
     }
 
