@@ -714,6 +714,15 @@ if (radio) {
     return;
 
 }
+
+
+// Textfelder
+
+element.textContent = value;
+
+        });
+
+}
 function fitPDFPages() {
 
     document.querySelectorAll(".pdf-page").forEach(page => {
@@ -745,14 +754,6 @@ function fitPDFPages() {
         }
 
     });
-
-}
-
-// Textfelder
-
-element.textContent = value;
-
-        });
 
 }
 // ======================================================
