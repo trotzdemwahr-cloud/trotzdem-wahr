@@ -663,37 +663,29 @@ img{
 }
 
 
-.pdf-page{
-   position:relative;
-    width:210mm;
+.pdf-page {
 
-    height:297mm;
+    position: relative;
 
-    margin:0;
+    width: 210mm;
 
-    padding:16mm;
+    height: 297mm;
 
-    box-sizing:border-box;
+    margin: 0;
 
-    box-shadow:none;
+    padding: 16mm;
 
-    page-break-after:always;
+    box-sizing: border-box;
 
-    break-after:page;
+    box-shadow: none;
 
-    overflow:hidden;
+    overflow: hidden;
 
-}
+    break-inside: avoid;
 
-.pdf-page:last-child{
-
-    page-break-after:auto;
-
-    break-after:auto;
+    page-break-inside: avoid;
 
 }
-
-
 .pdf-page-header{
 
     display:flex;
