@@ -763,29 +763,35 @@ function fitPDFPages() {
 
     document.querySelectorAll(".pdf-page").forEach(page => {
 
+        const answers = page.querySelectorAll(".pdf-answer");
+
+        if (!answers.length) return;
+
         let fontSize = 16;
+        let lineHeight = 1.6;
         let padding = 16;
 
-        while (page.scrollHeight > page.clientHeight && fontSize > 13) {
+        const applyLayout = () => {
 
-            fontSize--;
-            padding--;
+            answers.forEach(answer => {
 
-            page.querySelectorAll(".pdf-answer").forEach(el => {
-
-                el.style.fontSize = fontSize + "px";
-                el.style.padding = padding + "px";
-                el.style.lineHeight = "1.5";
+                answer.style.fontSize = fontSize + "px";
+                answer.style.lineHeight = lineHeight;
+                answer.style.padding = padding + "px";
 
             });
 
-            page.querySelectorAll(
-                ".pdf-card, .pdf-intro-card, .pdf-note, .pdf-reflection, .pdf-science"
-            ).forEach(el => {
+        };
 
-                el.style.padding = padding + "px";
+        applyLayout();
 
-            });
+        while (page.scrollHeight > page.clientHeight && fontSize > 12) {
+
+            fontSize -= 0.5;
+            lineHeight -= 0.02;
+            padding -= 0.5;
+
+            applyLayout();
 
         }
 
