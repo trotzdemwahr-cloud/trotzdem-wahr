@@ -638,7 +638,7 @@ function fillPDF() {
     fillPDFDate();
 
     fillPDFAnswers();
-optimizePDFAnswers();
+optimizePDFLayout();
 }
 
 
@@ -759,23 +759,46 @@ element.textContent = value;
         });
 
 }
-function optimizePDFAnswers() {
+function optimizePDFLayout() {
 
-    document.querySelectorAll(".pdf-answer").forEach(answer => {
+    document.querySelectorAll(".pdf-page").forEach(page => {
 
         let fontSize = 16;
+        let padding = 16;
 
-        answer.style.fontSize = fontSize + "px";
-        answer.style.lineHeight = "1.6";
+        const answers = page.querySelectorAll(".pdf-answer");
 
-        while (
-            answer.scrollHeight > answer.clientHeight &&
-            fontSize > 12
-        ) {
+        const cards = page.querySelectorAll(
+            ".pdf-card, .pdf-intro-card, .pdf-note, .pdf-reflection, .pdf-science, .pdf-highlight"
+        );
+
+        while (fontSize > 12) {
+
+            let overflow = false;
+
+            answers.forEach(answer => {
+
+                answer.style.fontSize = fontSize + "px";
+                answer.style.lineHeight = "1.5";
+
+                if (answer.scrollHeight > answer.clientHeight) {
+                    overflow = true;
+                }
+
+            });
+
+            cards.forEach(card => {
+
+                card.style.padding = padding + "px";
+
+            });
+
+            if (!overflow) {
+                break;
+            }
 
             fontSize -= 0.5;
-
-            answer.style.fontSize = fontSize + "px";
+            padding -= 1;
 
         }
 
