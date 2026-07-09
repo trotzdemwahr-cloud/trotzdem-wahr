@@ -638,7 +638,7 @@ function fillPDF() {
     fillPDFDate();
 
     fillPDFAnswers();
-fitPDFPages();
+optimizePDFAnswers();
 }
 
 
@@ -759,39 +759,23 @@ element.textContent = value;
         });
 
 }
-function fitPDFPages() {
+function optimizePDFAnswers() {
 
-    document.querySelectorAll(".pdf-page").forEach(page => {
-
-        const answers = page.querySelectorAll(".pdf-answer");
-
-        if (!answers.length) return;
+    document.querySelectorAll(".pdf-answer").forEach(answer => {
 
         let fontSize = 16;
-        let lineHeight = 1.6;
-        let padding = 16;
 
-        const applyLayout = () => {
+        answer.style.fontSize = fontSize + "px";
+        answer.style.lineHeight = "1.6";
 
-            answers.forEach(answer => {
-
-                answer.style.fontSize = fontSize + "px";
-                answer.style.lineHeight = lineHeight;
-                answer.style.padding = padding + "px";
-
-            });
-
-        };
-
-        applyLayout();
-
-        while (page.scrollHeight > page.clientHeight && fontSize > 12) {
+        while (
+            answer.scrollHeight > answer.clientHeight &&
+            fontSize > 12
+        ) {
 
             fontSize -= 0.5;
-            lineHeight -= 0.02;
-            padding -= 0.5;
 
-            applyLayout();
+            answer.style.fontSize = fontSize + "px";
 
         }
 
