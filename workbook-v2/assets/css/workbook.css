@@ -2,46 +2,49 @@
 ========================================================
 
 trotzdem.wahr
-Workbook V2
+Workbook
 
 ========================================================
 */
 
 
-/* =====================================================
+/* ==========================================
    DESIGN SYSTEM
-===================================================== */
+========================================== */
 
 :root{
 
-    --primary:#BFDFF2;
-    --primary-light:#EAF5FB;
+    --primary:#CFEAF7;
+    --primary-dark:#7FAFC8;
+    --primary-light:#EDF8FD;
 
-    --background:#F8F6F3;
+    --background:#F8F9FB;
 
     --surface:#FFFFFF;
 
-    --border:#E8E5DE;
+    --border:#E4E9EE;
 
-    --text:#2F3337;
+    --text:#2C3136;
 
-    --text-light:#6C7378;
+    --text-light:#68727C;
+
+    --success:#EAF7EF;
 
     --radius:22px;
 
     --shadow:
-        0 10px 30px rgba(0,0,0,.06);
+        0 12px 35px rgba(18,40,60,.07);
 
     --transition:.25s ease;
 
-    --max-width:900px;
+    --max-width:920px;
 
 }
 
 
-/* =====================================================
+/* ==========================================
    RESET
-===================================================== */
+========================================== */
 
 *{
 
@@ -69,16 +72,34 @@ body{
 
     color:var(--text);
 
-    line-height:1.7;
+    line-height:1.75;
 
     -webkit-font-smoothing:antialiased;
 
 }
 
 
-/* =====================================================
+img{
+
+    display:block;
+
+    max-width:100%;
+
+}
+
+
+button,
+input,
+textarea{
+
+    font:inherit;
+
+}
+
+
+/* ==========================================
    LAYOUT
-===================================================== */
+========================================== */
 
 .workbook{
 
@@ -91,35 +112,37 @@ body{
 }
 
 
-/* =====================================================
+/* ==========================================
    TYPOGRAPHY
-===================================================== */
+========================================== */
 
 h1{
 
-    font-size:clamp(2.4rem,5vw,3.6rem);
+    font-size:clamp(2.6rem,6vw,4rem);
 
-    line-height:1.15;
+    line-height:1.1;
 
     font-weight:700;
+
+    letter-spacing:-1px;
 
 }
 
 
 h2{
 
-    font-size:clamp(2rem,4vw,2.7rem);
+    font-size:clamp(2rem,5vw,2.8rem);
 
     line-height:1.2;
 
-    margin-top:10px;
+    font-weight:700;
 
 }
 
 
 h3{
 
-    font-size:1.35rem;
+    font-size:1.4rem;
 
     margin-bottom:18px;
 
@@ -137,39 +160,41 @@ label{
 
     display:block;
 
-    margin-top:26px;
+    margin-top:28px;
 
     margin-bottom:14px;
 
-    font-weight:600;
-
     color:var(--text);
+
+    font-weight:600;
 
 }
 
 
-/* =====================================================
+/* ==========================================
    HERO
-===================================================== */
+========================================== */
 
 .hero{
 
-    margin-bottom:70px;
+    margin-bottom:80px;
 
 }
 
 
-.hero__eyebrow{
+.hero__badge{
 
-    display:inline-block;
+    display:inline-flex;
 
-    padding:8px 18px;
+    align-items:center;
+
+    padding:10px 18px;
 
     border-radius:999px;
 
     background:var(--primary-light);
 
-    color:#3B6172;
+    color:var(--primary-dark);
 
     font-size:.9rem;
 
@@ -189,20 +214,47 @@ label{
 
     margin-top:20px;
 
-    max-width:650px;
+    max-width:680px;
 
-    font-size:1.1rem;
+    font-size:1.15rem;
 
 }
-/* =====================================================
+
+
+.hero__intro{
+
+    margin-top:40px;
+
+    padding:34px;
+
+    border-radius:var(--radius);
+
+    background:white;
+
+    box-shadow:var(--shadow);
+
+    border:1px solid var(--border);
+
+}
+
+
+.hero__intro p+p{
+
+    margin-top:18px;
+
+}
+
+
+/* ==========================================
    PROGRESS
-===================================================== */
+========================================== */
 
 .progress{
 
-    margin-bottom:70px;
+    margin-bottom:80px;
 
 }
+
 
 .progress__bar{
 
@@ -210,13 +262,14 @@ label{
 
     height:10px;
 
-    background:#E8EDF0;
+    background:#E7EDF2;
 
     border-radius:999px;
 
     overflow:hidden;
 
 }
+
 
 .progress__fill{
 
@@ -226,11 +279,10 @@ label{
 
     background:var(--primary);
 
-    border-radius:999px;
-
-    transition:.4s ease;
+    transition:.35s ease;
 
 }
+
 
 .progress__text{
 
@@ -241,35 +293,50 @@ label{
     color:var(--text-light);
 
 }
-
-
-/* =====================================================
-   STEP
-===================================================== */
+/* ==========================================
+   STEPS
+========================================== */
 
 .step{
 
-    margin-bottom:120px;
+    display:none;
+
+    animation:fade .35s ease;
+
+    margin-bottom:100px;
 
 }
+
+
+.step.active{
+
+    display:block;
+
+}
+
 
 .step__header{
 
-    margin-bottom:40px;
+    margin-bottom:42px;
 
 }
 
+
 .step__number{
 
-    display:inline-block;
+    display:inline-flex;
 
-    padding:8px 18px;
+    align-items:center;
+
+    justify-content:center;
+
+    padding:10px 18px;
 
     border-radius:999px;
 
     background:var(--primary-light);
 
-    color:#3B6172;
+    color:var(--primary-dark);
 
     font-size:.9rem;
 
@@ -277,32 +344,39 @@ label{
 
 }
 
+
 .step__title{
 
     margin-top:18px;
 
 }
 
+
 .step__quote{
 
     margin-top:16px;
 
-    font-size:1.1rem;
+    max-width:640px;
+
+    color:var(--primary-dark);
 
     font-style:italic;
 
-    color:#4E6976;
-
-    max-width:650px;
+    font-size:1.08rem;
 
 }
 
 
-/* =====================================================
+
+/* ==========================================
    CARDS
-===================================================== */
+========================================== */
 
 .card{
+
+    margin-top:32px;
+
+    padding:36px;
 
     background:var(--surface);
 
@@ -310,33 +384,40 @@ label{
 
     border-radius:var(--radius);
 
-    padding:38px;
-
-    margin-top:30px;
-
     box-shadow:var(--shadow);
 
 }
 
-.card__label{
 
-    display:inline-block;
+.card--reflection{
+
+    border-left:6px solid var(--primary);
+
+}
+
+
+.card__badge{
+
+    display:inline-flex;
+
+    align-items:center;
 
     margin-bottom:20px;
 
-    padding:8px 18px;
+    padding:8px 16px;
 
     border-radius:999px;
 
     background:var(--primary-light);
 
-    color:#3B6172;
+    color:var(--primary-dark);
 
     font-size:.85rem;
 
     font-weight:600;
 
 }
+
 
 .card p+p{
 
@@ -345,19 +426,21 @@ label{
 }
 
 
-/* =====================================================
-   REFLECTION
-===================================================== */
+
+/* ==========================================
+   OPTIONS
+========================================== */
 
 .options{
 
     display:grid;
 
-    gap:14px;
+    gap:16px;
 
     margin-top:18px;
 
 }
+
 
 .options label{
 
@@ -369,63 +452,16 @@ label{
 
     margin:0;
 
-    font-weight:400;
-
     cursor:pointer;
 
-}
+    font-weight:400;
 
-.options input{
-
-    margin-top:3px;
-
-    transform:scale(1.15);
+    color:var(--text);
 
 }
-
-
-/* =====================================================
-   TEXTAREA
-===================================================== */
-
-textarea{
-
-    width:100%;
-
-    margin-top:14px;
-
-    padding:18px;
-
-    border-radius:16px;
-
-    border:1px solid var(--border);
-
-    resize:vertical;
-
-    min-height:140px;
-
-    font:inherit;
-
-    line-height:1.7;
-
-    transition:var(--transition);
-
-    background:#FCFCFC;
-
-}
-
-textarea:focus{
-
-    outline:none;
-
-    border-color:var(--primary);
-
-    background:white;
-
-}
-/* =====================================================
+/* ==========================================
    NAVIGATION
-===================================================== */
+========================================== */
 
 .navigation{
 
@@ -442,29 +478,37 @@ textarea:focus{
 }
 
 
-/* =====================================================
+
+/* ==========================================
    BUTTONS
-===================================================== */
+========================================== */
 
 .button{
 
-    appearance:none;
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-width:170px;
+
+    padding:16px 30px;
 
     border:none;
 
-    cursor:pointer;
+    border-radius:999px;
 
-    font:inherit;
+    cursor:pointer;
 
     font-weight:600;
 
-    padding:16px 34px;
-
-    border-radius:999px;
+    font-size:1rem;
 
     transition:var(--transition);
 
 }
+
 
 .button--primary{
 
@@ -474,34 +518,51 @@ textarea:focus{
 
 }
 
+
 .button--primary:hover{
 
     transform:translateY(-2px);
 
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    box-shadow:0 12px 28px rgba(0,0,0,.10);
 
 }
+
 
 .button--secondary{
 
     background:white;
 
-    border:1px solid var(--border);
-
     color:var(--text);
 
+    border:1px solid var(--border);
+
 }
+
 
 .button--secondary:hover{
 
-    background:#FAFAFA;
+    background:#FAFBFC;
 
 }
 
 
-/* =====================================================
+.button:disabled{
+
+    opacity:.45;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+    box-shadow:none;
+
+}
+
+
+
+/* ==========================================
    FOOTER
-===================================================== */
+========================================== */
 
 .footer{
 
@@ -515,35 +576,73 @@ textarea:focus{
 
 }
 
-.footer p{
+
+.footer__copyright{
+
+    font-weight:600;
+
+    color:var(--text);
+
+}
+
+
+.footer__text{
 
     max-width:700px;
 
-    margin:12px auto;
+    margin:14px auto 0;
 
     font-size:.95rem;
 
 }
 
 
-/* =====================================================
+
+/* ==========================================
    FOCUS
-===================================================== */
+========================================== */
 
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible{
 
-    outline:3px solid rgba(191,223,242,.7);
+    outline:3px solid rgba(207,234,247,.7);
 
     outline-offset:3px;
 
 }
 
 
-/* =====================================================
+
+/* ==========================================
+   ANIMATION
+========================================== */
+
+@keyframes fade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(14px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+
+/* ==========================================
    MOBILE
-===================================================== */
+========================================== */
 
 @media (max-width:768px){
 
@@ -555,13 +654,19 @@ textarea:focus-visible{
 
     .hero{
 
-        margin-bottom:50px;
+        margin-bottom:60px;
+
+    }
+
+    .hero__intro{
+
+        padding:24px;
 
     }
 
     .progress{
 
-        margin-bottom:50px;
+        margin-bottom:60px;
 
     }
 
@@ -591,7 +696,36 @@ textarea:focus-visible{
 
     textarea{
 
-        min-height:120px;
+        min-height:130px;
+
+    }
+
+}
+
+
+@media (max-width:480px){
+
+    h1{
+
+        font-size:2.3rem;
+
+    }
+
+    h2{
+
+        font-size:1.8rem;
+
+    }
+
+    .card{
+
+        padding:20px;
+
+    }
+
+    .hero__intro{
+
+        padding:20px;
 
     }
 
