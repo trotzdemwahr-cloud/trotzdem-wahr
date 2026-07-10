@@ -1,1 +1,174 @@
+/*
+========================================================
 
+trotzdem.wahr
+PDF V2
+
+========================================================
+*/
+
+:root{
+
+    --primary:#BFDFF2;
+
+    --primary-light:#EAF5FB;
+
+    --text:#2F3337;
+
+    --text-light:#666;
+
+    --border:#E5E5E5;
+
+}
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+body{
+
+    font-family:"Inter",sans-serif;
+
+    background:white;
+
+    color:var(--text);
+
+}
+
+.pdf{
+
+    width:210mm;
+
+    min-height:297mm;
+
+    margin:auto;
+
+    padding:18mm;
+
+    background:white;
+
+}
+
+.page{
+
+    page-break-after:always;
+
+}
+
+.page:last-child{
+
+    page-break-after:auto;
+
+}
+
+.hero{
+
+    text-align:center;
+
+    margin-bottom:20mm;
+
+}
+
+.hero h1{
+
+    font-size:28px;
+
+    margin-bottom:12px;
+
+}
+
+.hero p{
+
+    color:var(--text-light);
+
+    font-size:14px;
+
+}
+
+.step{
+
+    margin-bottom:14mm;
+
+}
+
+.step-title{
+
+    font-size:22px;
+
+    margin-bottom:10px;
+
+}
+
+.card{
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+    padding:16px;
+
+    margin-top:10px;
+
+    break-inside:avoid;
+
+    page-break-inside:avoid;
+
+}
+
+.card-label{
+
+    display:inline-block;
+
+    margin-bottom:10px;
+
+    padding:6px 14px;
+
+    border-radius:999px;
+
+    background:var(--primary-light);
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+.card p{
+
+    font-size:14px;
+
+    line-height:1.7;
+
+}
+
+.answer{
+
+    margin-top:12px;
+
+    padding-top:12px;
+
+    border-top:1px dashed #DDD;
+
+    white-space:pre-wrap;
+
+    word-break:break-word;
+
+}
+
+.small{
+
+    font-size:13px;
+
+}
+
+.tiny{
+
+    font-size:12px;
+
+}
