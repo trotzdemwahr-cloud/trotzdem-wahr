@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", initWorkbook);
 function initWorkbook() {
 
     renderWorkbook();
+}
+    
     function renderHero(container) {
 
     const hero = createElement("header", "hero");
@@ -47,7 +49,52 @@ function initWorkbook() {
     container.appendChild(hero);
 
 }
+function renderSteps(container) {
+
+    workbookData.steps.forEach(step => {
+
+        const section = createElement("section", "step");
+
+        section.dataset.step = step.id;
+
+        section.appendChild(
+            createText(
+                "span",
+                "step__number",
+                `Schritt ${step.id}`
+            )
+        );
+
+        section.appendChild(
+            createText(
+                "h2",
+                "step__title",
+                step.title
+            )
+        );
+
+        section.appendChild(
+            createText(
+                "h3",
+                "step__heading",
+                step.intro.heading
+            )
+        );
+
+        section.appendChild(
+            createText(
+                "p",
+                "step__text",
+                step.intro.text
+            )
+        );
+
+        container.appendChild(section);
+
+    });
+
 }
+
 function renderWorkbook() {
 
     const app = document.getElementById("workbook");
@@ -55,6 +102,8 @@ function renderWorkbook() {
     app.innerHTML = "";
 
     renderHero(app);
+
+    renderSteps(app);
 
 }
 function createElement(tag, className) {
