@@ -2,29 +2,34 @@
 ========================================================
 
 trotzdem.wahr
-PDF
+Workbook PDF
 
 ========================================================
 */
 
 
 /* ==========================================
-   DESIGN SYSTEM
+   ROOT
 ========================================== */
 
 :root{
 
-    --primary:#CFEAF7;
+    --primary:#A9D7EC;
+    --primary-light:#EAF6FC;
+    --primary-dark:#6CA9C6;
 
-    --primary-dark:#7FAFC8;
+    --background:#F5F8FA;
 
-    --primary-light:#EDF8FD;
+    --surface:#FFFFFF;
 
-    --text:#2C3136;
+    --text:#3C434B;
 
     --text-light:#68727C;
 
-    --border:#E4E9EE;
+    --border:#DCE6ED;
+
+    --shadow:
+        0 10px 30px rgba(0,0,0,.05);
 
 }
 
@@ -46,11 +51,12 @@ PDF
 
 
 
+html,
 body{
 
     font-family:"Inter",sans-serif;
 
-    background:white;
+    background:var(--background);
 
     color:var(--text);
 
@@ -66,11 +72,466 @@ body{
 
     width:210mm;
 
-    min-height:297mm;
-
     margin:auto;
 
-    padding:18mm;
+}
+/* ==========================================
+   PAGE
+========================================== */
+
+.page{
+
+    position:relative;
+
+    width:210mm;
+
+    min-height:297mm;
+
+    padding:22mm;
+
+    background:white;
+
+    page-break-after:always;
+
+    overflow:hidden;
+
+}
+
+
+
+.page:last-child{
+
+    page-break-after:auto;
+
+}
+/* ==========================================
+   HEADER
+========================================== */
+
+.chapter-header{
+
+    margin-bottom:18mm;
+
+}
+
+
+
+.chapter-number{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:8px 18px;
+
+    border-radius:999px;
+
+    background:var(--primary-light);
+
+    color:var(--primary-dark);
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+
+
+.chapter-title{
+
+    margin-top:18px;
+
+    font-size:34px;
+
+    line-height:1.15;
+
+    font-weight:800;
+
+}
+
+
+
+.chapter-quote{
+
+    margin-top:14px;
+
+    color:var(--primary-dark);
+
+    font-size:18px;
+
+    font-style:italic;
+
+}
+/* ==========================================
+   INTRO CARD
+========================================== */
+
+.intro-card{
+
+    margin-bottom:16mm;
+
+    padding:18px 22px;
+
+    border-radius:22px;
+
+    background:linear-gradient(
+
+        180deg,
+
+        #F8FCFE,
+
+        white
+
+    );
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow);
+
+}
+
+
+
+.intro-card h3{
+
+    margin-bottom:12px;
+
+    font-size:20px;
+
+}
+
+
+
+.intro-card p{
+
+    color:var(--text-light);
+
+    line-height:1.9;
+
+}
+/* ==========================================
+   PSYCHOLOGY
+========================================== */
+
+.psychology{
+
+    margin-bottom:16mm;
+
+    padding:22px;
+
+    border-left:8px solid var(--primary);
+
+    border-radius:22px;
+
+    background:#FCFEFF;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+
+.psychology-badge{
+
+    display:inline-block;
+
+    margin-bottom:14px;
+
+    padding:8px 16px;
+
+    border-radius:999px;
+
+    background:var(--primary-light);
+
+    color:var(--primary-dark);
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+
+
+.psychology p{
+
+    line-height:1.9;
+
+}
+/* ==========================================
+   CONTENT CARDS
+========================================== */
+
+.card{
+
+    margin-bottom:16mm;
+
+    padding:24px;
+
+    border-radius:24px;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow);
+
+    page-break-inside:avoid;
+
+    break-inside:avoid;
+
+}
+
+
+
+.card-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:18px;
+
+}
+
+
+
+.card-chip{
+
+    padding:8px 16px;
+
+    border-radius:999px;
+
+    background:var(--primary-light);
+
+    color:var(--primary-dark);
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+
+
+.card h3{
+
+    font-size:22px;
+
+    font-weight:700;
+
+}
+
+
+
+.card p{
+
+    color:var(--text-light);
+
+    line-height:1.9;
+
+}
+/* ==========================================
+   ANSWERS
+========================================== */
+
+.answer{
+
+    margin-top:22px;
+
+    padding:22px;
+
+    border-radius:18px;
+
+    background:#FBFDFE;
+
+    border:1px solid var(--border);
+
+}
+
+
+
+.answer p{
+
+    color:var(--text);
+
+    line-height:1.9;
+
+    white-space:pre-wrap;
+
+}
+
+
+
+.answer ul{
+
+    list-style:none;
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+}
+
+
+
+.answer li{
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    background:var(--primary-light);
+
+    color:var(--text);
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+/* ==========================================
+   MINDMAP
+========================================== */
+
+.mindmap{
+
+    position:relative;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:18px;
+
+    min-height:220px;
+
+    margin:30px 0;
+
+}
+
+
+
+.mindmap-center{
+
+    width:110px;
+
+    height:110px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:var(--primary);
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+
+.mindmap-item{
+
+    padding:10px 18px;
+
+    border-radius:999px;
+
+    background:#EDF2F5;
+
+    color:#6E7781;
+
+    font-size:14px;
+
+    transition:.25s;
+
+}
+
+
+
+.mindmap-item.active{
+
+    background:var(--primary);
+
+    color:white;
+
+    font-weight:700;
+
+}
+/* ==========================================
+   RESOURCE GRID
+========================================== */
+
+.resource-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:18px;
+
+    margin-top:28px;
+
+}
+
+
+
+.resource-item{
+
+    padding:18px;
+
+    border-radius:18px;
+
+    border:1px solid var(--border);
+
+    background:#FCFDFE;
+
+}
+
+
+
+.resource-item.active{
+
+    background:var(--primary-light);
+
+    border-color:var(--primary);
+
+}
+/* ==========================================
+   JOURNAL
+========================================== */
+
+.journal{
+
+    min-height:160px;
+
+    margin-top:24px;
+
+    padding:24px;
+
+    border-radius:20px;
+
+    border:2px dashed var(--border);
 
     background:white;
 
@@ -78,6 +539,15 @@ body{
 
 
 
+.journal p{
+
+    color:var(--text);
+
+    line-height:2;
+
+    white-space:pre-wrap;
+
+}
 /* ==========================================
    COVER
 ========================================== */
@@ -92,300 +562,160 @@ body{
 
     align-items:center;
 
+    min-height:253mm;
+
     text-align:center;
 
-    min-height:250mm;
+    background:
+        radial-gradient(circle at top,#EAF6FC 0%,#FFFFFF 70%);
 
 }
 
 
 
-.cover__badge{
+.cover-badge{
 
-    display:inline-block;
-
-    padding:8px 18px;
+    padding:10px 22px;
 
     border-radius:999px;
-
-    background:var(--primary-light);
-
-    color:var(--primary-dark);
-
-    font-size:13px;
-
-    font-weight:600;
-
-}
-
-
-
-.cover__title{
-
-    margin-top:24px;
-
-    font-size:34px;
-
-    line-height:1.15;
-
-}
-
-
-
-.cover__subtitle{
-
-    margin-top:18px;
-
-    max-width:130mm;
-
-    color:var(--text-light);
-
-    line-height:1.7;
-
-}
-
-
-
-.cover__footer{
-
-    margin-top:50mm;
-
-    font-size:13px;
-
-    color:var(--text-light);
-
-}
-/* ==========================================
-   PAGE
-========================================== */
-
-.page{
-
-    page-break-after:always;
-
-}
-
-
-
-.page:last-child{
-
-    page-break-after:auto;
-
-}
-
-
-
-.step{
-
-    margin-bottom:14mm;
-
-}
-
-
-
-.step__title{
-
-    font-size:24px;
-
-    margin-bottom:6mm;
-
-}
-
-
-
-.step__quote{
-
-    color:var(--primary-dark);
-
-    font-style:italic;
-
-    margin-bottom:10mm;
-
-}
-/* ==========================================
-   CARDS
-========================================== */
-
-.card{
-
-    width:100%;
-
-    display:inline-block;
-
-    margin-bottom:10mm;
-
-    padding:16px;
-
-    border:1px solid var(--border);
-
-    border-radius:16px;
 
     background:white;
 
-    page-break-inside:avoid;
-
-    break-inside:avoid;
-
-}
-
-
-
-.card__badge{
-
-    display:inline-block;
-
-    margin-bottom:10px;
-
-    padding:6px 14px;
-
-    border-radius:999px;
-
-    background:var(--primary-light);
-
     color:var(--primary-dark);
 
-    font-size:12px;
-
-    font-weight:600;
-
-}
-
-
-
-.card__title{
-
-    margin-bottom:12px;
-
-    font-size:18px;
-
-}
-
-
-
-.card__content{
-
-    color:var(--text);
-
-    line-height:1.75;
-
-    white-space:pre-wrap;
-
-    word-break:break-word;
-
-}
-/* ==========================================
-   DYNAMIC FONT
-========================================== */
-
-.font-large{
-
-    font-size:15px;
-
-}
-
-
-
-.font-medium{
+    border:1px solid var(--border);
 
     font-size:14px;
 
-}
+    font-weight:700;
 
-
-
-.font-small{
-
-    font-size:13px;
+    box-shadow:var(--shadow);
 
 }
 
 
 
-.font-tiny{
+.cover-title{
 
-    font-size:12px;
+    margin-top:34px;
+
+    font-size:48px;
+
+    font-weight:800;
+
+    line-height:1.05;
+
+    letter-spacing:-1px;
+
+}
+
+
+
+.cover-subtitle{
+
+    max-width:135mm;
+
+    margin-top:26px;
+
+    font-size:18px;
+
+    line-height:1.9;
+
+    color:var(--text-light);
+
+}
+
+
+
+.cover-footer{
+
+    margin-top:55mm;
+
+    color:var(--text-light);
+
+    font-size:15px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
 
 }
 /* ==========================================
-   ANSWERS
-========================================== */
-
-.answer{
-
-    margin-top:12px;
-
-    padding-top:12px;
-
-    border-top:1px dashed var(--border);
-
-    color:var(--text);
-
-    line-height:1.8;
-
-    white-space:pre-wrap;
-
-    word-break:break-word;
-
-}
-
-
-
-.answer ul{
-
-    margin-left:18px;
-
-}
-
-
-
-.answer li{
-
-    margin-bottom:6px;
-
-}
-
-
-
-/* ==========================================
-   SEPARATORS
+   DIVIDER
 ========================================== */
 
 .divider{
 
     width:100%;
 
-    height:1px;
+    height:2px;
 
-    margin:10mm 0;
+    margin:14mm 0;
 
-    background:var(--border);
+    background:linear-gradient(
+
+        90deg,
+
+        transparent,
+
+        var(--primary),
+
+        transparent
+
+    );
 
 }
 /* ==========================================
-   PDF FOOTER
+   FOOTER
 ========================================== */
 
-.pdf-footer{
+.page-footer{
 
-    margin-top:18mm;
+    position:absolute;
+
+    left:22mm;
+
+    right:22mm;
+
+    bottom:14mm;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
 
     padding-top:8mm;
 
     border-top:1px solid var(--border);
 
-    text-align:center;
+    color:var(--text-light);
+
+    font-size:12px;
 
 }
 
 
 
-.pdf-footer p{
+.page-number{
 
-    color:var(--text-light);
+    width:34px;
 
-    font-size:12px;
+    height:34px;
 
-    line-height:1.7;
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:50%;
+
+    background:var(--primary-light);
+
+    color:var(--primary-dark);
+
+    font-weight:700;
 
 }
 /* ==========================================
@@ -400,17 +730,25 @@ body{
 
 
 
-.mb-8{
+.mt-20{
 
-    margin-bottom:8px;
+    margin-top:20px;
 
 }
 
 
 
-.mb-12{
+.mt-30{
 
-    margin-bottom:12px;
+    margin-top:30px;
+
+}
+
+
+
+.mt-40{
+
+    margin-top:40px;
 
 }
 
@@ -424,9 +762,9 @@ body{
 
 
 
-.mb-32{
+.mb-30{
 
-    margin-bottom:32px;
+    margin-bottom:30px;
 
 }
 /* ==========================================
@@ -449,32 +787,6 @@ body{
     body{
 
         background:white;
-
-    }
-
-
-
-    .page{
-
-        page-break-after:always;
-
-    }
-
-
-
-    .page:last-child{
-
-        page-break-after:auto;
-
-    }
-
-
-
-    .card{
-
-        page-break-inside:avoid;
-
-        break-inside:avoid;
 
     }
 
