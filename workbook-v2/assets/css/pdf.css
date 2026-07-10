@@ -2,24 +2,37 @@
 ========================================================
 
 trotzdem.wahr
-PDF V2
+PDF
 
 ========================================================
 */
 
+
+/* ==========================================
+   DESIGN SYSTEM
+========================================== */
+
 :root{
 
-    --primary:#BFDFF2;
+    --primary:#CFEAF7;
 
-    --primary-light:#EAF5FB;
+    --primary-dark:#7FAFC8;
 
-    --text:#2F3337;
+    --primary-light:#EDF8FD;
 
-    --text-light:#666;
+    --text:#2C3136;
 
-    --border:#E5E5E5;
+    --text-light:#68727C;
+
+    --border:#E4E9EE;
 
 }
+
+
+
+/* ==========================================
+   RESET
+========================================== */
 
 *{
 
@@ -31,6 +44,8 @@ PDF V2
 
 }
 
+
+
 body{
 
     font-family:"Inter",sans-serif;
@@ -40,6 +55,12 @@ body{
     color:var(--text);
 
 }
+
+
+
+/* ==========================================
+   PDF
+========================================== */
 
 .pdf{
 
@@ -55,11 +76,96 @@ body{
 
 }
 
+
+
+/* ==========================================
+   COVER
+========================================== */
+
+.cover{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    min-height:250mm;
+
+}
+
+
+
+.cover__badge{
+
+    display:inline-block;
+
+    padding:8px 18px;
+
+    border-radius:999px;
+
+    background:var(--primary-light);
+
+    color:var(--primary-dark);
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+
+
+.cover__title{
+
+    margin-top:24px;
+
+    font-size:34px;
+
+    line-height:1.15;
+
+}
+
+
+
+.cover__subtitle{
+
+    margin-top:18px;
+
+    max-width:130mm;
+
+    color:var(--text-light);
+
+    line-height:1.7;
+
+}
+
+
+
+.cover__footer{
+
+    margin-top:50mm;
+
+    font-size:13px;
+
+    color:var(--text-light);
+
+}
+/* ==========================================
+   PAGE
+========================================== */
+
 .page{
 
     page-break-after:always;
 
 }
+
+
 
 .page:last-child{
 
@@ -67,29 +173,7 @@ body{
 
 }
 
-.hero{
 
-    text-align:center;
-
-    margin-bottom:20mm;
-
-}
-
-.hero h1{
-
-    font-size:28px;
-
-    margin-bottom:12px;
-
-}
-
-.hero p{
-
-    color:var(--text-light);
-
-    font-size:14px;
-
-}
 
 .step{
 
@@ -97,31 +181,56 @@ body{
 
 }
 
-.step-title{
 
-    font-size:22px;
 
-    margin-bottom:10px;
+.step__title{
+
+    font-size:24px;
+
+    margin-bottom:6mm;
 
 }
 
+
+
+.step__quote{
+
+    color:var(--primary-dark);
+
+    font-style:italic;
+
+    margin-bottom:10mm;
+
+}
+/* ==========================================
+   CARDS
+========================================== */
+
 .card{
+
+    width:100%;
+
+    display:inline-block;
+
+    margin-bottom:10mm;
+
+    padding:16px;
 
     border:1px solid var(--border);
 
     border-radius:16px;
 
-    padding:16px;
-
-    margin-top:10px;
-
-    break-inside:avoid;
+    background:white;
 
     page-break-inside:avoid;
 
+    break-inside:avoid;
+
 }
 
-.card-label{
+
+
+.card__badge{
 
     display:inline-block;
 
@@ -133,19 +242,73 @@ body{
 
     background:var(--primary-light);
 
+    color:var(--primary-dark);
+
     font-size:12px;
 
     font-weight:600;
 
 }
 
-.card p{
+
+
+.card__title{
+
+    margin-bottom:12px;
+
+    font-size:18px;
+
+}
+
+
+
+.card__content{
+
+    color:var(--text);
+
+    line-height:1.75;
+
+    white-space:pre-wrap;
+
+    word-break:break-word;
+
+}
+/* ==========================================
+   DYNAMIC FONT
+========================================== */
+
+.font-large{
+
+    font-size:15px;
+
+}
+
+
+
+.font-medium{
 
     font-size:14px;
 
-    line-height:1.7;
+}
+
+
+
+.font-small{
+
+    font-size:13px;
 
 }
+
+
+
+.font-tiny{
+
+    font-size:12px;
+
+}
+/* ==========================================
+   ANSWERS
+========================================== */
 
 .answer{
 
@@ -153,7 +316,11 @@ body{
 
     padding-top:12px;
 
-    border-top:1px dashed #DDD;
+    border-top:1px dashed var(--border);
+
+    color:var(--text);
+
+    line-height:1.8;
 
     white-space:pre-wrap;
 
@@ -161,14 +328,154 @@ body{
 
 }
 
-.small{
 
-    font-size:13px;
+
+.answer ul{
+
+    margin-left:18px;
 
 }
 
-.tiny{
+
+
+.answer li{
+
+    margin-bottom:6px;
+
+}
+
+
+
+/* ==========================================
+   SEPARATORS
+========================================== */
+
+.divider{
+
+    width:100%;
+
+    height:1px;
+
+    margin:10mm 0;
+
+    background:var(--border);
+
+}
+/* ==========================================
+   PDF FOOTER
+========================================== */
+
+.pdf-footer{
+
+    margin-top:18mm;
+
+    padding-top:8mm;
+
+    border-top:1px solid var(--border);
+
+    text-align:center;
+
+}
+
+
+
+.pdf-footer p{
+
+    color:var(--text-light);
 
     font-size:12px;
+
+    line-height:1.7;
+
+}
+/* ==========================================
+   HELPERS
+========================================== */
+
+.text-center{
+
+    text-align:center;
+
+}
+
+
+
+.mb-8{
+
+    margin-bottom:8px;
+
+}
+
+
+
+.mb-12{
+
+    margin-bottom:12px;
+
+}
+
+
+
+.mb-20{
+
+    margin-bottom:20px;
+
+}
+
+
+
+.mb-32{
+
+    margin-bottom:32px;
+
+}
+/* ==========================================
+   PRINT
+========================================== */
+
+@page{
+
+    size:A4;
+
+    margin:0;
+
+}
+
+
+
+@media print{
+
+    html,
+    body{
+
+        background:white;
+
+    }
+
+
+
+    .page{
+
+        page-break-after:always;
+
+    }
+
+
+
+    .page:last-child{
+
+        page-break-after:auto;
+
+    }
+
+
+
+    .card{
+
+        page-break-inside:avoid;
+
+        break-inside:avoid;
+
+    }
 
 }
