@@ -1,1 +1,598 @@
+/*
+========================================================
 
+trotzdem.wahr
+Workbook V2
+
+========================================================
+*/
+
+
+/* =====================================================
+   DESIGN SYSTEM
+===================================================== */
+
+:root{
+
+    --primary:#BFDFF2;
+    --primary-light:#EAF5FB;
+
+    --background:#F8F6F3;
+
+    --surface:#FFFFFF;
+
+    --border:#E8E5DE;
+
+    --text:#2F3337;
+
+    --text-light:#6C7378;
+
+    --radius:22px;
+
+    --shadow:
+        0 10px 30px rgba(0,0,0,.06);
+
+    --transition:.25s ease;
+
+    --max-width:900px;
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+
+body{
+
+    font-family:"Inter",sans-serif;
+
+    background:var(--background);
+
+    color:var(--text);
+
+    line-height:1.7;
+
+    -webkit-font-smoothing:antialiased;
+
+}
+
+
+/* =====================================================
+   LAYOUT
+===================================================== */
+
+.workbook{
+
+    width:min(100%,var(--max-width));
+
+    margin:auto;
+
+    padding:70px 24px 120px;
+
+}
+
+
+/* =====================================================
+   TYPOGRAPHY
+===================================================== */
+
+h1{
+
+    font-size:clamp(2.4rem,5vw,3.6rem);
+
+    line-height:1.15;
+
+    font-weight:700;
+
+}
+
+
+h2{
+
+    font-size:clamp(2rem,4vw,2.7rem);
+
+    line-height:1.2;
+
+    margin-top:10px;
+
+}
+
+
+h3{
+
+    font-size:1.35rem;
+
+    margin-bottom:18px;
+
+}
+
+
+p{
+
+    color:var(--text-light);
+
+}
+
+
+label{
+
+    display:block;
+
+    margin-top:26px;
+
+    margin-bottom:14px;
+
+    font-weight:600;
+
+    color:var(--text);
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    margin-bottom:70px;
+
+}
+
+
+.hero__eyebrow{
+
+    display:inline-block;
+
+    padding:8px 18px;
+
+    border-radius:999px;
+
+    background:var(--primary-light);
+
+    color:#3B6172;
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+}
+
+
+.hero__title{
+
+    margin-top:24px;
+
+}
+
+
+.hero__subtitle{
+
+    margin-top:20px;
+
+    max-width:650px;
+
+    font-size:1.1rem;
+
+}
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.progress{
+
+    margin-bottom:70px;
+
+}
+
+.progress__bar{
+
+    width:100%;
+
+    height:10px;
+
+    background:#E8EDF0;
+
+    border-radius:999px;
+
+    overflow:hidden;
+
+}
+
+.progress__fill{
+
+    width:16.66%;
+
+    height:100%;
+
+    background:var(--primary);
+
+    border-radius:999px;
+
+    transition:.4s ease;
+
+}
+
+.progress__text{
+
+    margin-top:14px;
+
+    font-size:.95rem;
+
+    color:var(--text-light);
+
+}
+
+
+/* =====================================================
+   STEP
+===================================================== */
+
+.step{
+
+    margin-bottom:120px;
+
+}
+
+.step__header{
+
+    margin-bottom:40px;
+
+}
+
+.step__number{
+
+    display:inline-block;
+
+    padding:8px 18px;
+
+    border-radius:999px;
+
+    background:var(--primary-light);
+
+    color:#3B6172;
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+}
+
+.step__title{
+
+    margin-top:18px;
+
+}
+
+.step__quote{
+
+    margin-top:16px;
+
+    font-size:1.1rem;
+
+    font-style:italic;
+
+    color:#4E6976;
+
+    max-width:650px;
+
+}
+
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.card{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:38px;
+
+    margin-top:30px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.card__label{
+
+    display:inline-block;
+
+    margin-bottom:20px;
+
+    padding:8px 18px;
+
+    border-radius:999px;
+
+    background:var(--primary-light);
+
+    color:#3B6172;
+
+    font-size:.85rem;
+
+    font-weight:600;
+
+}
+
+.card p+p{
+
+    margin-top:18px;
+
+}
+
+
+/* =====================================================
+   REFLECTION
+===================================================== */
+
+.options{
+
+    display:grid;
+
+    gap:14px;
+
+    margin-top:18px;
+
+}
+
+.options label{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:14px;
+
+    margin:0;
+
+    font-weight:400;
+
+    cursor:pointer;
+
+}
+
+.options input{
+
+    margin-top:3px;
+
+    transform:scale(1.15);
+
+}
+
+
+/* =====================================================
+   TEXTAREA
+===================================================== */
+
+textarea{
+
+    width:100%;
+
+    margin-top:14px;
+
+    padding:18px;
+
+    border-radius:16px;
+
+    border:1px solid var(--border);
+
+    resize:vertical;
+
+    min-height:140px;
+
+    font:inherit;
+
+    line-height:1.7;
+
+    transition:var(--transition);
+
+    background:#FCFCFC;
+
+}
+
+textarea:focus{
+
+    outline:none;
+
+    border-color:var(--primary);
+
+    background:white;
+
+}
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.navigation{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    margin-top:80px;
+
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.button{
+
+    appearance:none;
+
+    border:none;
+
+    cursor:pointer;
+
+    font:inherit;
+
+    font-weight:600;
+
+    padding:16px 34px;
+
+    border-radius:999px;
+
+    transition:var(--transition);
+
+}
+
+.button--primary{
+
+    background:var(--primary);
+
+    color:var(--text);
+
+}
+
+.button--primary:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.button--secondary{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    color:var(--text);
+
+}
+
+.button--secondary:hover{
+
+    background:#FAFAFA;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+
+    margin-top:120px;
+
+    padding-top:40px;
+
+    border-top:1px solid var(--border);
+
+    text-align:center;
+
+}
+
+.footer p{
+
+    max-width:700px;
+
+    margin:12px auto;
+
+    font-size:.95rem;
+
+}
+
+
+/* =====================================================
+   FOCUS
+===================================================== */
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible{
+
+    outline:3px solid rgba(191,223,242,.7);
+
+    outline-offset:3px;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width:768px){
+
+    .workbook{
+
+        padding:40px 18px 80px;
+
+    }
+
+    .hero{
+
+        margin-bottom:50px;
+
+    }
+
+    .progress{
+
+        margin-bottom:50px;
+
+    }
+
+    .step{
+
+        margin-bottom:80px;
+
+    }
+
+    .card{
+
+        padding:24px;
+
+    }
+
+    .navigation{
+
+        flex-direction:column-reverse;
+
+    }
+
+    .button{
+
+        width:100%;
+
+    }
+
+    textarea{
+
+        min-height:120px;
+
+    }
+
+}
