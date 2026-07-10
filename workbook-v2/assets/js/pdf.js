@@ -2,48 +2,62 @@
 ========================================================
 
 trotzdem.wahr
-PDF V2
+PDF
 
 ========================================================
 */
 
+
+/* ==========================================
+   ELEMENTE
+========================================== */
+
 const pdf = document.getElementById("pdf");
+
+const STORAGE_KEY = "trotzdemWahrWorkbook";
 
 const answers = JSON.parse(
 
-    localStorage.getItem("workbook-answers")
+    localStorage.getItem(STORAGE_KEY)
 
 ) || {};
 
 
 
+/* ==========================================
+   START
+========================================== */
+
 document.addEventListener(
 
     "DOMContentLoaded",
 
-    buildPDF
+    initialisePDF
 
 );
-async function buildPDF(){
 
-    createHero();
 
-    createSteps();
 
-    await new Promise(resolve => {
+/* ==========================================
+   INITIALISIEREN
+========================================== */
 
-        requestAnimationFrame(() => {
+async function initialisePDF(){
 
-            requestAnimationFrame(resolve);
+    createCover();
 
-        });
+    createWorkbook();
 
-    });
+    await waitForRendering();
 
     await generatePDF();
 
 }
-function createHero(){
+/* ==========================================
+   COVER
+========================================== */
+
+function createCover(){
 
     pdf.insertAdjacentHTML(
 
@@ -51,19 +65,36 @@ function createHero(){
 
         `
 
-        <section class="hero">
+        <section class="cover page">
 
-            <h1>
+            <div class="cover__badge">
+
+                Kostenloses Workbook
+
+            </div>
+
+            <h1 class="cover__title">
 
                 Zurück zu dir
 
             </h1>
 
-            <p>
+            <p class="cover__subtitle">
 
                 Dein persönliches Workbook
+                von trotzdem.wahr.
+
+                Dieses Dokument enthält
+                deine eigenen Gedanken,
+                Reflexionen und Erkenntnisse.
 
             </p>
+
+            <div class="cover__footer">
+
+                trotzdem.wahr
+
+            </div>
 
         </section>
 
@@ -72,238 +103,443 @@ function createHero(){
     );
 
 }
-function createSteps(){
+/* ==========================================
+   SCHRITTE
+========================================== */
 
-    const titles=[
+const workbook = [
 
-        "Ankommen",
+    {
 
-        "Wahrnehmen",
+        title:"Ankommen",
 
-        "Verstehen",
+        quote:"„Du musst heute nichts leisten.“",
 
-        "Erkennen",
+        answers:[]
 
-        "Stärken",
+    },
 
-        "Weitergehen"
+    {
 
-    ];
+        title:"Wahrnehmen",
+
+        quote:"„Alles beginnt damit, ehrlich hinzuschauen.“",
+
+        answers:[
+
+            ["Gefühle","feelings"],
+
+            ["Gedanken","thoughts"],
+
+            ["Was kostet Kraft?","energy"]
+
+        ]
+
+    },
+
+    {
+
+        title:"Verstehen",
+
+        quote:"„Verstehen verändert den Blick.“",
+
+        answers:[
+
+            ["Stressreaktion","stress"],
+
+            ["Verhaltensmuster","patterns"],
+
+            ["Reflexion","reflection"]
+
+        ]
+
+    },
+
+    {
+
+        title:"Erkennen",
+
+        quote:"„Verstehen schafft Orientierung.“",
+
+        answers:[
+
+            ["Erfahrungen","relationshipExperiences"],
+
+            ["Warnsignale","warningSigns"],
+
+            ["Gedanken","realisation"]
+
+        ]
+
+    },
+
+    {
+
+        title:"Stärken",
+
+        quote:"„Du bist mehr als deine schwierigsten Tage.“",
+
+        answers:[
+
+            ["Ressourcen","resources"],
+
+            ["Stärken","strengths"],
+
+            ["Darauf bin ich stolz","gratitude"]
+
+        ]
+
+    },
+
+    {
+
+        title:"Weitergehen",
+
+        quote:"„Jeder Weg entsteht Schritt für Schritt.“",
+
+        answers:[
+
+            ["Erkenntnis","insight"],
+
+            ["Nächster Schritt","nextStep"],
+
+            ["Nachricht an mich","futureMessage"]
+
+        ]
+
+    }
+
+];
+/* ==========================================
+   WORKBOOK
+========================================== */
+
+function createWorkbook(){
+
+    workbook.forEach(step=>{
+
+        createStep(step);
+
+    });
+
+}
+/* ==========================================
+   SCHRITT ERSTELLEN
+========================================== */
+
+function createStep(step){
+
+    const page = document.createElement("section");
+
+    page.className = "page";
 
 
 
-    titles.forEach((title,index)=>{
+    page.innerHTML = `
 
-    const section = document.createElement("section");
+        <section class="step">
 
-    section.className = "step";
+            <h2 class="step__title">
 
-    section.innerHTML = `
+                ${step.title}
 
-        <h2 class="step-title">
+            </h2>
 
-            Schritt ${index+1}
+            <p class="step__quote">
 
-            ·
+                ${step.quote}
 
-            ${title}
+            </p>
 
-        </h2>
+        </section>
 
     `;
 
-    switch(index){
 
-        case 1:
 
-            addAnswer(section,"Gefühle",answers.feelings);
+    step.answers.forEach(answer=>{
 
-            addAnswer(section,"Gedanken",answers.thoughts);
+        createCard(
 
-            addAnswer(section,"Was kostet Kraft?",answers.energy);
+            page,
 
-            break;
+            answer[0],
 
-        case 2:
+            answers[answer[1]]
 
-            addAnswer(section,"Stressreaktion",answers.stress);
+        );
 
-            addAnswer(section,"Verhaltensmuster",answers.patterns);
+    });
 
-            addAnswer(section,"Reflexion",answers.reflection);
 
-            break;
 
-        case 3:
+    page.insertAdjacentHTML(
 
-            addAnswer(section,"Beziehungen",answers.relationship_experiences);
+        "beforeend",
 
-            addAnswer(section,"Warnsignale",answers.warning_signs);
+        `
 
-            addAnswer(section,"Gedanken",answers.realisation);
+        <footer class="pdf-footer">
 
-            break;
+            <p>
 
-        case 4:
+                trotzdem.wahr
 
-            addAnswer(section,"Ressourcen",answers.resources);
+            </p>
 
-            addAnswer(section,"Stärken",answers.strengths);
+        </footer>
 
-            addAnswer(section,"Darauf bin ich stolz",answers.gratitude);
+        `
 
-            break;
+    );
 
-        case 5:
 
-            addAnswer(section,"Erkenntnis",answers.insight);
 
-            addAnswer(section,"Nächster Schritt",answers["next-step"]);
-
-            addAnswer(section,"Nachricht",answers["future-message"]);
-
-            break;
-
-    }
-
-    pdf.appendChild(section);
-
-});
+    pdf.appendChild(page);
 
 }
-/* =====================================================
-   ANTWORTEN RENDERN
-===================================================== */
+/* ==========================================
+   KARTE ERSTELLEN
+========================================== */
 
-function addAnswer(section, title, value) {
+function createCard(
 
-    if (
-        value === undefined ||
-        value === null ||
-        value === "" ||
-        (Array.isArray(value) && value.length === 0)
-    ) {
+    page,
+
+    title,
+
+    value
+
+){
+
+    if(
+
+        value===undefined ||
+
+        value===null ||
+
+        value==="" ||
+
+        (Array.isArray(value) && value.length===0)
+
+    ){
+
         return;
-    }
-
-    const card = document.createElement("article");
-
-    card.className = "card";
-
-    const label = document.createElement("div");
-
-    label.className = "card-label";
-
-    label.textContent = title;
-
-    card.appendChild(label);
-
-    const answer = document.createElement("div");
-
-    answer.className = "answer";
-
-    if (Array.isArray(value)) {
-
-        answer.innerHTML = value
-            .map(item => "• " + item)
-            .join("<br>");
-
-    } else {
-
-        answer.textContent = value;
 
     }
 
-    card.appendChild(answer);
 
-    adaptFontSize(answer);
 
-    section.appendChild(card);
+    const card=document.createElement("article");
+
+
+
+    card.className="card";
+
+
+
+    card.innerHTML=`
+
+        <div class="card__badge">
+
+            ${title}
+
+        </div>
+
+        <div class="card__content">
+
+            ${formatAnswer(value)}
+
+        </div>
+
+    `;
+
+
+
+    adaptFontSize(
+
+        card.querySelector(".card__content")
+
+    );
+
+
+
+    page.appendChild(card);
 
 }
-/* =====================================================
-   DYNAMISCHE SCHRIFTGRÖSSE
-===================================================== */
+/* ==========================================
+   FORMATIEREN
+========================================== */
+
+function formatAnswer(value){
+
+    if(Array.isArray(value)){
+
+        return `
+
+            <ul>
+
+                ${value.map(item=>`
+
+                    <li>${escapeHtml(item)}</li>
+
+                `).join("")}
+
+            </ul>
+
+        `;
+
+    }
+
+
+
+    return escapeHtml(value)
+
+        .replace(/\n/g,"<br>");
+
+}
+/* ==========================================
+   HTML ESCAPEN
+========================================== */
+
+function escapeHtml(text){
+
+    return String(text)
+
+        .replaceAll("&","&amp;")
+
+        .replaceAll("<","&lt;")
+
+        .replaceAll(">","&gt;")
+
+        .replaceAll('"',"&quot;")
+
+        .replaceAll("'","&#039;");
+
+}
+/* ==========================================
+   SCHRIFTGRÖSSE
+========================================== */
 
 function adaptFontSize(element){
 
-    const length = element.textContent.length;
+    const length = element.innerText.length;
 
-    if(length > 1200){
+    if(length > 1800){
 
-        element.classList.add("tiny");
+        element.classList.add("font-tiny");
+
+    }
+
+    else if(length > 1200){
+
+        element.classList.add("font-small");
 
     }
 
     else if(length > 700){
 
-        element.classList.add("small");
+        element.classList.add("font-medium");
+
+    }
+
+    else{
+
+        element.classList.add("font-large");
 
     }
 
 }
-/* =====================================================
+/* ==========================================
+   RENDERN ABWARTEN
+========================================== */
+
+function waitForRendering(){
+
+    return new Promise(resolve=>{
+
+        requestAnimationFrame(()=>{
+
+            requestAnimationFrame(resolve);
+
+        });
+
+    });
+
+}
+/* ==========================================
    PDF ERSTELLEN
-===================================================== */
+========================================== */
 
-async function generatePDF() {
+async function generatePDF(){
 
-    const element = document.getElementById("pdf");
+    const options={
 
-    const options = {
+        margin:0,
 
-        margin: 0,
+        filename:"trotzdem.wahr_Workbook_Zurück-zu-dir.pdf",
 
-        filename: "Zurück-zu-dir_Workbook.pdf",
+        image:{
 
-        image: {
+            type:"jpeg",
 
-            type: "jpeg",
-
-            quality: 1
+            quality:1
 
         },
 
-        html2canvas: {
+        html2canvas:{
 
-            scale: 2,
+            scale:2,
 
-            useCORS: true,
+            useCORS:true,
 
-            scrollY: 0
-
-        },
-
-        jsPDF: {
-
-            unit: "mm",
-
-            format: "a4",
-
-            orientation: "portrait"
+            scrollY:0
 
         },
 
-        pagebreak: {
+        jsPDF:{
 
-            mode: [
+            unit:"mm",
 
-                "avoid-all",
+            format:"a4",
 
-                "css"
+            orientation:"portrait"
 
-            ]
+        },
+
+        pagebreak:{
+
+            mode:["css","avoid-all"]
 
         }
 
     };
 
+
+
     await html2pdf()
 
         .set(options)
 
-        .from(element)
+        .from(pdf)
 
         .save();
+
+
+
+    finishPDF();
+
+}
+/* ==========================================
+   ABSCHLUSS
+========================================== */
+
+function finishPDF(){
+
+    setTimeout(()=>{
+
+        window.location.href="index.html";
+
+    },500);
 
 }
