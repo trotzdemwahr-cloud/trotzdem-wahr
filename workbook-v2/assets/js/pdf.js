@@ -1,37 +1,212 @@
 /*
-========================================================
-
+=========================================================
 trotzdem.wahr
-Workbook PDF
-
-========================================================
+Workbook PDF V3
+=========================================================
 */
 
 
-/* ==========================================
+/* =========================================================
    KONSTANTEN
-========================================== */
+========================================================= */
 
-const STORAGE_KEY = "trotzdemWahrWorkbook";
+const STORAGE_KEY = "trotzdemWahrWorkbookV3";
 
 const pdf = document.getElementById("pdf");
 
-const answers = JSON.parse(
-    localStorage.getItem(STORAGE_KEY)
-) || {};
+const answers = loadWorkbook();
 
 
-/* ==========================================
+
+/* =========================================================
+   WORKBOOK
+========================================================= */
+
+const workbook = [
+
+    {
+        number:1,
+        id:"step-1",
+        title:"Ankommen",
+        answers:[]
+    },
+
+    {
+        number:2,
+        id:"step-2",
+        title:"Wahrnehmen",
+
+        answers:[
+
+            {
+                key:"feelings",
+                title:"Gefühle",
+                type:"mindmap"
+            },
+
+            {
+                key:"thoughts",
+                title:"Gedanken",
+                type:"chips"
+            },
+
+            {
+                key:"energy",
+                title:"Was kostet mich im Moment Kraft?",
+                type:"journal"
+            }
+
+        ]
+
+    },
+
+    {
+        number:3,
+        id:"step-3",
+        title:"Verstehen",
+
+        answers:[
+
+            {
+                key:"stress",
+                title:"Meine Stressreaktion",
+                type:"highlight"
+            },
+
+            {
+                key:"patterns",
+                title:"Wiederkehrende Muster",
+                type:"chips"
+            },
+
+            {
+                key:"reflection",
+                title:"Eigene Reflexion",
+                type:"journal"
+            }
+
+        ]
+
+    },
+
+    {
+        number:4,
+        id:"step-4",
+        title:"Erkennen",
+
+        answers:[
+
+            {
+                key:"relationshipExperiences",
+                title:"Eigene Erfahrungen",
+                type:"chips"
+            },
+
+            {
+                key:"warningSigns",
+                title:"Warnsignale",
+                type:"grid"
+            },
+
+            {
+                key:"realisation",
+                title:"Meine Gedanken",
+                type:"journal"
+            }
+
+        ]
+
+    },
+
+    {
+        number:5,
+        id:"step-5",
+        title:"Stärken",
+
+        answers:[
+
+            {
+                key:"resources",
+                title:"Meine Ressourcen",
+                type:"grid"
+            },
+
+            {
+                key:"strengths",
+                title:"Meine Stärken",
+                type:"mindmap"
+            },
+
+            {
+                key:"gratitude",
+                title:"Darauf bin ich stolz",
+                type:"journal"
+            }
+
+        ]
+
+    },
+
+    {
+        number:6,
+        id:"step-6",
+        title:"Weitergehen",
+
+        answers:[
+
+            {
+                key:"takeaway",
+                title:"Das nehme ich mit",
+                type:"chips"
+            },
+
+            {
+                key:"support",
+                title:"Das unterstützt mich",
+                type:"grid"
+            },
+
+            {
+                key:"insight",
+                title:"Meine wichtigste Erkenntnis",
+                type:"journal"
+            },
+
+            {
+                key:"nextStep",
+                title:"Mein nächster Schritt",
+                type:"journal"
+            },
+
+            {
+                key:"futureMessage",
+                title:"Brief an mein zukünftiges Ich",
+                type:"letter"
+            }
+
+        ]
+
+    }
+
+];
+
+
+
+/* =========================================================
    START
-========================================== */
+========================================================= */
 
 document.addEventListener(
+
     "DOMContentLoaded",
+
     initialisePDF
+
 );
 
 
-async function initialisePDF() {
+
+async function initialisePDF(){
 
     clearPDF();
 
@@ -43,6 +218,8 @@ async function initialisePDF() {
 
     renderEnding();
 
+    addPageNumbers();
+
     await waitForRender();
 
     await exportPDF();
@@ -50,246 +227,109 @@ async function initialisePDF() {
 }
 
 
-/* ==========================================
-   PDF LEEREN
-========================================== */
 
-function clearPDF() {
+/* =========================================================
+   DATEN
+========================================================= */
 
-    pdf.innerHTML = "";
+function loadWorkbook(){
+
+    try{
+
+        return JSON.parse(
+
+            localStorage.getItem(STORAGE_KEY)
+
+        ) || {};
+
+    }
+
+    catch{
+
+        return {};
+
+    }
 
 }
 
 
-/* ==========================================
-   WORKBOOK
-========================================== */
 
-const workbook = [
+/* =========================================================
+   PDF LEEREN
+========================================================= */
 
-    {
-        number: 1,
-        id: "step-1",
-        title: "Ankommen",
-        visual: null,
-        answers: []
-    },
+function clearPDF(){
 
-    {
-        number: 2,
-        id: "step-2",
-        title: "Wahrnehmen",
-        visual: "feelings",
+    pdf.innerHTML="";
 
-        answers: [
-
-            {
-                key: "feelings",
-                title: "Gefühle",
-                type: "mindmap"
-            },
-
-            {
-                key: "thoughts",
-                title: "Gedanken",
-                type: "chips"
-            },
-
-            {
-                key: "energy",
-                title: "Was kostet mich Kraft?",
-                type: "journal"
-            }
-
-        ]
-
-    },
-
-    {
-        number: 3,
-        id: "step-3",
-        title: "Verstehen",
-        visual: "patterns",
-
-        answers: [
-
-            {
-                key: "stress",
-                title: "Stressreaktion",
-                type: "highlight"
-            },
-
-            {
-                key: "patterns",
-                title: "Verhaltensmuster",
-                type: "chips"
-            },
-
-            {
-                key: "reflection",
-                title: "Eigene Reflexion",
-                type: "journal"
-            }
-
-        ]
-
-    },
-
-    {
-        number: 4,
-        id: "step-4",
-        title: "Erkennen",
-        visual: "warnings",
-
-        answers: [
-
-            {
-                key: "relationshipExperiences",
-                title: "Eigene Erfahrungen",
-                type: "chips"
-            },
-
-            {
-                key: "warningSigns",
-                title: "Warnsignale",
-                type: "grid"
-            },
-
-            {
-                key: "realisation",
-                title: "Meine Gedanken",
-                type: "journal"
-            }
-
-        ]
-
-    },
-
-    {
-        number: 5,
-        id: "step-5",
-        title: "Stärken",
-        visual: "strengths",
-
-        answers: [
-
-            {
-                key: "resources",
-                title: "Meine Ressourcen",
-                type: "grid"
-            },
-
-            {
-                key: "strengths",
-                title: "Meine Stärken",
-                type: "mindmap"
-            },
-
-            {
-                key: "gratitude",
-                title: "Darauf bin ich stolz",
-                type: "journal"
-            }
-
-        ]
-
-    },
-
-    {
-        number: 6,
-        id: "step-6",
-        title: "Weitergehen",
-        visual: null,
-
-        answers: [
-
-            {
-                key: "insight",
-                title: "Meine Erkenntnis",
-                type: "journal"
-            },
-
-            {
-                key: "nextStep",
-                title: "Mein nächster Schritt",
-                type: "journal"
-            },
-
-            {
-                key: "futureMessage",
-                title: "Nachricht an mein zukünftiges Ich",
-                type: "letter"
-            }
-
-        ]
-
-    }
-
-];
-
-
-/* ==========================================
+}
+/* =========================================================
    WORKBOOK RENDERN
-========================================== */
+========================================================= */
 
-function renderWorkbook() {
+function renderWorkbook(){
 
-    workbook.forEach(step => {
+    workbook.forEach(step=>{
 
         renderChapter(step);
 
     });
 
 }
-/* ==========================================
-   KAPITEL RENDERN
-========================================== */
 
-function renderChapter(step) {
+
+
+/* =========================================================
+   KAPITEL
+========================================================= */
+
+function renderChapter(step){
 
     const source = document.getElementById(step.id);
 
-    if (!source) return;
+    if(!source) return;
 
     const page = createPage();
 
-    renderChapterHeader(page, source);
+    renderChapterHeader(page,source);
 
-    renderInfoCards(page, source);
+    renderInformation(page,source);
 
-    renderAnswers(page, step);
+    renderAnswers(page,step);
 
-    renderTakeaway(page, source);
+    renderTakeaway(page,source);
 
     pdf.append(page);
 
 }
 
 
-/* ==========================================
-   SEITE
-========================================== */
 
-function createPage() {
+/* =========================================================
+   SEITE
+========================================================= */
+
+function createPage(){
 
     const page = document.createElement("section");
 
-    page.className = "page";
+    page.className="page";
 
     return page;
 
 }
 
 
-/* ==========================================
-   KAPITELKOPF
-========================================== */
 
-function renderChapterHeader(page, source) {
+/* =========================================================
+   KAPITELKOPF
+========================================================= */
+
+function renderChapterHeader(page,source){
 
     const header = source.querySelector(".step__header");
 
-    if (!header) return;
+    if(!header) return;
 
     const clone = header.cloneNode(true);
 
@@ -300,20 +340,25 @@ function renderChapterHeader(page, source) {
 }
 
 
-/* ==========================================
-   INFOKARTEN
-========================================== */
 
-function renderInfoCards(page, source) {
+/* =========================================================
+   INFORMATIONEN
+========================================================= */
+
+function renderInformation(page,source){
 
     const cards = source.querySelectorAll(
-        ".card:not(.card--reflection):not(.card--takeaway)"
+
+        ".card:not(.card--reflection):not(.card--takeaway):not(.card--ending)"
+
     );
 
-    cards.forEach(card => {
+    cards.forEach(card=>{
 
         page.append(
+
             cloneCard(card)
+
         );
 
     });
@@ -321,28 +366,46 @@ function renderInfoCards(page, source) {
 }
 
 
-/* ==========================================
-   TAKEAWAY
-========================================== */
 
-function renderTakeaway(page, source) {
+/* =========================================================
+   TAKEAWAY
+========================================================= */
+
+function renderTakeaway(page,source){
 
     const takeaway = source.querySelector(".card--takeaway");
 
-    if (!takeaway) return;
+    if(takeaway){
 
-    page.append(
-        cloneCard(takeaway)
-    );
+        page.append(
+
+            cloneCard(takeaway)
+
+        );
+
+    }
+
+    const ending = source.querySelector(".card--ending");
+
+    if(ending){
+
+        page.append(
+
+            cloneCard(ending)
+
+        );
+
+    }
 
 }
 
 
-/* ==========================================
-   KARTE KLONEN
-========================================== */
 
-function cloneCard(card) {
+/* =========================================================
+   KARTE KLONEN
+========================================================= */
+
+function cloneCard(card){
 
     const clone = card.cloneNode(true);
 
@@ -351,38 +414,33 @@ function cloneCard(card) {
     return clone;
 
 }
-/* ==========================================
+
+/* =========================================================
    ANTWORTEN RENDERN
-========================================== */
+========================================================= */
 
-function renderAnswers(page, step) {
+function renderAnswers(page, step){
 
-    if (!step.answers.length) return;
-
-    const values = step.answers.filter(answer => {
-
-        return hasContent(
-            answers[answer.key]
-        );
-
-    });
-
-    if (!values.length) return;
+    if(!step.answers.length) return;
 
     const section = document.createElement("section");
 
     section.className = "pdf-answers";
 
-    values.forEach(answer => {
+    step.answers.forEach(answer=>{
 
-        switch (answer.type) {
+        const value = answers[answer.key];
+
+        if(!hasContent(value)) return;
+
+        switch(answer.type){
 
             case "mindmap":
 
                 renderMindmap(
                     section,
                     answer.title,
-                    answers[answer.key]
+                    value
                 );
 
                 break;
@@ -392,7 +450,7 @@ function renderAnswers(page, step) {
                 renderChips(
                     section,
                     answer.title,
-                    answers[answer.key]
+                    value
                 );
 
                 break;
@@ -402,7 +460,7 @@ function renderAnswers(page, step) {
                 renderGrid(
                     section,
                     answer.title,
-                    answers[answer.key]
+                    value
                 );
 
                 break;
@@ -412,7 +470,7 @@ function renderAnswers(page, step) {
                 renderJournal(
                     section,
                     answer.title,
-                    answers[answer.key]
+                    value
                 );
 
                 break;
@@ -422,7 +480,7 @@ function renderAnswers(page, step) {
                 renderHighlight(
                     section,
                     answer.title,
-                    answers[answer.key]
+                    value
                 );
 
                 break;
@@ -432,7 +490,7 @@ function renderAnswers(page, step) {
                 renderLetter(
                     section,
                     answer.title,
-                    answers[answer.key]
+                    value
                 );
 
                 break;
@@ -441,22 +499,27 @@ function renderAnswers(page, step) {
 
     });
 
-    page.append(section);
+    if(section.children.length){
+
+        page.append(section);
+
+    }
 
 }
 
 
-/* ==========================================
+
+/* =========================================================
    SICHTBARKEIT
-========================================== */
+========================================================= */
 
-function hasContent(value) {
+function hasContent(value){
 
-    if (value === undefined) return false;
+    if(value === undefined) return false;
 
-    if (value === null) return false;
+    if(value === null) return false;
 
-    if (Array.isArray(value)) {
+    if(Array.isArray(value)){
 
         return value.length > 0;
 
@@ -467,11 +530,12 @@ function hasContent(value) {
 }
 
 
-/* ==========================================
-   STANDARD KARTE
-========================================== */
 
-function createAnswerCard(title) {
+/* =========================================================
+   STANDARDKARTE
+========================================================= */
+
+function createAnswerCard(title){
 
     const card = document.createElement("article");
 
@@ -488,11 +552,35 @@ function createAnswerCard(title) {
 }
 
 
-/* ==========================================
-   HIGHLIGHT
-========================================== */
 
-function renderHighlight(parent, title, value) {
+/* =========================================================
+   JOURNAL
+========================================================= */
+
+function renderJournal(parent,title,value){
+
+    const card = createAnswerCard(title);
+
+    const journal = document.createElement("div");
+
+    journal.className = "journal";
+
+    journal.innerHTML = escapeHtml(value)
+        .replace(/\n/g,"<br>");
+
+    card.append(journal);
+
+    parent.append(card);
+
+}
+
+
+
+/* =========================================================
+   HIGHLIGHT
+========================================================= */
+
+function renderHighlight(parent,title,value){
 
     const card = createAnswerCard(title);
 
@@ -507,34 +595,11 @@ function renderHighlight(parent, title, value) {
     parent.append(card);
 
 }
-/* ==========================================
-   JOURNAL
-========================================== */
-
-function renderJournal(parent, title, value) {
-
-    const card = createAnswerCard(title);
-
-    const content = document.createElement("div");
-
-    content.className = "journal";
-
-    content.innerHTML = escapeHtml(
-        value
-    ).replace(/\n/g, "<br>");
-
-    card.append(content);
-
-    parent.append(card);
-
-}
-
-
-/* ==========================================
+/* =========================================================
    CHIPS
-========================================== */
+========================================================= */
 
-function renderChips(parent, title, values) {
+function renderChips(parent,title,values){
 
     const card = createAnswerCard(title);
 
@@ -546,7 +611,7 @@ function renderChips(parent, title, values) {
         ? values
         : [values];
 
-    list.forEach(item => {
+    list.forEach(item=>{
 
         const chip = document.createElement("span");
 
@@ -565,11 +630,12 @@ function renderChips(parent, title, values) {
 }
 
 
-/* ==========================================
-   GRID
-========================================== */
 
-function renderGrid(parent, title, values) {
+/* =========================================================
+   GRID
+========================================================= */
+
+function renderGrid(parent,title,values){
 
     const card = createAnswerCard(title);
 
@@ -581,15 +647,15 @@ function renderGrid(parent, title, values) {
         ? values
         : [values];
 
-    list.forEach(item => {
+    list.forEach(item=>{
 
-        const element = document.createElement("div");
+        const box = document.createElement("div");
 
-        element.className = "answer-grid__item";
+        box.className = "answer-grid__item";
 
-        element.textContent = item;
+        box.textContent = item;
 
-        grid.append(element);
+        grid.append(box);
 
     });
 
@@ -600,11 +666,12 @@ function renderGrid(parent, title, values) {
 }
 
 
-/* ==========================================
-   MINDMAP
-========================================== */
 
-function renderMindmap(parent, title, values) {
+/* =========================================================
+   MINDMAP
+========================================================= */
+
+function renderMindmap(parent,title,values){
 
     const card = createAnswerCard(title);
 
@@ -624,11 +691,12 @@ function renderMindmap(parent, title, values) {
         ? values
         : [values];
 
-    list.forEach((item, index) => {
+    list.slice(0,10).forEach((item,index)=>{
 
         const node = document.createElement("div");
 
-        node.className = `mindmap__item position-${index + 1}`;
+        node.className =
+            `mindmap__item position-${index+1}`;
 
         node.textContent = item;
 
@@ -641,11 +709,14 @@ function renderMindmap(parent, title, values) {
     parent.append(card);
 
 }
-/* ==========================================
-   BRIEFKARTE
-========================================== */
 
-function renderLetter(parent, title, value) {
+
+
+/* =========================================================
+   BRIEFKARTE
+========================================================= */
+
+function renderLetter(parent,title,value){
 
     const card = createAnswerCard(title);
 
@@ -655,30 +726,28 @@ function renderLetter(parent, title, value) {
 
     intro.className = "letter-intro";
 
-    intro.textContent = "Eine Nachricht an dein zukünftiges Ich";
-
-    card.append(intro);
+    intro.textContent =
+        "Eine Nachricht an dein zukünftiges Ich";
 
     const message = document.createElement("div");
 
     message.className = "letter-message";
 
-    message.innerHTML = escapeHtml(
-        value
-    ).replace(/\n/g, "<br>");
+    message.innerHTML = escapeHtml(value)
+        .replace(/\n/g,"<br>");
+
+    card.append(intro);
 
     card.append(message);
 
     parent.append(card);
 
 }
-
-
-/* ==========================================
+/* =========================================================
    COVER
-========================================== */
+========================================================= */
 
-function renderCover() {
+function renderCover(){
 
     const page = createPage();
 
@@ -686,32 +755,39 @@ function renderCover() {
 
     page.innerHTML = `
 
-        <div class="cover">
+        <section class="cover">
 
             <div class="cover__badge">
+
                 Kostenloses Workbook
+
             </div>
 
             <h1 class="cover__title">
+
                 Zurück zu dir
+
             </h1>
 
             <p class="cover__subtitle">
-                Ein kostenloses Workbook über
-                Selbstreflexion,
+
+                Ein Workbook über Selbstreflexion,
                 psychologische Zusammenhänge
                 und neue Perspektiven.
+
             </p>
 
             <div class="cover__circle">
 
                 <div class="cover__logo">
+
                     trotzdem.wahr
+
                 </div>
 
             </div>
 
-        </div>
+        </section>
 
     `;
 
@@ -720,15 +796,16 @@ function renderCover() {
 }
 
 
-/* ==========================================
-   VORWORT
-========================================== */
 
-function renderIntroduction() {
+/* =========================================================
+   EINLEITUNG
+========================================================= */
+
+function renderIntroduction(){
 
     const hero = document.querySelector(".hero");
 
-    if (!hero) return;
+    if(!hero) return;
 
     const page = createPage();
 
@@ -738,6 +815,14 @@ function renderIntroduction() {
 
     clone.classList.add("pdf-introduction");
 
+    const button = clone.querySelector("button");
+
+    if(button){
+
+        button.remove();
+
+    }
+
     page.append(clone);
 
     pdf.append(page);
@@ -745,11 +830,12 @@ function renderIntroduction() {
 }
 
 
-/* ==========================================
-   ABSCHLUSS
-========================================== */
 
-function renderEnding() {
+/* =========================================================
+   ABSCHLUSS
+========================================================= */
+
+function renderEnding(){
 
     const page = createPage();
 
@@ -757,39 +843,42 @@ function renderEnding() {
 
     page.innerHTML = `
 
-        <div class="ending">
+        <section class="ending">
 
             <h2>
+
                 Danke.
+
             </h2>
 
             <p>
 
                 Danke,
                 dass du dir Zeit
-                für dich selbst
-                genommen hast.
+                für dich selbst genommen hast.
 
             </p>
 
             <p>
 
-                Vielleicht hast du
-                heute neue Gedanken
-                entdeckt,
-                Gefühle benannt
-                oder kleine Erkenntnisse
-                gesammelt.
+                Vielleicht wirst du dieses Workbook
+                in einigen Monaten noch einmal öffnen.
+
+                Es kann spannend sein,
+                welche Antworten du dann gibst
+                und welche neuen Gedanken entstanden sind.
 
             </p>
 
             <p>
 
-                Bewahre dieses Workbook
-                gut auf.
-                Es erinnert dich daran,
-                wie weit du bereits
-                gekommen bist.
+                Entwicklung bedeutet nicht,
+                perfekt zu werden.
+
+                Entwicklung bedeutet,
+                immer wieder
+                freundlich zu sich selbst
+                zurückzufinden.
 
             </p>
 
@@ -799,117 +888,25 @@ function renderEnding() {
 
             </div>
 
-        </div>
+        </section>
 
     `;
 
     pdf.append(page);
 
 }
-/* ==========================================
-   HTML ESCAPEN
-========================================== */
-
-function escapeHtml(text) {
-
-    return String(text)
-
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
 
 
-/* ==========================================
-   RENDER WARTEN
-========================================== */
 
-function waitForRender() {
+/* =========================================================
+   FUSSZEILEN
+========================================================= */
 
-    return new Promise(resolve => {
-
-        requestAnimationFrame(() => {
-
-            requestAnimationFrame(resolve);
-
-        });
-
-    });
-
-}
-
-
-/* ==========================================
-   PDF EXPORT
-========================================== */
-
-async function exportPDF() {
-
-    const options = {
-
-        margin: 0,
-
-        filename: "trotzdem.wahr_Workbook.pdf",
-
-        image: {
-            type: "jpeg",
-            quality: 1
-        },
-
-        html2canvas: {
-            scale: 2,
-            useCORS: true,
-            scrollY: 0,
-            backgroundColor: "#ffffff"
-        },
-
-        jsPDF: {
-            unit: "mm",
-            format: "a4",
-            orientation: "portrait"
-        },
-
-        pagebreak: {
-            mode: [
-                "css",
-                "legacy"
-            ],
-            avoid: [
-                ".card",
-                ".answer-card",
-                ".mindmap",
-                ".journal",
-                ".answer-grid",
-                ".highlight-box",
-                ".letter-card"
-            ]
-        }
-
-    };
-
-    await html2pdf()
-
-        .set(options)
-
-        .from(pdf)
-
-        .save();
-
-}
-
-
-/* ==========================================
-   PDF SEITENNUMMERN
-========================================== */
-
-function addPageNumbers() {
+function addPageNumbers(){
 
     const pages = pdf.querySelectorAll(".page");
 
-    pages.forEach((page, index) => {
+    pages.forEach((page,index)=>{
 
         const footer = document.createElement("footer");
 
@@ -925,7 +922,7 @@ function addPageNumbers() {
 
             <span>
 
-                Seite ${index + 1}
+                Seite ${index+1}
 
             </span>
 
@@ -938,26 +935,89 @@ function addPageNumbers() {
 }
 
 
-/* ==========================================
-   PDF STARTEN
-========================================== */
 
-async function initialisePDF() {
+/* =========================================================
+   HILFSFUNKTIONEN
+========================================================= */
 
-    clearPDF();
+function escapeHtml(text){
 
-    renderCover();
+    return String(text)
 
-    renderIntroduction();
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
-    renderWorkbook();
+}
 
-    renderEnding();
 
-    addPageNumbers();
 
-    await waitForRender();
+function waitForRender(){
 
-    await exportPDF();
+    return new Promise(resolve=>{
+
+        requestAnimationFrame(()=>{
+
+            requestAnimationFrame(resolve);
+
+        });
+
+    });
+
+}
+
+
+
+/* =========================================================
+   PDF EXPORT
+========================================================= */
+
+async function exportPDF(){
+
+    await html2pdf()
+
+        .set({
+
+            margin:0,
+
+            filename:"trotzdem.wahr_Workbook.pdf",
+
+            image:{
+                type:"jpeg",
+                quality:1
+            },
+
+            html2canvas:{
+                scale:2,
+                useCORS:true,
+                scrollY:0,
+                backgroundColor:"#F8F5F1"
+            },
+
+            jsPDF:{
+                unit:"mm",
+                format:"a4",
+                orientation:"portrait"
+            },
+
+            pagebreak:{
+                mode:["css","legacy"],
+                avoid:[
+                    ".pdf-card",
+                    ".answer-card",
+                    ".mindmap",
+                    ".journal",
+                    ".letter-card",
+                    ".answer-grid"
+                ]
+            }
+
+        })
+
+        .from(pdf)
+
+        .save();
 
 }
