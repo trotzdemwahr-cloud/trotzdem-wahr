@@ -9,7 +9,11 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-    <title>Zurück zu dir | trotzdem.wahr</title>
+    <title>
+
+        Zurück zu dir | trotzdem.wahr
+
+    </title>
 
     <meta
         name="description"
@@ -17,7 +21,7 @@
 
     <meta
         name="theme-color"
-        content="#CFEAF7">
+        content="#D7E8E4">
 
     <link
         rel="preconnect"
@@ -42,11 +46,16 @@
 
     <main class="workbook">
 
+
+
+
         <!-- ==========================================
              HERO
         =========================================== -->
 
-        <header class="hero">
+        <header
+            class="hero"
+            id="hero">
 
             <span class="hero__badge">
 
@@ -62,43 +71,57 @@
 
             <p class="hero__subtitle">
 
-                Ein kostenloses Workbook über Selbstreflexion,
+                Ein kostenloses Workbook
+                über Selbstreflexion,
                 psychologische Zusammenhänge
                 und neue Perspektiven.
 
             </p>
 
-            <div class="hero__intro">
+            <div class="hero__content">
 
                 <p>
 
-                    Vielleicht bist du neugierig auf Psychologie.
-                    Vielleicht möchtest du dich selbst besser verstehen
-                    oder bist durch die Themen auf trotzdem.wahr hier
-                    gelandet.
+                    Vielleicht bist du neugierig
+                    auf Psychologie.
+                    Vielleicht möchtest du dich
+                    selbst besser verstehen.
 
                 </p>
 
                 <p>
 
-                    Ganz gleich,
-                    warum du dieses Workbook geöffnet hast –
-                    es gibt kein richtig oder falsch.
+                    Dieses Workbook begleitet dich
+                    Schritt für Schritt.
+
+                    Ohne Druck.
+
+                    Ohne Bewertung.
+
+                </p>
+
+                <p>
+
                     Es geht nicht darum,
-                    perfekt zu antworten.
+                    perfekte Antworten zu finden.
 
-                </p>
-
-                <p>
-
-                    Es geht darum,
-                    dir selbst ein Stück näher zu kommen.
+                    Sondern darum,
+                    dir selbst ehrlich zu begegnen.
 
                 </p>
 
             </div>
 
+            <button
+                class="button button--primary"
+                id="startWorkbook">
+
+                Workbook starten
+
+            </button>
+
         </header>
+
 
 
 
@@ -106,11 +129,17 @@
              FORTSCHRITT
         =========================================== -->
 
-        <section class="progress">
+        <section
+            class="progress"
+            id="progress">
 
             <div class="progress__bar">
 
-                <div class="progress__fill"></div>
+                <div
+                    class="progress__fill"
+                    id="progressFill">
+
+                </div>
 
             </div>
 
@@ -118,7 +147,7 @@
 
                 Schritt
 
-                <span id="current-step">
+                <span id="currentStep">
 
                     1
 
@@ -129,18 +158,15 @@
             </p>
 
         </section>
-
-
-
-        <!-- ==========================================
+                <!-- ==========================================
              SCHRITT 1
         =========================================== -->
 
         <section
-            class="step"
+            class="step active"
             id="step-1">
 
-            <div class="step__header">
+            <header class="step__header">
 
                 <span class="step__number">
 
@@ -160,7 +186,8 @@
 
                 </p>
 
-            </div>
+            </header>
+
 
 
             <article class="card">
@@ -176,17 +203,25 @@
                     Wenn wir beginnen,
                     uns selbst besser kennenzulernen,
                     entsteht oft der Wunsch,
-                    sofort Antworten zu finden.
+                    sofort Antworten finden zu müssen.
 
                 </p>
 
                 <p>
 
-                    Doch Selbstreflexion ist kein Test
-                    und keine Prüfung.
+                    Doch Selbstreflexion ist kein Test.
+                    Sie beginnt nicht mit Leistung,
+                    sondern mit Aufmerksamkeit.
 
-                    Sie beginnt mit Aufmerksamkeit –
-                    nicht mit Perfektion.
+                </p>
+
+                <p>
+
+                    Nimm dir deshalb Zeit.
+                    Dieses Workbook begleitet dich
+                    Schritt für Schritt.
+                    Jede Antwort darf genau so sein,
+                    wie sie sich für dich richtig anfühlt.
 
                 </p>
 
@@ -207,10 +242,18 @@
                     Unser Gehirn verarbeitet Informationen
                     besonders gut,
                     wenn wir uns sicher fühlen.
+                    Unter Stress reagieren wir häufig automatisch,
+                    während ruhige Momente es ermöglichen,
+                    neue Zusammenhänge bewusster wahrzunehmen.
 
-                    Deshalb entstehen viele wichtige Erkenntnisse
-                    nicht unter Druck,
-                    sondern in ruhigen Momenten.
+                </p>
+
+                <p>
+
+                    Genau deshalb beginnt Veränderung
+                    oft nicht mit einer großen Entscheidung,
+                    sondern mit einem Moment,
+                    in dem wir uns selbst ehrlich begegnen.
 
                 </p>
 
@@ -228,12 +271,9 @@
 
                 <p>
 
-                    Nimm dir Zeit.
-
-                    Dieses Workbook läuft nicht weg.
-
-                    Jeder Weg beginnt
-                    mit einem ersten Schritt.
+                    Du musst heute nichts erreichen.
+                    Es reicht,
+                    wenn du neugierig auf dich selbst bist.
 
                 </p>
 
@@ -248,7 +288,7 @@
             class="step"
             id="step-2">
 
-            <div class="step__header">
+            <header class="step__header">
 
                 <span class="step__number">
 
@@ -268,7 +308,7 @@
 
                 </p>
 
-            </div>
+            </header>
 
 
 
@@ -283,17 +323,21 @@
                 <p>
 
                     Im Alltag funktionieren wir oft einfach weiter.
-                    Zwischen Verpflichtungen, Gedanken und Routinen
-                    bleibt wenig Raum, bewusst wahrzunehmen,
+                    Zwischen Verpflichtungen,
+                    Gedanken und Routinen bleibt nur wenig Raum,
+                    bewusst wahrzunehmen,
                     wie es uns eigentlich geht.
 
                 </p>
 
                 <p>
 
-                    Gefühle, Gedanken und körperliche Reaktionen
-                    geben uns Hinweise darauf,
-                    was wir gerade brauchen.
+                    Gefühle,
+                    Gedanken und körperliche Reaktionen
+                    sind keine Schwäche.
+                    Sie geben Hinweise darauf,
+                    was wir brauchen
+                    und was uns im Moment beschäftigt.
 
                 </p>
 
@@ -313,10 +357,17 @@
 
                     Gefühle entstehen nicht zufällig.
                     Sie helfen unserem Gehirn,
-                    Situationen einzuordnen und auf Bedürfnisse
+                    Situationen einzuordnen
+                    und auf erfüllte oder unerfüllte Bedürfnisse
                     aufmerksam zu machen.
-                    Auch unangenehme Gefühle erfüllen deshalb
-                    oft eine wichtige Aufgabe.
+
+                </p>
+
+                <p>
+
+                    Wer Gefühle wahrnimmt,
+                    kann bewusster handeln,
+                    statt nur automatisch zu reagieren.
 
                 </p>
 
@@ -333,6 +384,7 @@
                 </h3>
 
 
+
                 <label>
 
                     Welche Gefühle begleiten dich im Moment besonders häufig?
@@ -341,55 +393,25 @@
 
                 <div class="options">
 
-                    <label>
-                        <input type="checkbox" name="feelings" value="ruhig">
-                        ruhig
-                    </label>
+                    <label><input type="checkbox" name="feelings" value="ruhig"> ruhig</label>
 
-                    <label>
-                        <input type="checkbox" name="feelings" value="zufrieden">
-                        zufrieden
-                    </label>
+                    <label><input type="checkbox" name="feelings" value="zufrieden"> zufrieden</label>
 
-                    <label>
-                        <input type="checkbox" name="feelings" value="hoffnungsvoll">
-                        hoffnungsvoll
-                    </label>
+                    <label><input type="checkbox" name="feelings" value="hoffnungsvoll"> hoffnungsvoll</label>
 
-                    <label>
-                        <input type="checkbox" name="feelings" value="dankbar">
-                        dankbar
-                    </label>
+                    <label><input type="checkbox" name="feelings" value="dankbar"> dankbar</label>
 
-                    <label>
-                        <input type="checkbox" name="feelings" value="unsicher">
-                        unsicher
-                    </label>
+                    <label><input type="checkbox" name="feelings" value="unsicher"> unsicher</label>
 
-                    <label>
-                        <input type="checkbox" name="feelings" value="überfordert">
-                        überfordert
-                    </label>
+                    <label><input type="checkbox" name="feelings" value="überfordert"> überfordert</label>
 
-                    <label>
-                        <input type="checkbox" name="feelings" value="traurig">
-                        traurig
-                    </label>
+                    <label><input type="checkbox" name="feelings" value="traurig"> traurig</label>
 
-                    <label>
-                        <input type="checkbox" name="feelings" value="erschöpft">
-                        erschöpft
-                    </label>
+                    <label><input type="checkbox" name="feelings" value="erschöpft"> erschöpft</label>
 
-                    <label>
-                        <input type="checkbox" name="feelings" value="ängstlich">
-                        ängstlich
-                    </label>
+                    <label><input type="checkbox" name="feelings" value="ängstlich"> ängstlich</label>
 
-                    <label>
-                        <input type="checkbox" name="feelings" value="wütend">
-                        wütend
-                    </label>
+                    <label><input type="checkbox" name="feelings" value="wütend"> wütend</label>
 
                 </div>
 
@@ -403,35 +425,17 @@
 
                 <div class="options">
 
-                    <label>
-                        <input type="checkbox" name="thoughts" value="Ich mache mir viele Sorgen.">
-                        Ich mache mir viele Sorgen.
-                    </label>
+                    <label><input type="checkbox" name="thoughts" value="Ich mache mir viele Sorgen."> Ich mache mir viele Sorgen.</label>
 
-                    <label>
-                        <input type="checkbox" name="thoughts" value="Ich denke oft zu viel nach.">
-                        Ich denke oft zu viel nach.
-                    </label>
+                    <label><input type="checkbox" name="thoughts" value="Ich denke oft zu viel nach."> Ich denke oft zu viel nach.</label>
 
-                    <label>
-                        <input type="checkbox" name="thoughts" value="Ich zweifle häufig an mir.">
-                        Ich zweifle häufig an mir.
-                    </label>
+                    <label><input type="checkbox" name="thoughts" value="Ich zweifle häufig an mir."> Ich zweifle häufig an mir.</label>
 
-                    <label>
-                        <input type="checkbox" name="thoughts" value="Ich möchte allem gerecht werden.">
-                        Ich möchte allem gerecht werden.
-                    </label>
+                    <label><input type="checkbox" name="thoughts" value="Ich möchte allem gerecht werden."> Ich möchte allem gerecht werden.</label>
 
-                    <label>
-                        <input type="checkbox" name="thoughts" value="Ich bin oft sehr streng mit mir.">
-                        Ich bin oft sehr streng mit mir.
-                    </label>
+                    <label><input type="checkbox" name="thoughts" value="Ich bin oft sehr streng mit mir."> Ich bin oft sehr streng mit mir.</label>
 
-                    <label>
-                        <input type="checkbox" name="thoughts" value="Ich wünsche mir mehr Ruhe.">
-                        Ich wünsche mir mehr Ruhe.
-                    </label>
+                    <label><input type="checkbox" name="thoughts" value="Ich wünsche mir mehr Ruhe."> Ich wünsche mir mehr Ruhe.</label>
 
                 </div>
 
@@ -445,7 +449,7 @@
 
                 <textarea
                     id="energy"
-                    rows="5"
+                    rows="6"
                     placeholder="Schreibe hier deine Gedanken auf..."></textarea>
 
             </article>
@@ -465,16 +469,16 @@
                     Gefühle sind weder richtig noch falsch.
                     Sie möchten dir etwas zeigen.
                     Oft beginnt Veränderung nicht mit einer Lösung,
-                    sondern damit,
+                    sondern mit dem Mut,
                     ehrlich wahrzunehmen,
-                    was gerade da ist.
+                    was bereits da ist.
 
                 </p>
 
             </article>
 
         </section>
-               <!-- ==========================================
+                <!-- ==========================================
              SCHRITT 3
         =========================================== -->
 
@@ -482,7 +486,7 @@
             class="step"
             id="step-3">
 
-            <div class="step__header">
+            <header class="step__header">
 
                 <span class="step__number">
 
@@ -502,7 +506,7 @@
 
                 </p>
 
-            </div>
+            </header>
 
 
 
@@ -518,7 +522,7 @@
 
                     Jeder Mensch entwickelt im Laufe seines Lebens
                     Erfahrungen, Gewohnheiten und Strategien.
-                    Viele davon laufen automatisch ab.
+                    Viele davon laufen unbewusst ab.
                     Deshalb reagieren wir manchmal schneller,
                     als wir bewusst darüber nachdenken können.
 
@@ -527,7 +531,9 @@
                 <p>
 
                     Das ist kein Zeichen von Schwäche,
-                    sondern eine normale Aufgabe unseres Gehirns.
+                    sondern eine normale Schutzfunktion unseres Gehirns.
+                    Je besser wir unsere Muster kennen,
+                    desto bewusster können wir mit ihnen umgehen.
 
                 </p>
 
@@ -545,13 +551,20 @@
 
                 <p>
 
-                    Unser Gehirn versucht ständig,
-                    neue Situationen mit bereits gemachten Erfahrungen
-                    zu vergleichen.
-                    Dadurch kann es schnell reagieren und uns schützen.
-                    Manchmal führt das jedoch dazu,
-                    dass wir stärker reagieren,
-                    als eine Situation es eigentlich erfordern würde.
+                    Unser Gehirn vergleicht neue Situationen
+                    ständig mit bereits gemachten Erfahrungen.
+                    Dadurch kann es blitzschnell reagieren
+                    und uns vor möglichen Gefahren schützen.
+
+                </p>
+
+                <p>
+
+                    Manchmal greifen diese automatischen Reaktionen
+                    jedoch auch dann,
+                    wenn sie heute gar nicht mehr notwendig wären.
+                    Genau deshalb lohnt es sich,
+                    eigene Muster bewusst kennenzulernen.
 
                 </p>
 
@@ -725,7 +738,7 @@
 
                 <textarea
                     id="reflection"
-                    rows="5"
+                    rows="6"
                     placeholder="Beschreibe die Situation..."></textarea>
 
             </article>
@@ -746,8 +759,8 @@
                     alles sofort verändern zu müssen.
                     Oft beginnt Entwicklung bereits in dem Moment,
                     in dem wir erkennen,
-                    dass unser Verhalten einen Ursprung hat
-                    und nicht einfach „falsch“ ist.
+                    warum wir so reagieren,
+                    wie wir reagieren.
 
                 </p>
 
@@ -762,7 +775,7 @@
             class="step"
             id="step-4">
 
-            <div class="step__header">
+            <header class="step__header">
 
                 <span class="step__number">
 
@@ -782,7 +795,7 @@
 
                 </p>
 
-            </div>
+            </header>
 
 
 
@@ -796,20 +809,21 @@
 
                 <p>
 
-                    Beziehungen können uns Halt geben,
-                    Vertrauen stärken und Sicherheit vermitteln.
+                    Beziehungen können Sicherheit,
+                    Vertrauen und Geborgenheit schenken.
                     Gleichzeitig gibt es Beziehungen,
-                    in denen sich Menschen zunehmend verunsichert,
+                    in denen Menschen sich zunehmend
+                    verunsichert,
                     kontrolliert oder klein fühlen.
 
                 </p>
 
                 <p>
 
-                    Solche Dynamiken entstehen oft schleichend.
-                    Gerade deshalb erkennen Betroffene,
-                    aber auch Angehörige,
-                    sie häufig erst sehr spät.
+                    Solche Dynamiken entwickeln sich
+                    meist schleichend.
+                    Gerade deshalb werden sie häufig
+                    erst sehr spät erkannt.
 
                 </p>
 
@@ -827,13 +841,20 @@
 
                 <p>
 
-                    Psychische Gewalt beginnt selten plötzlich.
-                    Häufig entwickelt sie sich durch wiederholte
-                    Grenzüberschreitungen, Manipulation,
+                    Psychische Gewalt beginnt nur selten
+                    mit einem einzelnen Ereignis.
+                    Häufig entsteht sie durch viele kleine
+                    Grenzüberschreitungen,
+                    Manipulation,
                     Kontrolle oder Abwertung.
+
+                </p>
+
+                <p>
+
                     Wissen über solche Dynamiken hilft,
                     Erfahrungen besser einzuordnen,
-                    ohne vorschnell Schlussfolgerungen ziehen zu müssen.
+                    ohne vorschnell urteilen zu müssen.
 
                 </p>
 
@@ -860,18 +881,15 @@
                 <div class="options">
 
                     <label>
-
                         <input
                             type="checkbox"
                             name="relationshipExperiences"
                             value="Meine Gefühle wurden häufig heruntergespielt.">
 
                         Meine Gefühle wurden häufig heruntergespielt.
-
                     </label>
 
                     <label>
-
                         <input
                             type="checkbox"
                             name="relationshipExperiences"
@@ -879,33 +897,27 @@
 
                         Ich hatte oft das Gefühl,
                         ständig etwas falsch zu machen.
-
                     </label>
 
                     <label>
-
                         <input
                             type="checkbox"
                             name="relationshipExperiences"
                             value="Ich habe häufig an meiner eigenen Wahrnehmung gezweifelt.">
 
                         Ich habe häufig an meiner eigenen Wahrnehmung gezweifelt.
-
                     </label>
 
                     <label>
-
                         <input
                             type="checkbox"
                             name="relationshipExperiences"
                             value="Meine persönlichen Grenzen wurden nicht ernst genommen.">
 
                         Meine persönlichen Grenzen wurden nicht ernst genommen.
-
                     </label>
 
                     <label>
-
                         <input
                             type="checkbox"
                             name="relationshipExperiences"
@@ -913,18 +925,15 @@
 
                         Ich habe mich oft entschuldigt,
                         ohne genau zu wissen warum.
-
                     </label>
 
                     <label>
-
                         <input
                             type="checkbox"
                             name="relationshipExperiences"
                             value="Keine dieser Aussagen trifft auf mich zu.">
 
                         Keine dieser Aussagen trifft auf mich zu.
-
                     </label>
 
                 </div>
@@ -937,72 +946,60 @@
 
                 </label>
 
-                <div class="options">
+                <div class="options options--grid">
 
                     <label>
-
                         <input
                             type="checkbox"
                             name="warningSigns"
                             value="ständige Kontrolle">
 
                         ständige Kontrolle
-
                     </label>
 
                     <label>
-
                         <input
                             type="checkbox"
                             name="warningSigns"
                             value="abwertende Bemerkungen">
 
                         abwertende Bemerkungen
-
                     </label>
 
                     <label>
-
                         <input
                             type="checkbox"
                             name="warningSigns"
                             value="Schuldzuweisungen">
 
                         Schuldzuweisungen
-
                     </label>
 
                     <label>
-
                         <input
                             type="checkbox"
                             name="warningSigns"
                             value="Eifersucht als Liebesbeweis">
 
                         Eifersucht als Liebesbeweis
-
                     </label>
 
                     <label>
-
                         <input
                             type="checkbox"
                             name="warningSigns"
                             value="Drohungen">
 
                         Drohungen
-
                     </label>
 
                     <label>
-
                         <input
                             type="checkbox"
                             name="warningSigns"
                             value="wiederholte Grenzüberschreitungen">
 
                         wiederholte Grenzüberschreitungen
-
                     </label>
 
                 </div>
@@ -1017,7 +1014,7 @@
 
                 <textarea
                     id="realisation"
-                    rows="5"
+                    rows="6"
                     placeholder="Schreibe hier deine Gedanken auf..."></textarea>
 
             </article>
@@ -1034,13 +1031,14 @@
 
                 <p>
 
-                    Nicht jede schwierige Situation ist Gewalt.
+                    Nicht jede schwierige Situation
+                    ist psychische Gewalt.
                     Gleichzeitig verdienen Manipulation,
-                    Abwertung und wiederholte Grenzüberschreitungen
-                    Aufmerksamkeit.
+                    wiederholte Grenzüberschreitungen
+                    und Abwertung Aufmerksamkeit.
                     Wissen hilft,
-                    Erfahrungen bewusster einzuordnen
-                    und den eigenen Gefühlen zu vertrauen.
+                    den eigenen Gefühlen
+                    wieder mehr zu vertrauen.
 
                 </p>
 
@@ -1055,7 +1053,7 @@
             class="step"
             id="step-5">
 
-            <div class="step__header">
+            <header class="step__header">
 
                 <span class="step__number">
 
@@ -1075,7 +1073,7 @@
 
                 </p>
 
-            </div>
+            </header>
 
 
 
@@ -1090,9 +1088,9 @@
                 <p>
 
                     Wenn wir belastende Erfahrungen machen,
-                    richten wir unseren Blick oft auf das,
+                    richtet sich unser Blick häufig auf das,
                     was nicht funktioniert.
-                    Dabei geraten unsere Fähigkeiten,
+                    Dadurch geraten unsere Fähigkeiten,
                     Werte und Ressourcen leicht in den Hintergrund.
 
                 </p>
@@ -1100,7 +1098,7 @@
                 <p>
 
                     Stärke bedeutet nicht,
-                    immer stark zu sein.
+                    immer stark sein zu müssen.
                     Stärke bedeutet auch,
                     Hilfe anzunehmen,
                     Grenzen zu setzen
@@ -1122,13 +1120,20 @@
 
                 <p>
 
-                    Die Psychologie beschreibt Resilienz als die Fähigkeit,
+                    Psychologinnen und Psychologen
+                    beschreiben Resilienz als die Fähigkeit,
                     mit Belastungen umzugehen
                     und sich nach schwierigen Erfahrungen
                     wieder zu stabilisieren.
-                    Resilienz ist keine angeborene Eigenschaft,
-                    sondern entwickelt sich durch Erfahrungen,
-                    Beziehungen und kleine Schritte im Alltag.
+
+                </p>
+
+                <p>
+
+                    Resilienz ist keine angeborene Eigenschaft.
+                    Sie entwickelt sich durch Beziehungen,
+                    Erfahrungen und viele kleine Schritte
+                    im Alltag.
 
                 </p>
 
@@ -1152,7 +1157,7 @@
 
                 </label>
 
-                <div class="options">
+                <div class="options options--grid">
 
                     <label>
 
@@ -1252,7 +1257,7 @@
 
                 </label>
 
-                <div class="options">
+                <div class="options options--grid">
 
                     <label>
 
@@ -1355,7 +1360,7 @@
 
                 <textarea
                     id="gratitude"
-                    rows="5"
+                    rows="6"
                     placeholder="Schreibe hier deine Gedanken auf..."></textarea>
 
             </article>
@@ -1374,11 +1379,11 @@
 
                     Selbstwert entsteht selten
                     durch einen einzigen großen Erfolg.
-                    Oft wächst er in den kleinen Momenten,
+                    Er wächst häufig in den kleinen Momenten,
                     in denen wir freundlich mit uns selbst umgehen,
                     unsere Grenzen ernst nehmen
                     und erkennen,
-                    dass wir bereits vieles in uns tragen.
+                    was bereits alles in uns steckt.
 
                 </p>
 
@@ -1393,7 +1398,7 @@
             class="step"
             id="step-6">
 
-            <div class="step__header">
+            <header class="step__header">
 
                 <span class="step__number">
 
@@ -1413,7 +1418,7 @@
 
                 </p>
 
-            </div>
+            </header>
 
 
 
@@ -1427,8 +1432,9 @@
 
                 <p>
 
-                    Vielleicht hast du in diesem Workbook neue Gedanken
-                    entdeckt. Vielleicht hast du manches bestätigt gefunden
+                    Vielleicht hast du in diesem Workbook
+                    neue Gedanken entdeckt.
+                    Vielleicht hast du manches bestätigt gefunden
                     oder Fragen mitgenommen,
                     auf die es heute noch keine Antwort gibt.
 
@@ -1436,9 +1442,12 @@
 
                 <p>
 
-                    Das ist völlig in Ordnung.
-                    Persönliche Entwicklung endet nicht mit einer letzten Seite,
-                    sondern begleitet uns ein Leben lang.
+                    Persönliche Entwicklung endet nicht
+                    mit der letzten Seite.
+                    Sie begleitet uns im Alltag –
+                    in kleinen Entscheidungen,
+                    Gesprächen und Momenten,
+                    in denen wir uns selbst begegnen.
 
                 </p>
 
@@ -1456,11 +1465,18 @@
 
                 <p>
 
-                    Nachhaltige Veränderungen entstehen selten
-                    durch einen einzigen großen Moment.
+                    Nachhaltige Veränderungen entstehen
+                    selten durch einen einzigen großen Moment.
                     Viel häufiger entwickeln sie sich
                     durch viele kleine Entscheidungen,
                     die wir immer wieder treffen.
+
+                </p>
+
+                <p>
+
+                    Schon ein kleiner Schritt
+                    kann langfristig einen großen Unterschied machen.
 
                 </p>
 
@@ -1475,6 +1491,162 @@
                     Reflexion
 
                 </h3>
+
+
+
+                <label>
+
+                    Was möchtest du aus diesem Workbook besonders mitnehmen?
+
+                </label>
+
+                <div class="options options--grid">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="takeaway"
+                            value="Ich möchte achtsamer mit mir umgehen.">
+
+                        Ich möchte achtsamer mit mir umgehen.
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="takeaway"
+                            value="Ich möchte meine Gefühle ernster nehmen.">
+
+                        Ich möchte meine Gefühle ernster nehmen.
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="takeaway"
+                            value="Ich möchte freundlicher mit mir sprechen.">
+
+                        Ich möchte freundlicher mit mir sprechen.
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="takeaway"
+                            value="Ich möchte meine Grenzen deutlicher setzen.">
+
+                        Ich möchte meine Grenzen deutlicher setzen.
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="takeaway"
+                            value="Ich möchte Hilfe annehmen dürfen.">
+
+                        Ich möchte Hilfe annehmen dürfen.
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="takeaway"
+                            value="Ich möchte neugierig auf mich bleiben.">
+
+                        Ich möchte neugierig auf mich bleiben.
+
+                    </label>
+
+                </div>
+
+
+
+                <label>
+
+                    Wer oder was kann dich auf deinem Weg unterstützen?
+
+                </label>
+
+                <div class="options options--grid">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="support"
+                            value="Familie">
+
+                        Familie
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="support"
+                            value="Freundinnen und Freunde">
+
+                        Freundinnen und Freunde
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="support"
+                            value="Therapie oder Beratung">
+
+                        Therapie oder Beratung
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="support"
+                            value="Selbstfürsorge">
+
+                        Selbstfürsorge
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="support"
+                            value="Zeit für mich">
+
+                        Zeit für mich
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="support"
+                            value="Ich weiß es noch nicht.">
+
+                        Ich weiß es noch nicht.
+
+                    </label>
+
+                </div>
 
 
 
@@ -1506,16 +1678,14 @@
 
                 <label>
 
-                    Wenn dein zukünftiges Ich diese Seite
-                    in einem Jahr lesen würde –
-                    was möchtest du ihm heute mitgeben?
+                    Schreibe deinem zukünftigen Ich eine Nachricht.
 
                 </label>
 
                 <textarea
                     id="futureMessage"
-                    rows="6"
-                    placeholder="Eine Nachricht an mein zukünftiges Ich..."></textarea>
+                    rows="8"
+                    placeholder="Liebes zukünftiges Ich ..."></textarea>
 
             </article>
 
@@ -1534,8 +1704,8 @@
                     Du musst heute nicht alle Antworten kennen.
                     Es reicht,
                     wenn du bereit bist,
-                    neugierig auf dich selbst zu bleiben.
-                    Jeder kleine Schritt ist wertvoll.
+                    dir selbst mit Offenheit,
+                    Geduld und Mitgefühl zu begegnen.
 
                 </p>
 
@@ -1587,8 +1757,8 @@
 
             <p class="footer__text">
 
-                Dieses Workbook dient der persönlichen
-                Selbstreflexion und ersetzt keine psychologische,
+                Dieses Workbook dient der persönlichen Selbstreflexion.
+                Es ersetzt keine psychologische,
                 psychotherapeutische oder medizinische Beratung.
 
             </p>
