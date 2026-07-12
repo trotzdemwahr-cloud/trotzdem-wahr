@@ -2,26 +2,23 @@
 ========================================================
 
 trotzdem.wahr
-PDF
+Workbook PDF
 
 ========================================================
 */
 
 
 /* ==========================================
-   ELEMENTE
+   KONSTANTEN
 ========================================== */
-
-const pdf = document.getElementById("pdf");
 
 const STORAGE_KEY = "trotzdemWahrWorkbook";
 
+const pdf = document.getElementById("pdf");
+
 const answers = JSON.parse(
-
     localStorage.getItem(STORAGE_KEY)
-
 ) || {};
-
 
 
 /* ==========================================
@@ -29,436 +26,812 @@ const answers = JSON.parse(
 ========================================== */
 
 document.addEventListener(
-
     "DOMContentLoaded",
-
     initialisePDF
-
 );
 
 
+async function initialisePDF() {
 
-/* ==========================================
-   INITIALISIEREN
-========================================== */
+    clearPDF();
 
-async function initialisePDF(){
+    renderCover();
 
-    createCover();
+    renderIntroduction();
 
-    createWorkbook();
+    renderWorkbook();
 
-    await waitForRendering();
+    renderEnding();
 
-    await generatePDF();
+    await waitForRender();
 
-}
-/* ==========================================
-   COVER
-========================================== */
-
-function createCover(){
-
-    pdf.insertAdjacentHTML(
-
-        "beforeend",
-
-        `
-
-        <section class="cover page">
-
-            <div class="cover__badge">
-
-                Kostenloses Workbook
-
-            </div>
-
-            <h1 class="cover__title">
-
-                Zurück zu dir
-
-            </h1>
-
-            <p class="cover__subtitle">
-
-                Dein persönliches Workbook
-                von trotzdem.wahr.
-
-                Dieses Dokument enthält
-                deine eigenen Gedanken,
-                Reflexionen und Erkenntnisse.
-
-            </p>
-
-            <div class="cover__footer">
-
-                trotzdem.wahr
-
-            </div>
-
-        </section>
-
-        `
-
-    );
+    await exportPDF();
 
 }
+
+
 /* ==========================================
-   SCHRITTE
+   PDF LEEREN
+========================================== */
+
+function clearPDF() {
+
+    pdf.innerHTML = "";
+
+}
+
+
+/* ==========================================
+   WORKBOOK
 ========================================== */
 
 const workbook = [
 
     {
-
-        title:"Ankommen",
-
-        quote:"„Du musst heute nichts leisten.“",
-
-        answers:[]
-
+        number: 1,
+        id: "step-1",
+        title: "Ankommen",
+        visual: null,
+        answers: []
     },
 
     {
+        number: 2,
+        id: "step-2",
+        title: "Wahrnehmen",
+        visual: "feelings",
 
-        title:"Wahrnehmen",
+        answers: [
 
-        quote:"„Alles beginnt damit, ehrlich hinzuschauen.“",
+            {
+                key: "feelings",
+                title: "Gefühle",
+                type: "mindmap"
+            },
 
-        answers:[
+            {
+                key: "thoughts",
+                title: "Gedanken",
+                type: "chips"
+            },
 
-            ["Gefühle","feelings"],
-
-            ["Gedanken","thoughts"],
-
-            ["Was kostet Kraft?","energy"]
+            {
+                key: "energy",
+                title: "Was kostet mich Kraft?",
+                type: "journal"
+            }
 
         ]
 
     },
 
     {
+        number: 3,
+        id: "step-3",
+        title: "Verstehen",
+        visual: "patterns",
 
-        title:"Verstehen",
+        answers: [
 
-        quote:"„Verstehen verändert den Blick.“",
+            {
+                key: "stress",
+                title: "Stressreaktion",
+                type: "highlight"
+            },
 
-        answers:[
+            {
+                key: "patterns",
+                title: "Verhaltensmuster",
+                type: "chips"
+            },
 
-            ["Stressreaktion","stress"],
-
-            ["Verhaltensmuster","patterns"],
-
-            ["Reflexion","reflection"]
-
-        ]
-
-    },
-
-    {
-
-        title:"Erkennen",
-
-        quote:"„Verstehen schafft Orientierung.“",
-
-        answers:[
-
-            ["Erfahrungen","relationshipExperiences"],
-
-            ["Warnsignale","warningSigns"],
-
-            ["Gedanken","realisation"]
+            {
+                key: "reflection",
+                title: "Eigene Reflexion",
+                type: "journal"
+            }
 
         ]
 
     },
 
     {
+        number: 4,
+        id: "step-4",
+        title: "Erkennen",
+        visual: "warnings",
 
-        title:"Stärken",
+        answers: [
 
-        quote:"„Du bist mehr als deine schwierigsten Tage.“",
+            {
+                key: "relationshipExperiences",
+                title: "Eigene Erfahrungen",
+                type: "chips"
+            },
 
-        answers:[
+            {
+                key: "warningSigns",
+                title: "Warnsignale",
+                type: "grid"
+            },
 
-            ["Ressourcen","resources"],
-
-            ["Stärken","strengths"],
-
-            ["Darauf bin ich stolz","gratitude"]
+            {
+                key: "realisation",
+                title: "Meine Gedanken",
+                type: "journal"
+            }
 
         ]
 
     },
 
     {
+        number: 5,
+        id: "step-5",
+        title: "Stärken",
+        visual: "strengths",
 
-        title:"Weitergehen",
+        answers: [
 
-        quote:"„Jeder Weg entsteht Schritt für Schritt.“",
+            {
+                key: "resources",
+                title: "Meine Ressourcen",
+                type: "grid"
+            },
 
-        answers:[
+            {
+                key: "strengths",
+                title: "Meine Stärken",
+                type: "mindmap"
+            },
 
-            ["Erkenntnis","insight"],
+            {
+                key: "gratitude",
+                title: "Darauf bin ich stolz",
+                type: "journal"
+            }
 
-            ["Nächster Schritt","nextStep"],
+        ]
 
-            ["Nachricht an mich","futureMessage"]
+    },
+
+    {
+        number: 6,
+        id: "step-6",
+        title: "Weitergehen",
+        visual: null,
+
+        answers: [
+
+            {
+                key: "insight",
+                title: "Meine Erkenntnis",
+                type: "journal"
+            },
+
+            {
+                key: "nextStep",
+                title: "Mein nächster Schritt",
+                type: "journal"
+            },
+
+            {
+                key: "futureMessage",
+                title: "Nachricht an mein zukünftiges Ich",
+                type: "letter"
+            }
 
         ]
 
     }
 
 ];
+
+
 /* ==========================================
-   WORKBOOK
+   WORKBOOK RENDERN
 ========================================== */
 
-function createWorkbook(){
+function renderWorkbook() {
 
-    workbook.forEach(step=>{
+    workbook.forEach(step => {
 
-        createStep(step);
+        renderChapter(step);
 
     });
 
 }
 /* ==========================================
-   SCHRITT ERSTELLEN
+   KAPITEL RENDERN
 ========================================== */
 
-function createStep(step){
+function renderChapter(step) {
+
+    const source = document.getElementById(step.id);
+
+    if (!source) return;
+
+    const page = createPage();
+
+    renderChapterHeader(page, source);
+
+    renderInfoCards(page, source);
+
+    renderAnswers(page, step);
+
+    renderTakeaway(page, source);
+
+    pdf.append(page);
+
+}
+
+
+/* ==========================================
+   SEITE
+========================================== */
+
+function createPage() {
 
     const page = document.createElement("section");
 
     page.className = "page";
 
+    return page;
+
+}
 
 
-    page.innerHTML = `
+/* ==========================================
+   KAPITELKOPF
+========================================== */
 
-        <section class="step">
+function renderChapterHeader(page, source) {
 
-            <h2 class="step__title">
+    const header = source.querySelector(".step__header");
 
-                ${step.title}
+    if (!header) return;
 
-            </h2>
+    const clone = header.cloneNode(true);
 
-            <p class="step__quote">
+    clone.classList.add("pdf-header");
 
-                ${step.quote}
+    page.append(clone);
 
-            </p>
-
-        </section>
-
-    `;
+}
 
 
+/* ==========================================
+   INFOKARTEN
+========================================== */
 
-    step.answers.forEach(answer=>{
+function renderInfoCards(page, source) {
 
-        createCard(
+    const cards = source.querySelectorAll(
+        ".card:not(.card--reflection):not(.card--takeaway)"
+    );
 
-            page,
+    cards.forEach(card => {
 
-            answer[0],
-
-            answers[answer[1]]
-
+        page.append(
+            cloneCard(card)
         );
 
     });
 
+}
 
 
-    page.insertAdjacentHTML(
+/* ==========================================
+   TAKEAWAY
+========================================== */
 
-        "beforeend",
+function renderTakeaway(page, source) {
 
-        `
+    const takeaway = source.querySelector(".card--takeaway");
 
-        <footer class="pdf-footer">
+    if (!takeaway) return;
 
-            <p>
-
-                trotzdem.wahr
-
-            </p>
-
-        </footer>
-
-        `
-
+    page.append(
+        cloneCard(takeaway)
     );
 
+}
 
 
-    pdf.appendChild(page);
+/* ==========================================
+   KARTE KLONEN
+========================================== */
+
+function cloneCard(card) {
+
+    const clone = card.cloneNode(true);
+
+    clone.classList.add("pdf-card");
+
+    return clone;
 
 }
 /* ==========================================
-   KARTE ERSTELLEN
+   ANTWORTEN RENDERN
 ========================================== */
 
-function createCard(
+function renderAnswers(page, step) {
 
-    page,
+    if (!step.answers.length) return;
 
-    title,
+    const values = step.answers.filter(answer => {
 
-    value
+        return hasContent(
+            answers[answer.key]
+        );
 
-){
+    });
 
-    if(
+    if (!values.length) return;
 
-        value===undefined ||
+    const section = document.createElement("section");
 
-        value===null ||
+    section.className = "pdf-answers";
 
-        value==="" ||
+    values.forEach(answer => {
 
-        (Array.isArray(value) && value.length===0)
+        switch (answer.type) {
 
-    ){
+            case "mindmap":
 
-        return;
+                renderMindmap(
+                    section,
+                    answer.title,
+                    answers[answer.key]
+                );
+
+                break;
+
+            case "chips":
+
+                renderChips(
+                    section,
+                    answer.title,
+                    answers[answer.key]
+                );
+
+                break;
+
+            case "grid":
+
+                renderGrid(
+                    section,
+                    answer.title,
+                    answers[answer.key]
+                );
+
+                break;
+
+            case "journal":
+
+                renderJournal(
+                    section,
+                    answer.title,
+                    answers[answer.key]
+                );
+
+                break;
+
+            case "highlight":
+
+                renderHighlight(
+                    section,
+                    answer.title,
+                    answers[answer.key]
+                );
+
+                break;
+
+            case "letter":
+
+                renderLetter(
+                    section,
+                    answer.title,
+                    answers[answer.key]
+                );
+
+                break;
+
+        }
+
+    });
+
+    page.append(section);
+
+}
+
+
+/* ==========================================
+   SICHTBARKEIT
+========================================== */
+
+function hasContent(value) {
+
+    if (value === undefined) return false;
+
+    if (value === null) return false;
+
+    if (Array.isArray(value)) {
+
+        return value.length > 0;
 
     }
 
+    return String(value).trim() !== "";
+
+}
 
 
-    const card=document.createElement("article");
+/* ==========================================
+   STANDARD KARTE
+========================================== */
+
+function createAnswerCard(title) {
+
+    const card = document.createElement("article");
+
+    card.className = "answer-card";
+
+    const heading = document.createElement("h3");
+
+    heading.textContent = title;
+
+    card.append(heading);
+
+    return card;
+
+}
 
 
+/* ==========================================
+   HIGHLIGHT
+========================================== */
 
-    card.className="card";
+function renderHighlight(parent, title, value) {
+
+    const card = createAnswerCard(title);
+
+    const box = document.createElement("div");
+
+    box.className = "highlight-box";
+
+    box.textContent = value;
+
+    card.append(box);
+
+    parent.append(card);
+
+}
+/* ==========================================
+   JOURNAL
+========================================== */
+
+function renderJournal(parent, title, value) {
+
+    const card = createAnswerCard(title);
+
+    const content = document.createElement("div");
+
+    content.className = "journal";
+
+    content.innerHTML = escapeHtml(
+        value
+    ).replace(/\n/g, "<br>");
+
+    card.append(content);
+
+    parent.append(card);
+
+}
 
 
+/* ==========================================
+   CHIPS
+========================================== */
 
-    card.innerHTML=`
+function renderChips(parent, title, values) {
 
-        <div class="card__badge">
+    const card = createAnswerCard(title);
 
-            ${title}
+    const container = document.createElement("div");
 
-        </div>
+    container.className = "chip-container";
 
-        <div class="card__content">
+    const list = Array.isArray(values)
+        ? values
+        : [values];
 
-            ${formatAnswer(value)}
+    list.forEach(item => {
+
+        const chip = document.createElement("span");
+
+        chip.className = "chip";
+
+        chip.textContent = item;
+
+        container.append(chip);
+
+    });
+
+    card.append(container);
+
+    parent.append(card);
+
+}
+
+
+/* ==========================================
+   GRID
+========================================== */
+
+function renderGrid(parent, title, values) {
+
+    const card = createAnswerCard(title);
+
+    const grid = document.createElement("div");
+
+    grid.className = "answer-grid";
+
+    const list = Array.isArray(values)
+        ? values
+        : [values];
+
+    list.forEach(item => {
+
+        const element = document.createElement("div");
+
+        element.className = "answer-grid__item";
+
+        element.textContent = item;
+
+        grid.append(element);
+
+    });
+
+    card.append(grid);
+
+    parent.append(card);
+
+}
+
+
+/* ==========================================
+   MINDMAP
+========================================== */
+
+function renderMindmap(parent, title, values) {
+
+    const card = createAnswerCard(title);
+
+    const map = document.createElement("div");
+
+    map.className = "mindmap";
+
+    const center = document.createElement("div");
+
+    center.className = "mindmap__center";
+
+    center.textContent = "ICH";
+
+    map.append(center);
+
+    const list = Array.isArray(values)
+        ? values
+        : [values];
+
+    list.forEach((item, index) => {
+
+        const node = document.createElement("div");
+
+        node.className = `mindmap__item position-${index + 1}`;
+
+        node.textContent = item;
+
+        map.append(node);
+
+    });
+
+    card.append(map);
+
+    parent.append(card);
+
+}
+/* ==========================================
+   BRIEFKARTE
+========================================== */
+
+function renderLetter(parent, title, value) {
+
+    const card = createAnswerCard(title);
+
+    card.classList.add("letter-card");
+
+    const intro = document.createElement("p");
+
+    intro.className = "letter-intro";
+
+    intro.textContent = "Eine Nachricht an dein zukünftiges Ich";
+
+    card.append(intro);
+
+    const message = document.createElement("div");
+
+    message.className = "letter-message";
+
+    message.innerHTML = escapeHtml(
+        value
+    ).replace(/\n/g, "<br>");
+
+    card.append(message);
+
+    parent.append(card);
+
+}
+
+
+/* ==========================================
+   COVER
+========================================== */
+
+function renderCover() {
+
+    const page = createPage();
+
+    page.classList.add("cover-page");
+
+    page.innerHTML = `
+
+        <div class="cover">
+
+            <div class="cover__badge">
+                Kostenloses Workbook
+            </div>
+
+            <h1 class="cover__title">
+                Zurück zu dir
+            </h1>
+
+            <p class="cover__subtitle">
+                Ein kostenloses Workbook über
+                Selbstreflexion,
+                psychologische Zusammenhänge
+                und neue Perspektiven.
+            </p>
+
+            <div class="cover__circle">
+
+                <div class="cover__logo">
+                    trotzdem.wahr
+                </div>
+
+            </div>
 
         </div>
 
     `;
 
-
-
-    adaptFontSize(
-
-        card.querySelector(".card__content")
-
-    );
-
-
-
-    page.appendChild(card);
+    pdf.append(page);
 
 }
+
+
 /* ==========================================
-   FORMATIEREN
+   VORWORT
 ========================================== */
 
-function formatAnswer(value){
+function renderIntroduction() {
 
-    if(Array.isArray(value)){
+    const hero = document.querySelector(".hero");
 
-        return `
+    if (!hero) return;
 
-            <ul>
+    const page = createPage();
 
-                ${value.map(item=>`
+    page.classList.add("intro-page");
 
-                    <li>${escapeHtml(item)}</li>
+    const clone = hero.cloneNode(true);
 
-                `).join("")}
+    clone.classList.add("pdf-introduction");
 
-            </ul>
+    page.append(clone);
 
-        `;
+    pdf.append(page);
 
-    }
+}
 
 
+/* ==========================================
+   ABSCHLUSS
+========================================== */
 
-    return escapeHtml(value)
+function renderEnding() {
 
-        .replace(/\n/g,"<br>");
+    const page = createPage();
+
+    page.classList.add("ending-page");
+
+    page.innerHTML = `
+
+        <div class="ending">
+
+            <h2>
+                Danke.
+            </h2>
+
+            <p>
+
+                Danke,
+                dass du dir Zeit
+                für dich selbst
+                genommen hast.
+
+            </p>
+
+            <p>
+
+                Vielleicht hast du
+                heute neue Gedanken
+                entdeckt,
+                Gefühle benannt
+                oder kleine Erkenntnisse
+                gesammelt.
+
+            </p>
+
+            <p>
+
+                Bewahre dieses Workbook
+                gut auf.
+                Es erinnert dich daran,
+                wie weit du bereits
+                gekommen bist.
+
+            </p>
+
+            <div class="ending__footer">
+
+                trotzdem.wahr
+
+            </div>
+
+        </div>
+
+    `;
+
+    pdf.append(page);
 
 }
 /* ==========================================
    HTML ESCAPEN
 ========================================== */
 
-function escapeHtml(text){
+function escapeHtml(text) {
 
     return String(text)
 
-        .replaceAll("&","&amp;")
-
-        .replaceAll("<","&lt;")
-
-        .replaceAll(">","&gt;")
-
-        .replaceAll('"',"&quot;")
-
-        .replaceAll("'","&#039;");
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
 }
+
+
 /* ==========================================
-   SCHRIFTGRÖSSE
+   RENDER WARTEN
 ========================================== */
 
-function adaptFontSize(element){
+function waitForRender() {
 
-    const length = element.innerText.length;
+    return new Promise(resolve => {
 
-    if(length > 1800){
-
-        element.classList.add("font-tiny");
-
-    }
-
-    else if(length > 1200){
-
-        element.classList.add("font-small");
-
-    }
-
-    else if(length > 700){
-
-        element.classList.add("font-medium");
-
-    }
-
-    else{
-
-        element.classList.add("font-large");
-
-    }
-
-}
-/* ==========================================
-   RENDERN ABWARTEN
-========================================== */
-
-function waitForRendering(){
-
-    return new Promise(resolve=>{
-
-        requestAnimationFrame(()=>{
+        requestAnimationFrame(() => {
 
             requestAnimationFrame(resolve);
 
@@ -467,55 +840,55 @@ function waitForRendering(){
     });
 
 }
+
+
 /* ==========================================
-   PDF ERSTELLEN
+   PDF EXPORT
 ========================================== */
 
-async function generatePDF(){
+async function exportPDF() {
 
-    const options={
+    const options = {
 
-        margin:0,
+        margin: 0,
 
-        filename:"trotzdem.wahr_Workbook_Zurück-zu-dir.pdf",
+        filename: "trotzdem.wahr_Workbook.pdf",
 
-        image:{
-
-            type:"jpeg",
-
-            quality:1
-
+        image: {
+            type: "jpeg",
+            quality: 1
         },
 
-        html2canvas:{
-
-            scale:2,
-
-            useCORS:true,
-
-            scrollY:0
-
+        html2canvas: {
+            scale: 2,
+            useCORS: true,
+            scrollY: 0,
+            backgroundColor: "#ffffff"
         },
 
-        jsPDF:{
-
-            unit:"mm",
-
-            format:"a4",
-
-            orientation:"portrait"
-
+        jsPDF: {
+            unit: "mm",
+            format: "a4",
+            orientation: "portrait"
         },
 
-        pagebreak:{
-
-            mode:["css","avoid-all"]
-
+        pagebreak: {
+            mode: [
+                "css",
+                "legacy"
+            ],
+            avoid: [
+                ".card",
+                ".answer-card",
+                ".mindmap",
+                ".journal",
+                ".answer-grid",
+                ".highlight-box",
+                ".letter-card"
+            ]
         }
 
     };
-
-
 
     await html2pdf()
 
@@ -525,21 +898,66 @@ async function generatePDF(){
 
         .save();
 
-
-
-    finishPDF();
-
 }
+
+
 /* ==========================================
-   ABSCHLUSS
+   PDF SEITENNUMMERN
 ========================================== */
 
-function finishPDF(){
+function addPageNumbers() {
 
-    setTimeout(()=>{
+    const pages = pdf.querySelectorAll(".page");
 
-        window.location.href="index.html";
+    pages.forEach((page, index) => {
 
-    },500);
+        const footer = document.createElement("footer");
+
+        footer.className = "pdf-footer";
+
+        footer.innerHTML = `
+
+            <span>
+
+                trotzdem.wahr
+
+            </span>
+
+            <span>
+
+                Seite ${index + 1}
+
+            </span>
+
+        `;
+
+        page.append(footer);
+
+    });
+
+}
+
+
+/* ==========================================
+   PDF STARTEN
+========================================== */
+
+async function initialisePDF() {
+
+    clearPDF();
+
+    renderCover();
+
+    renderIntroduction();
+
+    renderWorkbook();
+
+    renderEnding();
+
+    addPageNumbers();
+
+    await waitForRender();
+
+    await exportPDF();
 
 }
