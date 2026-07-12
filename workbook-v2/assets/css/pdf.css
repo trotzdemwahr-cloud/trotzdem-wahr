@@ -1,48 +1,18 @@
-/*
-========================================================
-
-trotzdem.wahr
-Workbook PDF
-
-========================================================
-*/
+/* ==========================================================
+   trotzdem.wahr
+   PDF V3
+========================================================== */
 
 
-/* ==========================================
-   ROOT
-========================================== */
-
-:root{
-
-    --primary:#A9D7EC;
-    --primary-light:#EAF6FC;
-    --primary-dark:#6CA9C6;
-
-    --background:#F5F8FA;
-
-    --surface:#FFFFFF;
-
-    --text:#3C434B;
-
-    --text-light:#68727C;
-
-    --border:#DCE6ED;
-
-    --shadow:
-        0 10px 30px rgba(0,0,0,.05);
-
-}
-
-
-
-/* ==========================================
+/* ==========================================================
    RESET
-========================================== */
+========================================================== */
 
-*{
+*,
+*::before,
+*::after{
 
     margin:0;
-
     padding:0;
 
     box-sizing:border-box;
@@ -50,34 +20,78 @@ Workbook PDF
 }
 
 
-
 html,
 body{
 
+    background:#F8F5F1;
+
     font-family:"Inter",sans-serif;
 
-    background:var(--background);
+    color:#394047;
 
-    color:var(--text);
+    line-height:1.7;
+
+    -webkit-font-smoothing:antialiased;
 
 }
 
 
 
-/* ==========================================
+/* ==========================================================
+   FARBEN
+========================================================== */
+
+:root{
+
+    --background:#F8F5F1;
+
+    --surface:#FFFFFF;
+
+    --surface-soft:#FCFBF8;
+
+    --border:#E6DED5;
+
+    --primary:#A7C8D6;
+
+    --primary-light:#EAF4F8;
+
+    --secondary:#BCD4BA;
+
+    --secondary-light:#EEF5EC;
+
+    --accent:#E6D4C5;
+
+    --text:#394047;
+
+    --text-light:#70767D;
+
+    --shadow:0 10px 30px rgba(0,0,0,.05);
+
+    --radius:24px;
+
+}
+
+
+
+/* ==========================================================
    PDF
-========================================== */
+========================================================== */
 
 .pdf{
 
     width:210mm;
 
-    margin:auto;
+    margin:0 auto;
+
+    background:var(--background);
 
 }
-/* ==========================================
-   PAGE
-========================================== */
+
+
+
+/* ==========================================================
+   SEITEN
+========================================================== */
 
 .page{
 
@@ -87,16 +101,19 @@ body{
 
     min-height:297mm;
 
-    padding:22mm;
+    padding:18mm;
 
-    background:white;
+    background:var(--background);
 
     page-break-after:always;
 
-    overflow:hidden;
+    break-after:page;
+
+    display:flex;
+
+    flex-direction:column;
 
 }
-
 
 
 .page:last-child{
@@ -104,19 +121,32 @@ body{
     page-break-after:auto;
 
 }
-/* ==========================================
-   HEADER
-========================================== */
 
-.chapter-header{
 
-    margin-bottom:18mm;
+
+/* ==========================================================
+   COVER
+========================================================== */
+
+.cover-page{
+
+    justify-content:center;
+
+    align-items:center;
 
 }
 
 
+.cover{
 
-.chapter-number{
+    width:100%;
+
+    text-align:center;
+
+}
+
+
+.cover__badge{
 
     display:inline-flex;
 
@@ -124,312 +154,520 @@ body{
 
     justify-content:center;
 
-    padding:8px 18px;
+    padding:10px 22px;
 
     border-radius:999px;
 
     background:var(--primary-light);
 
-    color:var(--primary-dark);
+    color:#62808F;
 
-    font-size:13px;
+    font-size:11pt;
 
-    font-weight:700;
-
-}
-
-
-
-.chapter-title{
-
-    margin-top:18px;
-
-    font-size:34px;
-
-    line-height:1.15;
-
-    font-weight:800;
+    font-weight:600;
 
 }
 
 
+.cover__title{
 
-.chapter-quote{
+    margin-top:24px;
 
-    margin-top:14px;
+    font-size:36pt;
 
-    color:var(--primary-dark);
+    line-height:1.1;
 
-    font-size:18px;
+    letter-spacing:-1px;
 
-    font-style:italic;
+    color:var(--text);
 
 }
-/* ==========================================
-   INTRO CARD
-========================================== */
 
-.intro-card{
 
-    margin-bottom:16mm;
+.cover__subtitle{
 
-    padding:18px 22px;
+    width:130mm;
 
-    border-radius:22px;
+    margin:20px auto 0;
+
+    color:var(--text-light);
+
+    font-size:14pt;
+
+    line-height:1.7;
+
+}
+
+
+.cover__circle{
+
+    width:90mm;
+
+    height:90mm;
+
+    margin:40px auto 0;
+
+    border-radius:50%;
 
     background:linear-gradient(
 
         180deg,
 
-        #F8FCFE,
+        var(--primary-light),
 
         white
 
     );
 
-    border:1px solid var(--border);
+    display:flex;
 
-    box-shadow:var(--shadow);
+    align-items:center;
+
+    justify-content:center;
+
+    border:2px solid #D8E8EF;
+
+}
+
+
+.cover__logo{
+
+    font-size:20pt;
+
+    font-weight:700;
+
+    color:#648291;
 
 }
 
 
 
-.intro-card h3{
+/* ==========================================================
+   EINLEITUNG
+========================================================== */
+
+.intro-page{
+
+    justify-content:center;
+
+}
+
+
+.pdf-introduction{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+
+.pdf-introduction h1{
+
+    font-size:28pt;
+
+    line-height:1.2;
 
     margin-bottom:12px;
 
-    font-size:20px;
-
 }
 
 
-
-.intro-card p{
+.pdf-introduction p{
 
     color:var(--text-light);
 
-    line-height:1.9;
+    font-size:12.5pt;
 
 }
-/* ==========================================
-   PSYCHOLOGY
-========================================== */
+/* ==========================================================
+   KAPITEL
+========================================================== */
 
-.psychology{
+.pdf-header{
 
-    margin-bottom:16mm;
-
-    padding:22px;
-
-    border-left:8px solid var(--primary);
-
-    border-radius:22px;
-
-    background:#FCFEFF;
-
-    box-shadow:var(--shadow);
+    margin-bottom:14mm;
 
 }
 
 
+.pdf-header .step__number{
 
-.psychology-badge{
+    display:inline-flex;
 
-    display:inline-block;
+    align-items:center;
 
-    margin-bottom:14px;
+    justify-content:center;
 
-    padding:8px 16px;
+    padding:4mm 8mm;
 
     border-radius:999px;
 
     background:var(--primary-light);
 
-    color:var(--primary-dark);
+    color:#648291;
 
-    font-size:13px;
+    font-size:10pt;
 
     font-weight:700;
 
 }
 
 
+.pdf-header .step__title{
 
-.psychology p{
+    margin-top:8mm;
 
-    line-height:1.9;
+    font-size:24pt;
+
+    line-height:1.15;
+
+    letter-spacing:-.5px;
+
+    color:var(--text);
 
 }
-/* ==========================================
-   CONTENT CARDS
-========================================== */
 
-.card{
 
-    margin-bottom:16mm;
+.pdf-header .step__quote{
 
-    padding:24px;
+    margin-top:4mm;
 
-    border-radius:24px;
+    color:var(--text-light);
 
-    background:var(--surface);
+    font-size:12pt;
+
+    font-style:italic;
+
+}
+
+
+
+/* ==========================================================
+   STANDARDKARTEN
+========================================================== */
+
+.pdf-card{
+
+    margin-bottom:8mm;
+
+    padding:8mm;
+
+    border-radius:var(--radius);
 
     border:1px solid var(--border);
 
-    box-shadow:var(--shadow);
+    background:var(--surface);
 
-    page-break-inside:avoid;
+    box-shadow:var(--shadow);
 
     break-inside:avoid;
 
 }
 
 
+.pdf-card h3{
 
-.card-title{
+    margin-bottom:4mm;
 
-    display:flex;
+    font-size:16pt;
 
-    align-items:center;
-
-    gap:12px;
-
-    margin-bottom:18px;
+    line-height:1.3;
 
 }
 
 
+.pdf-card p{
 
-.card-chip{
+    font-size:11.5pt;
 
-    padding:8px 16px;
-
-    border-radius:999px;
-
-    background:var(--primary-light);
-
-    color:var(--primary-dark);
-
-    font-size:13px;
-
-    font-weight:700;
-
-}
-
-
-
-.card h3{
-
-    font-size:22px;
-
-    font-weight:700;
-
-}
-
-
-
-.card p{
-
-    color:var(--text-light);
-
-    line-height:1.9;
-
-}
-/* ==========================================
-   ANSWERS
-========================================== */
-
-.answer{
-
-    margin-top:22px;
-
-    padding:22px;
-
-    border-radius:18px;
-
-    background:#FBFDFE;
-
-    border:1px solid var(--border);
-
-}
-
-
-
-.answer p{
+    line-height:1.75;
 
     color:var(--text);
 
-    line-height:1.9;
+}
 
-    white-space:pre-wrap;
+
+.pdf-card p+p{
+
+    margin-top:4mm;
 
 }
 
 
 
-.answer ul{
+/* ==========================================================
+   PSYCHOLOGIE
+========================================================== */
 
-    list-style:none;
+.card--psychology{
+
+    background:var(--primary-light);
+
+    border-color:#D6E7EF;
+
+}
+
+
+.card--psychology .card__badge{
+
+    display:inline-block;
+
+    margin-bottom:5mm;
+
+    padding:3mm 6mm;
+
+    background:white;
+
+    border-radius:999px;
+
+    font-size:9pt;
+
+    font-weight:700;
+
+    color:#62808F;
+
+}
+
+
+
+/* ==========================================================
+   TAKEAWAY
+========================================================== */
+
+.card--takeaway{
+
+    background:var(--secondary-light);
+
+    border-color:#DDE8D8;
+
+}
+
+
+.card--takeaway .card__badge{
+
+    display:inline-block;
+
+    margin-bottom:5mm;
+
+    padding:3mm 6mm;
+
+    background:white;
+
+    border-radius:999px;
+
+    font-size:9pt;
+
+    font-weight:700;
+
+    color:#67835E;
+
+}
+/* ==========================================================
+   ANTWORTBEREICH
+========================================================== */
+
+.pdf-answers{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8mm;
+
+    margin-top:8mm;
+
+}
+
+
+.answer-card{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:8mm;
+
+    box-shadow:var(--shadow);
+
+    break-inside:avoid;
+
+}
+
+
+.answer-card h3{
+
+    margin-bottom:5mm;
+
+    font-size:15pt;
+
+    color:var(--text);
+
+}
+
+
+
+/* ==========================================================
+   JOURNAL
+========================================================== */
+
+.journal{
+
+    min-height:45mm;
+
+    padding:6mm;
+
+    border-radius:18px;
+
+    background:#FFFEFD;
+
+    border:1px solid var(--border);
+
+    font-size:11.5pt;
+
+    line-height:1.8;
+
+    white-space:pre-wrap;
+
+    word-break:break-word;
+
+}
+
+
+
+/* ==========================================================
+   HIGHLIGHT
+========================================================== */
+
+.highlight-box{
+
+    padding:7mm;
+
+    border-radius:18px;
+
+    background:var(--primary-light);
+
+    border-left:5px solid var(--primary);
+
+    font-size:12pt;
+
+    font-weight:600;
+
+    line-height:1.7;
+
+}
+
+
+
+/* ==========================================================
+   CHIPS
+========================================================== */
+
+.chip-container{
 
     display:flex;
 
     flex-wrap:wrap;
 
-    gap:10px;
+    gap:3mm;
 
 }
 
 
+.chip{
 
-.answer li{
+    display:inline-flex;
 
-    padding:8px 14px;
+    align-items:center;
+
+    justify-content:center;
+
+    padding:3mm 5mm;
 
     border-radius:999px;
 
     background:var(--primary-light);
 
-    color:var(--text);
+    color:#5F7F8E;
 
-    font-size:14px;
+    font-size:10pt;
 
     font-weight:600;
 
 }
-/* ==========================================
+
+
+
+/* ==========================================================
+   GRID
+========================================================== */
+
+.answer-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:4mm;
+
+}
+
+
+.answer-grid__item{
+
+    padding:5mm;
+
+    background:#FFFFFF;
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+    font-size:10.5pt;
+
+    line-height:1.5;
+
+}
+/* ==========================================================
    MINDMAP
-========================================== */
+========================================================== */
 
 .mindmap{
 
     position:relative;
 
-    display:flex;
+    width:150mm;
 
-    justify-content:center;
+    height:110mm;
 
-    align-items:center;
-
-    flex-wrap:wrap;
-
-    gap:18px;
-
-    min-height:220px;
-
-    margin:30px 0;
+    margin:6mm auto;
 
 }
 
 
+.mindmap__center{
 
-.mindmap-center{
+    position:absolute;
 
-    width:110px;
+    top:50%;
 
-    height:110px;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:32mm;
+
+    height:32mm;
 
     border-radius:50%;
+
+    background:var(--primary);
+
+    color:#FFFFFF;
 
     display:flex;
 
@@ -437,11 +675,7 @@ body{
 
     justify-content:center;
 
-    background:var(--primary);
-
-    color:white;
-
-    font-size:18px;
+    font-size:14pt;
 
     font-weight:700;
 
@@ -450,109 +684,122 @@ body{
 }
 
 
+.mindmap__item{
 
-.mindmap-item{
+    position:absolute;
 
-    padding:10px 18px;
+    max-width:42mm;
 
-    border-radius:999px;
-
-    background:#EDF2F5;
-
-    color:#6E7781;
-
-    font-size:14px;
-
-    transition:.25s;
-
-}
-
-
-
-.mindmap-item.active{
-
-    background:var(--primary);
-
-    color:white;
-
-    font-weight:700;
-
-}
-/* ==========================================
-   RESOURCE GRID
-========================================== */
-
-.resource-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(2,1fr);
-
-    gap:18px;
-
-    margin-top:28px;
-
-}
-
-
-
-.resource-item{
-
-    padding:18px;
+    padding:4mm 5mm;
 
     border-radius:18px;
 
+    background:#FFFFFF;
+
     border:1px solid var(--border);
 
-    background:#FCFDFE;
+    text-align:center;
+
+    font-size:10pt;
+
+    line-height:1.4;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+/* Positionen */
+
+.position-1{ top:0; left:50%; transform:translateX(-50%); }
+
+.position-2{ top:16mm; right:0; }
+
+.position-3{ top:50%; right:0; transform:translateY(-50%); }
+
+.position-4{ bottom:16mm; right:0; }
+
+.position-5{ bottom:0; left:50%; transform:translateX(-50%); }
+
+.position-6{ bottom:16mm; left:0; }
+
+.position-7{ top:50%; left:0; transform:translateY(-50%); }
+
+.position-8{ top:16mm; left:0; }
+
+.position-9{
+
+    top:8mm;
+
+    left:50%;
+
+    transform:translateX(-50%) translateY(36mm);
+
+}
+
+.position-10{
+
+    bottom:8mm;
+
+    left:50%;
+
+    transform:translateX(-50%) translateY(-36mm);
 
 }
 
 
 
-.resource-item.active{
+/* ==========================================================
+   BRIEFKARTE
+========================================================== */
 
-    background:var(--primary-light);
+.letter-card{
 
-    border-color:var(--primary);
-
-}
-/* ==========================================
-   JOURNAL
-========================================== */
-
-.journal{
-
-    min-height:160px;
-
-    margin-top:24px;
-
-    padding:24px;
-
-    border-radius:20px;
-
-    border:2px dashed var(--border);
-
-    background:white;
+    background:#FFFDFC;
 
 }
 
 
+.letter-intro{
 
-.journal p{
+    margin-bottom:5mm;
 
-    color:var(--text);
+    color:var(--text-light);
 
-    line-height:2;
+    font-size:10.5pt;
+
+    font-style:italic;
+
+}
+
+
+.letter-message{
+
+    min-height:70mm;
+
+    padding:8mm;
+
+    background:#FFFFFF;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    line-height:1.9;
 
     white-space:pre-wrap;
 
-}
-/* ==========================================
-   COVER
-========================================== */
+    word-break:break-word;
 
-.cover{
+}
+
+
+
+/* ==========================================================
+   ABSCHLUSS
+========================================================== */
+
+.ending{
 
     display:flex;
 
@@ -562,122 +809,64 @@ body{
 
     align-items:center;
 
-    min-height:253mm;
+    flex:1;
 
     text-align:center;
 
-    background:
-        radial-gradient(circle at top,#EAF6FC 0%,#FFFFFF 70%);
+}
+
+
+.ending h2{
+
+    margin-bottom:10mm;
+
+    font-size:28pt;
+
+    color:var(--text);
 
 }
 
 
+.ending p{
 
-.cover-badge{
+    max-width:130mm;
 
-    padding:10px 22px;
+    margin-bottom:6mm;
 
-    border-radius:999px;
+    color:var(--text-light);
 
-    background:white;
+    font-size:12pt;
 
-    color:var(--primary-dark);
+    line-height:1.8;
 
-    border:1px solid var(--border);
+}
 
-    font-size:14px;
+
+.ending__footer{
+
+    margin-top:18mm;
+
+    font-size:18pt;
 
     font-weight:700;
 
-    box-shadow:var(--shadow);
+    color:#648291;
 
 }
 
 
 
-.cover-title{
+/* ==========================================================
+   FUSSZEILE
+========================================================== */
 
-    margin-top:34px;
+.pdf-footer{
 
-    font-size:48px;
+    margin-top:auto;
 
-    font-weight:800;
+    padding-top:8mm;
 
-    line-height:1.05;
-
-    letter-spacing:-1px;
-
-}
-
-
-
-.cover-subtitle{
-
-    max-width:135mm;
-
-    margin-top:26px;
-
-    font-size:18px;
-
-    line-height:1.9;
-
-    color:var(--text-light);
-
-}
-
-
-
-.cover-footer{
-
-    margin-top:55mm;
-
-    color:var(--text-light);
-
-    font-size:15px;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-
-}
-/* ==========================================
-   DIVIDER
-========================================== */
-
-.divider{
-
-    width:100%;
-
-    height:2px;
-
-    margin:14mm 0;
-
-    background:linear-gradient(
-
-        90deg,
-
-        transparent,
-
-        var(--primary),
-
-        transparent
-
-    );
-
-}
-/* ==========================================
-   FOOTER
-========================================== */
-
-.page-footer{
-
-    position:absolute;
-
-    left:22mm;
-
-    right:22mm;
-
-    bottom:14mm;
+    border-top:1px solid var(--border);
 
     display:flex;
 
@@ -685,109 +874,8 @@ body{
 
     align-items:center;
 
-    padding-top:8mm;
-
-    border-top:1px solid var(--border);
+    font-size:9pt;
 
     color:var(--text-light);
-
-    font-size:12px;
-
-}
-
-
-
-.page-number{
-
-    width:34px;
-
-    height:34px;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    border-radius:50%;
-
-    background:var(--primary-light);
-
-    color:var(--primary-dark);
-
-    font-weight:700;
-
-}
-/* ==========================================
-   HELPERS
-========================================== */
-
-.text-center{
-
-    text-align:center;
-
-}
-
-
-
-.mt-20{
-
-    margin-top:20px;
-
-}
-
-
-
-.mt-30{
-
-    margin-top:30px;
-
-}
-
-
-
-.mt-40{
-
-    margin-top:40px;
-
-}
-
-
-
-.mb-20{
-
-    margin-bottom:20px;
-
-}
-
-
-
-.mb-30{
-
-    margin-bottom:30px;
-
-}
-/* ==========================================
-   PRINT
-========================================== */
-
-@page{
-
-    size:A4;
-
-    margin:0;
-
-}
-
-
-
-@media print{
-
-    html,
-    body{
-
-        background:white;
-
-    }
 
 }
