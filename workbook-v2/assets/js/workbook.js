@@ -1,414 +1,361 @@
 /*
-========================================================
-
+=========================================================
 trotzdem.wahr
-Workbook
-
-========================================================
+Workbook V3
+=========================================================
 */
 
 
-/* ==========================================
-   KONSTANTEN
-========================================== */
+/* =========================================================
+   ELEMENTE
+========================================================= */
 
-const STORAGE_KEY = "trotzdemWahrWorkbook";
+const hero = document.getElementById("hero");
 
-const steps = [...document.querySelectorAll(".step")];
-
-const progressFill = document.querySelector(".progress__fill");
-
-const currentStepText = document.getElementById("current-step");
+const startButton = document.getElementById("startWorkbook");
 
 const previousButton = document.getElementById("previousButton");
 
 const nextButton = document.getElementById("nextButton");
 
+const progressFill = document.getElementById("progressFill");
+
+const currentStep = document.getElementById("currentStep");
+
+const steps = [...document.querySelectorAll(".step")];
 
 
-let currentStep = 0;
 
-let answers = {};
+/* =========================================================
+   EINSTELLUNGEN
+========================================================= */
+
+const STORAGE_KEY = "trotzdemWahrWorkbookV3";
+
+let activeStep = 0;
+
+let workbookData = loadWorkbook();
 
 
 
-/* ==========================================
+/* =========================================================
    START
-========================================== */
+========================================================= */
 
 document.addEventListener(
-
     "DOMContentLoaded",
-
     initialiseWorkbook
-
 );
 
 
 
-/* ==========================================
-   INITIALISIERUNG
-========================================== */
-function initialiseWorkbook(){
+function initialiseWorkbook() {
 
-    loadAnswers();
+    bindInputs();
 
-    restoreCurrentStep();
+    restoreInputs();
 
-    bindEvents();
-
-    initialiseInputs();
-
-    initialiseTextareas();
-
-    updateView();
+    showStep(0);
 
 }
 
-/* ==========================================
-   EVENTS
-========================================== */
-
-function bindEvents(){
-
-    previousButton.addEventListener(
-
-        "click",
-
-        previousStep
-
-    );
 
 
+/* =========================================================
+   HERO
+========================================================= */
 
-    nextButton.addEventListener(
+startButton.addEventListener("click", () => {
 
-        "click",
+    hero.style.display = "none";
 
-        nextStep
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 
-    );
+});
 
-}
-/* ==========================================
+
+
+/* =========================================================
    NAVIGATION
-========================================== */
+========================================================= */
 
-function nextStep(){
+nextButton.addEventListener("click", () => {
 
-    if(currentStep >= steps.length-1){
+    if (activeStep >= steps.length - 1) return;
 
-        preparePDF();
+    showStep(activeStep + 1);
 
-        return;
-
-    }
-
-    currentStep++;
-
-    saveCurrentStep();
-
-    updateView();
-
-}
+});
 
 
+previousButton.addEventListener("click", () => {
 
-function previousStep(){
+    if (activeStep <= 0) return;
 
-    if(currentStep===0){
+    showStep(activeStep - 1);
 
-        return;
+});
 
-    }
 
-    currentStep--;
 
-    saveCurrentStep();
+/* =========================================================
+   SCHRITT WECHSELN
+========================================================= */
 
-    updateView();
+function showStep(index) {
 
-}
-/* ==========================================
-   ANSICHT
-========================================== */
+    activeStep = index;
 
-function updateView(){
+    steps.forEach(step => {
 
-    steps.forEach((step,index)=>{
-
-        step.classList.toggle(
-
-            "active",
-
-            index===currentStep
-
-        );
+        step.classList.remove("active");
 
     });
 
+    steps[index].classList.add("active");
 
+    updateProgress();
 
-    progressFill.style.width=
-
-        `${((currentStep+1)/steps.length)*100}%`;
-
-
-
-    currentStepText.textContent=
-
-        currentStep+1;
-
-
-
-    previousButton.disabled=
-
-        currentStep===0;
-
-
-
-    nextButton.textContent=
-
-        currentStep===steps.length-1
-
-        ? "PDF herunterladen"
-
-        : "Weiter";
-
-
+    updateButtons();
 
     window.scrollTo({
 
-        top:0,
+        top: 0,
 
-        behavior:"smooth"
+        behavior: "smooth"
 
     });
 
 }
-/* ==========================================
+
+
+
+/* =========================================================
+   FORTSCHRITT
+========================================================= */
+
+function updateProgress() {
+
+    currentStep.textContent = activeStep + 1;
+
+    progressFill.style.width =
+
+        `${((activeStep + 1) / steps.length) * 100}%`;
+
+}
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+function updateButtons() {
+
+    previousButton.disabled = activeStep === 0;
+
+    if (activeStep === steps.length - 1) {
+
+        nextButton.textContent = "PDF erstellen";
+
+    } else {
+
+        nextButton.textContent = "Weiter";
+
+    }
+
+}
+
+
+
+/* =========================================================
    SPEICHERN
-========================================== */
+========================================================= */
 
-function loadAnswers(){
+function bindInputs() {
 
-    const saved = localStorage.getItem(STORAGE_KEY);
-
-    if(saved){
-
-        try{
-
-            answers = JSON.parse(saved);
-
-        }
-
-        catch(error){
-
-            answers = {};
-
-        }
-
-    }
-
-}
-
-
-
-function saveAnswers(){
-
-    localStorage.setItem(
-
-        STORAGE_KEY,
-
-        JSON.stringify(answers)
-
-    );
-
-}
-/* ==========================================
-   AKTUELLER SCHRITT
-========================================== */
-
-function saveCurrentStep(){
-
-    answers.currentStep = currentStep;
-
-    saveAnswers();
-
-}
-
-
-
-function restoreCurrentStep(){
-
-    if(
-
-        typeof answers.currentStep === "number"
-
-    ){
-
-        currentStep = answers.currentStep;
-
-    }
-
-}
-/* ==========================================
-   PDF
-========================================== */
-
-function preparePDF(){
-
-    saveCurrentStep();
-
-    saveAnswers();
-
-    window.location.href = "pdf.html";
-
-}
-/* ==========================================
-   INPUTS
-========================================== */
-
-function initialiseInputs(){
-
-    const inputs = document.querySelectorAll(
+    const fields = document.querySelectorAll(
 
         "input, textarea"
 
     );
 
-    inputs.forEach(input=>{
+    fields.forEach(field => {
 
-        restoreInput(input);
-
-        input.addEventListener(
-
-            "input",
-
-            ()=>handleInput(input)
-
-        );
-
-        input.addEventListener(
+        field.addEventListener(
 
             "change",
 
-            ()=>handleInput(input)
+            saveWorkbook
 
         );
 
-    });
+        if (field.tagName === "TEXTAREA") {
 
-}
-/* ==========================================
-   EINGABEN VERARBEITEN
-========================================== */
+            field.addEventListener(
 
-function handleInput(input){
+                "input",
 
-    if(input.type==="checkbox"){
-
-        const values=[
-
-            ...document.querySelectorAll(
-
-                `input[name="${input.name}"]:checked`
-
-            )
-
-        ].map(item=>item.value);
-
-        answers[input.name]=values;
-
-    }
-
-    else if(input.type==="radio"){
-
-        if(input.checked){
-
-            answers[input.name]=input.value;
-
-        }
-
-    }
-
-    else{
-
-        answers[input.id]=input.value;
-
-    }
-
-    saveAnswers();
-
-}
-/* ==========================================
-   WIEDERHERSTELLEN
-========================================== */
-
-function restoreInput(input){
-
-    if(input.type==="checkbox"){
-
-        const values = answers[input.name];
-
-        if(Array.isArray(values)){
-
-            input.checked = values.includes(
-
-                input.value
+                saveWorkbook
 
             );
 
         }
 
-        return;
-
-    }
-
-
-
-    if(input.type==="radio"){
-
-        input.checked =
-
-            answers[input.name]===input.value;
-
-        return;
-
-    }
-
-
-
-    if(input.id){
-
-    input.value =
-
-        answers[input.id] || "";
-
-    resizeTextarea(input);
+    });
 
 }
 
+
+
+function saveWorkbook() {
+
+    workbookData = {};
+
+    const fields = document.querySelectorAll(
+
+        "input, textarea"
+
+    );
+
+    fields.forEach(field => {
+
+        if (field.type === "checkbox") {
+
+            if (!workbookData[field.name]) {
+
+                workbookData[field.name] = [];
+
+            }
+
+            if (field.checked) {
+
+                workbookData[field.name].push(
+
+                    field.value
+
+                );
+
+            }
+
+            return;
+
+        }
+
+        if (field.type === "radio") {
+
+            if (field.checked) {
+
+                workbookData[field.name] =
+
+                    field.value;
+
+            }
+
+            return;
+
+        }
+
+        workbookData[field.id] =
+
+            field.value;
+
+    });
+
+    localStorage.setItem(
+
+        STORAGE_KEY,
+
+        JSON.stringify(workbookData)
+
+    );
+
 }
-/* ==========================================
-   TEXTAREAS
-========================================== */
 
-function initialiseTextareas(){
 
-    const textareas = document.querySelectorAll("textarea");
 
-    textareas.forEach(textarea=>{
+/* =========================================================
+   LADEN
+========================================================= */
 
-        resizeTextarea(textarea);
+function loadWorkbook() {
 
-        textarea.addEventListener(
+    try {
 
-            "input",
+        return JSON.parse(
 
-            ()=>resizeTextarea(textarea)
+            localStorage.getItem(STORAGE_KEY)
 
-        );
+        ) || {};
+
+    }
+
+    catch {
+
+        return {};
+
+    }
+
+}
+/* =========================================================
+   WIEDERHERSTELLEN
+========================================================= */
+
+function restoreInputs() {
+
+    const fields = document.querySelectorAll(
+
+        "input, textarea"
+
+    );
+
+    fields.forEach(field => {
+
+        if (field.type === "checkbox") {
+
+            const values = workbookData[field.name];
+
+            if (
+
+                Array.isArray(values) &&
+
+                values.includes(field.value)
+
+            ) {
+
+                field.checked = true;
+
+            }
+
+            return;
+
+        }
+
+        if (field.type === "radio") {
+
+            if (
+
+                workbookData[field.name] === field.value
+
+            ) {
+
+                field.checked = true;
+
+            }
+
+            return;
+
+        }
+
+        if (
+
+            workbookData[field.id] !== undefined
+
+        ) {
+
+            field.value = workbookData[field.id];
+
+        }
 
     });
 
@@ -416,12 +363,62 @@ function initialiseTextareas(){
 
 
 
-function resizeTextarea(textarea){
+/* =========================================================
+   PDF
+========================================================= */
 
-    textarea.style.height = "auto";
+nextButton.addEventListener("click", () => {
 
-    textarea.style.height =
+    if (activeStep < steps.length - 1) return;
 
-        textarea.scrollHeight + "px";
+    saveWorkbook();
+
+    window.open(
+
+        "pdf.html",
+
+        "_blank"
+
+    );
+
+});
+
+
+
+/* =========================================================
+   RESET (OPTIONAL)
+========================================================= */
+
+function resetWorkbook() {
+
+    if (
+
+        !confirm(
+
+            "Möchtest du wirklich alle Antworten löschen?"
+
+        )
+
+    ) {
+
+        return;
+
+    }
+
+    localStorage.removeItem(
+
+        STORAGE_KEY
+
+    );
+
+    location.reload();
 
 }
+
+
+
+/* =========================================================
+   DEBUG (ENTFERNEN VOR RELEASE)
+========================================================= */
+
+// window.resetWorkbook = resetWorkbook;
