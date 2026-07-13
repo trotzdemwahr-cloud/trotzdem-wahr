@@ -1,1 +1,780 @@
+/* ==========================================================
+   trotzdem.wahr
+   PDF V4
+========================================================== */
 
+
+/* ==========================================================
+   SEITE
+========================================================== */
+
+body{
+
+    margin:0;
+
+    background:#ECE8E2;
+
+    font-family:"Inter",sans-serif;
+
+    color:#384046;
+
+    -webkit-print-color-adjust:exact;
+
+    print-color-adjust:exact;
+
+}
+
+
+.pdf{
+
+    width:210mm;
+
+    margin:0 auto;
+
+}
+
+
+
+/* ==========================================================
+   PDF SEITE
+========================================================== */
+
+.page{
+
+    position:relative;
+
+    width:210mm;
+
+    min-height:297mm;
+
+    padding:20mm;
+
+    background:#F8F5F1;
+
+    overflow:hidden;
+
+    page-break-after:always;
+
+}
+
+
+.page:last-child{
+
+    page-break-after:auto;
+
+}
+
+
+
+/* ==========================================================
+   TITEL
+========================================================== */
+
+.pdf-title{
+
+    margin-bottom:20px;
+
+}
+
+
+.pdf-step{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:8px 18px;
+
+    border-radius:999px;
+
+    background:#EAF4F8;
+
+    color:#5D7C89;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    letter-spacing:.08em;
+
+    text-transform:uppercase;
+
+}
+
+
+.pdf-title h1{
+
+    margin-top:18px;
+
+    font-size:34px;
+
+    line-height:1.15;
+
+    letter-spacing:-.03em;
+
+    color:#384046;
+
+}
+
+
+.pdf-title p{
+
+    margin-top:10px;
+
+    color:#6E757C;
+
+    font-size:16px;
+
+    line-height:1.7;
+
+}
+
+
+
+/* ==========================================================
+   KARTEN
+========================================================== */
+
+.pdf-card{
+
+    margin:20px 0;
+
+    padding:22px;
+
+    background:#FFFFFF;
+
+    border:1px solid #E7DDD2;
+
+    border-radius:20px;
+
+    page-break-inside:avoid;
+
+}
+
+
+.pdf-card h2{
+
+    margin-bottom:14px;
+
+    font-size:22px;
+
+    color:#384046;
+
+}
+
+
+.pdf-card h3{
+
+    margin-bottom:12px;
+
+    font-size:18px;
+
+    color:#384046;
+
+}
+
+
+.pdf-card p{
+
+    line-height:1.8;
+
+    color:#566068;
+
+}
+
+
+.pdf-card p+p{
+
+    margin-top:12px;
+
+}
+
+
+
+/* ==========================================================
+   PSYCHOLOGIE
+========================================================== */
+
+.pdf-psychology{
+
+    background:#EAF4F8;
+
+    border-color:#D5E5ED;
+
+}
+
+
+.pdf-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:16px;
+
+    padding:7px 14px;
+
+    border-radius:999px;
+
+    background:#FFFFFF;
+
+    color:#5D7C89;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    letter-spacing:.08em;
+
+    text-transform:uppercase;
+
+}
+/* ==========================================================
+   ANTWORTKARTEN
+========================================================== */
+
+.answer-card{
+
+    margin:22px 0;
+
+    padding:22px;
+
+    background:#FFFFFF;
+
+    border:1px solid #E7DDD2;
+
+    border-left:6px solid #9FC6D5;
+
+    border-radius:20px;
+
+    page-break-inside:avoid;
+
+}
+
+
+.answer-card h3{
+
+    margin-bottom:16px;
+
+    font-size:17px;
+
+    color:#384046;
+
+}
+
+
+.answer-card p{
+
+    color:#4F5860;
+
+    line-height:1.8;
+
+}
+
+
+
+/* ==========================================================
+   CHIPS
+========================================================== */
+
+.chips{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+}
+
+
+.chip{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:9px 16px;
+
+    border-radius:999px;
+
+    background:#EAF4F8;
+
+    color:#5D7C89;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+
+
+/* ==========================================================
+   JOURNAL
+========================================================== */
+
+.journal{
+
+    padding:20px;
+
+    background:#FCFAF7;
+
+    border:1px solid #E7DDD2;
+
+    border-radius:18px;
+
+    white-space:pre-wrap;
+
+    line-height:1.9;
+
+    color:#4B555D;
+
+}
+
+
+
+/* ==========================================================
+   MINDMAP
+========================================================== */
+
+.mindmap{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:18px;
+
+    padding:30px 10px;
+
+}
+
+
+.mindmap__center{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:50%;
+
+    background:#9FC6D5;
+
+    color:#FFFFFF;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    text-align:center;
+
+}
+
+
+.mindmap__item{
+
+    padding:10px 18px;
+
+    border-radius:999px;
+
+    background:#FFFFFF;
+
+    border:1px solid #D8E6ED;
+
+    color:#5D7C89;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+/* ==========================================================
+   TAKEAWAY
+========================================================== */
+
+.takeaway{
+
+    background:#EFF6EC;
+
+    border-color:#DCE7D7;
+
+    border-left:6px solid #9DBD8E;
+
+}
+
+
+.takeaway .pdf-badge{
+
+    color:#6C865F;
+
+}
+
+
+
+/* ==========================================================
+   ABSCHLUSSSEITE
+========================================================== */
+
+.ending{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-height:240mm;
+
+    text-align:center;
+
+}
+
+
+.ending h2{
+
+    margin-bottom:28px;
+
+    font-size:40px;
+
+    letter-spacing:-.03em;
+
+    color:#384046;
+
+}
+
+
+.ending p{
+
+    max-width:560px;
+
+    margin-bottom:18px;
+
+    color:#667079;
+
+    line-height:1.9;
+
+}
+
+
+.ending__footer{
+
+    margin-top:50px;
+
+    padding-top:24px;
+
+    border-top:1px solid #E7DDD2;
+
+    color:#8B9399;
+
+    font-size:13px;
+
+    letter-spacing:.12em;
+
+    text-transform:uppercase;
+
+}
+
+
+
+/* ==========================================================
+   FUSSZEILE
+========================================================== */
+
+.pdf-footer{
+
+    position:absolute;
+
+    left:20mm;
+
+    right:20mm;
+
+    bottom:12mm;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    font-size:11px;
+
+    color:#8C949A;
+
+    border-top:1px solid #E7DDD2;
+
+    padding-top:8px;
+
+}
+
+
+
+/* ==========================================================
+   COVER
+========================================================== */
+
+.cover{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-height:240mm;
+
+    text-align:center;
+
+}
+
+
+.cover__badge{
+
+    padding:10px 22px;
+
+    border-radius:999px;
+
+    background:#EAF4F8;
+
+    color:#5D7C89;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+
+.cover__title{
+
+    margin-top:28px;
+
+    font-size:52px;
+
+    letter-spacing:-.05em;
+
+    color:#384046;
+
+}
+
+
+.cover__subtitle{
+
+    max-width:470px;
+
+    margin-top:22px;
+
+    color:#6E757C;
+
+    font-size:17px;
+
+    line-height:1.8;
+
+}
+
+
+.cover__circle{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    width:180px;
+
+    height:180px;
+
+    margin-top:55px;
+
+    border-radius:50%;
+
+    background:#9FC6D5;
+
+}
+
+
+.cover__logo{
+
+    color:#FFFFFF;
+
+    font-size:22px;
+
+    font-weight:700;
+
+    text-align:center;
+
+    line-height:1.4;
+
+}
+/* ==========================================================
+   SEITENUMBRÜCHE
+========================================================== */
+
+.page,
+.pdf-card,
+.answer-card,
+.takeaway,
+.journal,
+.mindmap{
+
+    page-break-inside:avoid;
+
+    break-inside:avoid;
+
+}
+
+
+.page{
+
+    page-break-after:always;
+
+    break-after:page;
+
+}
+
+
+.page:last-child{
+
+    page-break-after:auto;
+
+    break-after:auto;
+
+}
+
+
+
+/* ==========================================================
+   DRUCK
+========================================================== */
+
+@page{
+
+    size:A4;
+
+    margin:0;
+
+}
+
+
+@media print{
+
+    html,
+    body{
+
+        margin:0;
+
+        padding:0;
+
+        background:#FFFFFF;
+
+    }
+
+    .pdf{
+
+        margin:0;
+
+    }
+
+    .page{
+
+        margin:0;
+
+        box-shadow:none;
+
+    }
+
+}
+
+
+
+/* ==========================================================
+   HILFSKLASSEN
+========================================================== */
+
+.hidden{
+
+    display:none !important;
+
+}
+
+
+.text-center{
+
+    text-align:center;
+
+}
+
+
+.mt-1{
+
+    margin-top:12px;
+
+}
+
+
+.mt-2{
+
+    margin-top:24px;
+
+}
+
+
+.mt-3{
+
+    margin-top:36px;
+
+}
+
+
+.mb-1{
+
+    margin-bottom:12px;
+
+}
+
+
+.mb-2{
+
+    margin-bottom:24px;
+
+}
+
+
+.mb-3{
+
+    margin-bottom:36px;
+
+}
+
+
+
+/* ==========================================================
+   TEMPLATE
+========================================================== */
+
+#template{
+
+    display:none;
+
+}
