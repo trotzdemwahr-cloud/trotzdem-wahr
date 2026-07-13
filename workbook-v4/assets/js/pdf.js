@@ -235,6 +235,8 @@ function renderStep(section){
 
     const clone = section.cloneNode(true);
 
+   clone.classList.add("active");
+   
     replaceFeelingMindmap(clone);
 
     replaceCheckboxGroups(clone);
