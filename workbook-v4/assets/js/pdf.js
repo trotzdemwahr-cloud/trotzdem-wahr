@@ -217,6 +217,18 @@ function renderIntroduction(){
    SCHRITTE
 ========================================================= */
 
+function renderSteps(){
+
+    const sections = template.querySelectorAll(".step");
+
+    sections.forEach(section=>{
+
+        renderStep(section);
+
+    });
+
+}
+
 function renderStep(section){
 
     const page = createPage();
@@ -233,7 +245,6 @@ function renderStep(section){
 
     removeEmptyReflectionCards(clone);
 
-   removeEmptyReflectionCards(clone);
     page.append(clone);
 
     pdf.append(page);
@@ -587,14 +598,6 @@ function removeEmptyReflectionCards(section){
         });
 
 }
-/* =========================================================
-   RENDER STEP (ABSCHLUSS)
-========================================================= */
-
-/* Diese Zeile kommt ans Ende von renderStep() */
-
-    removeEmptyReflectionCards(clone);
-
 
 
 /* =========================================================
