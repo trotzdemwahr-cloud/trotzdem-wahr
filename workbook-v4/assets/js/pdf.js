@@ -217,28 +217,11 @@ function renderIntroduction(){
    SCHRITTE
 ========================================================= */
 
-function renderSteps(){
-
-    const sections = template.querySelectorAll(".step");
-
-    sections.forEach(section=>{
-
-        renderStep(section);
-
-    });
-
-}
-/* =========================================================
-   EINEN SCHRITT RENDERN
-========================================================= */
-
 function renderStep(section){
 
     const page = createPage();
 
     const clone = section.cloneNode(true);
-
-    /* Reihenfolge ist wichtig */
 
     replaceFeelingMindmap(clone);
 
@@ -247,6 +230,8 @@ function renderStep(section){
     replaceRadioGroups(clone);
 
     replaceTextareas(clone);
+
+    removeEmptyReflectionCards(clone);
 
     page.append(clone);
 
