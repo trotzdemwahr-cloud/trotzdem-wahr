@@ -243,7 +243,7 @@ function renderStep(section){
 
     replaceTextareas(clone);
 
-    removeEmptyReflectionCards(clone);
+    // removeEmptyReflectionCards(clone);
 
     page.append(clone);
 
