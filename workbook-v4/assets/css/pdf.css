@@ -775,6 +775,10 @@ body{
 
 #template{
 
-    display:none;
+    position:absolute;
+
+    left:-99999px;
+
+    top:0;
 
 }
