@@ -233,6 +233,7 @@ function renderStep(section){
 
     removeEmptyReflectionCards(clone);
 
+   removeEmptyReflectionCards(clone);
     page.append(clone);
 
     pdf.append(page);
