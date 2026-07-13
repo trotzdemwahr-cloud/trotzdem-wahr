@@ -12,6 +12,8 @@ Workbook V4
 
 const hero = document.getElementById("hero");
 
+const progress = document.getElementById("progress");
+
 const startButton = document.getElementById("startWorkbook");
 
 const previousButton = document.getElementById("previousButton");
@@ -23,6 +25,8 @@ const restartButton = document.getElementById("restartWorkbook");
 const progressFill = document.getElementById("progressFill");
 
 const currentStep = document.getElementById("currentStep");
+
+const navigation = document.querySelector(".navigation");
 
 const steps = [...document.querySelectorAll(".step")];
 
@@ -62,9 +66,7 @@ function initialiseWorkbook(){
 
     bindInputs();
 
-    updateNavigation();
-
-    updateProgress();
+    hideWorkbook();
 
 }
 
@@ -78,18 +80,43 @@ startButton.addEventListener(
 
     "click",
 
-    ()=>{
-
-        hero.style.display="none";
-
-        showStep(0);
-
-    }
+    startWorkbook
 
 );
 
 
 
+function startWorkbook(){
+
+    hero.style.display = "none";
+
+    progress.style.display = "block";
+
+    navigation.style.display = "flex";
+
+    showStep(0);
+
+}
+
+
+
+/* =========================================================
+   WORKBOOK AUSBLENDEN
+========================================================= */
+
+function hideWorkbook(){
+
+    progress.style.display = "none";
+
+    navigation.style.display = "none";
+
+    steps.forEach(step=>{
+
+        step.classList.remove("active");
+
+    });
+
+}
 /* =========================================================
    SCHRITT ANZEIGEN
 ========================================================= */
@@ -102,13 +129,13 @@ function showStep(index){
 
     });
 
-    currentIndex=index;
+    currentIndex = index;
 
     steps[currentIndex].classList.add("active");
 
-    updateNavigation();
-
     updateProgress();
+
+    updateNavigation();
 
     window.scrollTo({
 
@@ -130,27 +157,7 @@ nextButton.addEventListener(
 
     "click",
 
-    ()=>{
-
-        if(currentIndex===steps.length-1){
-
-            saveWorkbook();
-
-            window.open(
-
-                "pdf.html",
-
-                "_blank"
-
-            );
-
-            return;
-
-        }
-
-        showStep(currentIndex+1);
-
-    }
+    handleNext
 
 );
 
@@ -160,36 +167,63 @@ previousButton.addEventListener(
 
     "click",
 
-    ()=>{
+    handlePrevious
 
-        if(currentIndex===0){
+);
 
-            return;
 
-        }
 
-        showStep(currentIndex-1);
+function handleNext(){
+
+    /* Letzter Schritt */
+
+    if(currentIndex===steps.length-1){
+
+        saveWorkbook();
+
+        window.location.href="pdf.html";
+
+        return;
 
     }
 
-);
+    showStep(currentIndex+1);
+
+}
+
+
+
+function handlePrevious(){
+
+    if(currentIndex===0){
+
+        return;
+
+    }
+
+    showStep(currentIndex-1);
+
+}
+
+
+
 /* =========================================================
    NAVIGATION AKTUALISIEREN
 ========================================================= */
 
 function updateNavigation(){
 
-    previousButton.disabled = currentIndex === 0;
+    previousButton.disabled = currentIndex===0;
 
-    if(currentIndex === steps.length - 1){
+    if(currentIndex===steps.length-1){
 
-        nextButton.textContent = "PDF erstellen";
+        nextButton.textContent="PDF erstellen";
 
     }
 
     else{
 
-        nextButton.textContent = "Weiter";
+        nextButton.textContent="Weiter";
 
     }
 
@@ -203,20 +237,17 @@ function updateNavigation(){
 
 function updateProgress(){
 
-    currentStep.textContent = currentIndex + 1;
+    currentStep.textContent=currentIndex+1;
 
-    const progress =
+    const percent=
 
-        ((currentIndex + 1) / steps.length) * 100;
+        ((currentIndex+1)/steps.length)*100;
 
-    progressFill.style.width = `${progress}%`;
+    progressFill.style.width=`${percent}%`;
 
 }
-
-
-
 /* =========================================================
-   AUTOSAVE
+   INPUTS VERBINDEN
 ========================================================= */
 
 function bindInputs(){
@@ -255,11 +286,13 @@ function saveWorkbook(){
 
     inputs.forEach(input=>{
 
-        if(input.type === "checkbox"){
+        /* Checkboxen */
+
+        if(input.type==="checkbox"){
 
             if(!workbookData[input.name]){
 
-                workbookData[input.name] = [];
+                workbookData[input.name]=[];
 
             }
 
@@ -277,11 +310,13 @@ function saveWorkbook(){
 
         }
 
-        if(input.type === "radio"){
+        /* Radio */
+
+        if(input.type==="radio"){
 
             if(input.checked){
 
-                workbookData[input.name] =
+                workbookData[input.name]=
 
                     input.value;
 
@@ -291,7 +326,11 @@ function saveWorkbook(){
 
         }
 
-        workbookData[input.id] = input.value;
+        /* Textfelder */
+
+        workbookData[input.id]=
+
+            input.value;
 
     });
 
@@ -304,8 +343,11 @@ function saveWorkbook(){
     );
 
 }
+
+
+
 /* =========================================================
-   WIEDERHERSTELLEN
+   LADEN
 ========================================================= */
 
 function loadWorkbook(){
@@ -330,13 +372,21 @@ function loadWorkbook(){
 
 
 
+/* =========================================================
+   WIEDERHERSTELLEN
+========================================================= */
+
 function restoreWorkbook(){
 
     inputs.forEach(input=>{
 
+        /* Checkbox */
+
         if(input.type==="checkbox"){
 
-            const values = workbookData[input.name];
+            const values=
+
+                workbookData[input.name];
 
             if(
 
@@ -346,29 +396,35 @@ function restoreWorkbook(){
 
             ){
 
-                input.checked = true;
+                input.checked=true;
 
             }
 
             return;
 
         }
+
+        /* Radio */
 
         if(input.type==="radio"){
 
             if(
 
-                workbookData[input.name]===input.value
+                workbookData[input.name]===
+
+                input.value
 
             ){
 
-                input.checked = true;
+                input.checked=true;
 
             }
 
             return;
 
         }
+
+        /* Text */
 
         if(
 
@@ -376,16 +432,15 @@ function restoreWorkbook(){
 
         ){
 
-            input.value = workbookData[input.id];
+            input.value=
+
+                workbookData[input.id];
 
         }
 
     });
 
 }
-
-
-
 /* =========================================================
    WORKBOOK ZURÜCKSETZEN
 ========================================================= */
@@ -394,17 +449,17 @@ restartButton.addEventListener(
 
     "click",
 
-    resetWorkbook
+    restartWorkbook
 
 );
 
 
 
-function resetWorkbook(){
+function restartWorkbook(){
 
     const confirmed = confirm(
 
-        "Möchtest du wirklich alle Antworten löschen und das Workbook neu beginnen?"
+        "Möchtest du wirklich alle Antworten löschen und das Workbook neu starten?"
 
     );
 
@@ -420,14 +475,76 @@ function resetWorkbook(){
 
     );
 
-    location.reload();
+    workbookData = {};
+
+    inputs.forEach(input=>{
+
+        if(
+
+            input.type==="checkbox" ||
+
+            input.type==="radio"
+
+        ){
+
+            input.checked=false;
+
+        }
+
+        else{
+
+            input.value="";
+
+        }
+
+    });
+
+    hero.style.display="block";
+
+    hideWorkbook();
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
 
 }
 
 
 
 /* =========================================================
-   INITIALER SCHRITT
+   SEITE VERLASSEN
 ========================================================= */
 
-showStep(0);
+window.addEventListener(
+
+    "beforeunload",
+
+    saveWorkbook
+
+);
+
+
+
+/* =========================================================
+   INITIALER ZUSTAND
+========================================================= */
+
+/*
+    Beim Laden wird ausschließlich
+    der Hero angezeigt.
+
+    Erst nach Klick auf
+    "Workbook starten"
+    erscheinen:
+
+    - Progress
+    - Schritt 1
+    - Navigation
+
+    Dadurch startet das Workbook
+    immer sauber.
+*/
