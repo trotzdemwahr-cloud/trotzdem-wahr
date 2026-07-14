@@ -97,7 +97,17 @@ body{
 
 }
 
+.pdf-grid{
 
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:5mm;
+
+    margin-bottom:5mm;
+
+}
 
 /* ==========================================================
    A4 SEITE
