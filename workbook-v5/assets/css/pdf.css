@@ -1,0 +1,649 @@
+/* ==========================================================
+   trotzdem.wahr
+   Workbook PDF V5
+========================================================== */
+
+
+/* ==========================================================
+   ROOT
+========================================================== */
+
+:root{
+
+    --background:#F7F4EF;
+
+    --surface:#FFFFFF;
+
+    --primary:#4F6D7A;
+
+    --secondary:#CFAE9B;
+
+    --accent:#A8C7C0;
+
+    --highlight:#E6D6D1;
+
+    --text:#3C3836;
+
+    --text-light:#6E6864;
+
+    --border:#E8E1DB;
+
+    --shadow:0 8px 24px rgba(60,56,54,.08);
+
+    --radius:20px;
+
+}
+
+
+
+/* ==========================================================
+   RESET
+========================================================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+
+body{
+
+    font-family:"Inter",sans-serif;
+
+    background:#d9d9d9;
+
+    color:var(--text);
+
+}
+
+
+
+/* ==========================================================
+   PDF CONTAINER
+========================================================== */
+
+#pdf{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    padding:40px 0;
+
+}
+
+
+
+#pdfPages{
+
+    width:100%;
+
+}
+/* ==========================================================
+   A4 SEITE
+========================================================== */
+
+.page{
+
+    position:relative;
+
+    width:210mm;
+
+    height:297mm;
+
+    background:var(--background);
+
+    overflow:hidden;
+
+    page-break-after:always;
+
+    break-after:page;
+
+}
+
+
+
+/* ==========================================================
+   SEITENINHALT
+========================================================== */
+
+.page__content{
+
+    position:relative;
+
+    width:100%;
+
+    height:100%;
+
+    padding:24mm 22mm;
+
+    z-index:2;
+
+}
+
+
+
+/* ==========================================================
+   AQUARELLHINTERGRUND
+========================================================== */
+
+.page::before,
+
+.page::after{
+
+    content:"";
+
+    position:absolute;
+
+    border-radius:50%;
+
+    opacity:.08;
+
+    filter:blur(6px);
+
+}
+
+
+
+.page::before{
+
+    width:150mm;
+
+    height:150mm;
+
+    background:var(--accent);
+
+    top:-70mm;
+
+    left:-55mm;
+
+}
+
+
+
+.page::after{
+
+    width:130mm;
+
+    height:130mm;
+
+    background:var(--highlight);
+
+    right:-45mm;
+
+    bottom:-45mm;
+
+}
+
+
+
+/* ==========================================================
+   DRUCK
+========================================================== */
+
+@page{
+
+    size:A4;
+
+    margin:0;
+
+}
+/* ==========================================================
+   KOPFBEREICH
+========================================================== */
+
+.page__number{
+
+    font-size:14px;
+
+    font-weight:700;
+
+    letter-spacing:.10em;
+
+    text-transform:uppercase;
+
+    color:var(--primary);
+
+    margin-bottom:12mm;
+
+}
+
+
+
+.page__title{
+
+    font-size:34px;
+
+    font-weight:700;
+
+    line-height:1.15;
+
+    color:var(--primary);
+
+    margin-bottom:10mm;
+
+}
+
+
+
+.page__subtitle{
+
+    font-size:18px;
+
+    line-height:1.7;
+
+    color:var(--text-light);
+
+    margin-bottom:16mm;
+
+}
+
+
+
+/* ==========================================================
+   COVER
+========================================================== */
+
+.cover{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    height:100%;
+
+}
+
+
+
+.cover__title{
+
+    font-size:54px;
+
+    font-weight:700;
+
+    color:var(--primary);
+
+    margin-bottom:20mm;
+
+}
+
+
+
+.cover__text{
+
+    max-width:120mm;
+
+    font-size:18px;
+
+    line-height:1.8;
+
+    color:var(--text-light);
+
+    margin-bottom:32mm;
+
+}
+
+
+
+.cover__logo{
+
+    margin-top:auto;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    letter-spacing:.15em;
+
+    text-transform:uppercase;
+
+    color:var(--primary);
+
+}
+/* ==========================================================
+   KARTEN
+========================================================== */
+
+.pdf-card{
+
+    width:100%;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:8mm;
+
+    margin-bottom:8mm;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+
+.pdf-card:last-child{
+
+    margin-bottom:0;
+
+}
+
+
+
+.pdf-card__title{
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:var(--primary);
+
+    margin-bottom:4mm;
+
+}
+
+
+
+.pdf-card__text{
+
+    font-size:13px;
+
+    line-height:1.7;
+
+    color:var(--text);
+
+}
+
+
+
+/* ==========================================================
+   VARIANTEN
+========================================================== */
+
+.pdf-card--reflection{
+
+    background:#FFFFFF;
+
+}
+
+
+
+.pdf-card--psychology{
+
+    background:#F3F8F7;
+
+    border-color:#D7E6E2;
+
+}
+
+
+
+.pdf-card--takeaway{
+
+    background:#FDF7F2;
+
+    border-color:#E8D4C8;
+
+}
+
+
+
+/* ==========================================================
+   BADGE
+========================================================== */
+
+.pdf-badge{
+
+    display:inline-block;
+
+    padding:2mm 5mm;
+
+    margin-bottom:4mm;
+
+    border-radius:999px;
+
+    background:rgba(79,109,122,.08);
+
+    color:var(--primary);
+
+    font-size:10px;
+
+    font-weight:700;
+
+    letter-spacing:.08em;
+
+    text-transform:uppercase;
+
+}
+
+
+
+/* ==========================================================
+   ANTWORTBOX
+========================================================== */
+
+.answer-box{
+
+    margin-top:5mm;
+
+    padding:5mm;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    background:#FFFFFF;
+
+    min-height:28mm;
+
+    font-size:13px;
+
+    line-height:1.7;
+
+    color:var(--text);
+
+    overflow:hidden;
+
+    word-break:break-word;
+
+}
+/* ==========================================================
+   CHIPS
+========================================================== */
+
+.chip-group{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:3mm;
+
+    margin-top:4mm;
+
+}
+
+
+
+.chip{
+
+    padding:2.5mm 4mm;
+
+    border-radius:999px;
+
+    background:rgba(79,109,122,.08);
+
+    color:var(--primary);
+
+    font-size:11px;
+
+    line-height:1.2;
+
+}
+
+
+
+/* ==========================================================
+   MINDMAP
+========================================================== */
+
+.mindmap{
+
+    position:relative;
+
+    width:100%;
+
+    height:90mm;
+
+    margin-top:5mm;
+
+}
+
+
+
+.mindmap__center{
+
+    position:absolute;
+
+    top:50%;
+
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:34mm;
+
+    height:34mm;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    color:#FFFFFF;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:700;
+
+    font-size:15px;
+
+}
+
+
+
+.mindmap__item{
+
+    position:absolute;
+
+    width:34mm;
+
+    min-height:16mm;
+
+    padding:3mm;
+
+    border-radius:12px;
+
+    background:#FFFFFF;
+
+    border:1px solid var(--border);
+
+    text-align:center;
+
+    font-size:10px;
+
+    line-height:1.3;
+
+}
+
+
+
+/* ==========================================================
+   FUSSZEILE
+========================================================== */
+
+.footer{
+
+    position:absolute;
+
+    left:22mm;
+
+    right:22mm;
+
+    bottom:14mm;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    font-size:10px;
+
+    color:var(--text-light);
+
+}
+
+
+
+/* ==========================================================
+   HILFSKLASSEN
+========================================================== */
+
+.text-small{
+
+    font-size:12px;
+
+}
+
+
+
+.text-smaller{
+
+    font-size:11px;
+
+}
+
+
+
+.text-smallest{
+
+    font-size:10px;
+
+}
+
+
+
+.center{
+
+    text-align:center;
+
+}
+
+
+
+.right{
+
+    text-align:right;
+
+}
