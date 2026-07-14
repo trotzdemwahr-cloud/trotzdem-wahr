@@ -1,1 +1,1193 @@
+<!DOCTYPE html>
 
+<html lang="de">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+
+        trotzdem.wahr | Workbook
+
+    </title>
+
+    <meta
+        name="theme-color"
+        content="#F7F4EF">
+
+    <meta
+        name="description"
+        content="Kostenloses Workbook für Selbstreflexion und neue Perspektiven.">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="assets/css/workbook.css">
+
+</head>
+
+<body>
+
+    <div class="background">
+
+        <span class="watercolor watercolor--1"></span>
+
+        <span class="watercolor watercolor--2"></span>
+
+        <span class="watercolor watercolor--3"></span>
+
+    </div>
+
+    <main
+        class="workbook">
+
+
+
+        <!-- ==========================================
+             HEADER
+        =========================================== -->
+
+        <header class="hero">
+
+            <div class="hero__logo">
+
+                trotzdem.wahr
+
+            </div>
+
+            <div class="hero__progress">
+
+                <div class="progress">
+
+                    <div
+                        class="progress__bar"
+                        id="progressBar">
+
+                    </div>
+
+                </div>
+
+                <span
+                    id="progressText">
+
+                    Schritt 1 von 6
+
+                </span>
+
+            </div>
+
+        </header>
+              <!-- ==========================================
+             SCHRITT 1
+        =========================================== -->
+
+        <section
+            class="step active"
+            id="step1">
+
+            <div class="step__header">
+
+                <span class="step__number">
+
+                    01
+
+                </span>
+
+                <h1>
+
+                    Ankommen
+
+                </h1>
+
+                <p class="step__quote">
+
+                    „Du musst heute nichts leisten.“
+
+                </p>
+
+            </div>
+
+
+
+            <article class="card">
+
+                <h2>
+
+                    Schön, dass du da bist.
+
+                </h2>
+
+                <p>
+
+                    Wenn wir beginnen, uns selbst besser kennenzulernen,
+                    entsteht oft der Wunsch, möglichst schnell Antworten
+                    auf unsere Fragen zu finden.
+
+                </p>
+
+                <p>
+
+                    Doch Selbstreflexion ist kein Test und keine Prüfung.
+                    Sie beginnt mit Aufmerksamkeit – nicht mit Perfektion.
+
+                </p>
+
+                <p>
+
+                    Deshalb musst du heute nichts erreichen.
+                    Nimm dir Zeit, lies die Inhalte in deinem Tempo
+                    und beantworte nur das, was sich für dich richtig anfühlt.
+
+                </p>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    Reflexion
+
+                </h2>
+
+                <label for="feelings">
+
+                    Welche Gefühle begleiten dich im Moment?
+
+                </label>
+
+                <div
+                    class="feeling-grid"
+                    id="feelings">
+
+                </div>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    Gedanken
+
+                </h2>
+
+                <label>
+
+                    Welche Gedanken kennst du von dir?
+
+                </label>
+
+                <div
+                    class="checkbox-group"
+                    data-key="thoughts">
+
+                </div>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    Freiraum
+
+                </h2>
+
+                <label for="energy">
+
+                    Was kostet dich im Moment am meisten Kraft?
+
+                </label>
+
+                <textarea
+                    id="energy"
+                    data-key="energy"
+                    rows="5"
+                    maxlength="1200"></textarea>
+
+            </article>
+                      <article class="card card--psychology">
+
+                <div class="card__badge">
+
+                    Ein Blick in die Psychologie
+
+                </div>
+
+                <p>
+
+                    Unser Gehirn verarbeitet Informationen besonders gut,
+                    wenn wir uns sicher fühlen. Unter Druck arbeitet es
+                    stärker im „Überlebensmodus“, während ruhige Momente
+                    bewusste Reflexion ermöglichen.
+
+                </p>
+
+                <p>
+
+                    Deshalb entstehen viele wichtige Erkenntnisse
+                    nicht dann, wenn wir uns zwingen,
+                    sondern wenn wir uns erlauben,
+                    ehrlich hinzuschauen.
+
+                </p>
+
+            </article>
+
+
+
+            <article class="card card--takeaway">
+
+                <div class="card__badge">
+
+                    Für heute
+
+                </div>
+
+                <p>
+
+                    Es gibt heute kein richtig oder falsch.
+                    Du musst niemandem etwas beweisen.
+                    Dieses Workbook gehört nur dir.
+
+                </p>
+
+            </article>
+
+
+
+            <nav class="step__navigation">
+
+                <button
+                    class="button button--ghost"
+                    disabled>
+
+                    ← Zurück
+
+                </button>
+
+                <button
+                    class="button button--primary next-step">
+
+                    Weiter →
+
+                </button>
+
+            </nav>
+
+        </section>
+              <!-- ==========================================
+             SCHRITT 2
+        =========================================== -->
+
+        <section
+            class="step"
+            id="step2">
+
+            <div class="step__header">
+
+                <span class="step__number">
+
+                    02
+
+                </span>
+
+                <h1>
+
+                    Wer bin ich geworden?
+
+                </h1>
+
+                <p class="step__quote">
+
+                    „Manchmal hilft ein Blick zurück, um sich heute besser zu verstehen.“
+
+                </p>
+
+            </div>
+
+
+
+            <article class="card">
+
+                <h2>
+
+                    Ein Blick auf dich
+
+                </h2>
+
+                <p>
+
+                    Unser Selbstbild verändert sich im Laufe des Lebens.
+                    Erfahrungen, Beziehungen und Herausforderungen
+                    hinterlassen Spuren.
+                    Manche davon stärken uns,
+                    andere lassen uns an uns selbst zweifeln.
+
+                </p>
+
+                <p>
+
+                    Diese Fragen laden dich dazu ein,
+                    dich mit deinem früheren und heutigen Ich
+                    auseinanderzusetzen –
+                    ohne Bewertung,
+                    sondern mit Neugier.
+
+                </p>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    Früher
+
+                </h2>
+
+                <label for="pastSelf">
+
+                    Was mochtest du früher besonders an dir?
+
+                </label>
+
+                <textarea
+                    id="pastSelf"
+                    data-key="pastSelf"
+                    rows="4"
+                    maxlength="800"></textarea>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    Heute
+
+                </h2>
+
+                <label for="presentSelf">
+
+                    Was magst du heute an dir?
+
+                </label>
+
+                <textarea
+                    id="presentSelf"
+                    data-key="presentSelf"
+                    rows="4"
+                    maxlength="800"></textarea>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    Veränderung
+
+                </h2>
+
+                <label for="changeReflection">
+
+                    Was ist der größte Unterschied zwischen damals und heute?
+
+                </label>
+
+                <textarea
+                    id="changeReflection"
+                    data-key="changeReflection"
+                    rows="5"
+                    maxlength="1000"></textarea>
+
+            </article>
+                      <article class="card card--psychology">
+
+                <div class="card__badge">
+
+                    Ein Blick in die Psychologie
+
+                </div>
+
+                <p>
+
+                    Unser Selbstbild entsteht nicht über Nacht.
+                    Es entwickelt sich aus Erfahrungen,
+                    Beziehungen und den Geschichten,
+                    die wir über uns selbst erzählen.
+
+                </p>
+
+                <p>
+
+                    Manchmal übernehmen wir Bewertungen anderer,
+                    obwohl sie längst nicht mehr zu uns passen.
+                    Sich diese bewusst zu machen,
+                    kann helfen,
+                    den Blick auf sich selbst wieder liebevoller werden zu lassen.
+
+                </p>
+
+            </article>
+
+
+
+            <article class="card card--takeaway">
+
+                <div class="card__badge">
+
+                    Für heute
+
+                </div>
+
+                <p>
+
+                    Du bist nicht nur die Summe deiner Erfahrungen.
+                    Du darfst dich verändern,
+                    weiterentwickeln
+                    und dich immer wieder neu kennenlernen.
+
+                </p>
+
+            </article>
+
+
+
+            <nav class="step__navigation">
+
+                <button
+                    class="button button--ghost previous-step">
+
+                    ← Zurück
+
+                </button>
+
+                <button
+                    class="button button--primary next-step">
+
+                    Weiter →
+
+                </button>
+
+            </nav>
+
+        </section>
+              <!-- ==========================================
+             SCHRITT 3
+        =========================================== -->
+
+        <section
+            class="step"
+            id="step3">
+
+            <div class="step__header">
+
+                <span class="step__number">
+
+                    03
+
+                </span>
+
+                <h1>
+
+                    Verstehen
+
+                </h1>
+
+                <p class="step__quote">
+
+                    „Verstehen verändert den Blick – nicht die Vergangenheit.“
+
+                </p>
+
+            </div>
+
+
+
+            <article class="card">
+
+                <h2>
+
+                    Warum reagieren wir manchmal automatisch?
+
+                </h2>
+
+                <p>
+
+                    Unser Gehirn versucht ständig,
+                    Situationen möglichst schnell einzuordnen.
+                    Deshalb greifen wir häufig auf bekannte
+                    Muster zurück,
+                    ohne bewusst darüber nachzudenken.
+
+                </p>
+
+                <p>
+
+                    Diese Reaktionen sind nicht falsch.
+                    Sie haben meist einmal einen wichtigen Zweck erfüllt.
+                    Erst wenn wir sie erkennen,
+                    können wir entscheiden,
+                    ob sie uns heute noch helfen.
+
+                </p>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    Stressreaktion
+
+                </h2>
+
+                <label>
+
+                    Wie reagierst du meistens,
+                    wenn dich etwas belastet?
+
+                </label>
+
+                <div
+                    class="radio-group"
+                    data-key="stress">
+
+                </div>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    Wiederkehrende Muster
+
+                </h2>
+
+                <label>
+
+                    Welche Aussagen treffen auf dich zu?
+
+                </label>
+
+                <div
+                    class="checkbox-group"
+                    data-key="patterns">
+
+                </div>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    Rückblick
+
+                </h2>
+
+                <label
+                    for="reflection">
+
+                    Gab es eine Situation,
+                    in der du dich selbst überrascht hast?
+
+                </label>
+
+                <textarea
+                    id="reflection"
+                    data-key="reflection"
+                    rows="5"
+                    maxlength="1000"></textarea>
+
+            </article>
+
+
+
+            <article class="card card--psychology">
+
+                <div class="card__badge">
+
+                    Ein Blick in die Psychologie
+
+                </div>
+
+                <p>
+
+                    Viele unserer Reaktionen entstehen,
+                    bevor wir bewusst darüber nachdenken können.
+                    Das Gehirn vergleicht neue Situationen
+                    mit früheren Erfahrungen
+                    und entscheidet innerhalb von Sekundenbruchteilen,
+                    welche Reaktion sinnvoll erscheint.
+
+                </p>
+
+            </article>
+
+
+
+            <article class="card card--takeaway">
+
+                <div class="card__badge">
+
+                    Für heute
+
+                </div>
+
+                <p>
+
+                    Verstehen bedeutet nicht,
+                    alles sofort verändern zu müssen.
+                    Oft beginnt Entwicklung bereits dort,
+                    wo wir unsere eigenen Muster
+                    neugierig statt wertend betrachten.
+
+                </p>
+
+            </article>
+
+
+
+            <nav class="step__navigation">
+
+                <button
+                    class="button button--ghost previous-step">
+
+                    ← Zurück
+
+                </button>
+
+                <button
+                    class="button button--primary next-step">
+
+                    Weiter →
+
+                </button>
+
+            </nav>
+
+        </section>
+              <!-- ==========================================
+             SCHRITT 4
+        =========================================== -->
+
+        <section
+            class="step"
+            id="step4">
+
+            <div class="step__header">
+
+                <span class="step__number">
+
+                    04
+
+                </span>
+
+                <h1>
+
+                    Erkennen
+
+                </h1>
+
+                <p class="step__quote">
+
+                    „Nicht alles, was sich vertraut anfühlt, tut uns gut.“
+
+                </p>
+
+            </div>
+
+
+
+            <article class="card">
+
+                <h2>
+
+                    Warnsignale erkennen
+
+                </h2>
+
+                <p>
+
+                    Manche Verhaltensweisen wirken auf den ersten Blick
+                    harmlos oder werden sogar als Fürsorge verstanden.
+                    Erst mit etwas Abstand erkennen wir,
+                    wie sehr sie unser Selbstwertgefühl
+                    oder unsere Freiheit beeinflusst haben.
+
+                </p>
+
+                <p>
+
+                    Dieses Kapitel soll dir dabei helfen,
+                    typische Warnsignale besser einzuordnen –
+                    ohne Menschen vorschnell zu bewerten,
+                    sondern mit einem bewussteren Blick
+                    auf Beziehungen.
+
+                </p>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    Erfahrungen
+
+                </h2>
+
+                <label>
+
+                    Welche Aussagen kommen dir bekannt vor?
+
+                </label>
+
+                <div
+                    class="checkbox-group"
+                    data-key="relationshipExperiences">
+
+                </div>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    Warnsignale
+
+                </h2>
+
+                <label>
+
+                    Welche Verhaltensweisen empfindest du
+                    grundsätzlich als Warnsignal?
+
+                </label>
+
+                <div
+                    class="checkbox-group"
+                    data-key="warningSigns">
+
+                </div>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    Gedanken
+
+                </h2>
+
+                <label
+                    for="realisation">
+
+                    Welche Gedanken möchtest du zu diesem Thema festhalten?
+
+                </label>
+
+                <textarea
+                    id="realisation"
+                    data-key="realisation"
+                    rows="5"
+                    maxlength="2000"></textarea>
+
+            </article>
+
+
+
+            <article class="card card--psychology">
+
+                <div class="card__badge">
+
+                    Ein Blick in die Psychologie
+
+                </div>
+
+                <p>
+
+                    Manipulation beginnt nur selten plötzlich.
+                    Häufig entwickelt sie sich schrittweise
+                    durch Kontrolle,
+                    Schuldgefühle,
+                    Abwertung oder das ständige Infragestellen
+                    der eigenen Wahrnehmung.
+
+                </p>
+
+                <p>
+
+                    Je früher wir solche Muster erkennen,
+                    desto leichter fällt es,
+                    unsere Grenzen ernst zu nehmen.
+
+                </p>
+
+            </article>
+
+
+
+            <article class="card card--takeaway">
+
+                <div class="card__badge">
+
+                    Für heute
+
+                </div>
+
+                <p>
+
+                    Deiner Wahrnehmung zu vertrauen
+                    ist kein Zeichen von Misstrauen,
+                    sondern von Selbstfürsorge.
+
+                </p>
+
+            </article>
+
+
+
+            <nav class="step__navigation">
+
+                <button
+                    class="button button--ghost previous-step">
+
+                    ← Zurück
+
+                </button>
+
+                <button
+                    class="button button--primary next-step">
+
+                    Weiter →
+
+                </button>
+
+            </nav>
+
+        </section>
+              <!-- ==========================================
+             SCHRITT 6
+        =========================================== -->
+
+        <section
+            class="step"
+            id="step6">
+
+            <div class="step__header">
+
+                <span class="step__number">
+
+                    06
+
+                </span>
+
+                <h1>
+
+                    Weitergehen
+
+                </h1>
+
+                <p class="step__quote">
+
+                    „Jeder kleine Schritt zählt.“
+
+                </p>
+
+            </div>
+
+
+
+            <article class="card">
+
+                <h2>
+
+                    Dein nächster Schritt
+
+                </h2>
+
+                <p>
+
+                    Dieses Workbook endet hier,
+                    dein Weg jedoch nicht.
+                    Veränderungen entstehen selten über Nacht,
+                    sondern durch viele kleine Entscheidungen,
+                    die wir immer wieder treffen.
+
+                </p>
+
+                <p>
+
+                    Nimm dir einen Moment Zeit
+                    und halte fest,
+                    was du aus diesem Workbook
+                    für dich mitnehmen möchtest.
+
+                </p>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    Was möchtest du mitnehmen?
+
+                </h2>
+
+                <label>
+
+                    Was möchtest du aus diesem Workbook mitnehmen?
+
+                </label>
+
+                <div
+                    class="checkbox-group"
+                    data-key="takeaway">
+
+                </div>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    Unterstützung
+
+                </h2>
+
+                <label>
+
+                    Wer oder was kann dich auf deinem Weg unterstützen?
+
+                </label>
+
+                <div
+                    class="checkbox-group"
+                    data-key="support">
+
+                </div>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    Meine wichtigste Erkenntnis
+
+                </h2>
+
+                <label
+                    for="insight">
+
+                    Welche Erkenntnis möchtest du aus diesem Workbook mitnehmen?
+
+                </label>
+
+                <textarea
+                    id="insight"
+                    data-key="insight"
+                    rows="4"
+                    maxlength="2000"></textarea>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    Mein nächster Schritt
+
+                </h2>
+
+                <label
+                    for="nextStep">
+
+                    Welchen kleinen Schritt möchtest du als Nächstes gehen?
+
+                </label>
+
+                <textarea
+                    id="nextStep"
+                    data-key="nextStep"
+                    rows="4"
+                    maxlength="2000"></textarea>
+
+            </article>
+
+
+
+            <article class="card card--reflection">
+
+                <h2>
+
+                    An mein zukünftiges Ich
+
+                </h2>
+
+                <label
+                    for="futureMessage">
+
+                    Schreibe deinem zukünftigen Ich eine Nachricht.
+
+                </label>
+
+                <textarea
+                    id="futureMessage"
+                    data-key="futureMessage"
+                    rows="5"
+                    maxlength="2000"></textarea>
+
+            </article>
+
+
+
+            <article class="card card--psychology">
+
+                <div class="card__badge">
+
+                    Ein Blick in die Psychologie
+
+                </div>
+
+                <p>
+
+                    Nachhaltige Veränderungen entstehen
+                    selten durch einen einzigen großen Moment.
+                    Viel häufiger entwickeln sie sich
+                    durch viele kleine Entscheidungen,
+                    die wir immer wieder treffen.
+
+                </p>
+
+            </article>
+
+
+
+            <article class="card card--takeaway">
+
+                <div class="card__badge">
+
+                    Für heute
+
+                </div>
+
+                <p>
+
+                    Du musst nicht alle Antworten kennen.
+                    Es reicht,
+                    wenn du bereit bist,
+                    den nächsten kleinen Schritt zu gehen.
+
+                </p>
+
+            </article>
+
+
+
+            <nav class="step__navigation">
+
+                <button
+                    class="button button--ghost previous-step">
+
+                    ← Zurück
+
+                </button>
+
+                <div class="step__actions">
+
+                    <button
+                        class="button button--secondary"
+                        id="resetWorkbook">
+
+                        Workbook zurücksetzen
+
+                    </button>
+
+                    <button
+                        class="button button--primary"
+                        id="downloadPdf">
+
+                        PDF herunterladen
+
+                    </button>
+
+                </div>
+
+            </nav>
+
+        </section>
+          </main>
+
+
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
+    </script>
+
+    <script
+        src="assets/js/workbook.js">
+    </script>
+
+</body>
+
+</html>
