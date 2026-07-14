@@ -1,0 +1,890 @@
+/* ==========================================================
+   trotzdem.wahr
+   Workbook V5
+========================================================== */
+
+
+/* ==========================================================
+   ROOT
+========================================================== */
+
+:root{
+
+    --background:#F7F4EF;
+
+    --surface:#FFFFFF;
+
+    --primary:#4F6D7A;
+
+    --secondary:#CFAE9B;
+
+    --accent:#A8C7C0;
+
+    --highlight:#E6D6D1;
+
+    --text:#3C3836;
+
+    --text-light:#6E6864;
+
+    --border:#E8E1DB;
+
+    --shadow:0 12px 32px rgba(60,56,54,.08);
+
+    --radius:24px;
+
+    --radius-small:16px;
+
+    --transition:.25s ease;
+
+    --content-width:980px;
+
+}
+
+
+
+/* ==========================================================
+   RESET
+========================================================== */
+
+*,
+*::before,
+*::after{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+
+
+body{
+
+    font-family:"Inter",sans-serif;
+
+    background:var(--background);
+
+    color:var(--text);
+
+    line-height:1.7;
+
+    overflow-x:hidden;
+
+    position:relative;
+
+}
+
+
+
+/* ==========================================================
+   HINTERGRUND
+========================================================== */
+
+.background{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+    z-index:-1;
+
+}
+
+
+
+.watercolor{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    filter:blur(10px);
+
+    opacity:.12;
+
+}
+
+
+
+.watercolor--1{
+
+    width:420px;
+
+    height:420px;
+
+    background:#D8E7E2;
+
+    top:-140px;
+
+    left:-120px;
+
+}
+
+
+
+.watercolor--2{
+
+    width:520px;
+
+    height:520px;
+
+    background:#E8D4CC;
+
+    right:-180px;
+
+    top:20%;
+
+}
+
+
+
+.watercolor--3{
+
+    width:420px;
+
+    height:420px;
+
+    background:#ECE3C9;
+
+    bottom:-150px;
+
+    left:30%;
+
+}
+/* ==========================================================
+   LAYOUT
+========================================================== */
+
+.workbook{
+
+    width:min(100%,var(--content-width));
+
+    margin:0 auto;
+
+    padding:40px 20px 80px;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.hero{
+
+    margin-bottom:40px;
+
+}
+
+
+
+.hero__logo{
+
+    font-size:14px;
+
+    font-weight:700;
+
+    letter-spacing:.12em;
+
+    text-transform:uppercase;
+
+    color:var(--primary);
+
+    margin-bottom:24px;
+
+}
+
+
+
+.hero__progress{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+
+
+.progress{
+
+    width:100%;
+
+    height:8px;
+
+    background:rgba(79,109,122,.12);
+
+    border-radius:999px;
+
+    overflow:hidden;
+
+}
+
+
+
+.progress__bar{
+
+    width:16.66%;
+
+    height:100%;
+
+    background:var(--primary);
+
+    border-radius:999px;
+
+    transition:width .35s ease;
+
+}
+
+
+
+#progressText{
+
+    font-size:14px;
+
+    color:var(--text-light);
+
+    font-weight:500;
+
+}
+
+
+
+/* ==========================================================
+   SCHRITTE
+========================================================== */
+
+.step{
+
+    display:none;
+
+    animation:fade .35s ease;
+
+}
+
+
+
+.step.active{
+
+    display:block;
+
+}
+
+
+
+/* ==========================================================
+   KAPITELKOPF
+========================================================== */
+
+.step__header{
+
+    margin-bottom:32px;
+
+}
+
+
+
+.step__number{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    background:var(--accent);
+
+    color:var(--primary);
+
+    font-weight:700;
+
+    margin-bottom:18px;
+
+}
+
+
+
+.step__header h1{
+
+    font-size:40px;
+
+    line-height:1.15;
+
+    color:var(--primary);
+
+    margin-bottom:16px;
+
+}
+
+
+
+.step__quote{
+
+    max-width:640px;
+
+    font-size:18px;
+
+    color:var(--text-light);
+
+    font-style:italic;
+
+}
+/* ==========================================================
+   KARTEN
+========================================================== */
+
+.card{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:28px;
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:24px;
+
+}
+
+
+
+.card h2{
+
+    font-size:22px;
+
+    color:var(--primary);
+
+    margin-bottom:14px;
+
+}
+
+
+
+.card p{
+
+    color:var(--text);
+
+    margin-bottom:14px;
+
+}
+
+
+
+.card p:last-child{
+
+    margin-bottom:0;
+
+}
+
+
+
+/* ==========================================================
+   REFLEXION
+========================================================== */
+
+.card--reflection{
+
+    background:#FFFFFF;
+
+}
+
+
+
+/* ==========================================================
+   PSYCHOLOGIE
+========================================================== */
+
+.card--psychology{
+
+    background:#F3F8F7;
+
+    border-color:#D7E6E2;
+
+}
+
+
+
+/* ==========================================================
+   FÜR HEUTE
+========================================================== */
+
+.card--takeaway{
+
+    background:#FDF7F2;
+
+    border-color:#E8D4C8;
+
+}
+
+
+
+/* ==========================================================
+   BADGES
+========================================================== */
+
+.card__badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:8px 16px;
+
+    margin-bottom:16px;
+
+    border-radius:999px;
+
+    background:rgba(79,109,122,.08);
+
+    color:var(--primary);
+
+    font-size:13px;
+
+    font-weight:600;
+
+    letter-spacing:.04em;
+
+    text-transform:uppercase;
+
+}
+/* ==========================================================
+   FORMULARE
+========================================================== */
+
+label{
+
+    display:block;
+
+    margin-bottom:12px;
+
+    color:var(--text);
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+
+
+/* ==========================================================
+   TEXTFELDER
+========================================================== */
+
+textarea{
+
+    width:100%;
+
+    min-height:140px;
+
+    padding:16px;
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-small);
+
+    background:#FFFFFF;
+
+    color:var(--text);
+
+    font:inherit;
+
+    line-height:1.7;
+
+    resize:vertical;
+
+    transition:var(--transition);
+
+}
+
+
+
+textarea:focus{
+
+    outline:none;
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 4px rgba(79,109,122,.10);
+
+}
+
+
+
+/* ==========================================================
+   OPTIONSGRUPPEN
+========================================================== */
+
+.checkbox-group,
+
+.radio-group,
+
+.feeling-grid{
+
+    display:grid;
+
+    gap:12px;
+
+}
+
+
+
+/* ==========================================================
+   OPTION
+========================================================== */
+
+.option{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:14px 16px;
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-small);
+
+    background:#FFFFFF;
+
+    cursor:pointer;
+
+    transition:var(--transition);
+
+}
+
+
+
+.option:hover{
+
+    border-color:var(--primary);
+
+    transform:translateY(-1px);
+
+}
+
+
+
+.option input{
+
+    accent-color:var(--primary);
+
+    transform:scale(1.1);
+
+}
+
+
+
+.option span{
+
+    flex:1;
+
+    color:var(--text);
+
+}
+/* ==========================================================
+   NAVIGATION
+========================================================== */
+
+.step__navigation{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:16px;
+
+    margin-top:40px;
+
+    padding-top:24px;
+
+    border-top:1px solid var(--border);
+
+}
+
+
+
+.step__actions{
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+}
+
+
+
+/* ==========================================================
+   BUTTONS
+========================================================== */
+
+.button{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    min-height:48px;
+
+    padding:0 24px;
+
+    border:none;
+
+    border-radius:999px;
+
+    font:inherit;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:var(--transition);
+
+}
+
+
+
+.button:disabled{
+
+    opacity:.45;
+
+    cursor:not-allowed;
+
+}
+
+
+
+.button--primary{
+
+    background:var(--primary);
+
+    color:#FFFFFF;
+
+}
+
+
+
+.button--primary:hover:not(:disabled){
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 24px rgba(79,109,122,.18);
+
+}
+
+
+
+.button--secondary{
+
+    background:var(--secondary);
+
+    color:#FFFFFF;
+
+}
+
+
+
+.button--secondary:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+
+.button--ghost{
+
+    background:transparent;
+
+    color:var(--primary);
+
+    border:1px solid var(--border);
+
+}
+
+
+
+.button--ghost:hover:not(:disabled){
+
+    background:#FFFFFF;
+
+}
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width:900px){
+
+    .workbook{
+
+        padding:32px 18px 64px;
+
+    }
+
+    .step__header h1{
+
+        font-size:34px;
+
+    }
+
+    .step__navigation{
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+    }
+
+    .step__actions{
+
+        width:100%;
+
+        flex-direction:column;
+
+    }
+
+    .button{
+
+        width:100%;
+
+    }
+
+}
+
+
+
+@media (max-width:600px){
+
+    .workbook{
+
+        padding:24px 16px 48px;
+
+    }
+
+    .hero{
+
+        margin-bottom:32px;
+
+    }
+
+    .step__number{
+
+        width:42px;
+
+        height:42px;
+
+        font-size:14px;
+
+    }
+
+    .step__header h1{
+
+        font-size:28px;
+
+    }
+
+    .step__quote{
+
+        font-size:16px;
+
+    }
+
+    .card{
+
+        padding:20px;
+
+    }
+
+    .card h2{
+
+        font-size:20px;
+
+    }
+
+    textarea{
+
+        min-height:120px;
+
+    }
+
+}
+
+
+
+/* ==========================================================
+   ANIMATIONEN
+========================================================== */
+
+@keyframes fade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(12px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+
+/* ==========================================================
+   HILFSKLASSEN
+========================================================== */
+
+.hidden{
+
+    display:none !important;
+
+}
