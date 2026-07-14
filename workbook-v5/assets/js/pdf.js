@@ -379,9 +379,9 @@ function createChapter1(){
 
             </div>
 
-            <div id="chapter1-feelings"></div>
-
-        </div>
+            ${createChipGroup(
+    getArray("feelings")
+)}
 
 
 
@@ -393,11 +393,10 @@ function createChapter1(){
 
             </div>
 
-            <div
-                class="answer-box"
-                id="chapter1-energy">
-
-            </div>
+            ${createOptionalAnswer(
+    "Was kostet dich im Moment am meisten Kraft?",
+    getText("energy")
+)}
 
         </div>
 
@@ -501,7 +500,21 @@ function getArray(key){
    ANTWORTBOX
 ========================================================== */
 
-function createAnswerBox(value){
+function createOptionalAnswer(title,value){
+
+    if(!value){
+
+        return `
+
+            <div class="pdf-card__text">
+
+                —
+
+            </div>
+
+        `;
+
+    }
 
     return `
 
@@ -525,9 +538,17 @@ function createChipGroup(values){
 
     if(values.length===0){
 
-        return createAnswerBox("Keine Auswahl.");
+    return `
 
-    }
+        <div class="pdf-card__text">
+
+            —
+
+        </div>
+
+    `;
+
+}
 
     return `
 
@@ -639,11 +660,10 @@ function createChapter2(){
 
             </div>
 
-            ${createAnswerBox(
-
-                getText("pastSelf")
-
-            )}
+            ${createOptionalAnswer(
+    "Was mochtest du früher besonders an dir?",
+    getText("pastSelf")
+)}
 
         </div>
 
@@ -657,7 +677,7 @@ function createChapter2(){
 
             </div>
 
-            ${createAnswerBox(
+            ${createOptionalAnswer(
 
                 getText("presentSelf")
 
@@ -676,7 +696,7 @@ function createChapter2(){
 
             </div>
 
-            ${createAnswerBox(
+            ${createOptionalAnswer(
 
                 getText("changeReflection")
 
@@ -825,7 +845,7 @@ function createChapter3(){
 
             </div>
 
-            ${createAnswerBox(
+            ${createOptionalAnswer(
 
                 getText("stress")
 
@@ -861,7 +881,7 @@ function createChapter3(){
 
             </div>
 
-            ${createAnswerBox(
+            ${createOptionalAnswer(
 
                 getText("reflection")
 
@@ -1049,7 +1069,7 @@ function createChapter4(){
 
             </div>
 
-            ${createAnswerBox(
+            ${createOptionalAnswer(
 
                 getText("realisation")
 
@@ -1239,7 +1259,7 @@ function createChapter5(){
 
             </div>
 
-            ${createAnswerBox(
+            ${createOptionalAnswer(
 
                 getText("gratitude")
 
@@ -1430,7 +1450,7 @@ function createChapter6(){
 
             </div>
 
-            ${createAnswerBox(
+            ${createOptionalAnswer(
 
                 getText("insight")
 
@@ -1448,7 +1468,7 @@ function createChapter6(){
 
             </div>
 
-            ${createAnswerBox(
+            ${createOptionalAnswer(
 
                 getText("nextStep")
 
@@ -1466,7 +1486,7 @@ function createChapter6(){
 
             </div>
 
-            ${createAnswerBox(
+            ${createOptionalAnswer(
 
                 getText("futureMessage")
 
