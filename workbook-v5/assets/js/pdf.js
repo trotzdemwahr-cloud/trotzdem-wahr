@@ -383,7 +383,7 @@ function createChapter1(){
     getArray("feelings")
 )}
 
-
+       </div>
 
         <div class="pdf-card pdf-card--reflection">
 
@@ -500,7 +500,7 @@ function getArray(key){
    ANTWORTBOX
 ========================================================== */
 
-function createOptionalAnswer(title,value){
+function createOptionalAnswer(value){
 
     if(!value){
 
@@ -661,7 +661,6 @@ function createChapter2(){
             </div>
 
             ${createOptionalAnswer(
-    "Was mochtest du früher besonders an dir?",
     getText("pastSelf")
 )}
 
@@ -1627,11 +1626,17 @@ function exportPdf(){
     html2pdf()
 
         .set({
-
+            
             margin:0,
 
             filename:"Zurück-zu-dir-Workbook.pdf",
 
+           pagebreak:{
+
+    mode:["css"]
+
+},
+           
             image:{
 
                 type:"jpeg",
