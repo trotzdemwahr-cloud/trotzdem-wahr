@@ -87,19 +87,21 @@ body{
 
 .page{
 
-    position:relative;
-
     width:210mm;
 
     min-height:297mm;
 
-    padding:20mm;
+    background:white;
 
-    background:var(--background);
+    padding:22mm;
 
-    page-break-after:always;
+    display:flex;
 
-    break-after:page;
+    flex-direction:column;
+
+    justify-content:flex-start;
+
+    position:relative;
 
 }
 
@@ -232,7 +234,7 @@ body{
 
 .chapter{
 
-    margin-bottom:36px;
+    margin-bottom:28px;
 
 }
 
@@ -296,7 +298,7 @@ body{
 
 .card{
 
-    margin-bottom:24px;
+    margin-bottom:20px;
 
     padding:24px;
 
