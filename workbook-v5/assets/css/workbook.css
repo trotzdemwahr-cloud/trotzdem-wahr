@@ -584,6 +584,7 @@ textarea:focus{
     cursor:pointer;
 
     transition:var(--transition);
+   user-select:none;
 
 }
 
