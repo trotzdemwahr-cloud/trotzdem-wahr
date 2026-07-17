@@ -1,20 +1,29 @@
 /* ==========================================================
    trotzdem.wahr
-   Workbook PDF V6
+   Workbook PDF
+========================================================== */
+
+
+/* ==========================================================
+   ROOT
 ========================================================== */
 
 :root{
 
     --background:#F7F4EF;
+
     --surface:#FFFFFF;
 
     --primary:#4F6D7A;
+
     --secondary:#CFAE9B;
 
     --accent:#A8C7C0;
+
     --highlight:#E6D6D1;
 
     --text:#3C3836;
+
     --text-light:#6E6864;
 
     --border:#E8E1DB;
@@ -34,26 +43,36 @@
 *{
 
     margin:0;
+
     padding:0;
+
     box-sizing:border-box;
 
 }
+
+
 
 html,
 body{
 
     width:100%;
+
     min-height:100%;
-    background:#d9d9d9;
 
 }
+
+
 
 body{
 
     font-family:"Inter",sans-serif;
+
+    background:#d9d9d9;
+
     color:var(--text);
 
     -webkit-font-smoothing:antialiased;
+
     text-rendering:optimizeLegibility;
 
 }
@@ -61,15 +80,18 @@ body{
 
 
 /* ==========================================================
-   PDF
+   PDF CONTAINER
 ========================================================== */
 
 #pdf{
 
     width:210mm;
+
     margin:0 auto;
 
 }
+
+
 
 #pdfPages{
 
@@ -80,7 +102,7 @@ body{
 
 
 /* ==========================================================
-   A4
+   A4 SEITE
 ========================================================== */
 
 .page{
@@ -88,14 +110,16 @@ body{
     position:relative;
 
     width:210mm;
+
     height:297mm;
 
     overflow:hidden;
 
     background:var(--background);
 
-    page-break-after:always;
     break-after:page;
+
+    page-break-after:always;
 
 }
 
@@ -110,16 +134,36 @@ body{
     content:"";
 
     position:absolute;
+
     inset:0;
 
     pointer-events:none;
 
     background:
 
-        radial-gradient(circle at 12% 18%,rgba(168,199,192,.22),transparent 28%),
-        radial-gradient(circle at 88% 12%,rgba(230,214,209,.28),transparent 30%),
-        radial-gradient(circle at 82% 84%,rgba(207,174,155,.18),transparent 26%),
-        radial-gradient(circle at 15% 82%,rgba(79,109,122,.10),transparent 26%);
+        radial-gradient(
+            circle at 12% 18%,
+            rgba(168,199,192,.22),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 88% 12%,
+            rgba(230,214,209,.28),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 82% 84%,
+            rgba(207,174,155,.18),
+            transparent 26%
+        ),
+
+        radial-gradient(
+            circle at 15% 82%,
+            rgba(79,109,122,.10),
+            transparent 26%
+        );
 
     z-index:0;
 
@@ -139,6 +183,10 @@ body{
 
     height:100%;
 
+    display:flex;
+
+    flex-direction:column;
+
     padding:
 
         20mm
@@ -146,9 +194,19 @@ body{
         22mm
         20mm;
 
-    display:flex;
+}
 
-    flex-direction:column;
+
+
+/* ==========================================================
+   DRUCK
+========================================================== */
+
+@page{
+
+    size:A4;
+
+    margin:0;
 
 }
 /* ==========================================================
@@ -161,9 +219,10 @@ body{
     font-weight:600;
     letter-spacing:.08em;
     text-transform:uppercase;
+
     color:var(--secondary);
 
-    margin-bottom:3mm;
+    margin-bottom:2mm;
 
 }
 
@@ -171,7 +230,8 @@ body{
 
     font-size:32px;
     font-weight:700;
-    line-height:1.15;
+    line-height:1.2;
+
     color:var(--primary);
 
     margin-bottom:3mm;
@@ -181,7 +241,8 @@ body{
 .page__subtitle{
 
     font-size:15px;
-    line-height:1.5;
+    line-height:1.6;
+
     color:var(--text-light);
 
     margin-bottom:8mm;
@@ -198,7 +259,7 @@ body{
 
     display:grid;
 
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(2,1fr);
 
     gap:5mm;
 
@@ -222,8 +283,6 @@ body{
 
     width:100%;
 
-    padding:8mm;
-
     background:var(--surface);
 
     border:1px solid var(--border);
@@ -232,6 +291,8 @@ body{
 
     box-shadow:var(--shadow);
 
+    padding:8mm;
+
     overflow:hidden;
 
 }
@@ -239,12 +300,14 @@ body{
 
 
 /* ==========================================================
-   FESTE HÖHEN
+   FESTE KARTENHÖHEN
 ========================================================== */
 
 .pdf-card:not(.pdf-card--reflection):not(.pdf-card--psychology):not(.pdf-card--takeaway){
 
     height:52mm;
+
+    margin-bottom:5mm;
 
 }
 
@@ -256,26 +319,32 @@ body{
 
 .pdf-card--psychology{
 
-    height:38mm;
+    height:42mm;
+
+    margin-top:auto;
 
 }
 
 .pdf-card--takeaway{
 
-    height:26mm;
+    height:30mm;
+
+    margin-top:5mm;
 
 }
 
 
 
 /* ==========================================================
-   TITEL
+   KARTENTITEL
 ========================================================== */
 
 .pdf-card__title{
 
     font-size:18px;
+
     font-weight:600;
+
     color:var(--primary);
 
     margin-bottom:5mm;
@@ -310,11 +379,11 @@ body{
 
     display:inline-flex;
 
-    align-self:flex-start;
-
     align-items:center;
 
     justify-content:center;
+
+    align-self:flex-start;
 
     padding:2mm 5mm;
 
@@ -335,6 +404,68 @@ body{
 
 
 /* ==========================================================
+   ANTWORTBOX
+========================================================== */
+
+.answer-box{
+
+    flex:1;
+
+    width:100%;
+
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:flex-start;
+
+    padding:4mm;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    background:#fff;
+
+    overflow:hidden;
+
+    white-space:pre-wrap;
+
+    word-break:break-word;
+
+    line-height:1.55;
+
+    font-size:13px;
+
+}
+
+
+
+/* ==========================================================
+   SCHRIFTGRÖSSEN
+========================================================== */
+
+.answer-box.text-small{
+
+    font-size:12px;
+
+}
+
+.answer-box.text-smaller{
+
+    font-size:11px;
+
+}
+
+.answer-box.text-smallest{
+
+    font-size:10px;
+
+}
+
+
+
+/* ==========================================================
    CHIP GRUPPE
 ========================================================== */
 
@@ -344,9 +475,9 @@ body{
 
     flex-wrap:wrap;
 
-    gap:3mm;
-
     align-content:flex-start;
+
+    gap:3mm;
 
 }
 
@@ -372,76 +503,16 @@ body{
 
     font-size:12px;
 
-    line-height:1;
-
     font-weight:500;
 
-}
-
-
-
-/* ==========================================================
-   ANTWORTBOX
-========================================================== */
-
-.answer-box{
-
-    flex:1;
-
-    display:flex;
-
-    align-items:flex-start;
-
-    width:100%;
-
-    padding:4mm;
-
-    border:1px solid var(--border);
-
-    border-radius:14px;
-
-    background:#fff;
-
-    overflow:hidden;
-
-    white-space:pre-wrap;
-
-    word-break:break-word;
-
-    line-height:1.55;
-
-    font-size:13px;
+    line-height:1;
 
 }
 
 
 
 /* ==========================================================
-   AUTOMATISCHE SCHRIFT
-========================================================== */
-
-.answer-box.text-small{
-
-    font-size:12px;
-
-}
-
-.answer-box.text-smaller{
-
-    font-size:11px;
-
-}
-
-.answer-box.text-smallest{
-
-    font-size:10px;
-
-}
-
-
-
-/* ==========================================================
-   LEERE FELDER
+   LEERE ANTWORT
 ========================================================== */
 
 .pdf-card__empty{
@@ -449,8 +520,6 @@ body{
     color:var(--text-light);
 
     font-style:italic;
-
-    margin-top:2mm;
 
 }
 /* ==========================================================
@@ -477,6 +546,7 @@ body{
 .cover__title{
 
     font-size:42px;
+
     font-weight:700;
 
     color:var(--primary);
@@ -495,7 +565,7 @@ body{
 
     color:var(--text-light);
 
-    margin-bottom:20mm;
+    margin-bottom:22mm;
 
 }
 
@@ -522,7 +592,9 @@ body{
     position:absolute;
 
     left:20mm;
+
     right:20mm;
+
     bottom:12mm;
 
     display:flex;
@@ -582,19 +654,6 @@ body{
 .text-light{
 
     color:var(--text-light);
-
-}
-
-
-
-/* ==========================================================
-   PDF
-========================================================== */
-
-@page{
-
-    size:A4;
-    margin:0;
 
 }
 
