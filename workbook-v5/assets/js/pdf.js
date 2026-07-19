@@ -101,15 +101,19 @@ function renderWorkbook(){
 
     requestAnimationFrame(()=>{
 
-        fitAnswerBoxes();
+    fitAnswerBoxes();
 
-        requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>{
+
+        setTimeout(()=>{
 
             exportPdf();
 
-        });
+        },150);
 
     });
+
+});
 
 }
 /* ==========================================================
