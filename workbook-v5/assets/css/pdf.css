@@ -1,6 +1,7 @@
 /* ==========================================================
    trotzdem.wahr
    Workbook PDF
+   Version 1.0
 ========================================================== */
 
 
@@ -10,34 +11,46 @@
 
 :root{
 
-    --background:#F7F4EF;
+    /* Papier */
 
-    --surface:rgba(255,255,255,.88);
+    --background:#FCFAF7;
 
-    --primary:#607D88;
+    /* Karten */
 
-    --secondary:#D6B49C;
+    --surface:rgba(255,255,255,.90);
 
-    --accent:#BFD5D4;
+    /* Farben */
 
-    --highlight:#F0E1D6;
+    --primary:#5F7C86;
 
-    --text:#3F3A37;
+    --secondary:#D8B89D;
 
-    --text-light:#726A64;
+    --accent:#D8E8E4;
 
-    --border:#E8DDD3;
+    --highlight:#F6E6D9;
 
-    --shadow:0 12px 28px rgba(96,125,136,.08);
+    /* Text */
+
+    --text:#3D3937;
+
+    --text-light:#746D67;
+
+    /* Linien */
+
+    --border:#E8E0D7;
+
+    /* Schatten */
+
+    --shadow:
+        0 8px 24px rgba(95,124,134,.05);
+
+    /* Radius */
 
     --radius:20px;
 
 }
 
 
-/* ==========================================================
-   RESET
-========================================================== */
 /* ==========================================================
    RESET
 ========================================================== */
@@ -67,7 +80,7 @@ body{
 
     font-family:"Inter",sans-serif;
 
-    background:#ECE7DF;
+    background:#EFEAE3;
 
     color:var(--text);
 
@@ -79,7 +92,7 @@ body{
 
 
 /* ==========================================================
-   PDF CONTAINER
+   PDF
 ========================================================== */
 
 #pdf{
@@ -90,8 +103,6 @@ body{
 
 }
 
-
-
 #pdfPages{
 
     width:100%;
@@ -99,9 +110,8 @@ body{
 }
 
 
-
 /* ==========================================================
-   A4 SEITE
+   A4
 ========================================================== */
 
 .page{
@@ -112,18 +122,17 @@ body{
 
     height:297mm;
 
-    background:var(--background);
-
     overflow:hidden;
+
+    background:var(--background);
 
     break-after:page;
 
 }
 
 
-
 /* ==========================================================
-   HINTERGRUND
+   WATERCOLOR BACKGROUND
 ========================================================== */
 
 .page::before{
@@ -138,46 +147,47 @@ body{
 
     pointer-events:none;
 
-    opacity:.95;
-
     background:
 
         radial-gradient(
-            ellipse at top left,
-            rgba(191,213,212,.42) 0%,
-            transparent 45%
+            ellipse 90% 70% at 5% 5%,
+            rgba(216,232,228,.22),
+            transparent 65%
         ),
 
         radial-gradient(
-            ellipse at top right,
-            rgba(240,225,214,.55) 0%,
-            transparent 48%
+            ellipse 80% 70% at 95% 12%,
+            rgba(246,230,217,.25),
+            transparent 68%
         ),
 
         radial-gradient(
-            ellipse at bottom left,
-            rgba(214,180,156,.30) 0%,
-            transparent 46%
+            ellipse 90% 75% at 15% 92%,
+            rgba(216,184,157,.18),
+            transparent 70%
         ),
 
         radial-gradient(
-            ellipse at bottom right,
-            rgba(96,125,136,.12) 0%,
-            transparent 42%
+            ellipse 85% 70% at 95% 88%,
+            rgba(210,223,228,.16),
+            transparent 72%
         ),
 
         linear-gradient(
+
             180deg,
-            rgba(255,255,255,.12),
+
+            rgba(255,255,255,.22),
+
             rgba(255,255,255,0)
+
         );
 
 }
 
 
-
 /* ==========================================================
-   SEITENLAYOUT
+   PAGE LAYOUT
 ========================================================== */
 
 .page__content{
@@ -192,14 +202,21 @@ body{
 
     height:100%;
 
-    padding:16mm 18mm 16mm 18mm;
+    padding:
+
+        16mm
+
+        18mm
+
+        16mm
+
+        18mm;
 
 }
 
 
-
 /* ==========================================================
-   DRUCK
+   PAGE
 ========================================================== */
 
 @page{
@@ -210,84 +227,136 @@ body{
 
 }
 /* ==========================================================
-   HEADER
+   TYPOGRAPHY
 ========================================================== */
 
-.page__number{
+h1{
 
-    color:var(--secondary);
-
-    font-size:12px;
-
-    font-weight:600;
-
-    letter-spacing:.12em;
-
-    text-transform:uppercase;
-
-    margin-bottom:2mm;
-
-}
-
-.page__title{
-
-    color:var(--primary);
-
-    font-size:31px;
+    font-size:44px;
 
     font-weight:700;
 
     line-height:1.15;
 
+    letter-spacing:-0.03em;
+
+    color:var(--text);
+
+}
+
+h2{
+
+    font-size:30px;
+
+    font-weight:700;
+
+    line-height:1.2;
+
+    color:var(--text);
+
+}
+
+h3{
+
+    font-size:17px;
+
+    font-weight:600;
+
+    line-height:1.3;
+
+    color:var(--text);
+
+}
+
+p{
+
+    font-size:13.5px;
+
+    line-height:1.6;
+
+    color:var(--text-light);
+
+}
+
+small{
+
+    font-size:11px;
+
+    color:var(--text-light);
+
+}
+
+
+/* ==========================================================
+   PAGE SECTIONS
+========================================================== */
+
+.page-header{
+
+    flex:0 0 auto;
+
+    margin-bottom:8mm;
+
+}
+
+.page-title{
+
     margin-bottom:3mm;
 
 }
 
-.page__subtitle{
+.page-subtitle{
 
-    color:var(--text-light);
-
-    font-size:14px;
-
-    line-height:1.45;
-
-    margin-bottom:6mm;
+    max-width:145mm;
 
 }
 
 
-
 /* ==========================================================
-   GRID
+   CONTENT FLOW
 ========================================================== */
 
-.pdf-grid{
+.page-body{
 
-    display:grid;
-
-    grid-template-columns:repeat(2,minmax(0,1fr));
-
-    gap:4mm;
-
-    margin-bottom:4mm;
-
-}
-
-
-
-/* ==========================================================
-   KARTEN
-========================================================== */
-
-.pdf-card{
-
-    position:relative;
+    flex:1;
 
     display:flex;
 
     flex-direction:column;
 
-    width:100%;
+    gap:4mm;
+
+    min-height:0;
+
+}
+
+
+/* ==========================================================
+   CARD GRID
+========================================================== */
+
+.card-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:4mm;
+
+    flex:0 0 auto;
+
+}
+
+
+/* ==========================================================
+   STANDARD CARD
+========================================================== */
+
+.card{
+
+    display:flex;
+
+    flex-direction:column;
 
     background:var(--surface);
 
@@ -295,159 +364,137 @@ body{
 
     border-radius:var(--radius);
 
+    padding:5mm;
+
     box-shadow:var(--shadow);
 
-    padding:6mm;
-
-    overflow:hidden;
+    backdrop-filter:blur(2px);
 
 }
-
-/* ---------- Standardkarten ---------- */
-
-.pdf-card:not(.pdf-card--reflection):not(.pdf-card--psychology):not(.pdf-card--takeaway){
-
-    height:62mm;
-
-    margin-bottom:4mm;
-
-}
-
-/* ---------- Antwortkarten ---------- */
-
-.pdf-card--reflection{
-
-    height:58mm;
-
-}
-
-/* ---------- Psychologie ---------- */
-
-.pdf-card--psychology{
-
-    height:42mm;
-
-    margin-top:auto;
-
-}
-
-/* ---------- Takeaway ---------- */
-
-.pdf-card--takeaway{
-
-    height:24mm;
-
-    margin-top:4mm;
-
-}
-
 
 
 /* ==========================================================
-   KARTENTITEL
+   CARD SPACING
 ========================================================== */
 
-.pdf-card__title{
+.card h3{
 
-    color:var(--primary);
-
-    font-size:16px;
-
-    font-weight:600;
-
-    line-height:1.25;
-
-    margin-bottom:3mm;
+    margin-bottom:2.5mm;
 
 }
 
-
-
-/* ==========================================================
-   TEXT
-========================================================== */
-
-.pdf-card__text{
+.card p{
 
     flex:1;
 
-    color:var(--text);
+}
 
-    font-size:13.5px;
 
-    line-height:1.5;
+/* ==========================================================
+   INFO CARD
+========================================================== */
 
-    overflow-wrap:anywhere;
+.card--info{
+
+    min-height:36mm;
 
 }
 
 
+/* ==========================================================
+   REFLECTION CARD
+========================================================== */
 
+.card--reflection{
+
+    min-height:54mm;
+
+}
+
+
+/* ==========================================================
+   PSYCHOLOGY CARD
+========================================================== */
+
+.card--psychology{
+
+    min-height:28mm;
+
+}
+
+
+/* ==========================================================
+   TAKEAWAY CARD
+========================================================== */
+
+.card--takeaway{
+
+    min-height:24mm;
+
+}
+
+
+/* ==========================================================
+   FULL WIDTH
+========================================================== */
+
+.card--full{
+
+    width:100%;
+
+}
 /* ==========================================================
    BADGES
 ========================================================== */
 
-.pdf-badge{
+.badge{
 
     display:inline-flex;
-
-    align-self:flex-start;
 
     align-items:center;
 
     justify-content:center;
 
-    padding:2mm 5mm;
+    align-self:flex-start;
 
     margin-bottom:3mm;
 
+    padding:1.6mm 4mm;
+
     border-radius:999px;
 
-    background:var(--highlight);
+    background:rgba(95,124,134,.08);
 
     color:var(--primary);
 
-    font-size:12px;
+    font-size:11px;
 
     font-weight:600;
+
+    letter-spacing:.03em;
+
+    text-transform:uppercase;
 
 }
 
 
-
 /* ==========================================================
-   ANTWORTBOX
+   LISTS
 ========================================================== */
 
-.answer-box{
+.card ul{
 
-    flex:1;
+    margin-top:2mm;
 
-    display:flex;
+    padding-left:5mm;
 
-    align-items:flex-start;
+}
 
-    justify-content:flex-start;
+.card li{
 
-    width:100%;
+    margin-bottom:1.8mm;
 
-    min-height:0;
-
-    padding:4mm;
-
-    background:rgba(255,255,255,.78);
-
-    border:1px solid var(--border);
-
-    border-radius:14px;
-
-    overflow:hidden;
-
-    white-space:pre-wrap;
-
-    overflow-wrap:anywhere;
-
-    word-break:break-word;
+    color:var(--text-light);
 
     font-size:13px;
 
@@ -455,181 +502,137 @@ body{
 
 }
 
+.card li:last-child{
 
-
-/* ==========================================================
-   SCHRIFTGRÖSSEN
-========================================================== */
-
-.answer-box.text-small{
-
-    font-size:12px;
-
-}
-
-.answer-box.text-smaller{
-
-    font-size:11px;
-
-}
-
-.answer-box.text-smallest{
-
-    font-size:10px;
+    margin-bottom:0;
 
 }
 
 
 /* ==========================================================
-   CHIP GRUPPE
+   EMPHASIS
 ========================================================== */
 
-.chip-group{
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    align-content:flex-start;
-
-    gap:2.5mm;
-
-}
-
-.chip{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:2mm 4mm;
-
-    border-radius:999px;
-
-    background:var(--accent);
+strong{
 
     color:var(--text);
 
-    font-size:12px;
-
-    font-weight:500;
-
-    line-height:1.2;
+    font-weight:600;
 
 }
 
-
-
-/* ==========================================================
-   LEERE ANTWORT
-========================================================== */
-
-.pdf-card__empty{
-
-    color:var(--text-light);
+em{
 
     font-style:italic;
 
 }
-/* ==========================================================
-   COVER
-========================================================== */
-
-.cover__title{
-
-    font-size:44px;
-
-    font-weight:700;
-
-    color:var(--primary);
-
-    margin-bottom:16mm;
-
-}
-
-.cover__subtitle{
-
-    max-width:120mm;
-
-    font-size:17px;
-
-    line-height:1.75;
-
-    color:var(--text-light);
-
-    margin-bottom:24mm;
-
-}
-
-.cover__logo{
-
-    font-size:20px;
-
-    font-weight:600;
-
-    letter-spacing:.08em;
-
-    color:var(--secondary);
-
-}
 
 
 /* ==========================================================
-   FOOTER
+   ANSWER AREA
 ========================================================== */
-.footer{
 
-    position:absolute;
-
-    left:18mm;
-
-    right:18mm;
-
-    bottom:8mm;
+.answer{
 
     display:flex;
 
-    justify-content:space-between;
+    flex-direction:column;
 
-    align-items:center;
+    flex:1;
 
-    padding-top:3mm;
-
-    border-top:1px solid var(--border);
-
-    font-size:11px;
-
-    color:var(--text-light);
-
-    z-index:10;
+    min-height:0;
 
 }
 
+.answer-title{
+
+    margin-bottom:3mm;
+
+}
 
 
 /* ==========================================================
-   HILFSKLASSEN
+   ANSWER BOX
 ========================================================== */
 
-.mb-small{
+.answer-box{
 
-    margin-bottom:4mm;
+    flex:1;
+
+    min-height:42mm;
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.72);
+
+    padding:5mm;
+
+    overflow:hidden;
+
+    white-space:pre-wrap;
+
+    word-break:break-word;
+
+    overflow-wrap:anywhere;
+
+    font-size:13px;
+
+    line-height:1.55;
+
+    color:var(--text);
 
 }
 
-.mb-medium{
 
-    margin-bottom:7mm;
+/* ==========================================================
+   AUTO FIT SUPPORT
+========================================================== */
+
+.answer-box.fit{
+
+    transition:none;
 
 }
 
-.mb-large{
+.answer-box.is-small{
 
-    margin-bottom:10mm;
+    font-size:12px;
+
+    line-height:1.45;
 
 }
+
+.answer-box.is-xsmall{
+
+    font-size:11px;
+
+    line-height:1.35;
+
+}
+
+
+/* ==========================================================
+   DIVIDERS
+========================================================== */
+
+.divider{
+
+    width:100%;
+
+    height:1px;
+
+    background:var(--border);
+
+    margin:2mm 0;
+
+}
+
+
+/* ==========================================================
+   HELPERS
+========================================================== */
 
 .text-center{
 
@@ -637,22 +640,201 @@ body{
 
 }
 
-.text-right{
+.mt-auto{
 
-    text-align:right;
+    margin-top:auto;
 
 }
 
-.text-light{
+.w-100{
+
+    width:100%;
+
+}
+
+.hidden{
+
+    display:none !important;
+
+}
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+.page-footer{
+
+    margin-top:auto;
+
+    flex:0 0 auto;
+
+    padding-top:5mm;
+
+}
+
+.page-footer::before{
+
+    content:"";
+
+    display:block;
+
+    width:100%;
+
+    height:1px;
+
+    background:var(--border);
+
+    margin-bottom:3mm;
+
+}
+
+.footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    font-size:11px;
+
+    color:var(--text-light);
+
+    line-height:1.4;
+
+}
+
+
+/* ==========================================================
+   COVER
+========================================================== */
+
+.cover{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:flex-start;
+
+    height:100%;
+
+}
+
+.cover .badge{
+
+    margin-bottom:10mm;
+
+}
+
+.cover h1{
+
+    max-width:135mm;
+
+    margin-bottom:8mm;
+
+}
+
+.cover p{
+
+    max-width:130mm;
+
+    font-size:16px;
+
+    line-height:1.7;
+
+}
+
+.cover-footer{
+
+    margin-top:auto;
+
+    font-size:12px;
 
     color:var(--text-light);
 
 }
 
 
+/* ==========================================================
+   CHAPTER TITLE
+========================================================== */
+
+.chapter-number{
+
+    color:var(--secondary);
+
+    font-size:13px;
+
+    font-weight:600;
+
+    letter-spacing:.08em;
+
+    text-transform:uppercase;
+
+    margin-bottom:2mm;
+
+}
+
+.chapter-title{
+
+    margin-bottom:2mm;
+
+}
+
+.chapter-subtitle{
+
+    max-width:145mm;
+
+}
+
 
 /* ==========================================================
-   DRUCK
+   MEDIA
+========================================================== */
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+}
+
+svg{
+
+    display:block;
+
+}
+
+
+/* ==========================================================
+   PDF SAFETY
+========================================================== */
+
+.page,
+.card,
+.answer-box,
+.page-header,
+.page-body,
+.page-footer{
+
+    break-inside:avoid;
+
+    page-break-inside:avoid;
+
+}
+
+.card{
+
+    overflow:hidden;
+
+}
+
+
+/* ==========================================================
+   PRINT
 ========================================================== */
 
 @media print{
@@ -660,15 +842,25 @@ body{
     html,
     body{
 
+        width:210mm;
+
+        height:auto;
+
+        background:white;
+
+    }
+
+    body{
+
         margin:0;
 
         padding:0;
 
-        background:#fff;
-
     }
 
     #pdf{
+
+        width:210mm;
 
         margin:0;
 
@@ -683,3 +875,30 @@ body{
     }
 
 }
+
+
+/* ==========================================================
+   HTML2PDF
+========================================================== */
+
+.html2pdf__page-break{
+
+    display:none !important;
+
+}
+
+
+/* ==========================================================
+   SELECTION
+========================================================== */
+
+::selection{
+
+    background:rgba(95,124,134,.18);
+
+}
+
+
+/* ==========================================================
+   END
+========================================================== */
