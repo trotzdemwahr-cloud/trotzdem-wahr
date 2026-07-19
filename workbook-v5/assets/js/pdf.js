@@ -1312,22 +1312,43 @@ function fitAnswerBoxes(){
 
     boxes.forEach(box=>{
 
-        let fontSize = parseFloat(window.getComputedStyle(box).fontSize);
+        const style = window.getComputedStyle(box);
+
+        let fontSize = parseFloat(style.fontSize);
+
+        let lineHeight = parseFloat(style.lineHeight);
+
+        let padding = 16;
 
         const minFontSize = 10;
 
-        while(
+        while(box.scrollHeight > box.clientHeight){
 
-            box.scrollHeight > box.clientHeight &&
-            fontSize > minFontSize
+            if(fontSize > minFontSize){
 
-        ){
+                fontSize -= 0.5;
 
-            fontSize -= 0.5;
+                lineHeight = fontSize * 1.45;
 
-            box.style.fontSize = fontSize + "px";
+                box.style.fontSize = fontSize + "px";
 
-            box.style.lineHeight = (fontSize * 1.45) + "px";
+                box.style.lineHeight = lineHeight + "px";
+
+                continue;
+
+            }
+
+            if(padding > 8){
+
+                padding -= 2;
+
+                box.style.padding = padding + "px";
+
+                continue;
+
+            }
+
+            break;
 
         }
 
