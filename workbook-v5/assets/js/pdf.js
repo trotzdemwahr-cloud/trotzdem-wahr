@@ -1316,45 +1316,22 @@ function fitAnswerBoxes(){
 
     boxes.forEach(box=>{
 
-        const style = window.getComputedStyle(box);
+        let fontSize = parseFloat(getComputedStyle(box).fontSize);
 
-        let fontSize = parseFloat(style.fontSize);
+        const minFontSize = 11;
 
-        let lineHeight = parseFloat(style.lineHeight);
+        while(box.scrollHeight > box.clientHeight && fontSize > minFontSize){
 
-        let padding = 16;
+            fontSize -= 0.5;
 
-        const minFontSize = 10;
+            box.style.fontSize = fontSize + "px";
 
-        while(box.scrollHeight > box.clientHeight){
-
-            if(fontSize > minFontSize){
-
-                fontSize -= 0.5;
-
-                lineHeight = fontSize * 1.45;
-
-                box.style.fontSize = fontSize + "px";
-
-                box.style.lineHeight = lineHeight + "px";
-
-                continue;
-
-            }
-
-            if(padding > 8){
-
-                padding -= 2;
-
-                box.style.padding = padding + "px";
-
-                continue;
-
-            }
-
-            break;
+            box.style.lineHeight = (fontSize * 1.4) + "px";
 
         }
+
+        box.style.overflowWrap = "anywhere";
+        box.style.wordBreak = "break-word";
 
     });
 
@@ -1386,33 +1363,41 @@ function exportPdf(){
 
         html2canvas:{
 
-            scale:2,
+    scale:2,
 
-            useCORS:true,
+    useCORS:true,
 
-            backgroundColor:"#F7F4EF",
+    backgroundColor:"#F7F4EF",
 
-            scrollX:0,
+    logging:false,
 
-            scrollY:0
+    letterRendering:true,
 
-        },
+    scrollX:0,
+
+    scrollY:0
+
+},
 
         jsPDF:{
 
-            unit:"mm",
+    unit:"mm",
 
-            format:"a4",
+    format:"a4",
 
-            orientation:"portrait"
+    orientation:"portrait",
 
-        },
+    compress:true
+
+},
 
         pagebreak:{
 
-            mode:["css"]
+    mode:["avoid-all","css","legacy"],
 
-        }
+    avoid:[".pdf-card",".answer-box"]
+
+}
 
     };
 
