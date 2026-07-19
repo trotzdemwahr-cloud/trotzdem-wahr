@@ -1,7 +1,7 @@
 /* ==========================================================
    trotzdem.wahr
    Workbook PDF
-   Version 1.0
+   Version 2.0
 ========================================================== */
 
 
@@ -23,15 +23,12 @@ const pdfPages = document.getElementById("pdfPages");
 
 
 /* ==========================================================
-   START
+   INIT
 ========================================================== */
 
 document.addEventListener(
-
     "DOMContentLoaded",
-
     initWorkbookPdf
-
 );
 
 async function initWorkbookPdf(){
@@ -40,9 +37,11 @@ async function initWorkbookPdf(){
 
     await renderWorkbook();
 
+    await prepareWorkbook();
+
+    await exportPdf();
+
 }
-
-
 /* ==========================================================
    LOAD DATA
 ========================================================== */
@@ -54,7 +53,6 @@ function loadWorkbookData(){
     if(!saved){
 
         workbookData = {};
-
         return;
 
     }
@@ -67,12 +65,9 @@ function loadWorkbookData(){
 
     catch(error){
 
-        console.warn(
-
+        console.error(
             "Workbook konnte nicht geladen werden.",
-
             error
-
         );
 
         workbookData = {};
@@ -83,22 +78,21 @@ function loadWorkbookData(){
 
 
 /* ==========================================================
-   DATA
+   DATA HELPERS
 ========================================================== */
 
 function getText(key){
 
     const value = workbookData[key];
 
-    if(typeof value !== "string"){
+    return typeof value === "string"
 
-        return "";
+        ? value.trim()
 
-    }
-
-    return value.trim();
+        : "";
 
 }
+
 
 function getArray(key){
 
@@ -113,31 +107,29 @@ function getArray(key){
 }
 
 
-/* ==========================================================
-   HELPERS
-========================================================== */
-
 function hasValue(value){
 
-    return String(value).trim().length > 0;
+    return String(value ?? "").trim().length > 0;
 
 }
+
+
+/* ==========================================================
+   HTML HELPERS
+========================================================== */
 
 function escapeHtml(text=""){
 
     return String(text)
 
         .replace(/&/g,"&amp;")
-
         .replace(/</g,"&lt;")
-
         .replace(/>/g,"&gt;")
-
         .replace(/"/g,"&quot;")
-
         .replace(/'/g,"&#039;");
 
 }
+
 
 function nl2br(text=""){
 
@@ -146,31 +138,58 @@ function nl2br(text=""){
         .replace(/\n/g,"<br>");
 
 }
+/* ==========================================================
+   RENDER
+========================================================== */
+
+async function renderWorkbook(){
+
+    pdfPages.innerHTML = [
+
+        createCover(),
+
+        createForeword(),
+
+        createChapter1(),
+
+        createChapter2(),
+
+        createChapter3(),
+
+        createChapter4(),
+
+        createChapter5(),
+
+        createChapter6()
+
+    ].join("");
+
+}
 
 
 /* ==========================================================
-   TIMING
+   PREPARE
 ========================================================== */
 
-function wait(ms){
+async function prepareWorkbook(){
 
-    return new Promise(resolve=>{
+    await waitForFonts();
 
-        setTimeout(resolve,ms);
+    await nextFrame();
+    await nextFrame();
 
-    });
+    fitAnswerBoxes();
 
-}
+    await nextFrame();
 
-function nextFrame(){
-
-    return new Promise(resolve=>{
-
-        requestAnimationFrame(resolve);
-
-    });
+    await wait(120);
 
 }
+
+
+/* ==========================================================
+   FONT LOADING
+========================================================== */
 
 async function waitForFonts(){
 
@@ -188,63 +207,39 @@ async function waitForFonts(){
 
     catch(error){
 
+        console.warn(
+            "Fonts konnten nicht vollständig geladen werden."
+        );
+
     }
 
 }
+
+
 /* ==========================================================
-   RENDER
+   FRAME HELPERS
 ========================================================== */
 
-async function renderWorkbook(){
+function nextFrame(){
 
-    pdfPages.innerHTML = "";
+    return new Promise(resolve=>{
 
-    const html =
+        requestAnimationFrame(resolve);
 
-        createCover()
-
-        + createForeword()
-
-        + createChapter1()
-
-        + createChapter2()
-
-        + createChapter3()
-
-        + createChapter4()
-
-        + createChapter5()
-
-        + createChapter6();
-
-    pdfPages.innerHTML = html;
-
-    await prepareWorkbook();
+    });
 
 }
 
 
-/* ==========================================================
-   PREPARE
-========================================================== */
+function wait(ms){
 
-async function prepareWorkbook(){
+    return new Promise(resolve=>{
 
-    await waitForFonts();
+        setTimeout(resolve,ms);
 
-    await nextFrame();
-
-    await nextFrame();
-
-    fitAnswerBoxes();
-
-    await nextFrame();
-
-    await wait(150);
+    });
 
 }
-
-
 /* ==========================================================
    PAGE
 ========================================================== */
@@ -337,7 +332,7 @@ function createFooter(page){
 
 
 /* ==========================================================
-   LAYOUT
+   LAYOUT HELPERS
 ========================================================== */
 
 function oneColumn(content){
@@ -345,6 +340,7 @@ function oneColumn(content){
     return content;
 
 }
+
 
 function twoColumns(left,right){
 
@@ -528,941 +524,3 @@ function takeawayCard(text){
 `;
 
 }
-/* ==========================================================
-   COVER
-========================================================== */
-
-function createCover(){
-
-    return createPage(`
-
-<div class="cover">
-
-    <div class="badge">
-
-        trotzdem.wahr
-
-    </div>
-
-    <h1>
-
-        Zurück zu dir
-
-    </h1>
-
-    <p>
-
-        Dieses Workbook enthält deine persönlichen
-        Antworten aus trotzdem.wahr.
-
-        <br><br>
-
-        Nimm dir Zeit,
-        lies sie in Ruhe
-        und erinnere dich daran:
-
-        <br><br>
-
-        Entwicklung beginnt nicht
-        mit Perfektion,
-        sondern mit Ehrlichkeit.
-
-    </p>
-
-    <div class="cover-footer">
-
-        trotzdem.wahr
-
-    </div>
-
-</div>
-
-`);
-
-}
-
-
-/* ==========================================================
-   VORWORT
-========================================================== */
-
-function createForeword(){
-
-    return createPage(`
-
-${createHeader(
-
-    "Vorwort",
-
-    "Willkommen",
-
-    "Deine Antworten an einem Ort."
-
-)}
-
-<div class="page-body">
-
-${infoCard(
-
-    "Dein persönliches Workbook",
-
-    `
-
-    Dieses PDF fasst alle Antworten
-    zusammen,
-    die du während des Workbooks
-    festgehalten hast.
-
-    <br><br>
-
-    Es soll dir helfen,
-    Zusammenhänge zu erkennen,
-    Entwicklungen sichtbar zu machen
-    und jederzeit zu deinen Gedanken
-    zurückkehren zu können.
-
-    <br><br>
-
-    Alles,
-    was du hier liest,
-    stammt aus deinen eigenen Antworten.
-
-    `
-
-)}
-
-${createFooter(2)}
-
-</div>
-
-`);
-
-}
-
-
-/* ==========================================================
-   KAPITEL 1
-========================================================== */
-
-function createChapter1(){
-
-    return createPage(`
-
-${createHeader(
-
-    "Kapitel 1",
-
-    "Ankommen",
-
-    "Du musst heute nichts leisten."
-
-)}
-
-<div class="page-body">
-
-${infoCard(
-
-    "Schön, dass du da bist.",
-
-    `
-
-    Selbstreflexion beginnt nicht
-    mit der perfekten Antwort.
-
-    Sie beginnt damit,
-    ehrlich wahrzunehmen,
-    was gerade da ist.
-
-    <br><br>
-
-    In diesem ersten Kapitel
-    geht es deshalb nicht darum,
-    etwas richtig zu machen.
-
-    Sondern darum,
-    dir selbst aufmerksam zuzuhören.
-
-    `
-
-)}
-
-${twoColumns(
-
-    chipCard(
-
-        "Welche Gefühle begleiten dich momentan?",
-
-        "feelings"
-
-    ),
-
-    chipCard(
-
-        "Welche Gedanken beschäftigen dich besonders?",
-
-        "thoughts"
-
-    )
-
-)}
-
-${oneColumn(
-
-    answerCard(
-
-        "Was kostet dich im Moment am meisten Kraft?",
-
-        "energy"
-
-    )
-
-)}
-
-${psychologyCard(
-
-    `
-
-    Gefühle wahrzunehmen
-    aktiviert Bereiche im Gehirn,
-    die emotionale Belastung
-    besser regulieren können.
-
-    <br><br>
-
-    Allein das Benennen
-    eines Gefühls
-    kann bereits helfen,
-    mehr Abstand zu gewinnen
-    und bewusster zu handeln.
-
-    `
-
-)}
-
-${takeawayCard(
-
-    `
-
-    Alles darf da sein.
-
-    Es gibt heute
-    kein richtig
-    und kein falsch.
-
-    `
-
-)}
-
-${createFooter(3)}
-
-</div>
-
-`);
-
-}
-/* ==========================================================
-   KAPITEL 2
-========================================================== */
-
-function createChapter2(){
-
-    return createPage(`
-
-${createHeader(
-
-    "Kapitel 2",
-
-    "Wer bin ich geworden?",
-
-    "Ein Blick zurück hilft oft, sich heute besser zu verstehen."
-
-)}
-
-<div class="page-body">
-
-${infoCard(
-
-    "Vergangenheit und Gegenwart",
-
-    `
-
-    Jeder Mensch verändert sich.
-
-    Manche Eigenschaften begleiten uns
-    ein Leben lang,
-    andere entwickeln sich erst
-    durch Erfahrungen.
-
-    <br><br>
-
-    Dieses Kapitel lädt dich ein,
-    dein früheres und dein heutiges Ich
-    wertfrei zu betrachten.
-
-    `
-
-)}
-
-${twoColumns(
-
-    answerCard(
-
-        "Was mochtest du früher besonders an dir?",
-
-        "pastSelf"
-
-    ),
-
-    answerCard(
-
-        "Was magst du heute besonders an dir?",
-
-        "presentSelf"
-
-    )
-
-)}
-
-${oneColumn(
-
-    answerCard(
-
-        "Was ist der größte Unterschied zwischen damals und heute?",
-
-        "changeReflection"
-
-    )
-
-)}
-
-${psychologyCard(
-
-    `
-
-    Unser Selbstbild verändert sich
-    ständig.
-
-    Erfahrungen,
-    Beziehungen
-    und Herausforderungen
-    beeinflussen,
-    wie wir über uns denken.
-
-    <br><br>
-
-    Sich diese Entwicklung bewusst
-    anzuschauen,
-    stärkt die Selbstwahrnehmung.
-
-    `
-
-)}
-
-${takeawayCard(
-
-    `
-
-    Entwicklung bedeutet nicht,
-    jemand anderes zu werden.
-
-    Entwicklung bedeutet,
-    dich selbst
-    immer besser kennenzulernen.
-
-    `
-
-)}
-
-${createFooter(4)}
-
-</div>
-
-`);
-
-}
-
-
-/* ==========================================================
-   KAPITEL 3
-========================================================== */
-
-function createChapter3(){
-
-    return createPage(`
-
-${createHeader(
-
-    "Kapitel 3",
-
-    "Verstehen",
-
-    "Muster zu erkennen verändert den Blick."
-
-)}
-
-<div class="page-body">
-
-${infoCard(
-
-    "Eigene Reaktionen verstehen",
-
-    `
-
-    Unser Gehirn greift häufig
-    auf bekannte Reaktionen zurück.
-
-    Dadurch entstehen Gewohnheiten,
-    die uns manchmal helfen,
-    manchmal aber auch belasten.
-
-    <br><br>
-
-    Wer seine Muster erkennt,
-    kann bewusster entscheiden,
-    wie er zukünftig handeln möchte.
-
-    `
-
-)}
-
-${twoColumns(
-
-    answerCard(
-
-        "Wie reagierst du meistens in belastenden Situationen?",
-
-        "stress"
-
-    ),
-
-    chipCard(
-
-        "Welche Muster erkennst du bei dir?",
-
-        "patterns"
-
-    )
-
-)}
-
-${oneColumn(
-
-    answerCard(
-
-        "Welche Situation ist dir besonders im Gedächtnis geblieben?",
-
-        "reflection"
-
-    )
-
-)}
-
-${psychologyCard(
-
-    `
-
-    Unser Gehirn versucht,
-    Energie zu sparen.
-
-    Deshalb entstehen viele Reaktionen
-    automatisch.
-
-    <br><br>
-
-    Erst wenn wir sie bewusst erkennen,
-    entsteht die Möglichkeit,
-    neue Wege auszuprobieren.
-
-    `
-
-)}
-
-${takeawayCard(
-
-    `
-
-    Du musst deine Muster
-    nicht verurteilen.
-
-    Es reicht,
-    sie wahrzunehmen.
-
-    `
-
-)}
-
-${createFooter(5)}
-
-</div>
-
-`);
-
-}
-/* ==========================================================
-   KAPITEL 4
-========================================================== */
-
-function createChapter4(){
-
-    return createPage(`
-
-${createHeader(
-
-    "Kapitel 4",
-
-    "Erkennen",
-
-    "Nicht alles, was vertraut ist, tut uns gut."
-
-)}
-
-<div class="page-body">
-
-${infoCard(
-
-    "Warnsignale erkennen",
-
-    `
-
-    Manche Situationen fühlen sich
-    zunächst normal an,
-    obwohl sie uns langfristig
-    nicht guttun.
-
-    <br><br>
-
-    Warnsignale früh zu erkennen,
-    hilft dabei,
-    eigene Grenzen ernst zu nehmen
-    und sich selbst besser zu schützen.
-
-    `
-
-)}
-
-${twoColumns(
-
-    chipCard(
-
-        "Welche Erfahrungen kennst du?",
-
-        "relationshipExperiences"
-
-    ),
-
-    chipCard(
-
-        "Welche Warnsignale hast du erkannt?",
-
-        "warningSigns"
-
-    )
-
-)}
-
-${oneColumn(
-
-    answerCard(
-
-        "Welche Gedanken möchtest du dazu festhalten?",
-
-        "realisation"
-
-    )
-
-)}
-
-${psychologyCard(
-
-    `
-
-    Unser Gehirn gewöhnt sich
-    erstaunlich schnell
-    an wiederkehrende Situationen.
-
-    <br><br>
-
-    Gerade deshalb fällt es oft schwer,
-    ungesunde Dynamiken
-    frühzeitig zu erkennen.
-
-    Bewusstsein ist der erste Schritt
-    zu Veränderung.
-
-    `
-
-)}
-
-${takeawayCard(
-
-    `
-
-    Deiner Wahrnehmung
-    zu vertrauen
-    ist ein wichtiger Teil
-    von Selbstfürsorge.
-
-    `
-
-)}
-
-${createFooter(6)}
-
-</div>
-
-`);
-
-}
-
-
-/* ==========================================================
-   KAPITEL 5
-========================================================== */
-
-function createChapter5(){
-
-    return createPage(`
-
-${createHeader(
-
-    "Kapitel 5",
-
-    "Stärken",
-
-    "Du bist mehr als deine schwierigsten Tage."
-
-)}
-
-<div class="page-body">
-
-${infoCard(
-
-    "Deine Ressourcen",
-
-    `
-
-    Häufig sehen wir zuerst,
-    was uns fehlt.
-
-    Dabei geraten unsere Fähigkeiten,
-    Erfahrungen
-    und Stärken
-    leicht in den Hintergrund.
-
-    <br><br>
-
-    Dieses Kapitel richtet
-    den Blick bewusst
-    auf deine Ressourcen.
-
-    `
-
-)}
-
-${twoColumns(
-
-    chipCard(
-
-        "Was gibt dir Kraft?",
-
-        "resources"
-
-    ),
-
-    chipCard(
-
-        "Welche Stärken erkennst du bei dir?",
-
-        "strengths"
-
-    )
-
-)}
-
-${oneColumn(
-
-    answerCard(
-
-        "Worauf bist du heute stolz?",
-
-        "gratitude"
-
-    )
-
-)}
-
-${psychologyCard(
-
-    `
-
-    Resilienz bedeutet nicht,
-    niemals zu fallen.
-
-    Sondern immer wieder
-    einen Weg zurück
-    in die eigene Stabilität
-    zu finden.
-
-    <br><br>
-
-    Jede Stärke beginnt
-    mit kleinen Erfahrungen.
-
-    `
-
-)}
-
-${takeawayCard(
-
-    `
-
-    Erinnere dich daran,
-    wie viel du bereits
-    geschafft hast.
-
-    Deine Stärken
-    gehören zu dir.
-
-    `
-
-)}
-
-${createFooter(7)}
-
-</div>
-
-`);
-
-}
-
-
-/* ==========================================================
-   KAPITEL 6
-========================================================== */
-
-function createChapter6(){
-
-    return createPage(`
-
-${createHeader(
-
-    "Kapitel 6",
-
-    "Weitergehen",
-
-    "Jeder kleine Schritt zählt."
-
-)}
-
-<div class="page-body">
-
-${infoCard(
-
-    "Ein neuer Blick nach vorne",
-
-    `
-
-    Dieses Workbook endet hier.
-
-    Deine Entwicklung
-    geht jedoch weiter.
-
-    <br><br>
-
-    Veränderungen entstehen
-    nicht durch einen einzigen Moment,
-    sondern durch viele kleine Schritte.
-
-    `
-
-)}
-
-${twoColumns(
-
-    chipCard(
-
-        "Das möchte ich mitnehmen",
-
-        "takeaway"
-
-    ),
-
-    chipCard(
-
-        "Das unterstützt mich",
-
-        "support"
-
-    )
-
-)}
-
-${twoColumns(
-
-    answerCard(
-
-        "Meine wichtigste Erkenntnis",
-
-        "insight"
-
-    ),
-
-    answerCard(
-
-        "Mein nächster Schritt",
-
-        "nextStep"
-
-    )
-
-)}
-
-${oneColumn(
-
-    answerCard(
-
-        "Brief an mein zukünftiges Ich",
-
-        "futureMessage"
-
-    )
-
-)}
-
-${takeawayCard(
-
-    `
-
-    Du musst heute
-    nicht den ganzen Weg kennen.
-
-    Es reicht,
-    den nächsten Schritt
-    zu sehen.
-
-    `
-
-)}
-
-${createFooter(8)}
-
-</div>
-
-`);
-
-}
-/* ==========================================================
-   ANSWER BOX FIT
-========================================================== */
-
-function fitAnswerBoxes(){
-
-    const boxes = document.querySelectorAll(".answer-box");
-
-    boxes.forEach(box=>{
-
-        box.classList.remove(
-
-            "is-small",
-
-            "is-xsmall"
-
-        );
-
-        if(box.scrollHeight<=box.clientHeight){
-
-            return;
-
-        }
-
-        box.classList.add("is-small");
-
-        if(box.scrollHeight<=box.clientHeight){
-
-            return;
-
-        }
-
-        box.classList.remove("is-small");
-
-        box.classList.add("is-xsmall");
-
-    });
-
-}
-
-
-/* ==========================================================
-   PDF EXPORT
-========================================================== */
-
-async function exportPdf(){
-
-    const element=document.getElementById("pdf");
-
-    const options={
-
-        margin:0,
-
-        filename:"trotzdem-wahr-workbook.pdf",
-
-        image:{
-
-            type:"jpeg",
-
-            quality:1
-
-        },
-
-        html2canvas:{
-
-            scale:2,
-
-            useCORS:true,
-
-            backgroundColor:"#FCFAF7",
-
-            scrollX:0,
-
-            scrollY:0
-
-        },
-
-        jsPDF:{
-
-            unit:"mm",
-
-            format:"a4",
-
-            orientation:"portrait"
-
-        },
-
-        pagebreak:{
-
-            mode:["css"]
-
-        }
-
-    };
-
-    await html2pdf()
-
-        .set(options)
-
-        .from(element)
-
-        .save();
-
-}
-
-
-/* ==========================================================
-   START EXPORT
-========================================================== */
-
-(async()=>{
-
-    await exportPdf();
-
-})();
