@@ -1,17 +1,24 @@
 /* ==========================================================
    trotzdem.wahr
    Workbook PDF
+   Version 1.0
 ========================================================== */
 
 
 /* ==========================================================
-   KONSTANTEN
+   STORAGE
 ========================================================== */
 
 const STORAGE_KEY = "trotzdem-wahr-workbook-v5";
 
 let workbookData = {};
 
+
+/* ==========================================================
+   DOM
+========================================================== */
+
+const pdf = document.getElementById("pdf");
 const pdfPages = document.getElementById("pdfPages");
 
 
@@ -27,20 +34,17 @@ document.addEventListener(
 
 );
 
-
-
-function initWorkbookPdf(){
+async function initWorkbookPdf(){
 
     loadWorkbookData();
 
-    renderWorkbook();
+    await renderWorkbook();
 
 }
 
 
-
 /* ==========================================================
-   DATEN LADEN
+   LOAD DATA
 ========================================================== */
 
 function loadWorkbookData(){
@@ -59,9 +63,17 @@ function loadWorkbookData(){
 
         workbookData = JSON.parse(saved) || {};
 
-    }catch(error){
+    }
 
-        console.warn("Workbook konnte nicht geladen werden.", error);
+    catch(error){
+
+        console.warn(
+
+            "Workbook konnte nicht geladen werden.",
+
+            error
+
+        );
 
         workbookData = {};
 
@@ -70,54 +82,8 @@ function loadWorkbookData(){
 }
 
 
-
 /* ==========================================================
-   WORKBOOK RENDERN
-========================================================== */
-
-function renderWorkbook(){
-
-    pdfPages.innerHTML = "";
-
-    const html =
-
-        createCover() +
-
-        createForeword() +
-
-        createChapter1() +
-
-        createChapter2() +
-
-        createChapter3() +
-
-        createChapter4() +
-
-        createChapter5() +
-
-        createChapter6();
-
-    pdfPages.innerHTML = html;
-
-    requestAnimationFrame(()=>{
-
-    fitAnswerBoxes();
-
-    requestAnimationFrame(()=>{
-
-        setTimeout(()=>{
-
-            exportPdf();
-
-        },150);
-
-    });
-
-});
-
-}
-/* ==========================================================
-   DATEN HELFER
+   DATA
 ========================================================== */
 
 function getText(key){
@@ -134,22 +100,21 @@ function getText(key){
 
 }
 
-
-
 function getArray(key){
 
     const value = workbookData[key];
 
     return Array.isArray(value)
+
         ? value
+
         : [];
 
 }
 
 
-
 /* ==========================================================
-   HILFSFUNKTIONEN
+   HELPERS
 ========================================================== */
 
 function hasValue(value){
@@ -158,9 +123,7 @@ function hasValue(value){
 
 }
 
-
-
-function escapeHtml(text){
+function escapeHtml(text=""){
 
     return String(text)
 
@@ -176,42 +139,114 @@ function escapeHtml(text){
 
 }
 
+function nl2br(text=""){
 
+    return escapeHtml(text)
 
-/* ==========================================================
-   SCHRIFTGRÖSSE
-========================================================== */
-
-function getFontClass(text){
-
-    const length = text.length;
-
-    if(length<=100){
-
-        return "";
-
-    }
-
-    if(length<=180){
-
-        return "text-small";
-
-    }
-
-    if(length<=260){
-
-        return "text-smaller";
-
-    }
-
-    return "text-smallest";
+        .replace(/\n/g,"<br>");
 
 }
 
 
+/* ==========================================================
+   TIMING
+========================================================== */
+
+function wait(ms){
+
+    return new Promise(resolve=>{
+
+        setTimeout(resolve,ms);
+
+    });
+
+}
+
+function nextFrame(){
+
+    return new Promise(resolve=>{
+
+        requestAnimationFrame(resolve);
+
+    });
+
+}
+
+async function waitForFonts(){
+
+    if(!document.fonts){
+
+        return;
+
+    }
+
+    try{
+
+        await document.fonts.ready;
+
+    }
+
+    catch(error){
+
+    }
+
+}
+/* ==========================================================
+   RENDER
+========================================================== */
+
+async function renderWorkbook(){
+
+    pdfPages.innerHTML = "";
+
+    const html =
+
+        createCover()
+
+        + createForeword()
+
+        + createChapter1()
+
+        + createChapter2()
+
+        + createChapter3()
+
+        + createChapter4()
+
+        + createChapter5()
+
+        + createChapter6();
+
+    pdfPages.innerHTML = html;
+
+    await prepareWorkbook();
+
+}
+
 
 /* ==========================================================
-   SEITEN
+   PREPARE
+========================================================== */
+
+async function prepareWorkbook(){
+
+    await waitForFonts();
+
+    await nextFrame();
+
+    await nextFrame();
+
+    fitAnswerBoxes();
+
+    await nextFrame();
+
+    await wait(150);
+
+}
+
+
+/* ==========================================================
+   PAGE
 ========================================================== */
 
 function createPage(content){
@@ -233,7 +268,6 @@ function createPage(content){
 }
 
 
-
 /* ==========================================================
    HEADER
 ========================================================== */
@@ -242,28 +276,31 @@ function createHeader(number,title,subtitle){
 
     return `
 
-<div class="page__number">
+<header class="page-header">
 
-    ${number}
+    <div class="chapter-number">
 
-</div>
+        ${escapeHtml(number)}
 
-<h1 class="page__title">
+    </div>
 
-    ${title}
+    <h2 class="chapter-title">
 
-</h1>
+        ${escapeHtml(title)}
 
-<p class="page__subtitle">
+    </h2>
 
-    ${subtitle}
+    <p class="chapter-subtitle">
 
-</p>
+        ${escapeHtml(subtitle)}
+
+    </p>
+
+</header>
 
 `;
 
 }
-
 
 
 /* ==========================================================
@@ -274,19 +311,23 @@ function createFooter(page){
 
     return `
 
-<footer class="footer">
+<footer class="page-footer">
 
-    <span>
+    <div class="footer">
 
-        trotzdem.wahr
+        <span>
 
-    </span>
+            trotzdem.wahr
 
-    <span>
+        </span>
 
-        Seite ${page} / 8
+        <span>
 
-    </span>
+            Seite ${page} / 8
+
+        </span>
+
+    </div>
 
 </footer>
 
@@ -295,24 +336,21 @@ function createFooter(page){
 }
 
 
-
 /* ==========================================================
    LAYOUT
 ========================================================== */
 
-function oneColumn(card){
+function oneColumn(content){
 
-    return card;
+    return content;
 
 }
-
-
 
 function twoColumns(left,right){
 
     return `
 
-<div class="pdf-grid">
+<div class="card-grid">
 
     ${left}
 
@@ -323,30 +361,27 @@ function twoColumns(left,right){
 `;
 
 }
-
-
-
 /* ==========================================================
-   KARTEN
+   INFO CARD
 ========================================================== */
 
 function infoCard(title,text){
 
     return `
 
-<section class="pdf-card">
+<section class="card card--info">
 
-    <div class="pdf-card__title">
+    <h3>
 
         ${escapeHtml(title)}
 
-    </div>
+    </h3>
 
-    <div class="pdf-card__text">
+    <p>
 
         ${text}
 
-    </div>
+    </p>
 
 </section>
 
@@ -355,48 +390,35 @@ function infoCard(title,text){
 }
 
 
+/* ==========================================================
+   ANSWER CARD
+========================================================== */
 
 function answerCard(title,key){
 
     const answer = getText(key);
 
-    if(!hasValue(answer)){
-
-        return `
-
-<section class="pdf-card pdf-card--reflection">
-
-    <div class="pdf-card__title">
-
-        ${escapeHtml(title)}
-
-    </div>
-
-    <div class="pdf-card__empty">
-
-        Keine Antwort eingetragen.
-
-    </div>
-
-</section>
-
-`;
-
-    }
-
     return `
 
-<section class="pdf-card pdf-card--reflection">
+<section class="card card--reflection">
 
-    <div class="pdf-card__title">
+    <h3 class="answer-title">
 
         ${escapeHtml(title)}
 
-    </div>
+    </h3>
 
-    <div class="answer-box ${getFontClass(answer)}">
+    <div class="answer">
 
-        ${escapeHtml(answer)}
+        <div class="answer-box fit">
+
+            ${hasValue(answer)
+
+                ? nl2br(answer)
+
+                : "Keine Antwort eingetragen."}
+
+        </div>
 
     </div>
 
@@ -407,56 +429,39 @@ function answerCard(title,key){
 }
 
 
+/* ==========================================================
+   CHIP CARD
+========================================================== */
 
 function chipCard(title,key){
 
     const chips = getArray(key);
 
-    if(!chips.length){
-
-        return `
-
-<section class="pdf-card pdf-card--reflection">
-
-    <div class="pdf-card__title">
-
-        ${escapeHtml(title)}
-
-    </div>
-
-    <div class="pdf-card__empty">
-
-        Keine Auswahl.
-
-    </div>
-
-</section>
-
-`;
-
-    }
-
     return `
 
-<section class="pdf-card pdf-card--reflection">
+<section class="card card--reflection">
 
-    <div class="pdf-card__title">
+    <h3>
 
         ${escapeHtml(title)}
 
-    </div>
+    </h3>
 
     <div class="chip-group">
 
-        ${chips.map(chip=>`
+        ${chips.length
 
-            <span class="chip">
+            ? chips.map(chip=>`
 
-                ${escapeHtml(chip)}
+                <span class="badge">
 
-            </span>
+                    ${escapeHtml(chip)}
 
-        `).join("")}
+                </span>
+
+            `).join("")
+
+            : `<span class="badge">Keine Auswahl</span>`}
 
     </div>
 
@@ -467,24 +472,27 @@ function chipCard(title,key){
 }
 
 
+/* ==========================================================
+   PSYCHOLOGY CARD
+========================================================== */
 
 function psychologyCard(text){
 
     return `
 
-<section class="pdf-card pdf-card--psychology">
+<section class="card card--psychology card--full">
 
-    <div class="pdf-badge">
+    <div class="badge">
 
         Ein Blick in die Psychologie
 
     </div>
 
-    <div class="pdf-card__text">
+    <p>
 
         ${text}
 
-    </div>
+    </p>
 
 </section>
 
@@ -493,24 +501,27 @@ function psychologyCard(text){
 }
 
 
+/* ==========================================================
+   TAKEAWAY CARD
+========================================================== */
 
 function takeawayCard(text){
 
     return `
 
-<section class="pdf-card pdf-card--takeaway">
+<section class="card card--takeaway card--full">
 
-    <div class="pdf-badge">
+    <div class="badge">
 
         Für heute
 
     </div>
 
-    <div class="pdf-card__text">
+    <p>
 
         ${text}
 
-    </div>
+    </p>
 
 </section>
 
@@ -527,13 +538,19 @@ function createCover(){
 
 <div class="cover">
 
-    <h1 class="cover__title">
+    <div class="badge">
+
+        trotzdem.wahr
+
+    </div>
+
+    <h1>
 
         Zurück zu dir
 
     </h1>
 
-    <p class="cover__subtitle">
+    <p>
 
         Dieses Workbook enthält deine persönlichen
         Antworten aus trotzdem.wahr.
@@ -544,13 +561,15 @@ function createCover(){
         lies sie in Ruhe
         und erinnere dich daran:
 
+        <br><br>
+
         Entwicklung beginnt nicht
         mit Perfektion,
         sondern mit Ehrlichkeit.
 
     </p>
 
-    <div class="cover__logo">
+    <div class="cover-footer">
 
         trotzdem.wahr
 
@@ -561,7 +580,6 @@ function createCover(){
 `);
 
 }
-
 
 
 /* ==========================================================
@@ -581,6 +599,8 @@ ${createHeader(
     "Deine Antworten an einem Ort."
 
 )}
+
+<div class="page-body">
 
 ${infoCard(
 
@@ -613,10 +633,11 @@ ${infoCard(
 
 ${createFooter(2)}
 
+</div>
+
 `);
 
 }
-
 
 
 /* ==========================================================
@@ -636,6 +657,8 @@ ${createHeader(
     "Du musst heute nichts leisten."
 
 )}
+
+<div class="page-body">
 
 ${infoCard(
 
@@ -732,6 +755,8 @@ ${takeawayCard(
 
 ${createFooter(3)}
 
+</div>
+
 `);
 
 }
@@ -752,6 +777,8 @@ ${createHeader(
     "Ein Blick zurück hilft oft, sich heute besser zu verstehen."
 
 )}
+
+<div class="page-body">
 
 ${infoCard(
 
@@ -848,10 +875,11 @@ ${takeawayCard(
 
 ${createFooter(4)}
 
+</div>
+
 `);
 
 }
-
 
 
 /* ==========================================================
@@ -871,6 +899,8 @@ ${createHeader(
     "Muster zu erkennen verändert den Blick."
 
 )}
+
+<div class="page-body">
 
 ${infoCard(
 
@@ -963,6 +993,8 @@ ${takeawayCard(
 
 ${createFooter(5)}
 
+</div>
+
 `);
 
 }
@@ -983,6 +1015,8 @@ ${createHeader(
     "Nicht alles, was vertraut ist, tut uns gut."
 
 )}
+
+<div class="page-body">
 
 ${infoCard(
 
@@ -1074,10 +1108,11 @@ ${takeawayCard(
 
 ${createFooter(6)}
 
+</div>
+
 `);
 
 }
-
 
 
 /* ==========================================================
@@ -1097,6 +1132,8 @@ ${createHeader(
     "Du bist mehr als deine schwierigsten Tage."
 
 )}
+
+<div class="page-body">
 
 ${infoCard(
 
@@ -1192,9 +1229,13 @@ ${takeawayCard(
 
 ${createFooter(7)}
 
+</div>
+
 `);
 
 }
+
+
 /* ==========================================================
    KAPITEL 6
 ========================================================== */
@@ -1212,6 +1253,8 @@ ${createHeader(
     "Jeder kleine Schritt zählt."
 
 )}
+
+<div class="page-body">
 
 ${infoCard(
 
@@ -1303,11 +1346,13 @@ ${takeawayCard(
 
 ${createFooter(8)}
 
+</div>
+
 `);
 
 }
 /* ==========================================================
-   ANTWORTBOXEN ANPASSEN
+   ANSWER BOX FIT
 ========================================================== */
 
 function fitAnswerBoxes(){
@@ -1316,42 +1361,50 @@ function fitAnswerBoxes(){
 
     boxes.forEach(box=>{
 
-        let fontSize = parseFloat(getComputedStyle(box).fontSize);
+        box.classList.remove(
 
-        const minFontSize = 11;
+            "is-small",
 
-        while(box.scrollHeight > box.clientHeight && fontSize > minFontSize){
+            "is-xsmall"
 
-            fontSize -= 0.5;
+        );
 
-            box.style.fontSize = fontSize + "px";
+        if(box.scrollHeight<=box.clientHeight){
 
-            box.style.lineHeight = (fontSize * 1.4) + "px";
+            return;
 
         }
 
-        box.style.overflowWrap = "anywhere";
-        box.style.wordBreak = "break-word";
+        box.classList.add("is-small");
+
+        if(box.scrollHeight<=box.clientHeight){
+
+            return;
+
+        }
+
+        box.classList.remove("is-small");
+
+        box.classList.add("is-xsmall");
 
     });
 
 }
 
 
-
 /* ==========================================================
    PDF EXPORT
 ========================================================== */
 
-function exportPdf(){
+async function exportPdf(){
 
-    const element = document.getElementById("pdf");
+    const element=document.getElementById("pdf");
 
-    const options = {
+    const options={
 
-        margin: 0,
+        margin:0,
 
-        filename: "trotzdem-wahr-workbook.pdf",
+        filename:"trotzdem-wahr-workbook.pdf",
 
         image:{
 
@@ -1363,45 +1416,37 @@ function exportPdf(){
 
         html2canvas:{
 
-    scale:2,
+            scale:2,
 
-    useCORS:true,
+            useCORS:true,
 
-    backgroundColor:"#F7F4EF",
+            backgroundColor:"#FCFAF7",
 
-    logging:false,
+            scrollX:0,
 
-    letterRendering:true,
+            scrollY:0
 
-    scrollX:0,
-
-    scrollY:0
-
-},
+        },
 
         jsPDF:{
 
-    unit:"mm",
+            unit:"mm",
 
-    format:"a4",
+            format:"a4",
 
-    orientation:"portrait",
+            orientation:"portrait"
 
-    compress:true
-
-},
+        },
 
         pagebreak:{
 
-    mode:["avoid-all","css","legacy"],
+            mode:["css"]
 
-    avoid:[".pdf-card",".answer-box"]
-
-}
+        }
 
     };
 
-    html2pdf()
+    await html2pdf()
 
         .set(options)
 
@@ -1410,3 +1455,14 @@ function exportPdf(){
         .save();
 
 }
+
+
+/* ==========================================================
+   START EXPORT
+========================================================== */
+
+(async()=>{
+
+    await exportPdf();
+
+})();
