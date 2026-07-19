@@ -10,9 +10,9 @@
 
 :root{
 
-    --background:#F7F4EF;
+    --background:#F4EEE6;;
 
-    --surface:#FFFFFF;
+    --surface:rgba(255,255,255,.88);
 
     --primary:#4F6D7A;
 
@@ -20,16 +20,15 @@
 
     --accent:#A8C7C0;
 
-    --highlight:#E6D6D1;
+    --highlight:#E8D7CF;
 
     --text:#3C3836;
 
     --text-light:#6E6864;
 
-    --border:#E8E1DB;
+   --border:#E7DDD4;
 
-    --shadow:0 8px 24px rgba(60,56,54,.08);
-
+--shadow:0 10px 26px rgba(79,109,122,.08);
     --radius:20px;
 
 }
@@ -67,7 +66,7 @@ body{
 
     font-family:"Inter",sans-serif;
 
-    background:#d9d9d9;
+    background:#E8E2D8;
 
     color:var(--text);
 
@@ -142,28 +141,56 @@ body{
     background:
 
         radial-gradient(
+
             circle at 12% 18%,
-            rgba(168,199,192,.22),
-            transparent 28%
+
+            rgba(168,199,192,.38),
+
+            transparent 38%
+
         ),
 
         radial-gradient(
+
             circle at 88% 12%,
-            rgba(230,214,209,.28),
-            transparent 30%
+
+            rgba(232,215,207,.45),
+
+            transparent 40%
+
         ),
 
         radial-gradient(
-            circle at 82% 84%,
-            rgba(207,174,155,.18),
-            transparent 26%
+
+            circle at 82% 82%,
+
+            rgba(207,174,155,.32),
+
+            transparent 36%
+
         ),
 
         radial-gradient(
-            circle at 15% 82%,
-            rgba(79,109,122,.10),
-            transparent 26%
+
+            circle at 18% 86%,
+
+            rgba(79,109,122,.14),
+
+            transparent 34%
+
+        ),
+
+        radial-gradient(
+
+            circle at 52% 48%,
+
+            rgba(255,255,255,.18),
+
+            transparent 45%
+
         );
+
+    opacity:.95;
 
     z-index:0;
 
@@ -283,7 +310,9 @@ body{
 
     width:100%;
 
-    background:var(--surface);
+    background:rgba(255,255,255,.82);
+
+backdrop-filter:blur(8px);
 
     border:1px solid var(--border);
 
@@ -305,7 +334,7 @@ body{
 
 .pdf-card:not(.pdf-card--reflection):not(.pdf-card--psychology):not(.pdf-card--takeaway){
 
-    height:56mm;
+    height:62mm;
 
     margin-bottom:4mm;
 
@@ -313,13 +342,13 @@ body{
 
 .pdf-card--reflection{
 
-    height:56mm;
+    height:54mm;
 
 }
 
 .pdf-card--psychology{
 
-    height:38mm;
+    height:44mm;
 
     margin-top:auto;
 
@@ -349,9 +378,9 @@ body{
 
 .pdf-card--takeaway{
 
-    height:30mm;
+    height:22mm;
 
-    margin-top:5mm;
+    margin-top:3mm;
 
 }
 
@@ -363,13 +392,15 @@ body{
 
 .pdf-card__title{
 
-    font-size:17px;
+    font-size:16px;
 
     font-weight:600;
 
     color:var(--primary);
 
-    margin-bottom:4mm;
+    line-height:1.25;
+
+    margin-bottom:3mm;
 
 }
 
@@ -383,9 +414,15 @@ body{
 
     flex:1;
 
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-start;
+
     font-size:13.5px;
 
-    line-height:1.55;
+    line-height:1.48;
 
     color:var(--text);
 
@@ -407,13 +444,13 @@ body{
 
     align-self:flex-start;
 
-    padding:2mm 5mm;
+    padding:1.5mm 4.5mm;
 
-    margin-bottom:4mm;
+    margin-bottom:3mm;
 
     border-radius:999px;
 
-    background:var(--highlight);
+    background:rgba(232,215,207,.88);
 
     color:var(--primary);
 
@@ -447,7 +484,7 @@ body{
 
     border-radius:14px;
 
-    background:#fff;
+ background:rgba(255,255,255,.72);
 
     overflow:hidden;
 
@@ -499,7 +536,7 @@ body{
 
     align-content:flex-start;
 
-    gap:3mm;
+    gap:2.5mm;
 
 }
 
@@ -515,11 +552,11 @@ body{
 
     align-items:center;
 
-    padding:2.5mm 4mm;
+    padding:2mm 3.5mm;
 
     border-radius:999px;
 
-    background:var(--accent);
+    background:#B8D5CF;
 
     color:var(--text);
 
