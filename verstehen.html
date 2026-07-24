@@ -637,13 +637,13 @@ Häufige Fragen
 
 </section>
 
- <section class="sources-section">
+<section class="sources-section">
 
     <div class="container">
 
-        <details class="source-card">
+        <div class="source-card">
 
-            <summary class="source-summary">
+            <button class="source-toggle" type="button">
 
                 <div>
 
@@ -653,11 +653,11 @@ Häufige Fragen
 
                 </div>
 
-                <span class="source-arrow">⌄</span>
+                <span class="source-arrow">▾</span>
 
-            </summary>
+            </button>
 
-            <div class="source-content">
+            <div class="source-body">
 
                 <p class="section-text">
 
@@ -666,13 +666,11 @@ Häufige Fragen
                     anerkannten Leitlinien sowie aktuellen Erkenntnissen aus Psychologie,
                     Traumapädagogik und Gewaltforschung.
 
-                    Ziel ist es,
-                    komplexe Zusammenhänge verständlich,
-                    sensibel und möglichst niedrigschwellig aufzubereiten.
+                    Ziel ist es, komplexe Zusammenhänge verständlich und
+                    niedrigschwellig aufzubereiten.
 
-                    Die Inhalte dienen der Orientierung
-                    und ersetzen keine medizinische,
-                    psychotherapeutische oder rechtliche Beratung.
+                    Die Inhalte dienen der Orientierung und ersetzen keine
+                    medizinische, psychotherapeutische oder rechtliche Beratung.
 
                 </p>
 
@@ -700,18 +698,40 @@ Häufige Fragen
 
                 <p>
 
-                    Die Inhalte der Instagram-Beiträge werden fortlaufend ergänzt und beruhen ebenfalls
-                    auf wissenschaftlicher Fachliteratur sowie anerkannten Leitlinien.
+                    Die Quellen der Instagram-Beiträge werden fortlaufend ergänzt.
+                    Auch dort orientieren sich die Inhalte an wissenschaftlicher
+                    Fachliteratur, anerkannten Leitlinien und aktuellen
+                    Forschungsergebnissen.
 
                 </p>
 
             </div>
 
-        </details>
+        </div>
 
     </div>
 
 </section>
+
+<script>
+
+const sourceToggle = document.querySelector(".source-toggle");
+const sourceCard = document.querySelector(".source-card");
+const sourceBody = document.querySelector(".source-body");
+
+sourceToggle.addEventListener("click", () => {
+
+    sourceCard.classList.toggle("active");
+
+    if(sourceCard.classList.contains("active")){
+        sourceBody.style.maxHeight = sourceBody.scrollHeight + "px";
+    }else{
+        sourceBody.style.maxHeight = null;
+    }
+
+});
+
+</script>
 
 </main>
 
