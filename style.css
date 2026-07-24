@@ -1275,55 +1275,76 @@ border-radius:14px;
 
 }
 
-/* Quellen */
+/* ==========================================
+   Quellen
+========================================== */
 
 .sources-section{
-    margin-top:5rem;
+    margin-top:4rem;
+    margin-bottom:4rem;
 }
 
 .source-card{
-    background:#fff;
-    border-radius:22px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    border:1px solid rgba(160,145,125,.18);
+    border-radius:20px;
+    background:var(--card-bg);
+    box-shadow:0 8px 24px rgba(0,0,0,.05);
     overflow:hidden;
+    transition:.3s ease;
 }
 
-.source-card summary{
-    list-style:none;
-    cursor:pointer;
-    padding:2rem;
+.source-card:hover{
+    box-shadow:0 12px 28px rgba(0,0,0,.08);
+}
+
+.source-summary{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    padding:2rem;
+    cursor:pointer;
+    list-style:none;
 }
 
-.source-card summary::-webkit-details-marker{
+.source-summary::-webkit-details-marker{
     display:none;
 }
 
-.toggle-icon{
-    font-size:2rem;
-    font-weight:300;
-    color:#8f8579;
-    transition:.3s;
+.source-summary h2{
+    margin:.35rem 0 0;
 }
 
-.source-card[open] .toggle-icon{
-    transform:rotate(45deg);
+.source-arrow{
+    font-size:1.4rem;
+    color:#8d8175;
+    transition:transform .3s ease;
+    flex-shrink:0;
+}
+
+.source-card[open] .source-arrow{
+    transform:rotate(180deg);
 }
 
 .source-content{
-    padding:0 2rem 2rem;
-    border-top:1px solid #efe8df;
+    border-top:1px solid rgba(160,145,125,.15);
+    padding:2rem;
+}
+
+.source-content h3{
+    margin-top:2rem;
+    margin-bottom:1rem;
 }
 
 .sources-list{
+    padding-left:1.3rem;
     margin:1rem 0 2rem;
-    padding-left:1.2rem;
 }
 
 .sources-list li{
     margin-bottom:1rem;
     line-height:1.8;
-    color:#4b4b4b;
+}
+
+.source-content p{
+    line-height:1.8;
 }
