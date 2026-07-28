@@ -130,9 +130,9 @@ body{
 
     grid-auto-rows:min-content;
 
-    column-gap:10mm;
+    column-gap: 5mm;
 
-    row-gap:8mm;
+    row-gap:5mm;
 
 }
 
@@ -573,7 +573,7 @@ p{
 
     border-radius:var(--radius);
 
-    padding:8mm;
+    padding:6mm;
 
     box-shadow:var(--shadow);
 
@@ -630,6 +630,7 @@ p{
 .answer-large{
 
     min-height:32mm;
+   padding: 4mm;
 
 }
 
@@ -681,7 +682,7 @@ p{
 
     flex-wrap:wrap;
 
-    gap:8px;
+    gap:4px;
 
     margin-top:4mm;
 
@@ -689,7 +690,7 @@ p{
 
 .chip{
 
-    padding:8px 14px;
+    padding:3px 9px;
 
     border-radius:999px;
 
@@ -749,7 +750,7 @@ p{
 
     border-radius:18px;
 
-    padding:6mm;
+    padding:5mm 6mm;
 
 }
 
@@ -795,7 +796,7 @@ p{
 
     border-radius:16px;
 
-    padding:6mm;
+    padding:5mm 6mm;
 
 }
 
