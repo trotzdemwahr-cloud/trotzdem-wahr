@@ -121,7 +121,7 @@ PDF.answer = function (text = "", large = false) {
 
         <div class="answer ${this.fontSize(text)} ${large ? "answer-large" : ""}">
 
-            ${text || ""}
+            ${text && text.trim() ? text : "…"}
 
         </div>
 
