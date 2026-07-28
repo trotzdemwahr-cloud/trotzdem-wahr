@@ -41,7 +41,7 @@ PDF.loadData = function () {
 
         this.data = JSON.parse(
 
-            localStorage.getItem("workbookData")
+            localStorage.getItem("trotzdem-wahr-workbook-v5")
 
         ) || {};
 
@@ -896,7 +896,7 @@ PDF.renderChapter3 = function () {
 
                 ${this.createChips(
 
-                    this.data.stress
+                    [this.data.stress]
 
                 )}
 
