@@ -609,8 +609,6 @@ p{
 
     padding:2mm;
 
-    min-height:32mm;
-
     overflow:hidden;
 
     white-space:pre-wrap;
@@ -623,16 +621,7 @@ p{
 
 
 
-/* ==========================================================
-   GROßE ANTWORT
-========================================================== */
 
-.answer-large{
-
-    min-height:32mm;
-   padding: 4mm;
-
-}
 
 
 
