@@ -4,61 +4,159 @@
 <head>
 
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>trotzdem.wahr | PDF Workbook</title>
 
-    <title>trotzdem.wahr | Workbook PDF</title>
+    <meta name="theme-color"
+          content="#F7F4EF">
 
-    <!-- Schrift -->
+    <meta name="description"
+          content="Workbook PDF">
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
 
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap"
+          rel="stylesheet">
 
-    <!-- PDF CSS -->
-
-    <link
-        rel="stylesheet"
-        href="assets/css/pdf.css"
-    >
+    <link rel="stylesheet"
+          href="assets/css/pdf.css">
 
 </head>
 
 <body>
 
-    <main
-        id="pdf"
-        role="document"
-        aria-label="Workbook PDF"
-    >
+    <!-- =====================================================
+         PDF
+    ====================================================== -->
 
-        <div id="pdfPages">
+    <main id="pdfDocument">
 
-            <!--
-                Alle Seiten werden vollständig
-                von pdf.js erzeugt.
-            -->
 
-        </div>
+
+        <!-- ==============================================
+             COVER
+        =============================================== -->
+
+        <section
+            class="page cover"
+            id="coverPage">
+
+        </section>
+
+
+
+        <!-- ==============================================
+             WILLKOMMEN
+        =============================================== -->
+
+        <section
+            class="page"
+            id="welcomePage">
+
+        </section>
+
+
+
+        <!-- ==============================================
+             KAPITEL 1
+        =============================================== -->
+
+        <section
+            class="page"
+            id="chapter1">
+
+        </section>
+
+
+
+        <!-- ==============================================
+             KAPITEL 2
+        =============================================== -->
+
+        <section
+            class="page"
+            id="chapter2">
+
+        </section>
+
+
+
+        <!-- ==============================================
+             KAPITEL 3
+        =============================================== -->
+
+        <section
+            class="page"
+            id="chapter3">
+
+        </section>
+
+
+
+        <!-- ==============================================
+             KAPITEL 4
+        =============================================== -->
+
+        <section
+            class="page"
+            id="chapter4">
+
+        </section>
+
+
+
+        <!-- ==============================================
+             KAPITEL 5
+        =============================================== -->
+
+        <section
+            class="page"
+            id="chapter5">
+
+        </section>
+
+
+
+        <!-- ==============================================
+             KAPITEL 6
+        =============================================== -->
+
+        <section
+            class="page"
+            id="chapter6">
+
+        </section>
+
+
+
+        <!-- ==============================================
+             ABSCHLUSS
+        =============================================== -->
+
+        <section
+            class="page"
+            id="finalPage">
+
+        </section>
+
+
 
     </main>
 
+
+
+    <!-- html2pdf -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <!-- PDF -->
 
     <script src="assets/js/pdf.js"></script>
 
