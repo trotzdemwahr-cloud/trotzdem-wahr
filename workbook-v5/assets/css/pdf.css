@@ -607,9 +607,9 @@ p{
 
     border-radius:16px;
 
-    padding:5mm;
+    padding:4mm;
 
-    min-height:42mm;
+    min-height:32mm;
 
     overflow:hidden;
 
@@ -629,7 +629,7 @@ p{
 
 .answer-large{
 
-    min-height:68mm;
+    min-height: 54mm;
 
 }
 
