@@ -1,1479 +1,2564 @@
 /* ==========================================================
    trotzdem.wahr
-   Workbook PDF
-   Version 2.0
+   PDF Workbook
+
+   Teil 1
+   Grundsystem
 ========================================================== */
 
 
 /* ==========================================================
-   STORAGE
+   PDF
 ========================================================== */
 
-const STORAGE_KEY = "trotzdem-wahr-workbook-v5";
+const PDF = {
 
-let workbookData = {};
+    data:{},
+
+    pages:{},
+
+    chapters:[],
+
+    initialized:false
+
+};
+
 
 
 /* ==========================================================
-   DOM
+   START
 ========================================================== */
 
-const pdf = document.getElementById("pdf");
-const pdfPages = document.getElementById("pdfPages");
+document.addEventListener("DOMContentLoaded",()=>{
+
+    PDF.init();
+
+});
+
 
 
 /* ==========================================================
-   INIT
+   INITIALISIERUNG
 ========================================================== */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    initWorkbookPdf
-);
+PDF.init=function(){
 
-async function initWorkbookPdf(){
+    this.loadData();
 
-    loadWorkbookData();
+    this.collectPages();
 
-    await renderWorkbook();
+    this.render();
 
-    await prepareWorkbook();
+};
 
-    await exportPdf();
-
-}
-/* ==========================================================
-   LOAD DATA
-========================================================== */
-
-function loadWorkbookData(){
-
-    const saved = localStorage.getItem(STORAGE_KEY);
-
-    if(!saved){
-
-        workbookData = {};
-        return;
-
-    }
-
-    try{
-
-        workbookData = JSON.parse(saved) || {};
-
-    }
-
-    catch(error){
-
-        console.error(
-            "Workbook konnte nicht geladen werden.",
-            error
-        );
-
-        workbookData = {};
-
-    }
-
-}
 
 
 /* ==========================================================
-   DATA HELPERS
+   SEITEN FINDEN
 ========================================================== */
 
-function getText(key){
+PDF.collectPages=function(){
 
-    const value = workbookData[key];
+    this.pages={
 
-    return typeof value === "string"
+        cover:document.querySelector("#coverPage"),
 
-        ? value.trim()
+        welcome:document.querySelector("#welcomePage"),
 
-        : "";
+        chapter1:document.querySelector("#chapter1"),
 
-}
+        chapter2:document.querySelector("#chapter2"),
 
+        chapter3:document.querySelector("#chapter3"),
 
-function getArray(key){
+        chapter4:document.querySelector("#chapter4"),
 
-    const value = workbookData[key];
+        chapter5:document.querySelector("#chapter5"),
 
-    return Array.isArray(value)
+        chapter6:document.querySelector("#chapter6"),
 
-        ? value
+        final:document.querySelector("#finalPage")
 
-        : [];
+    };
 
-}
+};
 
-
-function hasValue(value){
-
-    return String(value ?? "").trim().length > 0;
-
-}
 
 
 /* ==========================================================
-   HTML HELPERS
+   DATEN LADEN
 ========================================================== */
 
-function escapeHtml(text=""){
+PDF.loadData=function(){
 
-    return String(text)
+    const defaults={
 
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+        feelings:[],
 
-}
+        thoughts:[],
+
+        energy:"",
+
+        pastSelf:"",
+
+        presentSelf:"",
+
+        changeReflection:"",
+
+        stress:"",
+
+        patterns:[],
+
+        reflection:"",
+
+        relationshipExperiences:[],
+
+        warningSigns:[],
+
+        realisation:"",
+
+        resources:[],
+
+        strengths:[],
+
+        gratitude:"",
+
+        takeaway:[],
+
+        support:[],
+
+        insight:"",
+
+        nextStep:"",
+
+        futureMessage:""
+
+    };
 
 
-function nl2br(text=""){
 
-    return escapeHtml(text)
+    const saved=JSON.parse(
 
-        .replace(/\n/g,"<br>");
+        localStorage.getItem("workbook")
 
-}
+    )||{};
+
+
+
+    this.data={
+
+        ...defaults,
+
+        ...saved
+
+    };
+
+};
+
+
+
+
 /* ==========================================================
    RENDER
 ========================================================== */
 
-async function renderWorkbook(){
+PDF.render=function(){
 
-    pdfPages.innerHTML = [
+    this.renderCover();
 
-        createCover(),
+    this.renderWelcome();
 
-        createForeword(),
+};
 
-        createChapter1(),
 
-        createChapter2(),
 
-        createChapter3(),
-
-        createChapter4(),
-
-        createChapter5(),
-
-        createChapter6()
-
-    ].join("");
-
-}
-
-
-/* ==========================================================
-   PREPARE
-========================================================== */
-
-async function prepareWorkbook(){
-
-    await waitForFonts();
-
-    await nextFrame();
-    await nextFrame();
-
-    fitAnswerBoxes();
-
-    await nextFrame();
-
-    await wait(120);
-
-}
-
-
-/* ==========================================================
-   FONT LOADING
-========================================================== */
-
-async function waitForFonts(){
-
-    if(!document.fonts){
-
-        return;
-
-    }
-
-    try{
-
-        await document.fonts.ready;
-
-    }
-
-    catch(error){
-
-        console.warn(
-            "Fonts konnten nicht vollständig geladen werden."
-        );
-
-    }
-
-}
-
-
-/* ==========================================================
-   FRAME HELPERS
-========================================================== */
-
-function nextFrame(){
-
-    return new Promise(resolve=>{
-
-        requestAnimationFrame(resolve);
-
-    });
-
-}
-
-
-function wait(ms){
-
-    return new Promise(resolve=>{
-
-        setTimeout(resolve,ms);
-
-    });
-
-}
-/* ==========================================================
-   PAGE
-========================================================== */
-
-function createPage(content){
-
-    return `
-
-<section class="page">
-
-    <div class="page__content">
-
-        ${content}
-
-    </div>
-
-</section>
-
-`;
-
-}
-
-
-/* ==========================================================
-   HEADER
-========================================================== */
-
-function createHeader(number,title,subtitle){
-
-    return `
-
-<header class="page-header">
-
-    <div class="chapter-number">
-
-        ${escapeHtml(number)}
-
-    </div>
-
-    <h2 class="chapter-title">
-
-        ${escapeHtml(title)}
-
-    </h2>
-
-    <p class="chapter-subtitle">
-
-        ${escapeHtml(subtitle)}
-
-    </p>
-
-</header>
-
-`;
-
-}
-
-
-/* ==========================================================
-   FOOTER
-========================================================== */
-
-function createFooter(page){
-
-    return `
-
-<footer class="page-footer">
-
-    <div class="footer">
-
-        <span>
-
-            trotzdem.wahr
-
-        </span>
-
-        <span>
-
-            Seite ${page} / 8
-
-        </span>
-
-    </div>
-
-</footer>
-
-`;
-
-}
-
-
-/* ==========================================================
-   LAYOUT HELPERS
-========================================================== */
-
-function oneColumn(content){
-
-    return content;
-
-}
-
-
-function twoColumns(left,right){
-
-    return `
-
-<div class="card-grid">
-
-    ${left}
-
-    ${right}
-
-</div>
-
-`;
-
-}
-/* ==========================================================
-   INFO CARD
-========================================================== */
-
-function infoCard(title,text){
-
-    return `
-
-<section class="card card--info">
-
-    <h3>
-
-        ${escapeHtml(title)}
-
-    </h3>
-
-    <p>
-
-        ${text}
-
-    </p>
-
-</section>
-
-`;
-
-}
-
-
-/* ==========================================================
-   ANSWER CARD
-========================================================== */
-
-function answerCard(title,key){
-
-    const answer = getText(key);
-
-    return `
-
-<section class="card card--reflection">
-
-    <h3 class="answer-title">
-
-        ${escapeHtml(title)}
-
-    </h3>
-
-    <div class="answer">
-
-        <div class="answer-box fit">
-
-            ${hasValue(answer)
-
-                ? nl2br(answer)
-
-                : "Keine Antwort eingetragen."}
-
-        </div>
-
-    </div>
-
-</section>
-
-`;
-
-}
-
-
-/* ==========================================================
-   CHIP CARD
-========================================================== */
-
-function chipCard(title,key){
-
-    const chips = getArray(key);
-
-    return `
-
-<section class="card card--reflection">
-
-    <h3>
-
-        ${escapeHtml(title)}
-
-    </h3>
-
-    <div class="chip-group">
-
-        ${chips.length
-
-            ? chips.map(chip=>`
-
-                <span class="badge">
-
-                    ${escapeHtml(chip)}
-
-                </span>
-
-            `).join("")
-
-            : `<span class="badge">Keine Auswahl</span>`}
-
-    </div>
-
-</section>
-
-`;
-
-}
-
-
-/* ==========================================================
-   PSYCHOLOGY CARD
-========================================================== */
-
-function psychologyCard(text){
-
-    return `
-
-<section class="card card--psychology card--full">
-
-    <div class="badge">
-
-        Ein Blick in die Psychologie
-
-    </div>
-
-    <p>
-
-        ${text}
-
-    </p>
-
-</section>
-
-`;
-
-}
-
-
-/* ==========================================================
-   TAKEAWAY CARD
-========================================================== */
-
-function takeawayCard(text){
-
-    return `
-
-<section class="card card--takeaway card--full">
-
-    <div class="badge">
-
-        Für heute
-
-    </div>
-
-    <p>
-
-        ${text}
-
-    </p>
-
-</section>
-
-`;
-
-}
 /* ==========================================================
    COVER
 ========================================================== */
 
-function createCover(){
+PDF.renderCover=function(){
 
-    return createPage(`
+    this.pages.cover.innerHTML=`
 
-<div class="cover">
+        <div class="cover-content">
 
-    <div class="badge">
+            <div class="cover-logo">
 
-        trotzdem.wahr
+                trotzdem.wahr
 
-    </div>
+            </div>
 
-    <h1>
+            <h1 class="cover-title">
 
-        Zurück zu dir
+                Zurück<br>
 
-    </h1>
+                zu dir.
 
-    <p>
+            </h1>
 
-        Dieses Workbook enthält deine persönlichen
-        Antworten aus trotzdem.wahr.
+            <p class="cover-subtitle">
 
-        <br><br>
+                Ein Workbook für Selbstreflexion<br>
 
-        Nimm dir Zeit,
-        lies sie in Ruhe
-        und erinnere dich daran:
+                und neue Perspektiven.
 
-        <br><br>
+            </p>
 
-        Entwicklung beginnt nicht
-        mit Perfektion,
-        sondern mit Ehrlichkeit.
+            <div class="cover-footer">
 
-    </p>
+                www.trotzdem-wahr.de
 
-    <div class="cover-footer">
+            </div>
 
-        trotzdem.wahr
+        </div>
 
-    </div>
+    `;
 
-</div>
+};
 
-`);
 
-}
 
 
 /* ==========================================================
-   FOREWORD
+   WILLKOMMEN
 ========================================================== */
 
-function createForeword(){
+PDF.renderWelcome=function(){
 
-    return createPage(`
+    this.pages.welcome.innerHTML=`
 
-${createHeader(
+        <header class="page-header">
 
-    "Vorwort",
+            <div class="logo">
 
-    "Willkommen",
+                trotzdem.wahr
 
-    "Deine Antworten an einem Ort."
+            </div>
 
-)}
+        </header>
 
-<div class="page-body">
+        <section class="full card">
 
-${infoCard(
+            <h1 class="mb-3">
 
-    "Dein persönliches Workbook",
+                Schön,
 
-    `
+                dass du hier bist.
 
-    Dieses PDF fasst alle Antworten
-    zusammen,
-    die du während des Workbooks
-    festgehalten hast.
+            </h1>
 
-    <br><br>
+            <p>
 
-    Es soll dir helfen,
-    Zusammenhänge zu erkennen,
-    Entwicklungen sichtbar zu machen
-    und jederzeit zu deinen Gedanken
-    zurückkehren zu können.
+                Dieses Workbook gehört dir.
 
-    <br><br>
+                Es ist kein Test,
 
-    Alles,
-    was du hier liest,
-    stammt aus deinen eigenen Antworten.
+                keine Prüfung
 
-    `
+                und muss nicht perfekt ausgefüllt sein.
 
-)}
+            </p>
 
-${createFooter(2)}
+            <p class="mt-2">
 
-</div>
+                Vielleicht hast du viele Seiten
 
-`);
+                ausführlich beantwortet.
 
-}
+                Vielleicht hast du manche Fragen
+
+                übersprungen.
+
+            </p>
+
+            <p class="mt-2">
+
+                Beides ist vollkommen in Ordnung.
+
+            </p>
+
+            <p class="mt-2">
+
+                Die folgenden Seiten fassen deine
+
+                Antworten zusammen und verbinden sie
+
+                mit kurzen psychologischen Impulsen.
+
+            </p>
+
+            <p class="mt-2">
+
+                Du kannst jederzeit später
+
+                zurückkommen,
+
+                Neues ergänzen
+
+                oder manche Antworten
+
+                mit etwas Abstand
+
+                noch einmal lesen.
+
+            </p>
+
+        </section>
+
+        <section class="full takeaway">
+
+            <h3>
+
+                Für dieses Workbook
+
+            </h3>
+
+            <p>
+
+                Es gibt kein richtig oder falsch.
+
+                Alles,
+
+                was hier steht,
+
+                darf sich verändern.
+
+            </p>
+
+        </section>
+
+        <footer class="page-footer">
+
+            <span>
+
+                trotzdem.wahr
+
+            </span>
+
+            <span class="page-number">
+
+                2
+
+            </span>
+
+        </footer>
+
+    `;
+
+};
+
+
+
 /* ==========================================================
-   CHAPTER 1
+   SCHRIFTGRÖSSE
 ========================================================== */
 
-function createChapter1(){
+PDF.fontSize=function(text=""){
 
-    return createPage(`
+    const length=text.trim().length;
 
-${createHeader(
 
-    "Kapitel 1",
 
-    "Ankommen",
+    if(length<120)return"size-1";
 
-    "Du musst heute nichts leisten."
+    if(length<250)return"size-2";
 
-)}
+    if(length<500)return"size-3";
 
-<div class="page-body">
+    if(length<900)return"size-4";
 
-${infoCard(
+    return"size-5";
 
-    "Schön, dass du da bist.",
+};
 
-    `
 
-    Selbstreflexion beginnt nicht
-    mit der perfekten Antwort.
 
-    Sie beginnt damit,
-    ehrlich wahrzunehmen,
-    was gerade da ist.
-
-    <br><br>
-
-    In diesem ersten Kapitel
-    geht es deshalb nicht darum,
-    etwas richtig zu machen.
-
-    Sondern darum,
-    dir selbst aufmerksam zuzuhören.
-
-    `
-
-)}
-
-${twoColumns(
-
-    chipCard(
-
-        "Welche Gefühle begleiten dich momentan?",
-
-        "feelings"
-
-    ),
-
-    chipCard(
-
-        "Welche Gedanken beschäftigen dich besonders?",
-
-        "thoughts"
-
-    )
-
-)}
-
-${oneColumn(
-
-    answerCard(
-
-        "Was kostet dich im Moment am meisten Kraft?",
-
-        "energy"
-
-    )
-
-)}
-
-${psychologyCard(
-
-    `
-
-    Gefühle wahrzunehmen,
-    statt sie zu verdrängen,
-    hilft unserem Gehirn,
-    Emotionen besser zu regulieren.
-
-    <br><br>
-
-    Bereits das bewusste Benennen
-    eines Gefühls kann Stress reduzieren
-    und den Blick auf Lösungen öffnen.
-
-    `
-
-)}
-
-${takeawayCard(
-
-    `
-
-    Alles darf da sein.
-
-    Es gibt heute
-    kein richtig
-    und kein falsch.
-
-    Der erste Schritt
-    ist Ehrlichkeit
-    mit dir selbst.
-
-    `
-
-)}
-
-${createFooter(3)}
-
-</div>
-
-`);
-
-}
 /* ==========================================================
-   CHAPTER 2
+   CHIP LISTE
 ========================================================== */
 
-function createChapter2(){
+PDF.createChips=function(items=[]){
 
-    return createPage(`
+    if(!items.length){
 
-${createHeader(
+        return`
 
-    "Kapitel 2",
+            <p class="small">
 
-    "Wer bin ich geworden?",
+                Keine Auswahl getroffen.
 
-    "Ein Blick zurück hilft oft, sich heute besser zu verstehen."
+            </p>
 
-)}
+        `;
 
-<div class="page-body">
+    }
 
-${infoCard(
 
-    "Vergangenheit und Gegenwart",
 
-    `
+    return`
 
-    Jeder Mensch verändert sich.
+        <div class="chips">
 
-    Manche Eigenschaften begleiten uns
-    ein Leben lang,
-    andere entwickeln sich
-    durch Erfahrungen.
+            ${items.map(item=>`
 
-    <br><br>
+                <span class="chip selected">
 
-    Dieses Kapitel lädt dich ein,
-    dein früheres und dein heutiges Ich
-    bewusst und ohne Bewertung
-    zu betrachten.
+                    ${item}
 
-    `
+                </span>
 
-)}
+            `).join("")}
 
-${twoColumns(
+        </div>
 
-    answerCard(
+    `;
 
-        "Was mochtest du früher besonders an dir?",
+};
 
-        "pastSelf"
 
-    ),
 
-    answerCard(
-
-        "Was magst du heute besonders an dir?",
-
-        "presentSelf"
-
-    )
-
-)}
-
-${oneColumn(
-
-    answerCard(
-
-        "Was ist der größte Unterschied zwischen damals und heute?",
-
-        "changeReflection"
-
-    )
-
-)}
-
-${psychologyCard(
-
-    `
-
-    Unser Selbstbild ist nicht fest.
-
-    Erfahrungen,
-    Beziehungen
-    und neue Herausforderungen
-    verändern ständig,
-    wie wir uns selbst wahrnehmen.
-
-    <br><br>
-
-    Sich diese Entwicklung bewusst
-    anzusehen,
-    stärkt die Selbstwahrnehmung
-    und das Vertrauen
-    in den eigenen Weg.
-
-    `
-
-)}
-
-${takeawayCard(
-
-    `
-
-    Entwicklung bedeutet nicht,
-    jemand anderes zu werden.
-
-    Entwicklung bedeutet,
-    dich selbst
-    immer besser
-    kennenzulernen.
-
-    `
-
-)}
-
-${createFooter(4)}
-
-</div>
-
-`);
-
-}
 /* ==========================================================
-   CHAPTER 3
+   TEXTBOX
 ========================================================== */
 
-function createChapter3(){
+PDF.answer=function(text=""){
 
-    return createPage(`
+    if(!text.trim()){
 
-${createHeader(
+        return`
 
-    "Kapitel 3",
+            <div class="answer">
 
-    "Verstehen",
+                <p class="small">
 
-    "Muster zu erkennen verändert den Blick."
+                    Keine Antwort eingetragen.
 
-)}
+                </p>
 
-<div class="page-body">
+            </div>
 
-${infoCard(
+        `;
 
-    "Eigene Reaktionen verstehen",
+    }
 
-    `
 
-    Unser Gehirn greift häufig
-    auf bekannte Reaktionen zurück.
 
-    Dadurch entstehen Gewohnheiten,
-    die uns manchmal helfen,
-    manchmal aber auch belasten.
+    return`
 
-    <br><br>
+        <div class="answer ${this.fontSize(text)}">
 
-    Wer seine Muster erkennt,
-    kann bewusster entscheiden,
-    wie er künftig handeln möchte.
+            ${text}
 
-    `
+        </div>
 
-)}
+    `;
 
-${twoColumns(
-
-    answerCard(
-
-        "Wie reagierst du meistens in belastenden Situationen?",
-
-        "stress"
-
-    ),
-
-    chipCard(
-
-        "Welche Muster erkennst du bei dir?",
-
-        "patterns"
-
-    )
-
-)}
-
-${oneColumn(
-
-    answerCard(
-
-        "Welche Situation ist dir besonders im Gedächtnis geblieben?",
-
-        "reflection"
-
-    )
-
-)}
-
-${psychologyCard(
-
-    `
-
-    Unser Gehirn versucht,
-    Energie zu sparen.
-
-    Deshalb laufen viele Reaktionen
-    automatisch ab.
-
-    <br><br>
-
-    Erst wenn wir diese Muster
-    bewusst erkennen,
-    entsteht die Möglichkeit,
-    neue Wege auszuprobieren.
-
-    `
-
-)}
-
-${takeawayCard(
-
-    `
-
-    Du musst deine Muster
-    nicht verurteilen.
-
-    Es reicht,
-    sie wahrzunehmen.
-
-    Denn Bewusstsein
-    ist immer
-    der erste Schritt
-    zur Veränderung.
-
-    `
-
-)}
-
-${createFooter(5)}
-
-</div>
-
-`);
-
-}
+};
 /* ==========================================================
-   CHAPTER 4
+   KAPITEL 1
+   ANKOMMEN
 ========================================================== */
 
-function createChapter4(){
+PDF.render=function(){
 
-    return createPage(`
+    this.renderCover();
 
-${createHeader(
+    this.renderWelcome();
 
-    "Kapitel 4",
+    this.renderChapter1();
 
-    "Erkennen",
+};
 
-    "Nicht alles, was vertraut ist, tut uns gut."
 
-)}
 
-<div class="page-body">
-
-${infoCard(
-
-    "Warnsignale erkennen",
-
-    `
-
-    Manche Situationen fühlen sich
-    zunächst normal an,
-    obwohl sie uns langfristig
-    nicht guttun.
-
-    <br><br>
-
-    Warnsignale früh wahrzunehmen,
-    hilft dabei,
-    eigene Grenzen ernst zu nehmen
-    und sich selbst besser zu schützen.
-
-    `
-
-)}
-
-${twoColumns(
-
-    chipCard(
-
-        "Welche Erfahrungen kennst du?",
-
-        "relationshipExperiences"
-
-    ),
-
-    chipCard(
-
-        "Welche Warnsignale hast du erkannt?",
-
-        "warningSigns"
-
-    )
-
-)}
-
-${oneColumn(
-
-    answerCard(
-
-        "Welche Gedanken möchtest du dazu festhalten?",
-
-        "realisation"
-
-    )
-
-)}
-
-${psychologyCard(
-
-    `
-
-    Unser Gehirn gewöhnt sich
-    erstaunlich schnell
-    an wiederkehrende Situationen.
-
-    <br><br>
-
-    Gerade deshalb
-    fallen ungesunde Dynamiken
-    häufig erst spät auf.
-
-    Wer Warnsignale erkennt,
-    kann bewusster entscheiden,
-    welche Beziehungen
-    und Situationen
-    wirklich guttun.
-
-    `
-
-)}
-
-${takeawayCard(
-
-    `
-
-    Deiner Wahrnehmung
-    zu vertrauen
-    ist ein wichtiger Teil
-    von Selbstfürsorge.
-
-    Grenzen zu setzen
-    ist kein Zeichen
-    von Schwäche.
-
-    `
-
-)}
-
-${createFooter(6)}
-
-</div>
-
-`);
-
-}
 /* ==========================================================
-   CHAPTER 5
+   KAPITEL 1
 ========================================================== */
 
-function createChapter5(){
+PDF.renderChapter1=function(){
 
-    return createPage(`
+    this.pages.chapter1.innerHTML=`
 
-${createHeader(
+        <header class="page-header">
 
-    "Kapitel 5",
+            <div class="logo">
 
-    "Stärken",
+                trotzdem.wahr
 
-    "Du bist mehr als deine schwierigsten Tage."
+            </div>
 
-)}
+            <div class="page-number">
 
-<div class="page-body">
+                3
 
-${infoCard(
+            </div>
 
-    "Deine Ressourcen",
+        </header>
 
-    `
 
-    Häufig sehen wir zuerst,
-    was uns fehlt.
 
-    Dabei geraten unsere Fähigkeiten,
-    Erfahrungen
-    und Stärken
-    leicht in den Hintergrund.
+        <section class="chapter-header full">
 
-    <br><br>
+            <div class="chapter-number">
 
-    Dieses Kapitel richtet
-    den Blick bewusst
-    auf das,
-    was dich trägt.
+                01
 
-    `
+            </div>
 
-)}
+            <h1 class="chapter-title">
 
-${twoColumns(
+                Ankommen
 
-    chipCard(
+            </h1>
 
-        "Was gibt dir Kraft?",
+            <p class="quote">
 
-        "resources"
+                „Du musst heute nichts leisten.“
 
-    ),
+            </p>
 
-    chipCard(
+        </section>
 
-        "Welche Stärken erkennst du bei dir?",
 
-        "strengths"
 
-    )
+        <section class="card full">
 
-)}
+            <h2 class="card-title">
 
-${oneColumn(
+                Schön, dass du da bist.
 
-    answerCard(
+            </h2>
 
-        "Worauf bist du heute stolz?",
+            <p>
 
-        "gratitude"
+                Wenn wir beginnen,
 
-    )
+                uns selbst besser kennenzulernen,
 
-)}
+                entsteht oft der Wunsch,
 
-${psychologyCard(
+                möglichst schnell Antworten
 
-    `
+                auf unsere Fragen zu finden.
 
-    Resilienz bedeutet nicht,
-    niemals zu scheitern.
+            </p>
 
-    Sie beschreibt die Fähigkeit,
-    nach schwierigen Erfahrungen
-    wieder Stabilität zu finden.
+            <p class="mt-2">
 
-    <br><br>
+                Doch Selbstreflexion ist kein Test
 
-    Wer seine eigenen Ressourcen kennt,
-    kann Herausforderungen
-    gelassener begegnen.
+                und keine Prüfung.
 
-    `
+                Sie beginnt mit Aufmerksamkeit –
 
-)}
+                nicht mit Perfektion.
 
-${takeawayCard(
+            </p>
 
-    `
+            <p class="mt-2">
 
-    Du hast bereits
-    viele Situationen gemeistert.
+                Deshalb musst du heute
 
-    Erinnere dich daran,
-    was dir geholfen hat.
+                nichts erreichen.
 
-    Deine Stärken
-    gehören zu dir.
+                Nimm dir Zeit,
 
-    `
+                lies die Inhalte
 
-)}
+                in deinem Tempo
 
-${createFooter(7)}
+                und beantworte nur das,
 
-</div>
+                was sich für dich
 
-`);
+                richtig anfühlt.
 
-}
+            </p>
+
+        </section>
+
+
+
+        <section class="columns full">
+
+
+
+            <article class="card">
+
+                <h3>
+
+                    Welche Gefühle begleiten dich im Moment?
+
+                </h3>
+
+                ${PDF.createChips(
+
+                    PDF.data.feelings
+
+                )}
+
+            </article>
+
+
+
+            <article class="card">
+
+                <h3>
+
+                    Welche Gedanken kennst du von dir?
+
+                </h3>
+
+                ${PDF.createChips(
+
+                    PDF.data.thoughts
+
+                )}
+
+            </article>
+
+
+
+        </section>
+
+
+
+        <section class="card full">
+
+            <h3>
+
+                Was kostet dich im Moment am meisten Kraft?
+
+            </h3>
+
+            ${PDF.answer(
+
+                PDF.data.energy
+
+            )}
+
+        </section>
+
+
+
+        <section class="psychology full">
+
+            <div class="psychology-icon">
+
+                🧠
+
+            </div>
+
+            <div class="psychology-content">
+
+                <h3 class="mb-2">
+
+                    Ein Blick in die Psychologie
+
+                </h3>
+
+                <p>
+
+                    Unser Gehirn verarbeitet
+
+                    Informationen besonders gut,
+
+                    wenn wir uns sicher fühlen.
+
+                    Unter Druck arbeitet es
+
+                    stärker im Überlebensmodus,
+
+                    während ruhige Momente
+
+                    bewusste Reflexion ermöglichen.
+
+                </p>
+
+                <p class="mt-2">
+
+                    Deshalb entstehen viele
+
+                    wichtige Erkenntnisse
+
+                    nicht dann,
+
+                    wenn wir uns zwingen,
+
+                    sondern wenn wir uns erlauben,
+
+                    ehrlich hinzuschauen.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <section class="takeaway full">
+
+            <h3>
+
+                Für heute
+
+            </h3>
+
+            <p>
+
+                Es gibt heute
+
+                kein richtig oder falsch.
+
+                Du musst niemandem
+
+                etwas beweisen.
+
+                Dieses Workbook
+
+                gehört nur dir.
+
+            </p>
+
+        </section>
+
+
+
+        <footer class="page-footer">
+
+            <span>
+
+                trotzdem.wahr
+
+            </span>
+
+            <span class="page-number">
+
+                3
+
+            </span>
+
+        </footer>
+
+    `;
+
+};
 /* ==========================================================
-   CHAPTER 6
+   KAPITEL 2
+   WER BIN ICH GEWORDEN?
 ========================================================== */
 
-function createChapter6(){
+PDF.render=function(){
 
-    return createPage(`
+    this.renderCover();
 
-${createHeader(
+    this.renderWelcome();
 
-    "Kapitel 6",
+    this.renderChapter1();
 
-    "Weitergehen",
+    this.renderChapter2();
 
-    "Jeder kleine Schritt zählt."
+};
 
-)}
 
-<div class="page-body">
 
-${infoCard(
-
-    "Ein neuer Blick nach vorne",
-
-    `
-
-    Dieses Workbook endet hier.
-
-    Deine Entwicklung
-    geht jedoch weiter.
-
-    <br><br>
-
-    Veränderungen entstehen
-    nicht durch einen einzigen Moment,
-    sondern durch viele kleine Schritte.
-
-    <br><br>
-
-    Du musst heute
-    nicht alles wissen.
-
-    Es reicht,
-    den nächsten Schritt
-    zu kennen.
-
-    `
-
-)}
-
-${twoColumns(
-
-    chipCard(
-
-        "Das möchte ich mitnehmen",
-
-        "takeaway"
-
-    ),
-
-    chipCard(
-
-        "Das unterstützt mich",
-
-        "support"
-
-    )
-
-)}
-
-${twoColumns(
-
-    answerCard(
-
-        "Meine wichtigste Erkenntnis",
-
-        "insight"
-
-    ),
-
-    answerCard(
-
-        "Mein nächster Schritt",
-
-        "nextStep"
-
-    )
-
-)}
-
-${oneColumn(
-
-    answerCard(
-
-        "Brief an mein zukünftiges Ich",
-
-        "futureMessage"
-
-    )
-
-)}
-
-${psychologyCard(
-
-    `
-
-    Nachhaltige Veränderungen
-    entstehen selten
-    durch große Entscheidungen.
-
-    <br><br>
-
-    Meist sind es
-    viele kleine,
-    wiederholte Schritte,
-    die langfristig
-    den größten Unterschied machen.
-
-    `
-
-)}
-
-${takeawayCard(
-
-    `
-
-    Du musst
-    nicht perfekt sein.
-
-    Bleib neugierig,
-    bleib ehrlich
-    und geh
-    Schritt für Schritt
-    weiter.
-
-    `
-
-)}
-
-${createFooter(8)}
-
-</div>
-
-`);
-
-}
 /* ==========================================================
-   ANSWER BOX FIT
+   KAPITEL 2
 ========================================================== */
 
-function fitAnswerBoxes(){
+PDF.renderChapter2=function(){
 
-    const boxes = document.querySelectorAll(".answer-box");
+    this.pages.chapter2.innerHTML=`
 
-    boxes.forEach(box=>{
+        <header class="page-header">
 
-        box.classList.remove(
-            "is-small",
-            "is-xsmall"
-        );
+            <div class="logo">
 
-        if(box.scrollHeight <= box.clientHeight){
-            return;
-        }
+                trotzdem.wahr
 
-        box.classList.add("is-small");
+            </div>
 
-        if(box.scrollHeight <= box.clientHeight){
-            return;
-        }
+            <div class="page-number">
 
-        box.classList.remove("is-small");
-        box.classList.add("is-xsmall");
+                4
 
-    });
+            </div>
 
-}
+        </header>
+
+
+
+        <section class="chapter-header full">
+
+            <div class="chapter-number">
+
+                02
+
+            </div>
+
+            <h1 class="chapter-title">
+
+                Wer bin ich geworden?
+
+            </h1>
+
+            <p class="quote">
+
+                „Manchmal hilft ein Blick zurück, um sich heute besser zu verstehen.“
+
+            </p>
+
+        </section>
+
+
+
+        <section class="card full">
+
+            <h2 class="card-title">
+
+                Ein Blick auf dich
+
+            </h2>
+
+            <p>
+
+                Unser Selbstbild verändert sich
+
+                im Laufe des Lebens.
+
+                Erfahrungen,
+
+                Beziehungen
+
+                und Herausforderungen
+
+                hinterlassen Spuren.
+
+            </p>
+
+            <p class="mt-2">
+
+                Manche davon stärken uns,
+
+                andere lassen uns
+
+                an uns selbst zweifeln.
+
+            </p>
+
+            <p class="mt-2">
+
+                Diese Fragen laden dich dazu ein,
+
+                dich mit deinem früheren
+
+                und heutigen Ich
+
+                auseinanderzusetzen –
+
+                ohne Bewertung,
+
+                sondern mit Neugier.
+
+            </p>
+
+        </section>
+
+
+
+        <section class="columns full">
+
+
+
+            <article class="card">
+
+                <h3>
+
+                    Was mochtest du früher besonders an dir?
+
+                </h3>
+
+                ${PDF.answer(
+
+                    PDF.data.pastSelf
+
+                )}
+
+            </article>
+
+
+
+            <article class="card">
+
+                <h3>
+
+                    Was magst du heute an dir?
+
+                </h3>
+
+                ${PDF.answer(
+
+                    PDF.data.presentSelf
+
+                )}
+
+            </article>
+
+
+
+        </section>
+
+
+
+        <section class="card full">
+
+            <h3>
+
+                Was ist der größte Unterschied
+
+                zwischen damals und heute?
+
+            </h3>
+
+            ${PDF.answer(
+
+                PDF.data.changeReflection
+
+            )}
+
+        </section>
+
+
+
+        <section class="psychology full">
+
+            <div class="psychology-icon">
+
+                🧠
+
+            </div>
+
+            <div class="psychology-content">
+
+                <h3 class="mb-2">
+
+                    Ein Blick in die Psychologie
+
+                </h3>
+
+                <p>
+
+                    Unser Selbstbild entsteht
+
+                    nicht über Nacht.
+
+                    Es entwickelt sich
+
+                    aus Erfahrungen,
+
+                    Beziehungen
+
+                    und den Geschichten,
+
+                    die wir über uns selbst erzählen.
+
+                </p>
+
+                <p class="mt-2">
+
+                    Manchmal übernehmen wir
+
+                    Bewertungen anderer,
+
+                    obwohl sie längst
+
+                    nicht mehr zu uns passen.
+
+                    Sich diese bewusst zu machen,
+
+                    kann helfen,
+
+                    den Blick auf sich selbst
+
+                    wieder liebevoller
+
+                    werden zu lassen.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <section class="takeaway full">
+
+            <h3>
+
+                Für heute
+
+            </h3>
+
+            <p>
+
+                Du bist nicht nur
+
+                die Summe deiner Erfahrungen.
+
+                Du darfst dich verändern,
+
+                weiterentwickeln
+
+                und dich immer wieder
+
+                neu kennenlernen.
+
+            </p>
+
+        </section>
+
+
+
+        <footer class="page-footer">
+
+            <span>
+
+                trotzdem.wahr
+
+            </span>
+
+            <span class="page-number">
+
+                4
+
+            </span>
+
+        </footer>
+
+    `;
+
+};
 /* ==========================================================
-   PDF EXPORT
+   KAPITEL 3
+   VERSTEHEN
 ========================================================== */
 
-async function exportPdf(){
+PDF.render=function(){
 
-    const element = document.getElementById("pdf");
+    this.renderCover();
 
-    const options = {
+    this.renderWelcome();
 
-        margin: 0,
+    this.renderChapter1();
 
-        filename: "trotzdem-wahr-workbook.pdf",
+    this.renderChapter2();
 
-        image: {
-            type: "jpeg",
-            quality: 1
+    this.renderChapter3();
+
+};
+
+
+
+/* ==========================================================
+   KAPITEL 3
+========================================================== */
+
+PDF.renderChapter3=function(){
+
+    this.pages.chapter3.innerHTML=`
+
+        <header class="page-header">
+
+            <div class="logo">
+
+                trotzdem.wahr
+
+            </div>
+
+            <div class="page-number">
+
+                5
+
+            </div>
+
+        </header>
+
+
+
+        <section class="chapter-header full">
+
+            <div class="chapter-number">
+
+                03
+
+            </div>
+
+            <h1 class="chapter-title">
+
+                Verstehen
+
+            </h1>
+
+            <p class="quote">
+
+                „Verstehen verändert den Blick – nicht die Vergangenheit.“
+
+            </p>
+
+        </section>
+
+
+
+        <section class="card full">
+
+            <h2 class="card-title">
+
+                Warum reagieren wir manchmal automatisch?
+
+            </h2>
+
+            <p>
+
+                Unser Gehirn versucht ständig,
+
+                Situationen möglichst schnell
+
+                einzuordnen.
+
+                Deshalb greifen wir häufig
+
+                auf bekannte Muster zurück,
+
+                ohne bewusst darüber
+
+                nachzudenken.
+
+            </p>
+
+            <p class="mt-2">
+
+                Diese Reaktionen
+
+                sind nicht falsch.
+
+                Sie haben meist einmal
+
+                einen wichtigen Zweck erfüllt.
+
+                Erst wenn wir sie erkennen,
+
+                können wir entscheiden,
+
+                ob sie uns heute
+
+                noch helfen.
+
+            </p>
+
+        </section>
+
+
+
+        <section class="columns full">
+
+
+
+            <article class="card">
+
+                <h3>
+
+                    Wie reagierst du meistens,
+
+                    wenn dich etwas belastet?
+
+                </h3>
+
+                ${PDF.data.stress ?
+
+                    `
+
+                    <div class="chips">
+
+                        <span class="chip selected">
+
+                            ${PDF.data.stress}
+
+                        </span>
+
+                    </div>
+
+                    `
+
+                    :
+
+                    `
+
+                    <p class="small">
+
+                        Keine Auswahl getroffen.
+
+                    </p>
+
+                    `
+
+                }
+
+            </article>
+
+
+
+            <article class="card">
+
+                <h3>
+
+                    Welche Aussagen
+
+                    treffen auf dich zu?
+
+                </h3>
+
+                ${PDF.createChips(
+
+                    PDF.data.patterns
+
+                )}
+
+            </article>
+
+
+
+        </section>
+
+
+
+        <section class="card full">
+
+            <h3>
+
+                Gab es eine Situation,
+
+                in der du dich selbst
+
+                überrascht hast?
+
+            </h3>
+
+            ${PDF.answer(
+
+                PDF.data.reflection
+
+            )}
+
+        </section>
+
+
+
+        <section class="psychology full">
+
+            <div class="psychology-icon">
+
+                🧠
+
+            </div>
+
+            <div class="psychology-content">
+
+                <h3 class="mb-2">
+
+                    Ein Blick in die Psychologie
+
+                </h3>
+
+                <p>
+
+                    Viele unserer Reaktionen
+
+                    entstehen,
+
+                    bevor wir bewusst
+
+                    darüber nachdenken können.
+
+                    Das Gehirn vergleicht
+
+                    neue Situationen
+
+                    mit früheren Erfahrungen
+
+                    und entscheidet
+
+                    innerhalb von Sekundenbruchteilen,
+
+                    welche Reaktion
+
+                    sinnvoll erscheint.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <section class="takeaway full">
+
+            <h3>
+
+                Für heute
+
+            </h3>
+
+            <p>
+
+                Verstehen bedeutet nicht,
+
+                alles sofort verändern
+
+                zu müssen.
+
+                Oft beginnt Entwicklung
+
+                bereits dort,
+
+                wo wir unsere eigenen Muster
+
+                neugierig
+
+                statt wertend betrachten.
+
+            </p>
+
+        </section>
+
+
+
+        <footer class="page-footer">
+
+            <span>
+
+                trotzdem.wahr
+
+            </span>
+
+            <span class="page-number">
+
+                5
+
+            </span>
+
+        </footer>
+
+    `;
+
+};
+/* ==========================================================
+   KAPITEL 4
+   ERKENNEN
+========================================================== */
+
+PDF.render=function(){
+
+    this.renderCover();
+
+    this.renderWelcome();
+
+    this.renderChapter1();
+
+    this.renderChapter2();
+
+    this.renderChapter3();
+
+    this.renderChapter4();
+
+};
+
+
+
+/* ==========================================================
+   KAPITEL 4
+========================================================== */
+
+PDF.renderChapter4=function(){
+
+    this.pages.chapter4.innerHTML=`
+
+        <header class="page-header">
+
+            <div class="logo">
+
+                trotzdem.wahr
+
+            </div>
+
+            <div class="page-number">
+
+                6
+
+            </div>
+
+        </header>
+
+
+
+        <section class="chapter-header full">
+
+            <div class="chapter-number">
+
+                04
+
+            </div>
+
+            <h1 class="chapter-title">
+
+                Erkennen
+
+            </h1>
+
+            <p class="quote">
+
+                „Nicht alles, was sich vertraut anfühlt, tut uns gut.“
+
+            </p>
+
+        </section>
+
+
+
+        <section class="card full">
+
+            <h2 class="card-title">
+
+                Warnsignale erkennen
+
+            </h2>
+
+            <p>
+
+                Manche Verhaltensweisen wirken
+
+                auf den ersten Blick harmlos
+
+                oder werden sogar
+
+                als Fürsorge verstanden.
+
+                Erst mit etwas Abstand erkennen wir,
+
+                wie sehr sie unser Selbstwertgefühl
+
+                oder unsere Freiheit
+
+                beeinflusst haben.
+
+            </p>
+
+            <p class="mt-2">
+
+                Dieses Kapitel soll dir helfen,
+
+                typische Warnsignale
+
+                besser einzuordnen –
+
+                ohne Menschen vorschnell
+
+                zu bewerten,
+
+                sondern mit einem
+
+                bewussteren Blick
+
+                auf Beziehungen.
+
+            </p>
+
+        </section>
+
+
+
+        <section class="columns full">
+
+
+
+            <article class="card">
+
+                <h3>
+
+                    Welche Aussagen
+
+                    kommen dir bekannt vor?
+
+                </h3>
+
+                ${PDF.createChips(
+
+                    PDF.data.relationshipExperiences
+
+                )}
+
+            </article>
+
+
+
+            <article class="card">
+
+                <h3>
+
+                    Welche Verhaltensweisen
+
+                    empfindest du
+
+                    grundsätzlich
+
+                    als Warnsignal?
+
+                </h3>
+
+                ${PDF.createChips(
+
+                    PDF.data.warningSigns
+
+                )}
+
+            </article>
+
+
+
+        </section>
+
+
+
+        <section class="card full">
+
+            <h3>
+
+                Welche Gedanken
+
+                möchtest du
+
+                zu diesem Thema
+
+                festhalten?
+
+            </h3>
+
+            ${PDF.answer(
+
+                PDF.data.realisation
+
+            )}
+
+        </section>
+
+
+
+        <section class="psychology full">
+
+            <div class="psychology-icon">
+
+                🧠
+
+            </div>
+
+            <div class="psychology-content">
+
+                <h3 class="mb-2">
+
+                    Ein Blick in die Psychologie
+
+                </h3>
+
+                <p>
+
+                    Manipulation beginnt
+
+                    nur selten plötzlich.
+
+                    Häufig entwickelt sie sich
+
+                    schrittweise
+
+                    durch Kontrolle,
+
+                    Schuldgefühle,
+
+                    Abwertung
+
+                    oder das ständige
+
+                    Infragestellen
+
+                    der eigenen Wahrnehmung.
+
+                </p>
+
+                <p class="mt-2">
+
+                    Je früher wir
+
+                    solche Muster erkennen,
+
+                    desto leichter fällt es,
+
+                    unsere Grenzen
+
+                    ernst zu nehmen.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <section class="takeaway full">
+
+            <h3>
+
+                Für heute
+
+            </h3>
+
+            <p>
+
+                Deiner Wahrnehmung
+
+                zu vertrauen
+
+                ist kein Zeichen
+
+                von Misstrauen,
+
+                sondern
+
+                von Selbstfürsorge.
+
+            </p>
+
+        </section>
+
+
+
+        <footer class="page-footer">
+
+            <span>
+
+                trotzdem.wahr
+
+            </span>
+
+            <span class="page-number">
+
+                6
+
+            </span>
+
+        </footer>
+
+    `;
+
+};
+/* ==========================================================
+   KAPITEL 5
+   STÄRKEN
+========================================================== */
+
+PDF.render=function(){
+
+    this.renderCover();
+
+    this.renderWelcome();
+
+    this.renderChapter1();
+
+    this.renderChapter2();
+
+    this.renderChapter3();
+
+    this.renderChapter4();
+
+    this.renderChapter5();
+
+};
+
+
+
+/* ==========================================================
+   KAPITEL 5
+========================================================== */
+
+PDF.renderChapter5=function(){
+
+    this.pages.chapter5.innerHTML=`
+
+        <header class="page-header">
+
+            <div class="logo">
+
+                trotzdem.wahr
+
+            </div>
+
+            <div class="page-number">
+
+                7
+
+            </div>
+
+        </header>
+
+
+
+        <section class="chapter-header full">
+
+            <div class="chapter-number">
+
+                05
+
+            </div>
+
+            <h1 class="chapter-title">
+
+                Stärken
+
+            </h1>
+
+            <p class="quote">
+
+                „Du bist mehr als deine schwierigsten Tage.“
+
+            </p>
+
+        </section>
+
+
+
+        <section class="card full">
+
+            <h2 class="card-title">
+
+                Deine Ressourcen
+
+            </h2>
+
+            <p>
+
+                Oft fällt uns zuerst auf,
+
+                was uns fehlt
+
+                oder belastet.
+
+                Dabei übersehen wir leicht,
+
+                wie viele Fähigkeiten,
+
+                Erfahrungen
+
+                und Menschen
+
+                uns bereits tragen.
+
+            </p>
+
+            <p class="mt-2">
+
+                Stärke bedeutet nicht,
+
+                immer stark sein zu müssen.
+
+                Manchmal zeigt sie sich darin,
+
+                Hilfe anzunehmen,
+
+                Grenzen zu setzen
+
+                oder freundlich
+
+                mit sich selbst zu sein.
+
+            </p>
+
+        </section>
+
+
+
+        <section class="columns full">
+
+
+
+            <article class="card">
+
+                <h3>
+
+                    Was gibt dir
+
+                    im Alltag Kraft?
+
+                </h3>
+
+                ${PDF.createChips(
+
+                    PDF.data.resources
+
+                )}
+
+            </article>
+
+
+
+            <article class="card">
+
+                <h3>
+
+                    Welche Eigenschaften
+
+                    erkennst du
+
+                    bei dir?
+
+                </h3>
+
+                ${PDF.createChips(
+
+                    PDF.data.strengths
+
+                )}
+
+            </article>
+
+
+
+        </section>
+
+
+
+        <section class="card full">
+
+            <h3>
+
+                Worauf bist du heute stolz –
+
+                auch wenn es
+
+                nur eine Kleinigkeit ist?
+
+            </h3>
+
+            ${PDF.answer(
+
+                PDF.data.gratitude
+
+            )}
+
+        </section>
+
+
+
+        <section class="psychology full">
+
+            <div class="psychology-icon">
+
+                🧠
+
+            </div>
+
+            <div class="psychology-content">
+
+                <h3 class="mb-2">
+
+                    Ein Blick in die Psychologie
+
+                </h3>
+
+                <p>
+
+                    Resilienz beschreibt
+
+                    die Fähigkeit,
+
+                    schwierige Erfahrungen
+
+                    zu bewältigen
+
+                    und sich nach Belastungen
+
+                    wieder zu stabilisieren.
+
+                </p>
+
+                <p class="mt-2">
+
+                    Sie ist keine
+
+                    angeborene Eigenschaft,
+
+                    sondern entwickelt sich
+
+                    durch Erfahrungen,
+
+                    Beziehungen
+
+                    und viele kleine Schritte
+
+                    im Alltag.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <section class="takeaway full">
+
+            <h3>
+
+                Für heute
+
+            </h3>
+
+            <p>
+
+                Du musst nicht perfekt sein,
+
+                um wertvoll zu sein.
+
+                Jeder kleine Schritt,
+
+                den du heute gehst,
+
+                zählt.
+
+            </p>
+
+        </section>
+
+
+
+        <footer class="page-footer">
+
+            <span>
+
+                trotzdem.wahr
+
+            </span>
+
+            <span class="page-number">
+
+                7
+
+            </span>
+
+        </footer>
+
+    `;
+
+};
+/* ==========================================================
+   KAPITEL 6
+   WEITERGEHEN
+========================================================== */
+
+PDF.render=function(){
+
+    this.renderCover();
+
+    this.renderWelcome();
+
+    this.renderChapter1();
+
+    this.renderChapter2();
+
+    this.renderChapter3();
+
+    this.renderChapter4();
+
+    this.renderChapter5();
+
+    this.renderChapter6();
+
+};
+
+
+
+/* ==========================================================
+   KAPITEL 6
+========================================================== */
+
+PDF.renderChapter6=function(){
+
+    this.pages.chapter6.innerHTML=`
+
+        <header class="page-header">
+
+            <div class="logo">
+
+                trotzdem.wahr
+
+            </div>
+
+            <div class="page-number">
+
+                8
+
+            </div>
+
+        </header>
+
+
+
+        <section class="chapter-header full">
+
+            <div class="chapter-number">
+
+                06
+
+            </div>
+
+            <h1 class="chapter-title">
+
+                Weitergehen
+
+            </h1>
+
+            <p class="quote">
+
+                „Jeder kleine Schritt zählt.“
+
+            </p>
+
+        </section>
+
+
+
+        <section class="card full">
+
+            <h2 class="card-title">
+
+                Dein nächster Schritt
+
+            </h2>
+
+            <p>
+
+                Dieses Workbook endet hier,
+
+                dein Weg jedoch nicht.
+
+                Veränderungen entstehen
+
+                selten über Nacht,
+
+                sondern durch viele
+
+                kleine Entscheidungen,
+
+                die wir immer wieder treffen.
+
+            </p>
+
+            <p class="mt-2">
+
+                Nimm dir einen Moment Zeit
+
+                und halte fest,
+
+                was du aus diesem Workbook
+
+                für dich mitnehmen möchtest.
+
+            </p>
+
+        </section>
+
+
+
+        <section class="columns full">
+
+
+
+            <article class="card">
+
+                <h3>
+
+                    Was möchtest du
+
+                    aus diesem Workbook
+
+                    mitnehmen?
+
+                </h3>
+
+                ${PDF.createChips(
+
+                    PDF.data.takeaway
+
+                )}
+
+            </article>
+
+
+
+            <article class="card">
+
+                <h3>
+
+                    Wer oder was
+
+                    kann dich
+
+                    auf deinem Weg
+
+                    unterstützen?
+
+                </h3>
+
+                ${PDF.createChips(
+
+                    PDF.data.support
+
+                )}
+
+            </article>
+
+
+
+        </section>
+
+
+
+        <section class="card full">
+
+            <h3>
+
+                Meine wichtigste Erkenntnis
+
+            </h3>
+
+            ${PDF.answer(
+
+                PDF.data.insight
+
+            )}
+
+        </section>
+
+
+
+        <section class="card full">
+
+            <h3>
+
+                Mein nächster Schritt
+
+            </h3>
+
+            ${PDF.answer(
+
+                PDF.data.nextStep
+
+            )}
+
+        </section>
+
+
+
+        <section class="card full">
+
+            <h3>
+
+                An mein zukünftiges Ich
+
+            </h3>
+
+            ${PDF.answer(
+
+                PDF.data.futureMessage
+
+            )}
+
+        </section>
+
+
+
+        <section class="psychology full">
+
+            <div class="psychology-icon">
+
+                🧠
+
+            </div>
+
+            <div class="psychology-content">
+
+                <h3 class="mb-2">
+
+                    Ein Blick in die Psychologie
+
+                </h3>
+
+                <p>
+
+                    Nachhaltige Veränderungen
+
+                    entstehen selten
+
+                    durch einen einzigen
+
+                    großen Moment.
+
+                </p>
+
+                <p class="mt-2">
+
+                    Viel häufiger entwickeln sie sich
+
+                    durch viele kleine Entscheidungen,
+
+                    die wir immer wieder treffen.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <section class="takeaway full">
+
+            <h3>
+
+                Für heute
+
+            </h3>
+
+            <p>
+
+                Du musst nicht
+
+                alle Antworten kennen.
+
+                Es reicht,
+
+                wenn du bereit bist,
+
+                den nächsten kleinen Schritt
+
+                zu gehen.
+
+            </p>
+
+        </section>
+
+
+
+        <footer class="page-footer">
+
+            <span>
+
+                trotzdem.wahr
+
+            </span>
+
+            <span class="page-number">
+
+                8
+
+            </span>
+
+        </footer>
+
+    `;
+
+};
+/* ==========================================================
+   ABSCHLUSSSEITE
+========================================================== */
+
+PDF.render=function(){
+
+    this.renderCover();
+
+    this.renderWelcome();
+
+    this.renderChapter1();
+
+    this.renderChapter2();
+
+    this.renderChapter3();
+
+    this.renderChapter4();
+
+    this.renderChapter5();
+
+    this.renderChapter6();
+
+    this.renderFinalPage();
+
+};
+
+
+
+/* ==========================================================
+   ABSCHLUSS
+========================================================== */
+
+PDF.renderFinalPage=function(){
+
+    this.pages.final.innerHTML=`
+
+        <header class="page-header">
+
+            <div class="logo">
+
+                trotzdem.wahr
+
+            </div>
+
+            <div class="page-number">
+
+                9
+
+            </div>
+
+        </header>
+
+
+
+        <section class="full center">
+
+            <h1>
+
+                Danke,
+
+                dass du dir
+
+                Zeit genommen hast.
+
+            </h1>
+
+        </section>
+
+
+
+        <section class="card full">
+
+            <h2 class="card-title">
+
+                Deine wichtigste Erkenntnis
+
+            </h2>
+
+            ${PDF.answer(
+
+                PDF.data.insight
+
+            )}
+
+        </section>
+
+
+
+        <section class="card full">
+
+            <h2 class="card-title">
+
+                Dein nächster Schritt
+
+            </h2>
+
+            ${PDF.answer(
+
+                PDF.data.nextStep
+
+            )}
+
+        </section>
+
+
+
+        <section class="card full">
+
+            <h2 class="card-title">
+
+                Für dein zukünftiges Ich
+
+            </h2>
+
+            ${PDF.answer(
+
+                PDF.data.futureMessage
+
+            )}
+
+        </section>
+
+
+
+        <section class="takeaway full">
+
+            <h3>
+
+                Vielleicht möchtest du dir merken:
+
+            </h3>
+
+            <p>
+
+                Heilung bedeutet nicht,
+
+                nie wieder zu fallen.
+
+            </p>
+
+            <p class="mt-2">
+
+                Heilung bedeutet,
+
+                dich immer wieder
+
+                für dich selbst
+
+                zu entscheiden.
+
+            </p>
+
+        </section>
+
+
+
+        <section class="full center">
+
+            <p class="final-quote">
+
+                „Du bist mehr
+
+                als das,
+
+                was dir passiert ist.“
+
+            </p>
+
+        </section>
+
+
+
+        <footer class="page-footer">
+
+            <span>
+
+                trotzdem.wahr
+
+            </span>
+
+            <span class="page-number">
+
+                9
+
+            </span>
+
+        </footer>
+
+    `;
+
+};
+
+
+
+/* ==========================================================
+   ALLE SEITEN RENDERN
+========================================================== */
+
+PDF.renderAll=function(){
+
+    this.renderCover();
+
+    this.renderWelcome();
+
+    this.renderChapter1();
+
+    this.renderChapter2();
+
+    this.renderChapter3();
+
+    this.renderChapter4();
+
+    this.renderChapter5();
+
+    this.renderChapter6();
+
+    this.renderFinalPage();
+
+};
+
+
+
+/* ==========================================================
+   PDF ERSTELLEN
+========================================================== */
+
+PDF.export=function(){
+
+    const element=document.getElementById(
+
+        "pdfDocument"
+
+    );
+
+
+
+    const options={
+
+        margin:0,
+
+        filename:"trotzdem-wahr-workbook.pdf",
+
+        image:{
+
+            type:"jpeg",
+
+            quality:1
+
         },
 
-        html2canvas: {
+        html2canvas:{
 
-            scale: 2,
+            scale:2,
 
-            useCORS: true,
+            useCORS:true,
 
-            backgroundColor: "#FCFAF7",
-
-            scrollX: 0,
-
-            scrollY: 0
+            backgroundColor:"#F7F4EF"
 
         },
 
-        jsPDF: {
+        jsPDF:{
 
-            unit: "mm",
+            unit:"mm",
 
-            format: "a4",
+            format:"a4",
 
-            orientation: "portrait"
+            orientation:"portrait"
 
         },
 
-        pagebreak: {
+        pagebreak:{
 
-            mode: ["css"]
+            mode:["css","legacy"]
 
         }
 
     };
 
-    await html2pdf()
+
+
+    html2pdf()
 
         .set(options)
 
@@ -1481,4 +2566,50 @@ async function exportPdf(){
 
         .save();
 
-}
+};
+
+
+
+/* ==========================================================
+   DOWNLOAD BUTTON
+========================================================== */
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    ()=>{
+
+        PDF.renderAll();
+
+
+
+        const button=
+
+            document.querySelector(
+
+                "#downloadPdf"
+
+            );
+
+
+
+        if(button){
+
+            button.addEventListener(
+
+                "click",
+
+                ()=>{
+
+                    PDF.export();
+
+                }
+
+            );
+
+        }
+
+    }
+
+);
