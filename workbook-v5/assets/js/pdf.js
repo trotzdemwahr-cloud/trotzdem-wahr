@@ -594,7 +594,7 @@ PDF.renderChapter1 = function () {
 
                 this.data.energy,
 
-                true
+                24
 
             )}
 
@@ -720,7 +720,7 @@ PDF.renderChapter2 = function () {
 
                 this.data.pastSelf,
 
-                true
+                20
 
             )}
 
@@ -744,7 +744,7 @@ PDF.renderChapter2 = function () {
 
                 this.data.presentSelf,
 
-                true
+                20
 
             )}
 
@@ -769,7 +769,7 @@ PDF.renderChapter2 = function () {
 
                 this.data.changeReflection,
 
-                true
+                24
 
             )}
 
@@ -947,7 +947,7 @@ PDF.renderChapter3 = function () {
 
                 this.data.reflection,
 
-                true
+                24
 
             )}
 
@@ -1127,8 +1127,7 @@ PDF.renderChapter4 = function () {
 
                 this.data.realisation,
 
-                true
-
+                24
             )}
 
             `
@@ -1302,7 +1301,7 @@ PDF.renderChapter5 = function () {
 
                 this.data.gratitude,
 
-                true
+                24
 
             )}
 
@@ -1475,7 +1474,7 @@ PDF.renderChapter6 = function () {
 
                 this.data.insight,
 
-                true
+               34
 
             )}
 
@@ -1493,7 +1492,7 @@ PDF.renderChapter6 = function () {
 
                 this.data.nextStep,
 
-                true
+               28
 
             )}
 
@@ -1511,7 +1510,7 @@ PDF.renderChapter6 = function () {
 
                 this.data.futureMessage,
 
-                true
+                34
 
             )}
 
