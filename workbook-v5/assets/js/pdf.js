@@ -115,11 +115,13 @@ PDF.fontSize = function (text = "") {
    ANTWORTFELD
 ========================================================== */
 
-PDF.answer = function (text = "", large = false) {
+PDF.answer = function (text = "", minHeight = 18) {
 
     return `
 
-        <div class="answer ${this.fontSize(text)} ${large ? "answer-large" : ""}">
+        <div
+            class="answer ${this.fontSize(text)}"
+            style="min-height:${minHeight}mm;">
 
             ${text && text.trim() ? text : "…"}
 
