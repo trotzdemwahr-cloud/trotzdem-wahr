@@ -769,7 +769,7 @@ PDF.renderChapter2 = function () {
 
                 this.data.changeReflection,
 
-                24
+                20
 
             )}
 
@@ -947,7 +947,7 @@ PDF.renderChapter3 = function () {
 
                 this.data.reflection,
 
-                24
+                20
 
             )}
 
@@ -1127,7 +1127,7 @@ PDF.renderChapter4 = function () {
 
                 this.data.realisation,
 
-                24
+                20
             )}
 
             `
@@ -1301,7 +1301,7 @@ PDF.renderChapter5 = function () {
 
                 this.data.gratitude,
 
-                24
+                20
 
             )}
 
@@ -1474,7 +1474,7 @@ PDF.renderChapter6 = function () {
 
                 this.data.insight,
 
-               34
+               24
 
             )}
 
@@ -1492,7 +1492,7 @@ PDF.renderChapter6 = function () {
 
                 this.data.nextStep,
 
-               28
+               24
 
             )}
 
@@ -1510,7 +1510,7 @@ PDF.renderChapter6 = function () {
 
                 this.data.futureMessage,
 
-                34
+                24
 
             )}
 
@@ -1571,59 +1571,7 @@ PDF.renderFinalPage = function () {
 
         </section>
 
-        ${this.createCard(
-
-            "Deine wichtigste Erkenntnis",
-
-            `
-
-            ${this.answer(
-
-                this.data.insight,
-
-                true
-
-            )}
-
-            `
-
-        )}
-
-        ${this.createCard(
-
-            "Dein nächster Schritt",
-
-            `
-
-            ${this.answer(
-
-                this.data.nextStep,
-
-                true
-
-            )}
-
-            `
-
-        )}
-
-        ${this.createCard(
-
-            "Für dein zukünftiges Ich",
-
-            `
-
-            ${this.answer(
-
-                this.data.futureMessage,
-
-                true
-
-            )}
-
-            `
-
-        )}
+    
 
         ${this.createTakeaway(
 
