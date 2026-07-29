@@ -1,9 +1,8 @@
 /* ==========================================================
    trotzdem.wahr
    PDF Workbook
-   pdf.js
-   Teil 1
 ========================================================== */
+
 
 /* ==========================================================
    PDF
@@ -30,7 +29,6 @@ const PDF = {
 };
 
 
-
 /* ==========================================================
    DATEN LADEN
 ========================================================== */
@@ -41,20 +39,19 @@ PDF.loadData = function () {
 
         this.data = JSON.parse(
 
-            localStorage.getItem("trotzdem-wahr-workbook-v5")
+            localStorage.getItem(
+                "trotzdem-wahr-workbook-v5"
+            )
 
         ) || {};
 
-    }
-
-    catch {
+    } catch {
 
         this.data = {};
 
     }
 
 };
-
 
 
 /* ==========================================================
@@ -88,7 +85,6 @@ PDF.collectPages = function () {
 };
 
 
-
 /* ==========================================================
    SCHRIFTGRÖSSE
 ========================================================== */
@@ -108,7 +104,6 @@ PDF.fontSize = function (text = "") {
     return "size-5";
 
 };
-
 
 
 /* ==========================================================
@@ -132,7 +127,6 @@ PDF.answer = function (text = "", minHeight = 16) {
 };
 
 
-
 /* ==========================================================
    CHIPS
 ========================================================== */
@@ -141,7 +135,11 @@ PDF.createChips = function (items) {
 
     if (!Array.isArray(items) || items.length === 0) {
 
-        return `<div class="answer"></div>`;
+        return `
+
+            <div class="answer"></div>
+
+        `;
 
     }
 
@@ -164,9 +162,6 @@ PDF.createChips = function (items) {
     `;
 
 };
-
-
-
 /* ==========================================================
    HEADER
 ========================================================== */
@@ -196,7 +191,6 @@ PDF.createHeader = function (page) {
 };
 
 
-
 /* ==========================================================
    FOOTER
 ========================================================== */
@@ -206,7 +200,6 @@ PDF.createFooter = function () {
     return "";
 
 };
-
 
 
 /* ==========================================================
@@ -232,7 +225,6 @@ PDF.createCard = function (title, content) {
     `;
 
 };
-
 
 
 /* ==========================================================
@@ -274,7 +266,6 @@ PDF.createPsychology = function (text) {
 };
 
 
-
 /* ==========================================================
    FÜR HEUTE
 ========================================================== */
@@ -302,6 +293,8 @@ PDF.createTakeaway = function (text) {
     `;
 
 };
+
+
 /* ==========================================================
    COVER
 ========================================================== */
@@ -343,9 +336,6 @@ PDF.renderCover = function () {
     `;
 
 };
-
-
-
 /* ==========================================================
    WILLKOMMEN
 ========================================================== */
@@ -384,44 +374,44 @@ PDF.renderWelcome = function () {
 
             `
 
-            <p>
+                <p>
 
-                Dieses Workbook soll dich dabei unterstützen,
-                dir selbst mit mehr Verständnis,
-                Neugier und Mitgefühl zu begegnen.
+                    Dieses Workbook soll dich dabei unterstützen,
+                    dir selbst mit mehr Verständnis,
+                    Neugier und Mitgefühl zu begegnen.
 
-            </p>
+                </p>
 
-            <p class="mt-2">
+                <p class="mt-2">
 
-                Es geht nicht darum,
-                möglichst perfekte Antworten zu finden.
+                    Es geht nicht darum,
+                    möglichst perfekte Antworten zu finden.
 
-                Viel wichtiger ist,
+                    Viel wichtiger ist,
 
-                dass deine Antworten ehrlich sind.
+                    dass deine Antworten ehrlich sind.
 
-            </p>
+                </p>
 
-            <p class="mt-2">
+                <p class="mt-2">
 
-                Manche Fragen lassen sich sofort beantworten.
+                    Manche Fragen lassen sich sofort beantworten.
 
-                Andere brauchen Zeit.
+                    Andere brauchen Zeit.
 
-                Beides ist vollkommen in Ordnung.
+                    Beides ist vollkommen in Ordnung.
 
-            </p>
+                </p>
 
-            <p class="mt-2">
+                <p class="mt-2">
 
-                Du entscheidest jederzeit selbst,
+                    Du entscheidest jederzeit selbst,
 
-                welche Fragen du beantworten möchtest.
+                    welche Fragen du beantworten möchtest.
 
-                Dieses Workbook gehört nur dir.
+                    Dieses Workbook gehört nur dir.
 
-            </p>
+                </p>
 
             `
 
@@ -489,36 +479,36 @@ PDF.renderChapter1 = function () {
 
             `
 
-            <p>
+                <p>
 
-                Wenn wir beginnen, uns selbst besser kennenzulernen,
-                entsteht oft der Wunsch,
-                möglichst schnell Antworten
-                auf unsere Fragen zu finden.
+                    Wenn wir beginnen, uns selbst besser kennenzulernen,
+                    entsteht oft der Wunsch,
+                    möglichst schnell Antworten
+                    auf unsere Fragen zu finden.
 
-            </p>
+                </p>
 
-            <p class="mt-2">
+                <p class="mt-2">
 
-                Doch Selbstreflexion ist kein Test
-                und keine Prüfung.
+                    Doch Selbstreflexion ist kein Test
+                    und keine Prüfung.
 
-                Sie beginnt mit Aufmerksamkeit –
-                nicht mit Perfektion.
+                    Sie beginnt mit Aufmerksamkeit –
+                    nicht mit Perfektion.
 
-            </p>
+                </p>
 
-            <p class="mt-2">
+                <p class="mt-2">
 
-                Deshalb musst du heute nichts erreichen.
+                    Deshalb musst du heute nichts erreichen.
 
-                Nimm dir Zeit,
-                lies die Inhalte
-                in deinem Tempo
-                und beantworte nur das,
-                was sich für dich richtig anfühlt.
+                    Nimm dir Zeit,
+                    lies die Inhalte
+                    in deinem Tempo
+                    und beantworte nur das,
+                    was sich für dich richtig anfühlt.
 
-            </p>
+                </p>
 
             `
 
@@ -566,19 +556,19 @@ PDF.renderChapter1 = function () {
 
             `
 
-            <p>
+                <p>
 
-                Was kostet dich im Moment am meisten Kraft?
+                    Was kostet dich im Moment am meisten Kraft?
 
-            </p>
+                </p>
 
-            ${this.answer(
+                ${this.answer(
 
-                this.data.energy,
+                    this.data.energy,
 
-               9
+                    9
 
-            )}
+                )}
 
             `
 
@@ -652,34 +642,34 @@ PDF.renderChapter2 = function () {
 
             `
 
-            <p>
+                <p>
 
-                Unser Selbstbild verändert sich
-                im Laufe des Lebens.
+                    Unser Selbstbild verändert sich
+                    im Laufe des Lebens.
 
-                Erfahrungen,
-                Beziehungen
-                und Herausforderungen
-                hinterlassen Spuren.
+                    Erfahrungen,
+                    Beziehungen
+                    und Herausforderungen
+                    hinterlassen Spuren.
 
-                Manche davon stärken uns,
-                andere lassen uns
-                an uns selbst zweifeln.
+                    Manche davon stärken uns,
+                    andere lassen uns
+                    an uns selbst zweifeln.
 
-            </p>
+                </p>
 
-            <p class="mt-2">
+                <p class="mt-2">
 
-                Diese Fragen laden dich dazu ein,
+                    Diese Fragen laden dich dazu ein,
 
-                dich mit deinem früheren
-                und heutigen Ich auseinanderzusetzen –
+                    dich mit deinem früheren
+                    und heutigen Ich auseinanderzusetzen –
 
-                ohne Bewertung,
+                    ohne Bewertung,
 
-                sondern mit Neugier.
+                    sondern mit Neugier.
 
-            </p>
+                </p>
 
             `
 
@@ -687,57 +677,57 @@ PDF.renderChapter2 = function () {
 
         <section class="columns full">
 
-    <article class="card">
+            <article class="card">
 
-        <h3>
+                <h3>
 
-            Früher
+                    Früher
 
-        </h3>
+                </h3>
 
-        <p>
+                <p>
 
-            Was mochtest du früher
-            besonders an dir?
+                    Was mochtest du früher
+                    besonders an dir?
 
-        </p>
+                </p>
 
-        ${this.answer(
+                ${this.answer(
 
-            this.data.pastSelf,
+                    this.data.pastSelf,
 
-            9
+                    9
 
-        )}
+                )}
 
-    </article>
+            </article>
 
-    <article class="card">
+            <article class="card">
 
-        <h3>
+                <h3>
 
-            Heute
+                    Heute
 
-        </h3>
+                </h3>
 
-        <p>
+                <p>
 
-            Was magst du heute
-            an dir?
+                    Was magst du heute
+                    an dir?
 
-        </p>
+                </p>
 
-        ${this.answer(
+                ${this.answer(
 
-            this.data.presentSelf,
+                    this.data.presentSelf,
 
-            9
+                    9
 
-        )}
+                )}
 
-    </article>
+            </article>
 
-</section>
+        </section>
 
         ${this.createCard(
 
@@ -745,20 +735,20 @@ PDF.renderChapter2 = function () {
 
             `
 
-            <p>
+                <p>
 
-                Was ist der größte Unterschied
-                zwischen damals und heute?
+                    Was ist der größte Unterschied
+                    zwischen damals und heute?
 
-            </p>
+                </p>
 
-            ${this.answer(
+                ${this.answer(
 
-                this.data.changeReflection,
+                    this.data.changeReflection,
 
-                9
+                    9
 
-            )}
+                )}
 
             `
 
@@ -836,31 +826,31 @@ PDF.renderChapter3 = function () {
 
             `
 
-            <p>
+                <p>
 
-                Unser Gehirn versucht ständig,
-                Situationen möglichst schnell einzuordnen.
+                    Unser Gehirn versucht ständig,
+                    Situationen möglichst schnell einzuordnen.
 
-                Deshalb greifen wir häufig
-                auf bekannte Muster zurück,
-                ohne bewusst darüber nachzudenken.
+                    Deshalb greifen wir häufig
+                    auf bekannte Muster zurück,
+                    ohne bewusst darüber nachzudenken.
 
-            </p>
+                </p>
 
-            <p class="mt-2">
+                <p class="mt-2">
 
-                Diese Reaktionen sind nicht falsch.
+                    Diese Reaktionen sind nicht falsch.
 
-                Sie haben meist einmal
-                einen wichtigen Zweck erfüllt.
+                    Sie haben meist einmal
+                    einen wichtigen Zweck erfüllt.
 
-                Erst wenn wir sie erkennen,
+                    Erst wenn wir sie erkennen,
 
-                können wir entscheiden,
+                    können wir entscheiden,
 
-                ob sie uns heute noch helfen.
+                    ob sie uns heute noch helfen.
 
-            </p>
+                </p>
 
             `
 
@@ -922,21 +912,21 @@ PDF.renderChapter3 = function () {
 
             `
 
-            <p>
+                <p>
 
-                Gab es eine Situation,
-                in der du dich selbst
-                überrascht hast?
+                    Gab es eine Situation,
+                    in der du dich selbst
+                    überrascht hast?
 
-            </p>
+                </p>
 
-            ${this.answer(
+                ${this.answer(
 
-                this.data.reflection,
+                    this.data.reflection,
 
-                9
+                    9
 
-            )}
+                )}
 
             `
 
@@ -1010,37 +1000,37 @@ PDF.renderChapter4 = function () {
 
             `
 
-            <p>
+                <p>
 
-                Manche Verhaltensweisen wirken
-                auf den ersten Blick harmlos
-                oder werden sogar als Fürsorge verstanden.
+                    Manche Verhaltensweisen wirken
+                    auf den ersten Blick harmlos
+                    oder werden sogar als Fürsorge verstanden.
 
-            </p>
+                </p>
 
-            <p class="mt-2">
+                <p class="mt-2">
 
-                Erst mit etwas Abstand erkennen wir,
+                    Erst mit etwas Abstand erkennen wir,
 
-                wie sehr sie unser Selbstwertgefühl
-                oder unsere Freiheit
-                beeinflusst haben.
+                    wie sehr sie unser Selbstwertgefühl
+                    oder unsere Freiheit
+                    beeinflusst haben.
 
-            </p>
+                </p>
 
-            <p class="mt-2">
+                <p class="mt-2">
 
-                Dieses Kapitel soll dir helfen,
+                    Dieses Kapitel soll dir helfen,
 
-                typische Warnsignale
-                besser einzuordnen –
+                    typische Warnsignale
+                    besser einzuordnen –
 
-                ohne Menschen vorschnell zu bewerten,
+                    ohne Menschen vorschnell zu bewerten,
 
-                sondern mit einem bewussteren Blick
-                auf Beziehungen.
+                    sondern mit einem bewussteren Blick
+                    auf Beziehungen.
 
-            </p>
+                </p>
 
             `
 
@@ -1103,19 +1093,20 @@ PDF.renderChapter4 = function () {
 
             `
 
-            <p>
+                <p>
 
-                Welche Gedanken möchtest du
-                zu diesem Thema festhalten?
+                    Welche Gedanken möchtest du
+                    zu diesem Thema festhalten?
 
-            </p>
+                </p>
 
-            ${this.answer(
+                ${this.answer(
 
-                this.data.realisation,
+                    this.data.realisation,
 
-                9
-            )}
+                    9
+
+                )}
 
             `
 
@@ -1190,30 +1181,30 @@ PDF.renderChapter5 = function () {
 
             `
 
-            <p>
+                <p>
 
-                Oft fällt uns zuerst auf,
-                was uns fehlt oder belastet.
+                    Oft fällt uns zuerst auf,
+                    was uns fehlt oder belastet.
 
-                Dabei übersehen wir leicht,
-                wie viele Fähigkeiten,
-                Erfahrungen und Menschen
-                uns bereits tragen.
+                    Dabei übersehen wir leicht,
+                    wie viele Fähigkeiten,
+                    Erfahrungen und Menschen
+                    uns bereits tragen.
 
-            </p>
+                </p>
 
-            <p class="mt-2">
+                <p class="mt-2">
 
-                Stärke bedeutet nicht,
-                immer stark sein zu müssen.
+                    Stärke bedeutet nicht,
+                    immer stark sein zu müssen.
 
-                Manchmal zeigt sie sich darin,
-                Hilfe anzunehmen,
-                Grenzen zu setzen
-                oder freundlich
-                mit sich selbst zu sein.
+                    Manchmal zeigt sie sich darin,
+                    Hilfe anzunehmen,
+                    Grenzen zu setzen
+                    oder freundlich
+                    mit sich selbst zu sein.
 
-            </p>
+                </p>
 
             `
 
@@ -1275,22 +1266,22 @@ PDF.renderChapter5 = function () {
 
             `
 
-            <p>
+                <p>
 
-                Worauf bist du heute stolz –
+                    Worauf bist du heute stolz –
 
-                auch wenn es
-                nur eine Kleinigkeit ist?
+                    auch wenn es
+                    nur eine Kleinigkeit ist?
 
-            </p>
+                </p>
 
-            ${this.answer(
+                ${this.answer(
 
-                this.data.gratitude,
+                    this.data.gratitude,
 
-                9
+                    9
 
-            )}
+                )}
 
             `
 
@@ -1419,13 +1410,13 @@ PDF.renderChapter6 = function () {
 
             `
 
-            ${this.answer(
+                ${this.answer(
 
-                this.data.insight,
+                    this.data.insight,
 
-               6
+                    6
 
-            )}
+                )}
 
             `
 
@@ -1437,13 +1428,13 @@ PDF.renderChapter6 = function () {
 
             `
 
-            ${this.answer(
+                ${this.answer(
 
-                this.data.nextStep,
+                    this.data.nextStep,
 
-               6
+                    6
 
-            )}
+                )}
 
             `
 
@@ -1455,13 +1446,13 @@ PDF.renderChapter6 = function () {
 
             `
 
-            ${this.answer(
+                ${this.answer(
 
-                this.data.futureMessage,
+                    this.data.futureMessage,
 
-                6
+                    6
 
-            )}
+                )}
 
             `
 
@@ -1520,39 +1511,39 @@ PDF.renderFinalPage = function () {
 
         </section>
 
-    ${this.createCard(
+        ${this.createCard(
 
             "Dein nächster Schritt",
 
             `
 
-            <p>
+                <p>
 
-                Dieses Workbook endet hier,
+                    Dieses Workbook endet hier,
 
-                dein Weg jedoch nicht.
+                    dein Weg jedoch nicht.
 
-                Veränderungen entstehen selten
+                    Veränderungen entstehen selten
 
-                über Nacht,
+                    über Nacht,
 
-                sondern durch viele kleine Entscheidungen,
+                    sondern durch viele kleine Entscheidungen,
 
-                die wir immer wieder treffen.
+                    die wir immer wieder treffen.
 
-            </p>
+                </p>
 
-            <p class="mt-2">
+                <p class="mt-2">
 
-                Nimm dir einen Moment Zeit
+                    Nimm dir einen Moment Zeit
 
-                und halte fest,
+                    und halte fest,
 
-                was du aus diesem Workbook
+                    was du aus diesem Workbook
 
-                für dich mitnehmen möchtest.
+                    für dich mitnehmen möchtest.
 
-            </p>
+                </p>
 
             `
 
@@ -1592,7 +1583,6 @@ PDF.renderFinalPage = function () {
 };
 
 
-
 /* ==========================================================
    ALLE SEITEN RENDERN
 ========================================================== */
@@ -1619,60 +1609,6 @@ PDF.render = function () {
 
 };
 /* ==========================================================
-   PDF EXPORT
-========================================================== */
-
-PDF.export = async function () {
-
-    const pages = document.querySelectorAll("#pdfDocument .page");
-
-    const pdf = new jspdf.jsPDF({
-
-        orientation: "portrait",
-        unit: "mm",
-        format: "a4",
-        compress: true
-
-    });
-
-    for (let i = 0; i < pages.length; i++) {
-
-        const canvas = await html2canvas(pages[i], {
-
-            scale: 3,
-            useCORS: true,
-            backgroundColor: "#F7F4EF"
-
-        });
-
-        const img = canvas.toDataURL("image/jpeg", 1);
-
-        if (i > 0) {
-
-            pdf.addPage();
-
-        }
-
-        pdf.addImage(
-
-            img,
-            "JPEG",
-            0,
-            0,
-            210,
-            297
-
-        );
-
-    }
-
-    pdf.save(this.settings.filename);
-
-};
-
-
-
-/* ==========================================================
    EVENTS
 ========================================================== */
 
@@ -1684,7 +1620,11 @@ PDF.bindEvents = function () {
 
     );
 
-    if (!button) return;
+    if (!button) {
+
+        return;
+
+    }
 
     button.addEventListener(
 
@@ -1699,7 +1639,6 @@ PDF.bindEvents = function () {
     );
 
 };
-
 
 
 /* ==========================================================
@@ -1719,7 +1658,6 @@ PDF.init = function () {
 };
 
 
-
 /* ==========================================================
    START
 ========================================================== */
@@ -1735,3 +1673,100 @@ document.addEventListener(
     }
 
 );
+/* ==========================================================
+   PDF EXPORT
+========================================================== */
+
+PDF.export = async function () {
+
+    const pages = document.querySelectorAll(
+
+        "#pdfDocument .page"
+
+    );
+
+    const pdf = new jspdf.jsPDF({
+
+        orientation: this.settings.orientation,
+
+        unit: "mm",
+
+        format: this.settings.pageFormat,
+
+        compress: true
+
+    });
+
+    for (let i = 0; i < pages.length; i++) {
+
+        const page = pages[i];
+
+        const canvas = await html2canvas(page, {
+
+            scale: 3,
+
+            useCORS: true,
+
+            allowTaint: true,
+
+            backgroundColor: this.settings.background,
+
+            logging: false,
+
+            removeContainer: true,
+
+            imageTimeout: 0,
+
+            scrollX: 0,
+
+            scrollY: 0,
+
+            windowWidth: page.scrollWidth,
+
+            windowHeight: page.scrollHeight
+
+        });
+
+        const image = canvas.toDataURL(
+
+            "image/jpeg",
+
+            1
+
+        );
+
+        if (i !== 0) {
+
+            pdf.addPage();
+
+        }
+
+        pdf.addImage(
+
+            image,
+
+            "JPEG",
+
+            0,
+
+            0,
+
+            210,
+
+            297,
+
+            undefined,
+
+            "FAST"
+
+        );
+
+    }
+
+    pdf.save(
+
+        this.settings.filename
+
+    );
+
+};
