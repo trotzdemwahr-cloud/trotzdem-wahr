@@ -115,7 +115,7 @@ PDF.fontSize = function (text = "") {
    ANTWORTFELD
 ========================================================== */
 
-PDF.answer = function (text = "", minHeight = 18) {
+PDF.answer = function (text = "", minHeight = 16) {
 
     return `
 
