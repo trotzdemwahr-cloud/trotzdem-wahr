@@ -1158,54 +1158,40 @@ PDF.renderChapter5 = function () {
         <section class="chapter-header full">
 
             <div class="chapter-number">
-
                 05
-
             </div>
 
             <h1 class="chapter-title">
-
-                Grenzen
-
+                Stärken
             </h1>
 
             <p class="quote">
-
-                „Grenzen schützen nicht vor Nähe –
-                sie machen gesunde Nähe überhaupt erst möglich.“
-
+                „Du bist mehr als deine schwierigsten Tage.“
             </p>
 
         </section>
 
         ${this.createCard(
 
-            "Warum Grenzen wichtig sind",
+            "Deine Ressourcen",
 
             `
 
                 <p>
-
-                    Eigene Grenzen wahrzunehmen und auszusprechen
-                    fällt vielen Menschen schwer.
-
-                    Besonders dann,
-                    wenn sie gelernt haben,
-                    die Bedürfnisse anderer
-                    wichtiger zu nehmen als ihre eigenen.
-
+                    Oft fällt uns zuerst auf,
+                    was uns fehlt oder belastet.
+                    Dabei übersehen wir leicht,
+                    wie viele Fähigkeiten,
+                    Erfahrungen und Menschen uns bereits tragen.
                 </p>
 
                 <p class="mt-2">
-
-                    Grenzen bedeuten nicht,
-                    andere abzulehnen.
-
-                    Sie zeigen,
-                    was dir guttut,
-                    was sich sicher anfühlt
-                    und was du nicht mehr möchtest.
-
+                    Stärke bedeutet nicht,
+                    immer stark sein zu müssen.
+                    Manchmal zeigt sie sich darin,
+                    Hilfe anzunehmen,
+                    Grenzen zu setzen
+                    oder freundlich mit sich selbst zu sein.
                 </p>
 
             `
@@ -1216,37 +1202,17 @@ PDF.renderChapter5 = function () {
 
             <article class="card">
 
-                <h3>
+                <h3>Kraftquellen</h3>
 
-                    Das tut mir gut
-
-                </h3>
-
-                ${this.answer(
-
-                    this.data.goodForMe,
-
-                    8
-
-                )}
+                ${this.createChips(this.data.resources)}
 
             </article>
 
             <article class="card">
 
-                <h3>
+                <h3>Deine Stärken</h3>
 
-                    Das möchte ich nicht mehr
-
-                </h3>
-
-                ${this.answer(
-
-                    this.data.noLonger,
-
-                    8
-
-                )}
+                ${this.createChips(this.data.strengths)}
 
             </article>
 
@@ -1254,23 +1220,13 @@ PDF.renderChapter5 = function () {
 
         ${this.createCard(
 
-            "Meine Grenzen",
+            "Heute bin ich stolz auf...",
 
             `
 
-                <p>
-
-                    Welche Grenze möchtest du
-                    in Zukunft bewusster schützen?
-
-                </p>
-
                 ${this.answer(
-
-                    this.data.boundaries,
-
-                    9
-
+                    this.data.gratitude,
+                    10
                 )}
 
             `
@@ -1279,23 +1235,27 @@ PDF.renderChapter5 = function () {
 
         ${this.createPsychology(
 
-            `Grenzen entstehen dort,
-            wo wir unsere eigenen Bedürfnisse ernst nehmen.
+            `Resilienz beschreibt die Fähigkeit,
+            schwierige Erfahrungen zu bewältigen
+            und sich nach Belastungen
+            wieder zu stabilisieren.
 
-            Wer seine Grenzen kennt,
-            kann Beziehungen bewusster gestalten,
-            Verantwortung teilen
-            und sich selbst besser schützen.`
+            Sie ist keine angeborene Eigenschaft,
+            sondern entwickelt sich
+            durch Erfahrungen,
+            Beziehungen
+            und viele kleine Schritte
+            im Alltag.`
 
         )}
 
         ${this.createTakeaway(
 
-            `Du darfst Nein sagen,
-            ohne dich dafür rechtfertigen zu müssen.
-
-            Deine Bedürfnisse sind genauso wichtig
-            wie die aller anderen.`
+            `Du musst nicht perfekt sein,
+            um wertvoll zu sein.
+            Jeder kleine Schritt,
+            den du heute gehst,
+            zählt.`
 
         )}
 
@@ -1318,48 +1278,38 @@ PDF.renderChapter6 = function () {
         <section class="chapter-header full">
 
             <div class="chapter-number">
-
                 06
-
             </div>
 
             <h1 class="chapter-title">
-
-                Nächste Schritte
-
+                Weitergehen
             </h1>
 
             <p class="quote">
-
-                „Veränderung beginnt oft mit einem einzigen kleinen Schritt.“
-
+                „Jeder kleine Schritt zählt.“
             </p>
 
         </section>
 
         ${this.createCard(
 
-            "Es muss nicht alles auf einmal passieren",
+            "Dein nächster Schritt",
 
             `
 
                 <p>
-
-                    Entwicklung verläuft selten geradlinig.
-
-                    Manche Tage fühlen sich leicht an,
-                    andere bringen alte Gedanken oder Gefühle zurück.
-
+                    Dieses Workbook endet hier,
+                    dein Weg jedoch nicht.
+                    Veränderungen entstehen selten über Nacht,
+                    sondern durch viele kleine Entscheidungen,
+                    die wir immer wieder treffen.
                 </p>
 
                 <p class="mt-2">
-
-                    Das bedeutet nicht,
-                    dass du Rückschritte machst.
-
-                    Veränderung entsteht durch viele kleine Entscheidungen,
-                    die du immer wieder für dich selbst triffst.
-
+                    Nimm dir einen Moment Zeit
+                    und halte fest,
+                    was du aus diesem Workbook
+                    für dich mitnehmen möchtest.
                 </p>
 
             `
@@ -1371,36 +1321,20 @@ PDF.renderChapter6 = function () {
             <article class="card">
 
                 <h3>
-
-                    Mein erster kleiner Schritt
-
+                    Was möchtest du mitnehmen?
                 </h3>
 
-                ${this.answer(
-
-                    this.data.firstStep,
-
-                    8
-
-                )}
+                ${this.createChips(this.data.takeaway)}
 
             </article>
 
             <article class="card">
 
                 <h3>
-
-                    Das möchte ich mir merken
-
+                    Unterstützung
                 </h3>
 
-                ${this.answer(
-
-                    this.data.remember,
-
-                    8
-
-                )}
+                ${this.createChips(this.data.support)}
 
             </article>
 
@@ -1408,26 +1342,43 @@ PDF.renderChapter6 = function () {
 
         ${this.createCard(
 
-            "Ein Brief an mich",
+            "Meine wichtigste Erkenntnis",
 
             `
 
-                <p>
+                ${this.answer(
+                    this.data.insight,
+                    8
+                )}
 
-                    Wenn du dir selbst
-                    in einigen Wochen
-                    eine Nachricht schicken könntest:
+            `
 
-                    Was würdest du dir sagen?
+        )}
 
-                </p>
+        ${this.createCard(
+
+            "Mein nächster Schritt",
+
+            `
 
                 ${this.answer(
+                    this.data.nextStep,
+                    8
+                )}
 
-                    this.data.letter,
+            `
 
+        )}
+
+        ${this.createCard(
+
+            "An mein zukünftiges Ich",
+
+            `
+
+                ${this.answer(
+                    this.data.futureMessage,
                     10
-
                 )}
 
             `
@@ -1436,21 +1387,20 @@ PDF.renderChapter6 = function () {
 
         ${this.createPsychology(
 
-            `Neue Gewohnheiten entstehen nicht durch Perfektion,
-            sondern durch Wiederholung.
-
-            Schon kleine Veränderungen,
-            die regelmäßig umgesetzt werden,
-            können langfristig einen großen Unterschied machen.`
+            `Nachhaltige Veränderungen entstehen
+            selten durch einen einzigen großen Moment.
+            Viel häufiger entwickeln sie sich
+            durch viele kleine Entscheidungen,
+            die wir immer wieder treffen.`
 
         )}
 
         ${this.createTakeaway(
 
-            `Du musst nicht alles sofort verändern.
-
-            Der nächste kleine Schritt
-            reicht vollkommen aus.`
+            `Du musst nicht alle Antworten kennen.
+            Es reicht,
+            wenn du bereit bist,
+            den nächsten kleinen Schritt zu gehen.`
 
         )}
 
