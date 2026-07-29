@@ -411,7 +411,7 @@ p{
 
 .answer{
 
-    margin-top:1.5mm;
+    margin-top:0.5mm;
 
     background:#FAF8F5;
 
@@ -419,7 +419,7 @@ p{
 
     border-radius:14px;
 
-    padding:2.5mm 3mm;
+    padding:1,2mm 2mm;
 
     display:flex;
 
@@ -433,7 +433,7 @@ p{
 
     word-break:break-word;
 
-    line-height:1.4;
+    line-height:1.3;
 
 }
 
