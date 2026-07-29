@@ -1621,65 +1621,53 @@ PDF.render = function () {
 
 PDF.export = function () {
 
-    const documentElement = document.getElementById(
-
-        "pdfDocument"
-
-    );
+    const documentElement =
+        document.getElementById("pdfDocument");
 
     const options = {
 
-        margin: 0,
+        margin:0,
 
-        filename: this.settings.filename,
+        filename:this.settings.filename,
 
-        image: {
+        image:{
+            type:"jpeg",
+            quality:1
+        },
 
-            type: "jpeg",
+        html2canvas:{
 
-            quality: 1
+            scale:3,
+
+            useCORS:true,
+
+            backgroundColor:this.settings.background,
+
+            scrollX:0,
+            scrollY:0,
+
+            windowWidth:documentElement.scrollWidth,
+            windowHeight:documentElement.scrollHeight
 
         },
 
-        html2canvas: {
+        jsPDF:{
 
-            scale: 3,
+            unit:"mm",
 
-            useCORS: true,
+            format:"a4",
 
-            backgroundColor: this.settings.background,
+            orientation:"portrait",
 
-            scrollX: 0,
-
-            scrollY: 0,
-
-            windowWidth: document.documentElement.scrollWidth,
-
-            windowHeight: document.documentElement.scrollHeight
+            compress:true
 
         },
 
-        jsPDF: {
+        pagebreak:{
 
-            unit: "mm",
+            mode:"css",
 
-            format: this.settings.pageFormat,
-
-            orientation: this.settings.orientation,
-
-            compress: true
-
-        },
-
-        pagebreak: {
-
-            mode: [
-
-                "css",
-
-                "legacy"
-
-            ]
+            before:".page"
 
         }
 
