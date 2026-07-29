@@ -1356,44 +1356,6 @@ PDF.renderChapter6 = function () {
 
         </section>
 
-        ${this.createCard(
-
-            "Dein nächster Schritt",
-
-            `
-
-            <p>
-
-                Dieses Workbook endet hier,
-
-                dein Weg jedoch nicht.
-
-                Veränderungen entstehen selten
-
-                über Nacht,
-
-                sondern durch viele kleine Entscheidungen,
-
-                die wir immer wieder treffen.
-
-            </p>
-
-            <p class="mt-2">
-
-                Nimm dir einen Moment Zeit
-
-                und halte fest,
-
-                was du aus diesem Workbook
-
-                für dich mitnehmen möchtest.
-
-            </p>
-
-            `
-
-        )}
-
         <section class="columns full">
 
             <article class="card">
@@ -1553,7 +1515,43 @@ PDF.renderFinalPage = function () {
 
         </section>
 
-    
+    ${this.createCard(
+
+            "Dein nächster Schritt",
+
+            `
+
+            <p>
+
+                Dieses Workbook endet hier,
+
+                dein Weg jedoch nicht.
+
+                Veränderungen entstehen selten
+
+                über Nacht,
+
+                sondern durch viele kleine Entscheidungen,
+
+                die wir immer wieder treffen.
+
+            </p>
+
+            <p class="mt-2">
+
+                Nimm dir einen Moment Zeit
+
+                und halte fest,
+
+                was du aus diesem Workbook
+
+                für dich mitnehmen möchtest.
+
+            </p>
+
+            `
+
+        )}
 
         ${this.createTakeaway(
 
