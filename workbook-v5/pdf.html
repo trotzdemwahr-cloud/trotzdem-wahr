@@ -9,19 +9,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-    <title>
-        trotzdem.wahr | PDF Workbook
-    </title>
-
-    <meta
-        name="theme-color"
-        content="#F7F4EF">
-
-    <meta
-        name="description"
-        content="Workbook PDF">
-
-    <!-- Google Fonts -->
+    <title>trotzdem.wahr – Workbook PDF</title>
 
     <link
         rel="preconnect"
@@ -33,135 +21,71 @@
         crossorigin>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-
-    <!-- PDF CSS -->
 
     <link
         rel="stylesheet"
-        href="assets/css/pdf.css">
+        href="pdf.css">
 
 </head>
 
 <body>
 
-    <!-- =====================================================
-         PDF DOCUMENT
-    ====================================================== -->
-
-    <main id="pdfDocument">
-
-        <!-- ==========================================
-             COVER
-        =========================================== -->
+    <div id="pdfDocument">
 
         <section
-            id="coverPage"
+            id="cover"
             class="page cover">
-
         </section>
-
-        <!-- ==========================================
-             WILLKOMMEN
-        =========================================== -->
 
         <section
-            id="welcomePage"
+            id="welcome"
             class="page">
-
         </section>
-
-        <!-- ==========================================
-             KAPITEL 1
-        =========================================== -->
 
         <section
             id="chapter1"
             class="page">
-
         </section>
-
-        <!-- ==========================================
-             KAPITEL 2
-        =========================================== -->
 
         <section
             id="chapter2"
             class="page">
-
         </section>
-
-        <!-- ==========================================
-             KAPITEL 3
-        =========================================== -->
 
         <section
             id="chapter3"
             class="page">
-
         </section>
-
-        <!-- ==========================================
-             KAPITEL 4
-        =========================================== -->
 
         <section
             id="chapter4"
             class="page">
-
         </section>
-
-        <!-- ==========================================
-             KAPITEL 5
-        =========================================== -->
 
         <section
             id="chapter5"
             class="page">
-
         </section>
-
-        <!-- ==========================================
-             KAPITEL 6
-        =========================================== -->
 
         <section
             id="chapter6"
             class="page">
-
         </section>
-
-        <!-- ==========================================
-             ABSCHLUSS
-        =========================================== -->
 
         <section
-            id="finalPage"
+            id="final"
             class="page">
-
         </section>
 
-    </main>
-        <!-- =====================================================
-         LIBRARIES
-    ====================================================== -->
+    </div>
 
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-    <!-- =====================================================
-         PDF SCRIPT
-    ====================================================== -->
-
-    <script
-        src="assets/js/pdf.js">
-    </script>
+    <script src="pdf.js"></script>
 
 </body>
 
