@@ -62,25 +62,25 @@ PDF.collectPages = function () {
 
     this.pages = {
 
-    cover: document.getElementById("cover"),
+        cover: document.getElementById("cover"),
 
-    welcome: document.getElementById("welcome"),
+        welcome: document.getElementById("welcome"),
 
-    chapter1: document.getElementById("chapter1"),
+        chapter1: document.getElementById("chapter1"),
 
-    chapter2: document.getElementById("chapter2"),
+        chapter2: document.getElementById("chapter2"),
 
-    chapter3: document.getElementById("chapter3"),
+        chapter3: document.getElementById("chapter3"),
 
-    chapter4: document.getElementById("chapter4"),
+        chapter4: document.getElementById("chapter4"),
 
-    chapter5: document.getElementById("chapter5"),
+        chapter5: document.getElementById("chapter5"),
 
-    chapter6: document.getElementById("chapter6"),
+        chapter6: document.getElementById("chapter6"),
 
-    final: document.getElementById("final")
+        final: document.getElementById("final")
 
-};
+    };
 
 };
 
@@ -162,6 +162,8 @@ PDF.createChips = function (items) {
     `;
 
 };
+
+
 /* ==========================================================
    HEADER
 ========================================================== */
@@ -1144,7 +1146,7 @@ PDF.renderChapter4 = function () {
 };
 /* ==========================================================
    KAPITEL 5
-   STÄRKEN
+   GRENZEN
 ========================================================== */
 
 PDF.renderChapter5 = function () {
@@ -1163,13 +1165,14 @@ PDF.renderChapter5 = function () {
 
             <h1 class="chapter-title">
 
-                Stärken
+                Grenzen
 
             </h1>
 
             <p class="quote">
 
-                „Du bist mehr als deine schwierigsten Tage.“
+                „Grenzen schützen nicht vor Nähe –
+                sie machen gesunde Nähe überhaupt erst möglich.“
 
             </p>
 
@@ -1177,32 +1180,31 @@ PDF.renderChapter5 = function () {
 
         ${this.createCard(
 
-            "Deine Ressourcen",
+            "Warum Grenzen wichtig sind",
 
             `
 
                 <p>
 
-                    Oft fällt uns zuerst auf,
-                    was uns fehlt oder belastet.
+                    Eigene Grenzen wahrzunehmen und auszusprechen
+                    fällt vielen Menschen schwer.
 
-                    Dabei übersehen wir leicht,
-                    wie viele Fähigkeiten,
-                    Erfahrungen und Menschen
-                    uns bereits tragen.
+                    Besonders dann,
+                    wenn sie gelernt haben,
+                    die Bedürfnisse anderer
+                    wichtiger zu nehmen als ihre eigenen.
 
                 </p>
 
                 <p class="mt-2">
 
-                    Stärke bedeutet nicht,
-                    immer stark sein zu müssen.
+                    Grenzen bedeuten nicht,
+                    andere abzulehnen.
 
-                    Manchmal zeigt sie sich darin,
-                    Hilfe anzunehmen,
-                    Grenzen zu setzen
-                    oder freundlich
-                    mit sich selbst zu sein.
+                    Sie zeigen,
+                    was dir guttut,
+                    was sich sicher anfühlt
+                    und was du nicht mehr möchtest.
 
                 </p>
 
@@ -1216,20 +1218,15 @@ PDF.renderChapter5 = function () {
 
                 <h3>
 
-                    Kraftquellen
+                    Das tut mir gut
 
                 </h3>
 
-                <p class="mb-2">
+                ${this.answer(
 
-                    Was gibt dir
-                    im Alltag Kraft?
+                    this.data.goodForMe,
 
-                </p>
-
-                ${this.createChips(
-
-                    this.data.resources
+                    8
 
                 )}
 
@@ -1239,20 +1236,15 @@ PDF.renderChapter5 = function () {
 
                 <h3>
 
-                    Deine Stärken
+                    Das möchte ich nicht mehr
 
                 </h3>
 
-                <p class="mb-2">
+                ${this.answer(
 
-                    Welche Eigenschaften
-                    erkennst du bei dir?
+                    this.data.noLonger,
 
-                </p>
-
-                ${this.createChips(
-
-                    this.data.strengths
+                    8
 
                 )}
 
@@ -1262,22 +1254,20 @@ PDF.renderChapter5 = function () {
 
         ${this.createCard(
 
-            "Heute bin ich stolz auf...",
+            "Meine Grenzen",
 
             `
 
                 <p>
 
-                    Worauf bist du heute stolz –
-
-                    auch wenn es
-                    nur eine Kleinigkeit ist?
+                    Welche Grenze möchtest du
+                    in Zukunft bewusster schützen?
 
                 </p>
 
                 ${this.answer(
 
-                    this.data.gratitude,
+                    this.data.boundaries,
 
                     9
 
@@ -1289,28 +1279,23 @@ PDF.renderChapter5 = function () {
 
         ${this.createPsychology(
 
-            `Resilienz beschreibt die Fähigkeit,
-            schwierige Erfahrungen zu bewältigen
-            und sich nach Belastungen
-            wieder zu stabilisieren.
+            `Grenzen entstehen dort,
+            wo wir unsere eigenen Bedürfnisse ernst nehmen.
 
-            Sie ist keine angeborene Eigenschaft,
-            sondern entwickelt sich
-            durch Erfahrungen,
-            Beziehungen
-            und viele kleine Schritte
-            im Alltag.`
+            Wer seine Grenzen kennt,
+            kann Beziehungen bewusster gestalten,
+            Verantwortung teilen
+            und sich selbst besser schützen.`
 
         )}
 
         ${this.createTakeaway(
 
-            `Du musst nicht perfekt sein,
-            um wertvoll zu sein.
+            `Du darfst Nein sagen,
+            ohne dich dafür rechtfertigen zu müssen.
 
-            Jeder kleine Schritt,
-            den du heute gehst,
-            zählt.`
+            Deine Bedürfnisse sind genauso wichtig
+            wie die aller anderen.`
 
         )}
 
@@ -1321,7 +1306,7 @@ PDF.renderChapter5 = function () {
 };
 /* ==========================================================
    KAPITEL 6
-   WEITERGEHEN
+   NÄCHSTE SCHRITTE
 ========================================================== */
 
 PDF.renderChapter6 = function () {
@@ -1340,17 +1325,46 @@ PDF.renderChapter6 = function () {
 
             <h1 class="chapter-title">
 
-                Weitergehen
+                Nächste Schritte
 
             </h1>
 
             <p class="quote">
 
-                „Jeder kleine Schritt zählt.“
+                „Veränderung beginnt oft mit einem einzigen kleinen Schritt.“
 
             </p>
 
         </section>
+
+        ${this.createCard(
+
+            "Es muss nicht alles auf einmal passieren",
+
+            `
+
+                <p>
+
+                    Entwicklung verläuft selten geradlinig.
+
+                    Manche Tage fühlen sich leicht an,
+                    andere bringen alte Gedanken oder Gefühle zurück.
+
+                </p>
+
+                <p class="mt-2">
+
+                    Das bedeutet nicht,
+                    dass du Rückschritte machst.
+
+                    Veränderung entsteht durch viele kleine Entscheidungen,
+                    die du immer wieder für dich selbst triffst.
+
+                </p>
+
+            `
+
+        )}
 
         <section class="columns full">
 
@@ -1358,17 +1372,15 @@ PDF.renderChapter6 = function () {
 
                 <h3>
 
-                    Was möchtest du
-
-                    aus diesem Workbook
-
-                    mitnehmen?
+                    Mein erster kleiner Schritt
 
                 </h3>
 
-                ${this.createChips(
+                ${this.answer(
 
-                    this.data.takeaway
+                    this.data.firstStep,
+
+                    8
 
                 )}
 
@@ -1378,25 +1390,15 @@ PDF.renderChapter6 = function () {
 
                 <h3>
 
-                    Unterstützung
+                    Das möchte ich mir merken
 
                 </h3>
 
-                <p class="mb-2">
+                ${this.answer(
 
-                    Wer oder was
+                    this.data.remember,
 
-                    kann dich
-
-                    auf deinem Weg
-
-                    unterstützen?
-
-                </p>
-
-                ${this.createChips(
-
-                    this.data.support
+                    8
 
                 )}
 
@@ -1406,51 +1408,25 @@ PDF.renderChapter6 = function () {
 
         ${this.createCard(
 
-            "Meine wichtigste Erkenntnis",
+            "Ein Brief an mich",
 
             `
+
+                <p>
+
+                    Wenn du dir selbst
+                    in einigen Wochen
+                    eine Nachricht schicken könntest:
+
+                    Was würdest du dir sagen?
+
+                </p>
 
                 ${this.answer(
 
-                    this.data.insight,
+                    this.data.letter,
 
-                    6
-
-                )}
-
-            `
-
-        )}
-
-        ${this.createCard(
-
-            "Mein nächster Schritt",
-
-            `
-
-                ${this.answer(
-
-                    this.data.nextStep,
-
-                    6
-
-                )}
-
-            `
-
-        )}
-
-        ${this.createCard(
-
-            "An mein zukünftiges Ich",
-
-            `
-
-                ${this.answer(
-
-                    this.data.futureMessage,
-
-                    6
+                    10
 
                 )}
 
@@ -1460,25 +1436,21 @@ PDF.renderChapter6 = function () {
 
         ${this.createPsychology(
 
-            `Nachhaltige Veränderungen entstehen
-            selten durch einen einzigen großen Moment.
+            `Neue Gewohnheiten entstehen nicht durch Perfektion,
+            sondern durch Wiederholung.
 
-            Viel häufiger entwickeln sie sich
-            durch viele kleine Entscheidungen,
-            die wir immer wieder treffen.`
+            Schon kleine Veränderungen,
+            die regelmäßig umgesetzt werden,
+            können langfristig einen großen Unterschied machen.`
 
         )}
 
         ${this.createTakeaway(
 
-            `Du musst nicht alle Antworten kennen.
+            `Du musst nicht alles sofort verändern.
 
-            Es reicht,
-
-            wenn du bereit bist,
-
-            den nächsten kleinen Schritt
-            zu gehen.`
+            Der nächste kleine Schritt
+            reicht vollkommen aus.`
 
         )}
 
@@ -1488,60 +1460,69 @@ PDF.renderChapter6 = function () {
 
 };
 /* ==========================================================
-   ABSCHLUSSSEITE
+   ABSCHLUSS
 ========================================================== */
 
-PDF.renderFinalPage = function () {
+PDF.renderFinal = function () {
 
     this.pages.final.innerHTML = `
 
         ${this.createHeader(9)}
 
-        <section class="full center">
+        <section class="chapter-header full">
 
-            <h1>
+            <div class="chapter-number">
 
-                Danke,
+                ♥
 
-                dass du dir
+            </div>
 
-                Zeit genommen hast.
+            <h1 class="chapter-title">
+
+                Zum Abschluss
 
             </h1>
+
+            <p class="quote">
+
+                Danke, dass du dir Zeit für dich genommen hast.
+
+            </p>
 
         </section>
 
         ${this.createCard(
 
-            "Dein nächster Schritt",
+            "Ein letzter Gedanke",
 
             `
 
                 <p>
 
-                    Dieses Workbook endet hier,
+                    Vielleicht hast du heute Antworten gefunden.
 
-                    dein Weg jedoch nicht.
+                    Vielleicht sind neue Fragen entstanden.
 
-                    Veränderungen entstehen selten
-
-                    über Nacht,
-
-                    sondern durch viele kleine Entscheidungen,
-
-                    die wir immer wieder treffen.
+                    Beides ist wertvoll.
 
                 </p>
 
                 <p class="mt-2">
 
-                    Nimm dir einen Moment Zeit
+                    Selbstreflexion endet nicht mit diesem Workbook.
 
-                    und halte fest,
+                    Sie begleitet uns ein Leben lang
+                    und darf sich immer wieder verändern.
 
-                    was du aus diesem Workbook
+                </p>
 
-                    für dich mitnehmen möchtest.
+                <p class="mt-2">
+
+                    Jeder kleine Schritt,
+                    jede neue Erkenntnis
+                    und jeder Moment,
+                    in dem du dir selbst mit mehr Mitgefühl begegnest,
+                    ist bereits Veränderung.
 
                 </p>
 
@@ -1551,28 +1532,28 @@ PDF.renderFinalPage = function () {
 
         ${this.createTakeaway(
 
-            `Heilung bedeutet nicht,
-            nie wieder zu fallen.
+            `Du bist nicht das,
+            was dir passiert ist.
 
-            Heilung bedeutet,
-
-            dich immer wieder
-            für dich selbst
-            zu entscheiden.`
+            Du bist die Person,
+            die jeden Tag neu entscheiden darf,
+            wie sie mit ihrer Geschichte weitergeht.`
 
         )}
 
-        <section class="full center mt-4">
+        <section class="final-quote">
 
-            <p class="final-quote">
+            <p>
 
-                „Du bist mehr
-
-                als das,
-
-                was dir passiert ist.“
+                Pass gut auf dich auf.
 
             </p>
+
+            <strong>
+
+                trotzdem.wahr
+
+            </strong>
 
         </section>
 
@@ -1581,8 +1562,6 @@ PDF.renderFinalPage = function () {
     `;
 
 };
-
-
 /* ==========================================================
    ALLE SEITEN RENDERN
 ========================================================== */
@@ -1605,7 +1584,66 @@ PDF.render = function () {
 
     this.renderChapter6();
 
-    this.renderFinalPage();
+    this.renderFinal();
+
+};
+/* ==========================================================
+   PDF EXPORT
+========================================================== */
+
+PDF.downloadPDF = async function () {
+
+    this.render();
+
+    const { jsPDF } = window.jspdf;
+
+    const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+        compress: true
+    });
+
+    const pages = document.querySelectorAll(".page");
+
+    for (let i = 0; i < pages.length; i++) {
+
+        const canvas = await html2canvas(pages[i], {
+
+            scale: 2.5,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: "#F7F4EF",
+            logging: false,
+            scrollX: 0,
+            scrollY: 0,
+            windowWidth: pages[i].scrollWidth,
+            windowHeight: pages[i].scrollHeight
+
+        });
+
+        const img = canvas.toDataURL("image/jpeg", 1.0);
+
+        if (i > 0) {
+
+            pdf.addPage();
+
+        }
+
+        pdf.addImage(
+            img,
+            "JPEG",
+            0,
+            0,
+            210,
+            297,
+            undefined,
+            "FAST"
+        );
+
+    }
+
+    pdf.save(this.settings.filename);
 
 };
 /* ==========================================================
@@ -1614,35 +1652,21 @@ PDF.render = function () {
 
 PDF.bindEvents = function () {
 
-    const button = document.getElementById(
+    const button = document.getElementById("downloadPdf");
 
-        "downloadPdf"
+    if (!button) return;
 
-    );
+    button.addEventListener("click", () => {
 
-    if (!button) {
+        this.downloadPDF();
 
-        return;
-
-    }
-
-    button.addEventListener(
-
-        "click",
-
-        () => {
-
-            this.export();
-
-        }
-
-    );
+    });
 
 };
 
 
 /* ==========================================================
-   INITIALISIERUNG
+   START
 ========================================================== */
 
 PDF.init = function () {
@@ -1657,116 +1681,8 @@ PDF.init = function () {
 
 };
 
+document.addEventListener("DOMContentLoaded", () => {
 
-/* ==========================================================
-   START
-========================================================== */
+    PDF.init();
 
-document.addEventListener(
-
-    "DOMContentLoaded",
-
-    () => {
-
-        PDF.init();
-
-    }
-
-);
-/* ==========================================================
-   PDF EXPORT
-========================================================== */
-
-PDF.export = async function () {
-
-    const pages = document.querySelectorAll(
-
-        "#pdfDocument .page"
-
-    );
-
-    const pdf = new jspdf.jsPDF({
-
-        orientation: this.settings.orientation,
-
-        unit: "mm",
-
-        format: this.settings.pageFormat,
-
-        compress: true
-
-    });
-
-    for (let i = 0; i < pages.length; i++) {
-
-        const page = pages[i];
-
-        const canvas = await html2canvas(page, {
-
-            scale: 3,
-
-            useCORS: true,
-
-            allowTaint: true,
-
-            backgroundColor: this.settings.background,
-
-            logging: false,
-
-            removeContainer: true,
-
-            imageTimeout: 0,
-
-            scrollX: 0,
-
-            scrollY: 0,
-
-            windowWidth: page.scrollWidth,
-
-            windowHeight: page.scrollHeight
-
-        });
-
-        const image = canvas.toDataURL(
-
-            "image/jpeg",
-
-            1
-
-        );
-
-        if (i !== 0) {
-
-            pdf.addPage();
-
-        }
-
-        pdf.addImage(
-
-            image,
-
-            "JPEG",
-
-            0,
-
-            0,
-
-            210,
-
-            297,
-
-            undefined,
-
-            "FAST"
-
-        );
-
-    }
-
-    pdf.save(
-
-        this.settings.filename
-
-    );
-
-};
+});
