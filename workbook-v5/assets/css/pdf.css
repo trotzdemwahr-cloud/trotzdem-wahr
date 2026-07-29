@@ -609,13 +609,13 @@ p{
 
     padding:3mm 4mm;
 
-    overflow:hidden;
-   
    display:flex;
 
     align-items:flex-start;
 
     justify-content:flex-start;
+
+    overflow:hidden;
 
     white-space:pre-wrap;
 
