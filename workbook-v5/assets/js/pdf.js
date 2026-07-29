@@ -576,7 +576,7 @@ PDF.renderChapter1 = function () {
 
                 this.data.energy,
 
-               22
+               13
 
             )}
 
@@ -702,7 +702,7 @@ PDF.renderChapter2 = function () {
 
                 this.data.pastSelf,
 
-                18
+                13
 
             )}
 
@@ -726,7 +726,7 @@ PDF.renderChapter2 = function () {
 
                 this.data.presentSelf,
 
-                18
+                13
 
             )}
 
@@ -751,7 +751,7 @@ PDF.renderChapter2 = function () {
 
                 this.data.changeReflection,
 
-                18
+                13
 
             )}
 
@@ -929,7 +929,7 @@ PDF.renderChapter3 = function () {
 
                 this.data.reflection,
 
-                18
+                13
 
             )}
 
@@ -1109,7 +1109,7 @@ PDF.renderChapter4 = function () {
 
                 this.data.realisation,
 
-                18
+                13
             )}
 
             `
@@ -1283,7 +1283,7 @@ PDF.renderChapter5 = function () {
 
                 this.data.gratitude,
 
-                18
+                13
 
             )}
 
@@ -1456,7 +1456,7 @@ PDF.renderChapter6 = function () {
 
                 this.data.insight,
 
-               20
+               15
 
             )}
 
@@ -1474,7 +1474,7 @@ PDF.renderChapter6 = function () {
 
                 this.data.nextStep,
 
-               20
+               15
 
             )}
 
@@ -1492,7 +1492,7 @@ PDF.renderChapter6 = function () {
 
                 this.data.futureMessage,
 
-                20
+                15
 
             )}
 
