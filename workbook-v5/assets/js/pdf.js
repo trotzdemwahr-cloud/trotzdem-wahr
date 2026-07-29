@@ -1456,7 +1456,7 @@ PDF.renderChapter6 = function () {
 
                 this.data.insight,
 
-               9
+               6
 
             )}
 
@@ -1474,7 +1474,7 @@ PDF.renderChapter6 = function () {
 
                 this.data.nextStep,
 
-               9
+               6
 
             )}
 
@@ -1492,7 +1492,7 @@ PDF.renderChapter6 = function () {
 
                 this.data.futureMessage,
 
-                9
+                6
 
             )}
 
