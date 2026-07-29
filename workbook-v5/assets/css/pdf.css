@@ -1,8 +1,6 @@
 /* ==========================================================
    trotzdem.wahr
    PDF Workbook
-   Teil 1
-   Grundlayout
 ========================================================== */
 
 
@@ -46,6 +44,7 @@
 
     margin:0;
     padding:0;
+
     box-sizing:border-box;
 
 }
@@ -58,8 +57,10 @@ html{
 
 body{
 
-    font-family:"Inter",sans-serif;
     background:#d9d9d9;
+
+    font-family:"Inter",sans-serif;
+
     color:var(--text);
 
     line-height:1.45;
@@ -77,6 +78,7 @@ body{
 #pdfDocument{
 
     width:210mm;
+
     margin:32px auto;
 
 }
@@ -93,9 +95,9 @@ body{
     width:210mm;
     height:297mm;
 
-    overflow:hidden;
-
     background:var(--background);
+
+    overflow:hidden;
 
     display:grid;
 
@@ -108,11 +110,15 @@ body{
 
     padding:var(--page-padding);
 
+    /* Für Export */
+
     page-break-after:always;
     break-after:page;
 
     page-break-inside:avoid;
     break-inside:avoid;
+
+    align-content:start;
 
 }
 
@@ -141,11 +147,10 @@ body{
     html,
     body{
 
-        background:white;
-
         margin:0;
-
         padding:0;
+
+        background:white;
 
     }
 
@@ -170,34 +175,32 @@ body{
 
     inset:8mm;
 
-    border-radius:14px;
-
     border:1px solid rgba(79,109,122,.05);
+
+    border-radius:14px;
 
     pointer-events:none;
 
 }
-
-
 /* ==========================================================
    GRID
 ========================================================== */
 
 .full{
 
-    grid-column:1/-1;
+    grid-column:1 / -1;
 
 }
 
 .left{
 
-    grid-column:1/7;
+    grid-column:1 / 7;
 
 }
 
 .right{
 
-    grid-column:7/-1;
+    grid-column:7 / -1;
 
 }
 
@@ -220,7 +223,7 @@ body{
 
 .page-header{
 
-    grid-column:1/-1;
+    grid-column:1 / -1;
 
     display:flex;
 
@@ -230,17 +233,19 @@ body{
 
     margin-bottom:1mm;
 
+    padding-bottom:1mm;
+
 }
 
 .logo{
 
     font-size:11px;
 
+    font-weight:700;
+
     letter-spacing:.22em;
 
     text-transform:uppercase;
-
-    font-weight:700;
 
     color:var(--primary);
 
@@ -267,15 +272,16 @@ h3{
 
     font-family:"Cormorant Garamond",serif;
 
-    color:var(--primary);
-
     font-weight:700;
+
+    color:var(--primary);
 
 }
 
 h1{
 
     font-size:32px;
+
     line-height:1;
 
 }
@@ -289,6 +295,7 @@ h2{
 h3{
 
     font-size:17px;
+
     line-height:1.15;
 
 }
@@ -296,7 +303,9 @@ h3{
 p{
 
     font-size:12px;
+
     line-height:1.45;
+
     color:var(--text);
 
 }
@@ -304,6 +313,7 @@ p{
 .small{
 
     font-size:11px;
+
     color:var(--text-light);
 
 }
@@ -312,11 +322,11 @@ p{
 
     font-size:15px;
 
+    line-height:1.3;
+
     font-style:italic;
 
     color:var(--secondary);
-
-    line-height:1.3;
 
 }
 
@@ -327,9 +337,11 @@ p{
 
 .chapter-header{
 
-    grid-column:1/-1;
+    grid-column:1 / -1;
 
     margin-bottom:1mm;
+
+    padding-bottom:1mm;
 
 }
 
@@ -340,8 +352,8 @@ p{
 
     display:flex;
 
-    align-items:center;
     justify-content:center;
+    align-items:center;
 
     border-radius:50%;
 
@@ -350,6 +362,7 @@ p{
     color:var(--primary);
 
     font-size:13px;
+
     font-weight:700;
 
     margin-bottom:2mm;
@@ -369,12 +382,19 @@ p{
 }
 
 
-
 /* ==========================================================
    KARTEN
 ========================================================== */
 
 .card{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:1.5mm;
+
+    align-self:start;
 
     background:var(--surface);
 
@@ -386,23 +406,29 @@ p{
 
     box-shadow:var(--shadow);
 
-    display:flex;
-
-    flex-direction:column;
-
 }
 
 .card-title{
 
-    margin-bottom:1.5mm;
+    line-height:1.1;
+
+    margin-bottom:1mm;
+
+}
+
+.card h3{
 
     line-height:1.1;
+
+    margin-bottom:1mm;
 
 }
 
 .card p{
 
     margin-bottom:1.5mm;
+
+    line-height:1.35;
 
 }
 
@@ -411,16 +437,23 @@ p{
     margin-bottom:0;
 
 }
-
-
-
 /* ==========================================================
    ANTWORTFELDER
 ========================================================== */
 
 .answer{
 
-    margin-top:0.5mm;
+    margin-top:.5mm;
+
+    min-width:0;
+
+    overflow:hidden;
+
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:flex-start;
 
     background:#FAF8F5;
 
@@ -430,22 +463,15 @@ p{
 
     padding:1.2mm 2mm;
 
-    display:flex;
-
-    align-items:flex-start;
-
-    justify-content:flex-start;
-
-    overflow:hidden;
-
     white-space:pre-wrap;
 
     word-break:break-word;
 
+    overflow-wrap:anywhere;
+
     line-height:1.3;
 
 }
-
 
 
 /* ==========================================================
@@ -483,7 +509,6 @@ p{
 }
 
 
-
 /* ==========================================================
    CHIPS
 ========================================================== */
@@ -493,6 +518,8 @@ p{
     display:flex;
 
     flex-wrap:wrap;
+
+    align-items:flex-start;
 
     gap:3px;
 
@@ -512,9 +539,11 @@ p{
 
     font-size:11px;
 
-    color:var(--text);
-
     line-height:1.2;
+
+    white-space:normal;
+
+    color:var(--text);
 
 }
 
@@ -529,11 +558,8 @@ p{
 }
 
 
-
 /* ==========================================================
-
-   GRID FÜR INHALTE
-
+   SPALTENLAYOUT
 ========================================================== */
 
 .columns{
@@ -557,9 +583,11 @@ p{
 
     grid-template-columns:26px 1fr;
 
-    align-items:start;
+    align-items:flex-start;
 
     gap:3mm;
+
+    align-self:start;
 
     background:#F3F8F7;
 
@@ -574,28 +602,32 @@ p{
 .psychology-icon{
 
     width:26px;
-
     height:26px;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    flex-shrink:0;
 
     border-radius:50%;
 
     background:#DCE8E4;
 
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
     font-size:14px;
-
-    flex-shrink:0;
 
 }
 
 .psychology-content{
 
     min-width:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:1mm;
 
 }
 
@@ -616,12 +648,19 @@ p{
 }
 
 
-
 /* ==========================================================
    FÜR HEUTE
 ========================================================== */
 
 .takeaway{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:1mm;
+
+    align-self:start;
 
     background:#FCF7F2;
 
@@ -650,7 +689,6 @@ p{
 }
 
 
-
 /* ==========================================================
    COVER
 ========================================================== */
@@ -674,12 +712,12 @@ p{
     width:300px;
     height:300px;
 
+    top:-120px;
+    right:-110px;
+
     border-radius:50%;
 
     background:#E8D8CF;
-
-    top:-120px;
-    right:-110px;
 
     opacity:.45;
 
@@ -696,12 +734,12 @@ p{
     width:260px;
     height:260px;
 
+    bottom:-120px;
+    left:-100px;
+
     border-radius:50%;
 
     background:#DCE8E4;
-
-    bottom:-120px;
-    left:-100px;
 
     opacity:.40;
 
@@ -731,15 +769,15 @@ p{
 
 .cover-logo{
 
+    margin-bottom:18mm;
+
+    font-size:13px;
+
     letter-spacing:.28em;
 
     text-transform:uppercase;
 
     color:var(--primary);
-
-    font-size:13px;
-
-    margin-bottom:18mm;
 
 }
 
@@ -782,10 +820,8 @@ p{
     color:var(--text-light);
 
 }
-
-
 /* ==========================================================
-   ABSCHLUSS
+   ABSCHLUSSSEITE
 ========================================================== */
 
 .final-quote{
@@ -886,119 +922,11 @@ p{
 
 }
 
+
 /* ==========================================================
-   FINALES WORKBOOK-FINETUNING
+   GLOBALE SICHERHEITEN
+   (keine optischen Änderungen)
 ========================================================== */
-
-/* Karten kompakter */
-.card{
-
-    gap:1.5mm;
-
-}
-
-/* Kartenüberschriften */
-.card h3{
-
-    line-height:1.1;
-
-    margin-bottom:1mm;
-
-}
-
-/* Absätze innerhalb der Karten */
-
-.card p{
-
-    line-height:1.35;
-
-}
-
-/* Antwortfelder */
-
-.answer{
-
-    min-width:0;
-
-    align-items:flex-start;
-
-    justify-content:flex-start;
-
-}
-
-/* Psychologie */
-
-.psychology{
-
-    align-items:flex-start;
-
-}
-
-.psychology-content{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:1mm;
-
-}
-
-/* Für heute */
-
-.takeaway{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:1mm;
-
-}
-
-/* Chips etwas dichter */
-
-.chips{
-
-    align-items:flex-start;
-
-}
-
-.chip{
-
-    white-space:normal;
-
-    line-height:1.2;
-
-}
-
-/* Kapitelkopf */
-
-.chapter-header{
-
-    padding-bottom:1mm;
-
-}
-
-/* Seitenkopf */
-
-.page-header{
-
-    padding-bottom:1mm;
-
-}
-
-/* Verhindert unnötige Höhen */
-
-.card,
-.psychology,
-.takeaway{
-
-    align-self:start;
-
-}
-
-/* Bilder/Icons */
 
 img{
 
@@ -1008,23 +936,13 @@ img{
 
 }
 
-/* Lange Wörter sauber umbrechen */
-
 p,
-.answer,
 .card,
+.answer,
 .psychology-content{
 
     overflow-wrap:anywhere;
 
     hyphens:auto;
-
-}
-
-/* Kleine Sicherheitsreserve für A4 */
-
-.page{
-
-    align-content:start;
 
 }
