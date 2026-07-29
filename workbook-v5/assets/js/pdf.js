@@ -62,25 +62,25 @@ PDF.collectPages = function () {
 
     this.pages = {
 
-        cover: document.getElementById("coverPage"),
+    cover: document.getElementById("cover"),
 
-        welcome: document.getElementById("welcomePage"),
+    welcome: document.getElementById("welcome"),
 
-        chapter1: document.getElementById("chapter1"),
+    chapter1: document.getElementById("chapter1"),
 
-        chapter2: document.getElementById("chapter2"),
+    chapter2: document.getElementById("chapter2"),
 
-        chapter3: document.getElementById("chapter3"),
+    chapter3: document.getElementById("chapter3"),
 
-        chapter4: document.getElementById("chapter4"),
+    chapter4: document.getElementById("chapter4"),
 
-        chapter5: document.getElementById("chapter5"),
+    chapter5: document.getElementById("chapter5"),
 
-        chapter6: document.getElementById("chapter6"),
+    chapter6: document.getElementById("chapter6"),
 
-        final: document.getElementById("finalPage")
+    final: document.getElementById("final")
 
-    };
+};
 
 };
 
