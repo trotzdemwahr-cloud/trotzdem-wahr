@@ -340,7 +340,7 @@ body{
 
     align-items:flex-start;
 
-    margin-bottom:4mm;
+    margin-bottom:2mm;
 
 }
 
@@ -519,7 +519,7 @@ p{
 
     grid-column:1/-1;
 
-    margin-bottom:3mm;
+    margin-bottom:1.5mm;
 
 }
 
@@ -543,13 +543,13 @@ p{
 
     font-weight:700;
 
-    margin-bottom:5mm;
+    margin-bottom:3mm;
 
 }
 
 .chapter-title{
 
-    margin-bottom:2mm;
+    margin-bottom:1mm;
 
 }
 
@@ -581,7 +581,7 @@ p{
 
 .card-title{
 
-    margin-bottom:4mm;
+    margin-bottom:2mm;
 
 }
 
