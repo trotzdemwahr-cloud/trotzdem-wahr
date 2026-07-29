@@ -1663,11 +1663,9 @@ PDF.export = function () {
 
         pagebreak:{
 
-            mode:"css",
+    mode:["avoid-all"]
 
-            before:".page"
-
-        }
+}
 
     };
 
