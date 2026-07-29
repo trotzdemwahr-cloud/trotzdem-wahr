@@ -1622,65 +1622,51 @@ PDF.render = function () {
    PDF EXPORT
 ========================================================== */
 
-PDF.export = function () {
+PDF.export = async function () {
 
-    const documentElement =
-        document.getElementById("pdfDocument");
+    const pages = document.querySelectorAll("#pdfDocument .page");
 
-    const options = {
+    const pdf = new jspdf.jsPDF({
 
-        margin:0,
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+        compress: true
 
-        filename:this.settings.filename,
+    });
 
-        image:{
-            type:"jpeg",
-            quality:1
-        },
+    for (let i = 0; i < pages.length; i++) {
 
-        html2canvas:{
+        const canvas = await html2canvas(pages[i], {
 
-            scale:3,
+            scale: 3,
+            useCORS: true,
+            backgroundColor: "#F7F4EF"
 
-            useCORS:true,
+        });
 
-            backgroundColor:this.settings.background,
+        const img = canvas.toDataURL("image/jpeg", 1);
 
-            scrollX:0,
-            scrollY:0,
+        if (i > 0) {
 
-            windowWidth:documentElement.scrollWidth,
-            windowHeight:documentElement.scrollHeight
+            pdf.addPage();
 
-        },
+        }
 
-        jsPDF:{
+        pdf.addImage(
 
-            unit:"mm",
+            img,
+            "JPEG",
+            0,
+            0,
+            210,
+            297
 
-            format:"a4",
+        );
 
-            orientation:"portrait",
+    }
 
-            compress:true
-
-        },
-
-        pagebreak:{
-
-    mode:["avoid-all"]
-
-}
-
-    };
-
-    html2pdf()
-
-        .set(options)
-
-        .from(documentElement)
-
-        .save();
+    pdf.save(this.settings.filename);
 
 };
 
