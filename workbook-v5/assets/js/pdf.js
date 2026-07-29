@@ -685,54 +685,59 @@ PDF.renderChapter2 = function () {
 
         )}
 
-        ${this.createCard(
+        <section class="columns full">
 
-            "Früher",
+    <article class="card">
 
-            `
+        <h3>
 
-            <p>
+            Früher
 
-                Was mochtest du früher
-                besonders an dir?
+        </h3>
 
-            </p>
+        <p>
 
-            ${this.answer(
+            Was mochtest du früher
+            besonders an dir?
 
-                this.data.pastSelf,
+        </p>
 
-               9
+        ${this.answer(
 
-            )}
+            this.data.pastSelf,
 
-            `
+            9
+
+        )}
+
+    </article>
+
+    <article class="card">
+
+        <h3>
+
+            Heute
+
+        </h3>
+
+        <p>
+
+            Was magst du heute
+            an dir?
+
+        </p>
+
+        ${this.answer(
+
+            this.data.presentSelf,
+
+            9
 
         )}
 
-        ${this.createCard(
+    </article>
 
-            "Heute",
-
-            `
-
-            <p>
-
-                Was magst du heute an dir?
-
-            </p>
-
-            ${this.answer(
-
-                this.data.presentSelf,
-
-                9
-
-            )}
-
-            `
-
-        )}
+</section>
 
         ${this.createCard(
 
