@@ -201,27 +201,9 @@ PDF.createHeader = function (page) {
    FOOTER
 ========================================================== */
 
-PDF.createFooter = function (page) {
+PDF.createFooter = function () {
 
-    return `
-
-        <footer class="page-footer">
-
-            <span>
-
-                trotzdem.wahr
-
-            </span>
-
-            <span class="page-number">
-
-                Seite ${page}
-
-            </span>
-
-        </footer>
-
-    `;
+    return "";
 
 };
 
