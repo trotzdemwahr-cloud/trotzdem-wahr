@@ -607,9 +607,15 @@ p{
 
     border-radius:16px;
 
-    padding:2mm;
+    padding:3mm 4mm;
 
     overflow:hidden;
+   
+   display:flex;
+
+    align-items:flex-start;
+
+    justify-content:flex-start;
 
     white-space:pre-wrap;
 
