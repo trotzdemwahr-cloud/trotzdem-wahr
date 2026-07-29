@@ -97,11 +97,6 @@ body{
 
     background:var(--background);
 
-    page-break-after:always;
-    break-after:page;
-
-    padding:var(--page-padding);
-
     display:grid;
 
     grid-template-columns:repeat(12,1fr);
@@ -111,11 +106,20 @@ body{
     column-gap:4mm;
     row-gap:3.5mm;
 
+    padding:var(--page-padding);
+
+    page-break-after:always;
+    break-after:page;
+
+    page-break-inside:avoid;
+    break-inside:avoid;
+
 }
 
 .page:last-child{
 
     page-break-after:auto;
+    break-after:auto;
 
 }
 
@@ -127,6 +131,7 @@ body{
 @page{
 
     size:A4;
+
     margin:0;
 
 }
@@ -137,6 +142,10 @@ body{
     body{
 
         background:white;
+
+        margin:0;
+
+        padding:0;
 
     }
 
