@@ -1,100 +1,85 @@
 /* ==========================================================
    trotzdem.wahr
    PDF Workbook
+   pdf.css
 ========================================================== */
-
-
-/* ==========================================================
-   ROOT
-========================================================== */
-
-:root{
-
-    --background:#F7F4EF;
-    --surface:#FFFFFF;
-
-    --primary:#4F6D7A;
-    --secondary:#CFAE9B;
-    --accent:#A8C7C0;
-
-    --text:#3C3836;
-    --text-light:#6E6864;
-
-    --border:#E7DDD3;
-
-    --shadow:
-        0 2px 10px rgba(60,56,54,.04);
-
-    --radius:16px;
-
-    --page-width:210mm;
-    --page-height:297mm;
-
-    --page-padding:9mm;
-
-}
 
 
 /* ==========================================================
    RESET
 ========================================================== */
 
-*,
-*::before,
-*::after{
-
+*{
     margin:0;
     padding:0;
-
     box-sizing:border-box;
-
 }
-
-
-/* ==========================================================
-   HTML
-========================================================== */
 
 html{
 
     background:#d8d8d8;
 
-    scroll-behavior:auto;
-
 }
-
-
-/* ==========================================================
-   BODY
-========================================================== */
 
 body{
 
-    background:#d8d8d8;
-
     font-family:"Inter",sans-serif;
 
-    color:var(--text);
+    background:#d8d8d8;
 
-    line-height:1.35;
+    color:#36454F;
 
-    -webkit-print-color-adjust:exact;
-    print-color-adjust:exact;
+    display:flex;
 
-    text-rendering:optimizeLegibility;
+    justify-content:center;
+
+    padding:40px;
 
 }
 
 
 /* ==========================================================
-   PDF WRAPPER
+   FARBEN
+========================================================== */
+
+:root{
+
+    --background:#F7F4EF;
+
+    --card:#FFFFFF;
+
+    --primary:#6F8D87;
+
+    --secondary:#DCCFB9;
+
+    --accent:#A8B9A5;
+
+    --text:#36454F;
+
+    --muted:#6D757C;
+
+    --border:#DDD7CD;
+
+    --shadow:0 8px 24px rgba(0,0,0,.08);
+
+    --radius:16px;
+
+}
+
+
+/* ==========================================================
+   PDF CONTAINER
 ========================================================== */
 
 #pdfDocument{
 
-    width:var(--page-width);
+    display:flex;
 
-    margin:24px auto;
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:24px;
 
 }
 
@@ -103,227 +88,40 @@ body{
    A4 SEITE
 ========================================================== */
 
-.page{
+.pdf-page{
 
     position:relative;
 
-    width:var(--page-width);
-    height:var(--page-height);
+    width:210mm;
+
+    height:297mm;
 
     overflow:hidden;
 
     background:var(--background);
 
-    display:grid;
-
-    grid-template-columns:repeat(12,minmax(0,1fr));
-
-    grid-auto-rows:min-content;
-
-    column-gap:3mm;
-    row-gap:2.5mm;
-
-    align-content:start;
-
-    padding:var(--page-padding);
+    box-shadow:var(--shadow);
 
     page-break-after:always;
-    break-after:page;
-
-    page-break-inside:avoid;
-    break-inside:avoid;
-
-}
-
-
-.page:last-child{
-
-    page-break-after:auto;
-    break-after:auto;
 
 }
 
 
 /* ==========================================================
-   AUSSENRAHMEN
+   SEITENRÄNDER
 ========================================================== */
 
-.page::before{
+.pdf-inner{
 
-    content:"";
+    width:190mm;
 
-    position:absolute;
+    height:277mm;
 
-    inset:6mm;
+    margin:10mm;
 
-    border:1px solid rgba(79,109,122,.06);
+    display:flex;
 
-    border-radius:16px;
-
-    pointer-events:none;
-
-}
-
-
-/* ==========================================================
-   GRID
-========================================================== */
-
-.full{
-
-    grid-column:1 / -1;
-
-}
-
-
-.left{
-
-    grid-column:1 / 7;
-
-}
-
-
-.right{
-
-    grid-column:7 / -1;
-
-}
-
-
-.columns{
-
-    grid-column:1 / -1;
-
-    display:grid;
-
-    grid-template-columns:repeat(2,minmax(0,1fr));
-
-    gap:3mm;
-
-    align-items:start;
-
-}
-
-
-/* ==========================================================
-   DRUCK
-========================================================== */
-
-@page{
-
-    size:A4;
-
-    margin:0;
-
-}
-
-
-@media print{
-
-    html,
-    body{
-
-        margin:0;
-        padding:0;
-
-        background:white;
-
-    }
-
-    #pdfDocument{
-
-        margin:0;
-
-    }
-
-    .page{
-
-        box-shadow:none;
-
-    }
-
-}
-
-
-/* ==========================================================
-   HTML2CANVAS STABILITÄT
-========================================================== */
-
-.page,
-.card,
-.answer,
-.columns,
-.psychology,
-.takeaway{
-
-    transform:none !important;
-
-    filter:none !important;
-
-}
-/* ==========================================================
-   TYPOGRAFIE
-========================================================== */
-
-h1,
-h2,
-h3{
-
-    font-family:"Cormorant Garamond",serif;
-
-    color:var(--primary);
-
-    font-weight:600;
-
-    line-height:1.05;
-
-}
-
-h1{
-
-    font-size:16mm;
-
-    margin-bottom:2mm;
-
-}
-
-h2{
-
-    font-size:6.3mm;
-
-    margin-bottom:2mm;
-
-}
-
-h3{
-
-    font-size:5.2mm;
-
-    margin-bottom:1.5mm;
-
-}
-
-p{
-
-    font-size:3.5mm;
-
-    line-height:1.55;
-
-    color:var(--text);
-
-}
-
-small{
-
-    font-size:3mm;
-
-    color:var(--text-light);
-
-}
-
-strong{
-
-    font-weight:600;
+    flex-direction:column;
 
 }
 
@@ -334,7 +132,7 @@ strong{
 
 .pdf-header{
 
-    grid-column:1/-1;
+    height:20mm;
 
     display:flex;
 
@@ -342,7 +140,9 @@ strong{
 
     align-items:flex-start;
 
-    margin-bottom:2mm;
+    border-bottom:1px solid var(--border);
+
+    padding-bottom:5mm;
 
 }
 
@@ -350,17 +150,19 @@ strong{
 
     font-family:"Cormorant Garamond",serif;
 
-    font-size:8mm;
-
-    color:var(--primary);
+    font-size:22pt;
 
     font-weight:700;
 
-    letter-spacing:.02em;
+    color:var(--primary);
+
+    letter-spacing:.5px;
 
 }
 
-.pdf-step{
+.pdf-progress{
+
+    width:55mm;
 
     display:flex;
 
@@ -368,33 +170,27 @@ strong{
 
     align-items:flex-end;
 
-    gap:1mm;
+    gap:3mm;
 
 }
 
-.pdf-number{
+.pdf-progress-text{
 
-    font-size:3.1mm;
+    font-size:9pt;
 
-    font-weight:600;
-
-    color:var(--secondary);
-
-    text-transform:uppercase;
-
-    letter-spacing:.12em;
+    color:var(--muted);
 
 }
 
-.pdf-progress{
+.pdf-progress-track{
 
-    width:34mm;
+    width:100%;
 
-    height:2.4mm;
+    height:4mm;
 
-    background:#ece7e2;
+    background:#E8E3DA;
 
-    border-radius:99px;
+    border-radius:999px;
 
     overflow:hidden;
 
@@ -406,26 +202,54 @@ strong{
 
     background:var(--primary);
 
-    border-radius:99px;
+    border-radius:999px;
 
 }
 
 
 /* ==========================================================
-   KAPITEL
+   KAPITELBEREICH
 ========================================================== */
 
-.chapter{
+.pdf-title{
 
-    grid-column:1/-1;
+    height:22mm;
 
-    margin-bottom:2mm;
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    gap:2mm;
 
 }
 
-.chapter-title{
+.chapter-number{
 
-    margin-bottom:1.5mm;
+    font-size:10pt;
+
+    color:var(--primary);
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+}
+
+.chapter-heading{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:26pt;
+
+    color:var(--text);
+
+    font-weight:700;
+
+    line-height:1;
 
 }
 
@@ -433,75 +257,9 @@ strong{
 
     font-style:italic;
 
-    color:var(--text-light);
+    color:var(--muted);
 
-    font-size:3.5mm;
-
-}
-
-
-/* ==========================================================
-   STANDARD CARD
-========================================================== */
-
-.card{
-
-    background:var(--surface);
-
-    border:1px solid var(--border);
-
-    border-radius:var(--radius);
-
-    padding:4.5mm;
-
-    box-shadow:var(--shadow);
-
-    overflow:hidden;
-
-}
-
-
-/* ==========================================================
-   CARD ABSTÄNDE
-========================================================== */
-
-.card>*+*{
-
-    margin-top:2.2mm;
-
-}
-
-
-/* ==========================================================
-   BREITEN
-========================================================== */
-
-.card.full{
-
-    grid-column:1/-1;
-
-}
-
-.card.left{
-
-    grid-column:1/7;
-
-}
-
-.card.right{
-
-    grid-column:7/-1;
-
-}
-
-
-/* ==========================================================
-   REFLECTION
-========================================================== */
-
-.card--reflection{
-
-    border-left:4px solid var(--secondary);
+    font-size:10pt;
 
 }
 
@@ -510,70 +268,144 @@ strong{
    EINFÜHRUNG
 ========================================================== */
 
-.card--intro{
+.intro-card{
 
-    border-left:4px solid var(--primary);
+    height:40mm;
 
-}
+    background:var(--card);
 
+    border:1px solid var(--border);
 
-/* ==========================================================
-   BADGES
-========================================================== */
+    border-radius:var(--radius);
 
-.badge{
+    padding:8mm;
 
-    display:inline-flex;
+    display:flex;
 
-    align-items:center;
+    flex-direction:column;
 
-    padding:1.2mm 3mm;
-
-    border-radius:999px;
-
-    background:#efe8e1;
-
-    color:var(--primary);
-
-    font-size:2.9mm;
-
-    font-weight:600;
-
-    margin-bottom:2mm;
-
-}
-
-
-/* ==========================================================
-   ZWEISPALTIGE KARTEN
-========================================================== */
-
-.card-columns{
-
-    display:grid;
-
-    grid-template-columns:repeat(2,minmax(0,1fr));
+    justify-content:center;
 
     gap:3mm;
 
 }
 
+.intro-card h2{
 
-/* ==========================================================
-   LISTEN
-========================================================== */
+    font-family:"Cormorant Garamond",serif;
 
-ul{
+    font-size:18pt;
 
-    margin-left:5mm;
+    color:var(--primary);
 
 }
 
-li{
+.intro-card p{
 
-    margin-bottom:1.4mm;
+    font-size:10pt;
 
-    font-size:3.4mm;
+    line-height:1.55;
+
+    color:var(--text);
+
+}
+
+
+/* ==========================================================
+   REFLEXIONSBEREICH
+========================================================== */
+
+.reflection{
+
+    height:145mm;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6mm;
+
+    margin-top:6mm;
+
+}
+/* ==========================================================
+   REFLEXIONSLAYOUTS
+========================================================== */
+
+.reflection-row{
+
+    display:flex;
+
+    gap:6mm;
+
+    width:100%;
+
+}
+
+.reflection-column{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4mm;
+
+}
+
+.reflection-full{
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4mm;
+
+}
+
+
+/* ==========================================================
+   STANDARD KARTE
+========================================================== */
+
+.pdf-card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:6mm;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4mm;
+
+}
+
+.pdf-card h3{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:18pt;
+
+    color:var(--primary);
+
+    font-weight:700;
+
+}
+
+.pdf-card label{
+
+    font-size:9.5pt;
+
+    color:var(--muted);
 
     line-height:1.45;
 
@@ -581,94 +413,30 @@ li{
 
 
 /* ==========================================================
-   ABSATZABSTÄNDE
+   KARTENHÖHEN
 ========================================================== */
 
-.card p+p{
+.card-small{
 
-    margin-top:2mm;
-
-}
-
-
-/* ==========================================================
-   SEITENABSTAND
-========================================================== */
-
-.section-gap{
-
-    margin-top:3mm;
-
-}
-/* ==========================================================
-   ANTWORTFELDER
-========================================================== */
-
-.answer{
-
-    width:100%;
-
-    min-height:22mm;
-
-    margin-top:2mm;
-
-    padding:3.5mm;
-
-    border:1px solid var(--border);
-
-    border-radius:12px;
-
-    background:#FCFBF9;
-
-    white-space:pre-wrap;
-
-    word-break:break-word;
-
-    overflow-wrap:anywhere;
-
-    font-size:3.4mm;
-
-    line-height:1.55;
+    height:58mm;
 
 }
 
+.card-medium{
 
-.answer.small{
-
-    min-height:12mm;
-
-}
-
-
-.answer.medium{
-
-    min-height:18mm;
+    height:70mm;
 
 }
 
+.card-large{
 
-.answer.large{
-
-    min-height:34mm;
+    height:81mm;
 
 }
 
+.card-full{
 
-/* ==========================================================
-   LABELS
-========================================================== */
-
-.label{
-
-    display:block;
-
-    margin-bottom:1.8mm;
-
-    font-size:3.2mm;
-
-    font-weight:600;
-
-    color:var(--text);
+    height:145mm;
 
 }
 
@@ -683,7 +451,7 @@ li{
 
     flex-wrap:wrap;
 
-    gap:2mm;
+    gap:3mm;
 
     margin-top:2mm;
 
@@ -696,71 +464,363 @@ li{
 
 .chip{
 
-    display:inline-flex;
+    background:#EEF2EF;
 
-    align-items:center;
-
-    justify-content:center;
-
-    padding:2mm 3.5mm;
-
-    border-radius:999px;
-
-    border:1px solid var(--secondary);
-
-    background:#FFFDFB;
+    border:1px solid #D7DED8;
 
     color:var(--text);
 
-    font-size:3mm;
+    border-radius:999px;
+
+    padding:2.2mm 4mm;
+
+    font-size:8.5pt;
 
     line-height:1.2;
 
-}
-
-
-.chip.selected{
-
-    background:var(--secondary);
-
-    border-color:var(--secondary);
-
-    color:white;
-
-    font-weight:600;
+    white-space:nowrap;
 
 }
 
 
 /* ==========================================================
-   PSYCHOLOGY BOX
+   RADIO CHIP
 ========================================================== */
 
-.psychology{
+.chip.radio{
 
-    grid-column:1/-1;
+    background:#E7EFEA;
 
-    background:#F2F7F6;
+    border-color:#C8D8CF;
 
-    border-left:5px solid var(--accent);
+}
 
-    border-radius:16px;
+
+/* ==========================================================
+   ANTWORTFELDER
+========================================================== */
+
+.answer-box{
+
+    flex:1;
+
+    width:100%;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    background:#FCFBF8;
 
     padding:4mm;
 
+    overflow:hidden;
+
+    display:flex;
+
+    align-items:flex-start;
+
 }
 
 
-.psychology .badge{
+/* ==========================================================
+   ANTWORTTEXT
+========================================================== */
 
-    background:#DDEDEA;
+.answer{
+
+    width:100%;
+
+    font-size:9pt;
+
+    line-height:1.55;
+
+    color:var(--text);
+
+    white-space:pre-wrap;
+
+    word-break:break-word;
+
+    overflow-wrap:anywhere;
 
 }
 
 
-.psychology p{
+/* ==========================================================
+   LEERE FELDER
+========================================================== */
 
-    margin-top:2mm;
+.answer.empty{
+
+    color:#A3AAA8;
+
+    font-style:italic;
+
+}
+
+
+/* ==========================================================
+   LISTEN
+========================================================== */
+
+.answer-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:2mm;
+
+}
+
+.answer-item{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:2mm;
+
+    font-size:9pt;
+
+    line-height:1.45;
+
+    color:var(--text);
+
+}
+
+.answer-item::before{
+
+    content:"•";
+
+    color:var(--primary);
+
+    font-weight:700;
+
+}
+
+
+/* ==========================================================
+   KAPITEL 1
+========================================================== */
+
+.layout-arrive{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6mm;
+
+}
+
+.layout-arrive .reflection-row{
+
+    height:58mm;
+
+}
+
+.layout-arrive .reflection-full{
+
+    flex:1;
+
+}
+
+
+/* ==========================================================
+   KAPITEL 2
+========================================================== */
+
+.layout-self{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6mm;
+
+}
+
+.layout-self .reflection-row{
+
+    height:58mm;
+
+}
+
+.layout-self .reflection-full{
+
+    flex:1;
+
+}
+
+
+/* ==========================================================
+   KAPITEL 3
+========================================================== */
+
+.layout-understand{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6mm;
+
+}
+
+.layout-understand .reflection-row{
+
+    height:58mm;
+
+}
+
+.layout-understand .reflection-full{
+
+    flex:1;
+
+}
+
+
+/* ==========================================================
+   KAPITEL 4
+========================================================== */
+
+.layout-recognize{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6mm;
+
+}
+
+.layout-recognize .reflection-row{
+
+    height:58mm;
+
+}
+
+.layout-recognize .reflection-full{
+
+    flex:1;
+
+}
+
+
+/* ==========================================================
+   KAPITEL 5
+========================================================== */
+
+.layout-strength{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6mm;
+
+}
+
+.layout-strength .reflection-row{
+
+    height:58mm;
+
+}
+
+.layout-strength .reflection-full{
+
+    flex:1;
+
+}
+
+
+/* ==========================================================
+   KAPITEL 6
+========================================================== */
+
+.layout-forward{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:5mm;
+
+}
+
+.layout-forward .reflection-row{
+
+    height:42mm;
+
+}
+
+.layout-forward .card-insight{
+
+    height:26mm;
+
+}
+
+.layout-forward .card-next{
+
+    height:26mm;
+
+}
+
+.layout-forward .card-future{
+
+    flex:1;
+
+}
+/* ==========================================================
+   PSYCHOLOGIE
+========================================================== */
+
+.psychology-card{
+
+    height:28mm;
+
+    margin-top:6mm;
+
+    background:#EEF4F2;
+
+    border:1px solid #D8E3DF;
+
+    border-radius:var(--radius);
+
+    padding:5mm 6mm;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    gap:2mm;
+
+}
+
+.psychology-badge{
+
+    font-size:8pt;
+
+    font-weight:700;
+
+    letter-spacing:.8px;
+
+    text-transform:uppercase;
+
+    color:var(--primary);
+
+}
+
+.psychology-card p{
+
+    font-size:9pt;
+
+    line-height:1.45;
+
+    color:var(--text);
 
 }
 
@@ -769,326 +829,53 @@ li{
    TAKEAWAY
 ========================================================== */
 
-.takeaway{
+.takeaway-card{
 
-    grid-column:1/-1;
+    height:14mm;
 
-    background:#FAF5EF;
+    margin-top:4mm;
 
-    border-left:5px solid var(--secondary);
+    background:#F8F6F1;
 
-    border-radius:16px;
+    border:1px solid var(--border);
 
-    padding:4mm;
+    border-left:4px solid var(--primary);
 
-}
-
-
-.takeaway .badge{
-
-    background:#F1E4D9;
-
-}
-
-
-.takeaway p{
-
-    font-weight:500;
-
-}
-
-
-/* ==========================================================
-   COVER
-========================================================== */
-
-.cover{
+    border-radius:12px;
 
     display:flex;
 
-    flex-direction:column;
-
-    justify-content:center;
-
     align-items:center;
 
-    text-align:center;
+    padding:0 6mm;
+
+    gap:3mm;
 
 }
 
+.takeaway-title{
 
-.cover-logo{
-
-    font-family:"Cormorant Garamond",serif;
-
-    font-size:18mm;
-
-    color:var(--primary);
+    font-size:8pt;
 
     font-weight:700;
 
-    margin-bottom:10mm;
-
-}
-
-
-.cover-title{
-
-    font-family:"Cormorant Garamond",serif;
-
-    font-size:12mm;
-
     color:var(--primary);
 
-    margin-bottom:5mm;
+    text-transform:uppercase;
+
+    letter-spacing:.8px;
+
+    white-space:nowrap;
 
 }
 
+.takeaway-text{
 
-.cover-subtitle{
+    font-size:9pt;
 
-    font-size:4mm;
+    color:var(--text);
 
-    color:var(--text-light);
-
-    max-width:120mm;
-
-    line-height:1.6;
-
-}
-
-
-/* ==========================================================
-   COVER DEKO
-========================================================== */
-
-.cover::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:120mm;
-
-    height:120mm;
-
-    border-radius:50%;
-
-    background:rgba(168,199,192,.12);
-
-    top:-30mm;
-
-    right:-20mm;
-
-}
-
-
-.cover::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:90mm;
-
-    height:90mm;
-
-    border-radius:50%;
-
-    background:rgba(207,174,155,.14);
-
-    bottom:-20mm;
-
-    left:-20mm;
-
-}
-
-
-/* ==========================================================
-   WASSERZEICHEN
-========================================================== */
-
-.watermark{
-
-    position:absolute;
-
-    inset:0;
-
-    pointer-events:none;
-
-    overflow:hidden;
-
-}
-
-
-.watermark span{
-
-    position:absolute;
-
-    border-radius:50%;
-
-    opacity:.12;
-
-}
-
-
-.watermark-1{
-
-    width:85mm;
-
-    height:85mm;
-
-    background:var(--accent);
-
-    top:-25mm;
-
-    right:-15mm;
-
-}
-
-
-.watermark-2{
-
-    width:70mm;
-
-    height:70mm;
-
-    background:var(--secondary);
-
-    bottom:-15mm;
-
-    left:-20mm;
-
-}
-
-
-.watermark-3{
-
-    width:45mm;
-
-    height:45mm;
-
-    background:var(--primary);
-
-    opacity:.05;
-
-    top:110mm;
-
-    right:-10mm;
-
-}
-/* ==========================================================
-   ABSCHLUSSSEITE
-========================================================== */
-
-.final-page{
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    text-align:center;
-
-}
-
-
-.final-page h1{
-
-    margin-bottom:6mm;
-
-}
-
-
-.final-page p{
-
-    max-width:120mm;
-
-    font-size:4mm;
-
-    line-height:1.7;
-
-}
-
-
-.final-message{
-
-    margin-top:12mm;
-
-    padding:7mm;
-
-    border-radius:18px;
-
-    background:white;
-
-    border:1px solid var(--border);
-
-    box-shadow:var(--shadow);
-
-}
-
-
-/* ==========================================================
-   ZITATE
-========================================================== */
-
-.quote{
-
-    font-family:"Cormorant Garamond",serif;
-
-    font-size:6mm;
-
-    font-style:italic;
-
-    color:var(--primary);
-
-    text-align:center;
-
-    margin:5mm 0;
-
-}
-
-
-/* ==========================================================
-   TRENNLINIEN
-========================================================== */
-
-.divider{
-
-    width:100%;
-
-    height:1px;
-
-    background:var(--border);
-
-    margin:4mm 0;
-
-}
-
-
-/* ==========================================================
-   INFOBOXEN
-========================================================== */
-
-.info{
-
-    background:#FCFBF8;
-
-    border:1px solid var(--border);
-
-    border-radius:14px;
-
-    padding:3.5mm;
-
-}
-
-
-.info p{
-
-    margin:0;
+    line-height:1.35;
 
 }
 
@@ -1097,37 +884,241 @@ li{
    FOOTER
 ========================================================== */
 
-.page-footer{
+.pdf-footer{
 
-    position:absolute;
+    height:8mm;
 
-    left:9mm;
+    margin-top:auto;
 
-    right:9mm;
-
-    bottom:7mm;
+    border-top:1px solid var(--border);
 
     display:flex;
 
     justify-content:space-between;
 
+    align-items:flex-end;
+
+    font-size:8pt;
+
+    color:var(--muted);
+
+    padding-top:2mm;
+
+}
+
+.footer-left{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:11pt;
+
+    color:var(--primary);
+
+}
+
+.footer-center{
+
+    font-weight:500;
+
+}
+
+.footer-right{
+
+    text-align:right;
+
+}
+
+
+/* ==========================================================
+   COVER
+========================================================== */
+
+.cover-page{
+
+    display:flex;
+
+    justify-content:center;
+
     align-items:center;
 
-    font-size:2.8mm;
+    background:var(--background);
 
-    color:var(--text-light);
+}
+
+.cover-wrapper{
+
+    width:170mm;
+
+    height:240mm;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    gap:8mm;
+
+}
+
+.cover-logo{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:38pt;
+
+    color:var(--primary);
+
+    font-weight:700;
+
+}
+
+.cover-workbook{
+
+    font-size:18pt;
+
+    letter-spacing:4px;
+
+    text-transform:uppercase;
+
+    color:var(--muted);
+
+}
+
+.cover-subtitle{
+
+    width:120mm;
+
+    font-size:13pt;
+
+    line-height:1.7;
+
+    color:var(--text);
+
+}
+
+.cover-quote{
+
+    margin-top:18mm;
+
+    width:120mm;
+
+    font-style:italic;
+
+    font-size:11pt;
+
+    color:var(--muted);
+
+    line-height:1.7;
+
+}
+
+.cover-url{
+
+    margin-top:auto;
+
+    font-size:10pt;
+
+    color:var(--primary);
+
+    letter-spacing:.6px;
 
 }
 
 
-.page-number{
+/* ==========================================================
+   ABSCHLUSS
+========================================================== */
 
-    font-weight:600;
+.final-page{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
 
 }
 
+.final-wrapper{
 
-.footer-logo{
+    width:170mm;
+
+    height:235mm;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+}
+
+.final-title{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:34pt;
+
+    color:var(--primary);
+
+    margin-bottom:8mm;
+
+}
+
+.final-text{
+
+    width:125mm;
+
+    font-size:11pt;
+
+    line-height:1.8;
+
+    color:var(--text);
+
+}
+
+.final-quote{
+
+    margin-top:16mm;
+
+    width:120mm;
+
+    font-style:italic;
+
+    color:var(--muted);
+
+    font-size:11pt;
+
+    line-height:1.7;
+
+}
+
+.final-thanks{
+
+    margin-top:18mm;
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:22pt;
+
+    color:var(--primary);
+
+}
+
+.final-url{
+
+    margin-top:auto;
+
+    font-size:10pt;
 
     color:var(--primary);
 
@@ -1138,192 +1129,83 @@ li{
    HILFSKLASSEN
 ========================================================== */
 
-.mt-1{margin-top:1mm;}
-.mt-2{margin-top:2mm;}
-.mt-3{margin-top:3mm;}
-.mt-4{margin-top:4mm;}
-.mt-5{margin-top:5mm;}
-
-.mb-1{margin-bottom:1mm;}
-.mb-2{margin-bottom:2mm;}
-.mb-3{margin-bottom:3mm;}
-.mb-4{margin-bottom:4mm;}
-.mb-5{margin-bottom:5mm;}
-
-.center{
+.text-center{
 
     text-align:center;
 
 }
 
-.right-align{
+.mt-auto{
 
-    text-align:right;
-
-}
-
-.bold{
-
-    font-weight:600;
+    margin-top:auto;
 
 }
 
 .hidden{
 
-    display:none !important;
+    display:none;
 
 }
 
 
 /* ==========================================================
-   BILDER
+   EXPORT
 ========================================================== */
 
-img{
+.rendering{
 
-    display:block;
-
-    max-width:100%;
-
-    height:auto;
-
-}
-
-
-/* ==========================================================
-   TABELLEN
-========================================================== */
-
-table{
-
-    width:100%;
-
-    border-collapse:collapse;
-
-}
-
-td,
-th{
-
-    padding:2mm;
-
-    border:1px solid var(--border);
-
-    font-size:3.2mm;
-
-}
-
-
-/* ==========================================================
-   OVERFLOW SCHUTZ
-========================================================== */
-
-.card,
-.answer,
-.psychology,
-.takeaway{
-
-    overflow:hidden;
-
-}
-
-
-p,
-span,
-div,
-li{
-
-    word-break:break-word;
-
-    overflow-wrap:anywhere;
-
-}
-
-
-/* ==========================================================
-   HTML2CANVAS FIXES
-========================================================== */
-
-canvas{
-
-    max-width:none !important;
-
-}
-
-
-.page *{
-
-    backface-visibility:hidden;
+    image-rendering:high-quality;
 
     -webkit-font-smoothing:antialiased;
 
-}
-
-
-.page{
-
-    isolation:isolate;
+    text-rendering:optimizeLegibility;
 
 }
 
 
 /* ==========================================================
-   RENDER STABILITÄT
+   DRUCK
 ========================================================== */
 
-.page{
+@page{
 
-    contain:layout style;
-
-}
-
-
-.card{
-
-    contain:layout;
-
-}
-
-
-/* ==========================================================
-   PDF EXPORT
-========================================================== */
-
-.exporting .page{
+    size:A4 portrait;
 
     margin:0;
 
-    box-shadow:none;
-
 }
-
-
-.exporting body{
-
-    background:white;
-
-}
-
-
-/* ==========================================================
-   PRINT
-========================================================== */
 
 @media print{
 
-    .page{
+    html,
+    body{
+
+        margin:0;
+
+        padding:0;
+
+        background:#FFFFFF;
+
+    }
+
+    #pdfDocument{
+
+        gap:0;
+
+    }
+
+    .pdf-page{
 
         margin:0;
 
         box-shadow:none;
 
-        border:none;
+        page-break-after:always;
+
+        page-break-inside:avoid;
+
+        break-after:page;
 
     }
 
 }
-
-
-/* ==========================================================
-   ENDE
-========================================================== */
