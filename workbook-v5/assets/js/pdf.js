@@ -10,11 +10,11 @@
 
 const STORAGE_KEY = "trotzdem-wahr-workbook-v5";
 
+const TOTAL_STEPS = 6;
+
 const PDF_WIDTH = 210;
 
 const PDF_HEIGHT = 297;
-
-const TOTAL_STEPS = 6;
 
 
 /* ==========================================================
@@ -23,7 +23,13 @@ const TOTAL_STEPS = 6;
 
 let workbookData = {};
 
-const pdfDocument = document.getElementById("pdfDocument");
+
+/* ==========================================================
+   DOM
+========================================================== */
+
+const pdfDocument =
+    document.getElementById("pdfDocument");
 
 
 /* ==========================================================
@@ -32,11 +38,13 @@ const pdfDocument = document.getElementById("pdfDocument");
 
 function loadWorkbook(){
 
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved =
+        localStorage.getItem(STORAGE_KEY);
 
     if(saved){
 
-        workbookData = JSON.parse(saved);
+        workbookData =
+            JSON.parse(saved);
 
     }else{
 
@@ -48,7 +56,7 @@ function loadWorkbook(){
 
 
 /* ==========================================================
-   HILFSFUNKTIONEN
+   DATEN LESEN
 ========================================================== */
 
 function getValue(key){
@@ -68,14 +76,28 @@ function getArray(key){
 
     }
 
+    if(value){
+
+        return [value];
+
+    }
+
     return [];
 
 }
 
 
+/* ==========================================================
+   TEXT SICHER AUSGEBEN
+========================================================== */
+
 function escapeHTML(text){
 
-    if(!text) return "";
+    if(text === null || text === undefined){
+
+        return "";
+
+    }
 
     return String(text)
 
@@ -92,69 +114,122 @@ function escapeHTML(text){
 }
 
 
-function textOrPlaceholder(text){
+/* ==========================================================
+   LEERER PLATZHALTER
+========================================================== */
 
-    if(!text){
-
-        return '<div class="answer empty">Keine Antwort vorhanden.</div>';
-
-    }
+function placeholder(){
 
     return `
 
-        <div class="answer">
+<div class="answer empty">
 
-            ${escapeHTML(text)}
+    Keine Antwort vorhanden.
 
-        </div>
+</div>
 
-    `;
-
-}
-
-
-function chipList(values){
-
-    if(values.length===0){
-
-        return '<div class="answer empty">Keine Auswahl getroffen.</div>';
-
-    }
-
-    return `
-
-        <div class="chips">
-
-            ${values.map(item=>`
-
-                <span class="chip">
-
-                    ${escapeHTML(item)}
-
-                </span>
-
-            `).join("")}
-
-        </div>
-
-    `;
+`;
 
 }
 
 
 /* ==========================================================
-   KOMPONENTEN
+   TEXTBOX
+========================================================== */
+
+function textAnswer(value){
+
+    if(!value){
+
+        return placeholder();
+
+    }
+
+    return `
+
+<div class="answer">
+
+    ${escapeHTML(value)}
+
+</div>
+
+`;
+
+}
+
+
+/* ==========================================================
+   CHIPS
+========================================================== */
+
+function chips(values){
+
+    if(!values.length){
+
+        return placeholder();
+
+    }
+
+    return `
+
+<div class="chips">
+
+    ${values.map(item => `
+
+        <span class="chip">
+
+            ${escapeHTML(item)}
+
+        </span>
+
+    `).join("")}
+
+</div>
+
+`;
+
+}
+
+
+/* ==========================================================
+   RADIO CHIP
+========================================================== */
+
+function radioChip(value){
+
+    if(!value){
+
+        return placeholder();
+
+    }
+
+    return `
+
+<div class="chips">
+
+    <span class="chip radio">
+
+        ${escapeHTML(value)}
+
+    </span>
+
+</div>
+
+`;
+
+}
+
+/* ==========================================================
+   HEADER
 ========================================================== */
 
 function createHeader(step){
 
-    const percent =
-
-        (step/TOTAL_STEPS)*100;
+    const progress = (step / TOTAL_STEPS) * 100;
 
     return `
 
-<header class="pdf-header">
+<div class="pdf-header">
 
     <div class="pdf-logo">
 
@@ -166,7 +241,7 @@ function createHeader(step){
 
         <div class="pdf-progress-text">
 
-            Schritt ${step} von ${TOTAL_STEPS}
+            Kapitel ${step} von ${TOTAL_STEPS}
 
         </div>
 
@@ -174,7 +249,7 @@ function createHeader(step){
 
             <div
                 class="pdf-progress-fill"
-                style="width:${percent}%">
+                style="width:${progress}%">
 
             </div>
 
@@ -182,12 +257,16 @@ function createHeader(step){
 
     </div>
 
-</header>
+</div>
 
 `;
 
 }
 
+
+/* ==========================================================
+   TITEL
+========================================================== */
 
 function createTitle(number,title,quote){
 
@@ -197,7 +276,7 @@ function createTitle(number,title,quote){
 
     <div class="chapter-number">
 
-        Schritt ${number}
+        Kapitel ${number}
 
     </div>
 
@@ -220,6 +299,10 @@ function createTitle(number,title,quote){
 }
 
 
+/* ==========================================================
+   EINFÜHRUNG
+========================================================== */
+
 function createIntro(title,text){
 
     return `
@@ -234,7 +317,7 @@ function createIntro(title,text){
 
     <p>
 
-        ${text}
+        ${escapeHTML(text).replace(/\n/g,"<br><br>")}
 
     </p>
 
@@ -245,11 +328,27 @@ function createIntro(title,text){
 }
 
 
-function createCard(title,label,content){
+/* ==========================================================
+   STANDARDKARTE
+========================================================== */
+
+function createCard(
+
+    title,
+
+    label,
+
+    content,
+
+    size = "card-medium",
+
+    extraClass = ""
+
+){
 
     return `
 
-<div class="pdf-card">
+<article class="pdf-card ${size} ${extraClass}">
 
     <h3>
 
@@ -269,11 +368,13 @@ function createCard(title,label,content){
 
     </div>
 
-</div>
+</article>
 
 `;
 
 }
+
+
 /* ==========================================================
    PSYCHOLOGIE
 ========================================================== */
@@ -292,7 +393,7 @@ function createPsychology(text){
 
     <p>
 
-        ${text}
+        ${escapeHTML(text).replace(/\n/g,"<br>")}
 
     </p>
 
@@ -304,7 +405,7 @@ function createPsychology(text){
 
 
 /* ==========================================================
-   FÜR HEUTE
+   TAKEAWAY
 ========================================================== */
 
 function createTakeaway(text){
@@ -313,17 +414,17 @@ function createTakeaway(text){
 
 <section class="takeaway-card">
 
-    <div class="takeaway-title">
+        <div class="takeaway-title">
 
-        Für heute
+            Für heute
 
-    </div>
+        </div>
 
-    <div class="takeaway-text">
+        <div class="takeaway-text">
 
-        ${text}
+            ${escapeHTML(text)}
 
-    </div>
+        </div>
 
 </section>
 
@@ -350,13 +451,13 @@ function createFooter(page){
 
     <div class="footer-center">
 
-        Seite ${page} / 8
+        Workbook
 
     </div>
 
     <div class="footer-right">
 
-        Workbook
+        Seite ${page} / 8
 
     </div>
 
@@ -367,6 +468,59 @@ function createFooter(page){
 }
 
 
+/* ==========================================================
+   SEITENLAYOUT
+========================================================== */
+
+function createPage(
+
+    step,
+
+    number,
+
+    title,
+
+    quote,
+
+    intro,
+
+    reflection,
+
+    psychology,
+
+    takeaway,
+
+    page
+
+){
+
+    return `
+
+<div class="pdf-inner">
+
+    ${createHeader(step)}
+
+    ${createTitle(number,title,quote)}
+
+    ${intro}
+
+    <section class="reflection">
+
+        ${reflection}
+
+    </section>
+
+    ${createPsychology(psychology)}
+
+    ${createTakeaway(takeaway)}
+
+    ${createFooter(page)}
+
+</div>
+
+`;
+
+}
 /* ==========================================================
    COVER
 ========================================================== */
@@ -385,22 +539,23 @@ function renderCover(){
 
     <div class="cover-workbook">
 
-        WORKBOOK
+        Workbook
 
     </div>
 
     <div class="cover-subtitle">
 
-        Selbstreflexion.<br>
-        Verstehen.<br>
-        Weitergehen.
+        Ein Ort für Selbstreflexion, Verständnis
+        und neue Perspektiven.
+        Dieses Workbook begleitet dich Schritt für Schritt
+        auf deinem ganz persönlichen Weg.
 
     </div>
 
     <div class="cover-quote">
 
-        „Du musst nicht alles auf einmal verstehen.
-        Manchmal reicht der nächste kleine Schritt.“
+        „Du musst heute nichts leisten.
+        Es reicht, dass du hier bist.“
 
     </div>
 
@@ -435,87 +590,39 @@ function renderFinal(){
 
     <div class="final-text">
 
-        Dieses Workbook endet hier.
-
-        Vielleicht hast du Antworten gefunden.
+        Vielleicht hast du heute Antworten gefunden.
         Vielleicht sind neue Fragen entstanden.
 
         Beides ist in Ordnung.
 
         Selbstreflexion ist kein Ziel,
         sondern ein Weg.
+        Jeder kleine Schritt,
+        jede neue Erkenntnis
+        und jeder Moment,
+        in dem du dir selbst begegnest,
+        ist wertvoll.
 
     </div>
 
     <div class="final-quote">
 
-        „Du musst nicht perfekt heilen.
-
-        Du darfst Schritt für Schritt
-        deinen eigenen Weg gehen.“
+        „Du musst deinen Weg nicht perfekt gehen.
+        Du musst ihn nur weitergehen.“
 
     </div>
 
     <div class="final-thanks">
 
-        Danke,
-        dass du dir Zeit
-        für dich genommen hast.
+        Pass gut auf dich auf.
 
     </div>
 
     <div class="final-url">
 
-        www.trotzdem-wahr.de
+        trotzdem.wahr
 
     </div>
-
-</div>
-
-`;
-
-}
-
-
-/* ==========================================================
-   SEITE AUFBAUEN
-========================================================== */
-
-function createPage(
-
-    step,
-    number,
-    title,
-    quote,
-    intro,
-    reflection,
-    psychology,
-    takeaway,
-    pageNumber
-
-){
-
-    return `
-
-<div class="pdf-inner">
-
-    ${createHeader(step)}
-
-    ${createTitle(number,title,quote)}
-
-    ${intro}
-
-    <section class="reflection">
-
-        ${reflection}
-
-    </section>
-
-    ${createPsychology(psychology)}
-
-    ${createTakeaway(takeaway)}
-
-    ${createFooter(pageNumber)}
 
 </div>
 
@@ -538,17 +645,10 @@ function renderChapter1(){
         <div class="reflection-column">
 
             ${createCard(
-
-                "Gefühle",
-
+                "Reflexion",
                 "Welche Gefühle begleiten dich im Moment?",
-
-                chipList(
-
-                    getArray("feelings")
-
-                )
-
+                chips(getArray("feelings")),
+                "card-small"
             )}
 
         </div>
@@ -556,17 +656,10 @@ function renderChapter1(){
         <div class="reflection-column">
 
             ${createCard(
-
                 "Gedanken",
-
                 "Welche Gedanken kennst du von dir?",
-
-                chipList(
-
-                    getArray("thoughts")
-
-                )
-
+                chips(getArray("thoughts")),
+                "card-small"
             )}
 
         </div>
@@ -576,17 +669,10 @@ function renderChapter1(){
     <div class="reflection-full">
 
         ${createCard(
-
             "Freiraum",
-
             "Was kostet dich im Moment am meisten Kraft?",
-
-            textOrPlaceholder(
-
-                getValue("energy")
-
-            )
-
+            textAnswer(getValue("energy")),
+            "card-full"
         )}
 
     </div>
@@ -595,62 +681,61 @@ function renderChapter1(){
 
 `;
 
-    document.getElementById("page1").innerHTML =
+    const intro = createIntro(
 
-        createPage(
+        "Schön, dass du da bist.",
 
-            1,
+`Wenn wir beginnen, uns selbst besser kennenzulernen,
+entsteht oft der Wunsch, möglichst schnell Antworten
+auf unsere Fragen zu finden.
 
-            "01",
+Doch Selbstreflexion ist kein Test und keine Prüfung.
+Sie beginnt mit Aufmerksamkeit – nicht mit Perfektion.
 
-            "Ankommen",
+Deshalb musst du heute nichts erreichen.
+Nimm dir Zeit, lies die Inhalte in deinem Tempo
+und beantworte nur das,
+was sich für dich richtig anfühlt.`
 
-            "„Du musst heute nichts leisten.“",
+    );
 
-            createIntro(
+    document.getElementById("page1").innerHTML = createPage(
 
-                "Schön, dass du da bist.",
+        1,
 
-                `Wenn wir beginnen, uns selbst besser kennenzulernen,
-                entsteht oft der Wunsch, möglichst schnell Antworten
-                auf unsere Fragen zu finden.
+        "01",
 
-                Doch Selbstreflexion ist kein Test und keine Prüfung.
-                Sie beginnt mit Aufmerksamkeit – nicht mit Perfektion.
+        "Ankommen",
 
-                Deshalb musst du heute nichts erreichen.
-                Nimm dir Zeit, lies die Inhalte in deinem Tempo
-                und beantworte nur das,
-                was sich für dich richtig anfühlt.`
+        "„Du musst heute nichts leisten.“",
 
-            ),
+        intro,
 
-            reflection,
+        reflection,
 
-            `Unser Gehirn verarbeitet Informationen besonders gut,
-            wenn wir uns sicher fühlen.
-            Unter Druck arbeitet es stärker im Überlebensmodus,
-            während ruhige Momente bewusste Reflexion ermöglichen.
+`Unser Gehirn verarbeitet Informationen besonders gut,
+wenn wir uns sicher fühlen.
+Unter Druck arbeitet es stärker im Überlebensmodus,
+während ruhige Momente bewusste Reflexion ermöglichen.
 
-            Deshalb entstehen viele wichtige Erkenntnisse
-            nicht dann,
-            wenn wir uns zwingen,
-            sondern wenn wir uns erlauben,
-            ehrlich hinzuschauen.`,
+Deshalb entstehen viele wichtige Erkenntnisse
+nicht dann,
+wenn wir uns zwingen,
+sondern wenn wir uns erlauben,
+ehrlich hinzuschauen.`,
 
-            `Es gibt heute kein richtig oder falsch.
-            Du musst niemandem etwas beweisen.
-            Dieses Workbook gehört nur dir.`,
+`Es gibt heute kein richtig oder falsch.
+Du musst niemandem etwas beweisen.
+Dieses Workbook gehört nur dir.`,
 
-            2
+        2
 
-        );
+    );
 
 }
-
-
 /* ==========================================================
    KAPITEL 2
+   WER BIN ICH GEWORDEN?
 ========================================================== */
 
 function renderChapter2(){
@@ -664,17 +749,10 @@ function renderChapter2(){
         <div class="reflection-column">
 
             ${createCard(
-
                 "Früher",
-
                 "Was mochtest du früher besonders an dir?",
-
-                textOrPlaceholder(
-
-                    getValue("pastSelf")
-
-                )
-
+                textAnswer(getValue("pastSelf")),
+                "card-small"
             )}
 
         </div>
@@ -682,17 +760,10 @@ function renderChapter2(){
         <div class="reflection-column">
 
             ${createCard(
-
                 "Heute",
-
                 "Was magst du heute an dir?",
-
-                textOrPlaceholder(
-
-                    getValue("presentSelf")
-
-                )
-
+                textAnswer(getValue("presentSelf")),
+                "card-small"
             )}
 
         </div>
@@ -702,17 +773,10 @@ function renderChapter2(){
     <div class="reflection-full">
 
         ${createCard(
-
             "Veränderung",
-
             "Was ist der größte Unterschied zwischen damals und heute?",
-
-            textOrPlaceholder(
-
-                getValue("changeReflection")
-
-            )
-
+            textAnswer(getValue("changeReflection")),
+            "card-full"
         )}
 
     </div>
@@ -721,61 +785,60 @@ function renderChapter2(){
 
 `;
 
-    document.getElementById("page2").innerHTML =
+    const intro = createIntro(
 
-        createPage(
+        "Ein Blick auf dich",
 
-            2,
+`Unser Selbstbild verändert sich im Laufe des Lebens.
+Erfahrungen, Beziehungen und Herausforderungen
+hinterlassen Spuren.
+Manche davon stärken uns,
+andere lassen uns an uns selbst zweifeln.
 
-            "02",
+Diese Fragen laden dich dazu ein,
+dich mit deinem früheren und heutigen Ich
+auseinanderzusetzen –
+ohne Bewertung,
+sondern mit Neugier.`
 
-            "Wer bin ich geworden?",
+    );
 
-            "„Manchmal hilft ein Blick zurück, um sich heute besser zu verstehen.“",
+    document.getElementById("page2").innerHTML = createPage(
 
-            createIntro(
+        2,
 
-                "Ein Blick auf dich",
+        "02",
 
-                `Unser Selbstbild verändert sich im Laufe des Lebens.
-                Erfahrungen, Beziehungen und Herausforderungen
-                hinterlassen Spuren.
+        "Wer bin ich geworden?",
 
-                Manche davon stärken uns,
-                andere lassen uns an uns selbst zweifeln.
+        "„Manchmal hilft ein Blick zurück, um sich heute besser zu verstehen.“",
 
-                Diese Fragen laden dich dazu ein,
-                dich mit deinem früheren und heutigen Ich
-                auseinanderzusetzen –
-                ohne Bewertung,
-                sondern mit Neugier.`
+        intro,
 
-            ),
+        reflection,
 
-            reflection,
+`Unser Selbstbild entsteht nicht über Nacht.
+Es entwickelt sich aus Erfahrungen,
+Beziehungen und den Geschichten,
+die wir über uns selbst erzählen.
 
-            `Unser Selbstbild entsteht nicht über Nacht.
-            Es entwickelt sich aus Erfahrungen,
-            Beziehungen und den Geschichten,
-            die wir über uns selbst erzählen.
+Manchmal übernehmen wir Bewertungen anderer,
+obwohl sie längst nicht mehr zu uns passen.
+Sich diese bewusst zu machen,
+kann helfen,
+den Blick auf sich selbst wieder liebevoller werden zu lassen.`,
 
-            Manchmal übernehmen wir Bewertungen anderer,
-            obwohl sie längst nicht mehr zu uns passen.
-            Sich diese bewusst zu machen,
-            kann helfen,
-            den Blick auf sich selbst
-            wieder liebevoller werden zu lassen.`,
+`Du bist nicht nur die Summe deiner Erfahrungen.
+Du darfst dich verändern,
+weiterentwickeln
+und dich immer wieder neu kennenlernen.`,
 
-            `Du bist nicht nur die Summe deiner Erfahrungen.
-            Du darfst dich verändern,
-            weiterentwickeln
-            und dich immer wieder neu kennenlernen.`,
+        3
 
-            3
-
-        );
+    );
 
 }
+
 /* ==========================================================
    KAPITEL 3
    VERSTEHEN
@@ -792,19 +855,10 @@ function renderChapter3(){
         <div class="reflection-column">
 
             ${createCard(
-
                 "Stressreaktion",
-
                 "Wie reagierst du meistens, wenn dich etwas belastet?",
-
-                chipList(
-
-                    getArray("stress").length
-                        ? getArray("stress")
-                        : (getValue("stress") ? [getValue("stress")] : [])
-
-                )
-
+                radioChip(getValue("stress")),
+                "card-small"
             )}
 
         </div>
@@ -812,17 +866,10 @@ function renderChapter3(){
         <div class="reflection-column">
 
             ${createCard(
-
                 "Wiederkehrende Muster",
-
                 "Welche Aussagen treffen auf dich zu?",
-
-                chipList(
-
-                    getArray("patterns")
-
-                )
-
+                chips(getArray("patterns")),
+                "card-small"
             )}
 
         </div>
@@ -832,17 +879,10 @@ function renderChapter3(){
     <div class="reflection-full">
 
         ${createCard(
-
             "Rückblick",
-
             "Gab es eine Situation, in der du dich selbst überrascht hast?",
-
-            textOrPlaceholder(
-
-                getValue("reflection")
-
-            )
-
+            textAnswer(getValue("reflection")),
+            "card-full"
         )}
 
     </div>
@@ -851,60 +891,55 @@ function renderChapter3(){
 
 `;
 
-    document.getElementById("page3").innerHTML =
+    const intro = createIntro(
 
-        createPage(
+        "Warum reagieren wir manchmal automatisch?",
 
-            3,
+`Unser Gehirn versucht ständig,
+Situationen möglichst schnell einzuordnen.
+Deshalb greifen wir häufig auf bekannte Muster zurück,
+ohne bewusst darüber nachzudenken.
 
-            "03",
+Diese Reaktionen sind nicht falsch.
+Sie haben meist einmal einen wichtigen Zweck erfüllt.
+Erst wenn wir sie erkennen,
+können wir entscheiden,
+ob sie uns heute noch helfen.`
 
-            "Verstehen",
+    );
 
-            "„Verstehen verändert den Blick – nicht die Vergangenheit.“",
+    document.getElementById("page3").innerHTML = createPage(
 
-            createIntro(
+        3,
 
-                "Warum reagieren wir manchmal automatisch?",
+        "03",
 
-                `Unser Gehirn versucht ständig,
-                Situationen möglichst schnell einzuordnen.
+        "Verstehen",
 
-                Deshalb greifen wir häufig auf bekannte Muster zurück,
-                ohne bewusst darüber nachzudenken.
+        "„Verstehen verändert den Blick – nicht die Vergangenheit.“",
 
-                Diese Reaktionen sind nicht falsch.
-                Sie haben meist einmal einen wichtigen Zweck erfüllt.
-                Erst wenn wir sie erkennen,
-                können wir entscheiden,
-                ob sie uns heute noch helfen.`
+        intro,
 
-            ),
+        reflection,
 
-            reflection,
+`Viele unserer Reaktionen entstehen,
+bevor wir bewusst darüber nachdenken können.
+Das Gehirn vergleicht neue Situationen
+mit früheren Erfahrungen
+und entscheidet innerhalb von Sekundenbruchteilen,
+welche Reaktion sinnvoll erscheint.`,
 
-            `Viele unserer Reaktionen entstehen,
-            bevor wir bewusst darüber nachdenken können.
+`Verstehen bedeutet nicht,
+alles sofort verändern zu müssen.
+Oft beginnt Entwicklung bereits dort,
+wo wir unsere eigenen Muster
+neugierig statt wertend betrachten.`,
 
-            Das Gehirn vergleicht neue Situationen
-            mit früheren Erfahrungen
-            und entscheidet innerhalb von Sekundenbruchteilen,
-            welche Reaktion sinnvoll erscheint.`,
+        4
 
-            `Verstehen bedeutet nicht,
-            alles sofort verändern zu müssen.
-
-            Oft beginnt Entwicklung bereits dort,
-            wo wir unsere eigenen Muster
-            neugierig statt wertend betrachten.`,
-
-            4
-
-        );
+    );
 
 }
-
-
 /* ==========================================================
    KAPITEL 4
    ERKENNEN
@@ -921,17 +956,10 @@ function renderChapter4(){
         <div class="reflection-column">
 
             ${createCard(
-
                 "Erfahrungen",
-
                 "Welche Aussagen kommen dir bekannt vor?",
-
-                chipList(
-
-                    getArray("relationshipExperiences")
-
-                )
-
+                chips(getArray("relationshipExperiences")),
+                "card-small"
             )}
 
         </div>
@@ -939,17 +967,10 @@ function renderChapter4(){
         <div class="reflection-column">
 
             ${createCard(
-
                 "Warnsignale",
-
                 "Welche Verhaltensweisen empfindest du grundsätzlich als Warnsignal?",
-
-                chipList(
-
-                    getArray("warningSigns")
-
-                )
-
+                chips(getArray("warningSigns")),
+                "card-small"
             )}
 
         </div>
@@ -959,17 +980,10 @@ function renderChapter4(){
     <div class="reflection-full">
 
         ${createCard(
-
             "Gedanken",
-
             "Welche Gedanken möchtest du zu diesem Thema festhalten?",
-
-            textOrPlaceholder(
-
-                getValue("realisation")
-
-            )
-
+            textAnswer(getValue("realisation")),
+            "card-full"
         )}
 
     </div>
@@ -978,59 +992,56 @@ function renderChapter4(){
 
 `;
 
-    document.getElementById("page4").innerHTML =
+    const intro = createIntro(
 
-        createPage(
+        "Warnsignale erkennen",
 
-            4,
+`Manche Verhaltensweisen wirken auf den ersten Blick
+harmlos oder werden sogar als Fürsorge verstanden.
+Erst mit etwas Abstand erkennen wir,
+wie sehr sie unser Selbstwertgefühl
+oder unsere Freiheit beeinflusst haben.
 
-            "04",
+Dieses Kapitel soll dir dabei helfen,
+typische Warnsignale besser einzuordnen –
+ohne Menschen vorschnell zu bewerten,
+sondern mit einem bewussteren Blick
+auf Beziehungen.`
 
-            "Erkennen",
+    );
 
-            "„Nicht alles, was sich vertraut anfühlt, tut uns gut.“",
+    document.getElementById("page4").innerHTML = createPage(
 
-            createIntro(
+        4,
 
-                "Warnsignale erkennen",
+        "04",
 
-                `Manche Verhaltensweisen wirken auf den ersten Blick
-                harmlos oder werden sogar als Fürsorge verstanden.
+        "Erkennen",
 
-                Erst mit etwas Abstand erkennen wir,
-                wie sehr sie unser Selbstwertgefühl
-                oder unsere Freiheit beeinflusst haben.
+        "„Nicht alles, was sich vertraut anfühlt, tut uns gut.“",
 
-                Dieses Kapitel soll dir dabei helfen,
-                typische Warnsignale besser einzuordnen –
-                ohne Menschen vorschnell zu bewerten,
-                sondern mit einem bewussteren Blick
-                auf Beziehungen.`
+        intro,
 
-            ),
+        reflection,
 
-            reflection,
+`Manipulation beginnt nur selten plötzlich.
+Häufig entwickelt sie sich schrittweise
+durch Kontrolle,
+Schuldgefühle,
+Abwertung oder das ständige Infragestellen
+der eigenen Wahrnehmung.
 
-            `Manipulation beginnt nur selten plötzlich.
+Je früher wir solche Muster erkennen,
+desto leichter fällt es,
+unsere Grenzen ernst zu nehmen.`,
 
-            Häufig entwickelt sie sich schrittweise
-            durch Kontrolle,
-            Schuldgefühle,
-            Abwertung
-            oder das ständige Infragestellen
-            der eigenen Wahrnehmung.
+`Deiner Wahrnehmung zu vertrauen
+ist kein Zeichen von Misstrauen,
+sondern von Selbstfürsorge.`,
 
-            Je früher wir solche Muster erkennen,
-            desto leichter fällt es,
-            unsere Grenzen ernst zu nehmen.`,
+        5
 
-            `Deiner Wahrnehmung zu vertrauen
-            ist kein Zeichen von Misstrauen,
-            sondern von Selbstfürsorge.`,
-
-            5
-
-        );
+    );
 
 }
 /* ==========================================================
@@ -1049,17 +1060,10 @@ function renderChapter5(){
         <div class="reflection-column">
 
             ${createCard(
-
                 "Kraftquellen",
-
                 "Was gibt dir im Alltag Kraft?",
-
-                chipList(
-
-                    getArray("resources")
-
-                )
-
+                chips(getArray("resources")),
+                "card-small"
             )}
 
         </div>
@@ -1067,17 +1071,10 @@ function renderChapter5(){
         <div class="reflection-column">
 
             ${createCard(
-
                 "Deine Stärken",
-
                 "Welche Eigenschaften erkennst du bei dir?",
-
-                chipList(
-
-                    getArray("strengths")
-
-                )
-
+                chips(getArray("strengths")),
+                "card-small"
             )}
 
         </div>
@@ -1087,17 +1084,10 @@ function renderChapter5(){
     <div class="reflection-full">
 
         ${createCard(
-
             "Heute bin ich stolz auf...",
-
             "Worauf bist du heute stolz – auch wenn es nur eine Kleinigkeit ist?",
-
-            textOrPlaceholder(
-
-                getValue("gratitude")
-
-            )
-
+            textAnswer(getValue("gratitude")),
+            "card-full"
         )}
 
     </div>
@@ -1106,67 +1096,62 @@ function renderChapter5(){
 
 `;
 
-    document.getElementById("page5").innerHTML =
+    const intro = createIntro(
 
-        createPage(
+        "Deine Ressourcen",
 
-            5,
+`Oft fällt uns zuerst auf,
+was uns fehlt oder belastet.
+Dabei übersehen wir leicht,
+wie viele Fähigkeiten,
+Erfahrungen und Menschen uns bereits tragen.
 
-            "05",
+Stärke bedeutet nicht,
+immer stark sein zu müssen.
+Manchmal zeigt sie sich darin,
+Hilfe anzunehmen,
+Grenzen zu setzen
+oder freundlich mit sich selbst zu sein.`
 
-            "Stärken",
+    );
 
-            "„Du bist mehr als deine schwierigsten Tage.“",
+    document.getElementById("page5").innerHTML = createPage(
 
-            createIntro(
+        5,
 
-                "Deine Ressourcen",
+        "05",
 
-                `Oft fällt uns zuerst auf,
-                was uns fehlt oder belastet.
+        "Stärken",
 
-                Dabei übersehen wir leicht,
-                wie viele Fähigkeiten,
-                Erfahrungen und Menschen
-                uns bereits tragen.
+        "„Du bist mehr als deine schwierigsten Tage.“",
 
-                Stärke bedeutet nicht,
-                immer stark sein zu müssen.
-                Manchmal zeigt sie sich darin,
-                Hilfe anzunehmen,
-                Grenzen zu setzen
-                oder freundlich mit sich selbst zu sein.`
+        intro,
 
-            ),
+        reflection,
 
-            reflection,
+`Resilienz beschreibt die Fähigkeit,
+schwierige Erfahrungen zu bewältigen
+und sich nach Belastungen
+wieder zu stabilisieren.
 
-            `Resilienz beschreibt die Fähigkeit,
-            schwierige Erfahrungen zu bewältigen
-            und sich nach Belastungen
-            wieder zu stabilisieren.
+Sie ist keine angeborene Eigenschaft,
+sondern entwickelt sich
+durch Erfahrungen,
+Beziehungen
+und viele kleine Schritte
+im Alltag.`,
 
-            Sie ist keine angeborene Eigenschaft,
-            sondern entwickelt sich
-            durch Erfahrungen,
-            Beziehungen
-            und viele kleine Schritte
-            im Alltag.`,
+`Du musst nicht perfekt sein,
+um wertvoll zu sein.
+Jeder kleine Schritt,
+den du heute gehst,
+zählt.`,
 
-            `Du musst nicht perfekt sein,
-            um wertvoll zu sein.
+        6
 
-            Jeder kleine Schritt,
-            den du heute gehst,
-            zählt.`,
-
-            6
-
-        );
+    );
 
 }
-
-
 /* ==========================================================
    KAPITEL 6
    WEITERGEHEN
@@ -1183,17 +1168,10 @@ function renderChapter6(){
         <div class="reflection-column">
 
             ${createCard(
-
-                "Mitnehmen",
-
+                "Was möchtest du mitnehmen?",
                 "Was möchtest du aus diesem Workbook mitnehmen?",
-
-                chipList(
-
-                    getArray("takeaway")
-
-                )
-
+                chips(getArray("takeaway")),
+                "card-small"
             )}
 
         </div>
@@ -1201,129 +1179,89 @@ function renderChapter6(){
         <div class="reflection-column">
 
             ${createCard(
-
                 "Unterstützung",
-
                 "Wer oder was kann dich auf deinem Weg unterstützen?",
-
-                chipList(
-
-                    getArray("support")
-
-                )
-
+                chips(getArray("support")),
+                "card-small"
             )}
 
         </div>
 
     </div>
 
-    <div class="card-insight">
+    ${createCard(
+        "Meine wichtigste Erkenntnis",
+        "Welche Erkenntnis möchtest du aus diesem Workbook mitnehmen?",
+        textAnswer(getValue("insight")),
+        "",
+        "card-insight"
+    )}
 
-        ${createCard(
+    ${createCard(
+        "Mein nächster Schritt",
+        "Welchen kleinen Schritt möchtest du als Nächstes gehen?",
+        textAnswer(getValue("nextStep")),
+        "",
+        "card-next"
+    )}
 
-            "Meine wichtigste Erkenntnis",
-
-            "Welche Erkenntnis möchtest du aus diesem Workbook mitnehmen?",
-
-            textOrPlaceholder(
-
-                getValue("insight")
-
-            )
-
-        )}
-
-    </div>
-
-    <div class="card-next">
-
-        ${createCard(
-
-            "Mein nächster Schritt",
-
-            "Welchen kleinen Schritt möchtest du als Nächstes gehen?",
-
-            textOrPlaceholder(
-
-                getValue("nextStep")
-
-            )
-
-        )}
-
-    </div>
-
-    <div class="card-future">
-
-        ${createCard(
-
-            "An mein zukünftiges Ich",
-
-            "Schreibe deinem zukünftigen Ich eine Nachricht.",
-
-            textOrPlaceholder(
-
-                getValue("futureMessage")
-
-            )
-
-        )}
-
-    </div>
+    ${createCard(
+        "An mein zukünftiges Ich",
+        "Schreibe deinem zukünftigen Ich eine Nachricht.",
+        textAnswer(getValue("futureMessage")),
+        "",
+        "card-future"
+    )}
 
 </div>
 
 `;
 
-    document.getElementById("page6").innerHTML =
+    const intro = createIntro(
 
-        createPage(
+        "Dein nächster Schritt",
 
-            6,
+`Dieses Workbook endet hier,
+dein Weg jedoch nicht.
+Veränderungen entstehen selten über Nacht,
+sondern durch viele kleine Entscheidungen,
+die wir immer wieder treffen.
 
-            "06",
+Nimm dir einen Moment Zeit
+und halte fest,
+was du aus diesem Workbook
+für dich mitnehmen möchtest.`
 
-            "Weitergehen",
+    );
 
-            "„Jeder kleine Schritt zählt.“",
+    document.getElementById("page6").innerHTML = createPage(
 
-            createIntro(
+        6,
 
-                "Dein nächster Schritt",
+        "06",
 
-                `Dieses Workbook endet hier,
-                dein Weg jedoch nicht.
+        "Weitergehen",
 
-                Veränderungen entstehen selten über Nacht,
-                sondern durch viele kleine Entscheidungen,
-                die wir immer wieder treffen.
+        "„Jeder kleine Schritt zählt.“",
 
-                Nimm dir einen Moment Zeit
-                und halte fest,
-                was du aus diesem Workbook
-                für dich mitnehmen möchtest.`
+        intro,
 
-            ),
+        reflection,
 
-            reflection,
+`Nachhaltige Veränderungen entstehen
+selten durch einen einzigen großen Moment.
+Viel häufiger entwickeln sie sich
+durch viele kleine Entscheidungen,
+die wir immer wieder treffen.`,
 
-            `Nachhaltige Veränderungen entstehen
-            selten durch einen einzigen großen Moment.
+`Du musst nicht alle Antworten kennen.
+Es reicht,
+wenn du bereit bist,
+den nächsten kleinen Schritt zu gehen.`,
 
-            Viel häufiger entwickeln sie sich
-            durch viele kleine Entscheidungen,
-            die wir immer wieder treffen.`,
+        7
 
-            `Du musst nicht alle Antworten kennen.
-
-            Es reicht,
-            wenn du bereit bist,
-            den nächsten kleinen Schritt zu gehen.`,
-
-            7
-
-        );
+    );
 
 }
 /* ==========================================================
@@ -1352,26 +1290,49 @@ function renderWorkbook(){
 
 
 /* ==========================================================
+   KURZ WARTEN
+========================================================== */
+
+function wait(ms){
+
+    return new Promise(resolve=>{
+
+        setTimeout(resolve,ms);
+
+    });
+
+}
+
+
+/* ==========================================================
    PDF EXPORT
 ========================================================== */
 
 async function generatePDF(){
 
-    const pages = document.querySelectorAll(".pdf-page");
+    document.body.classList.add("rendering");
+
+    await document.fonts.ready;
+
+    await wait(300);
+
+    const { jsPDF } = window.jspdf;
 
     const pdf = new jsPDF({
 
-        orientation: "portrait",
+        orientation:"portrait",
 
-        unit: "mm",
+        unit:"mm",
 
-        format: "a4",
+        format:"a4",
 
-        compress: true
+        compress:true
 
     });
 
-    for(let i = 0; i < pages.length; i++){
+    const pages = document.querySelectorAll(".pdf-page");
+
+    for(let i=0;i<pages.length;i++){
 
         const canvas = await html2canvas(
 
@@ -1379,21 +1340,35 @@ async function generatePDF(){
 
             {
 
-                scale: 2,
+                scale:2,
 
-                useCORS: true,
+                useCORS:true,
 
-                backgroundColor: "#f7f3ee",
+                backgroundColor:"#F7F4EF",
 
-                logging: false
+                logging:false,
+
+                scrollX:0,
+
+                scrollY:0,
+
+                windowWidth:pages[i].scrollWidth,
+
+                windowHeight:pages[i].scrollHeight
 
             }
 
         );
 
-        const img = canvas.toDataURL("image/jpeg",1);
+        const image = canvas.toDataURL(
 
-        if(i > 0){
+            "image/jpeg",
+
+            1
+
+        );
+
+        if(i>0){
 
             pdf.addPage();
 
@@ -1401,7 +1376,7 @@ async function generatePDF(){
 
         pdf.addImage(
 
-            img,
+            image,
 
             "JPEG",
 
@@ -1411,13 +1386,23 @@ async function generatePDF(){
 
             PDF_WIDTH,
 
-            PDF_HEIGHT
+            PDF_HEIGHT,
+
+            "",
+
+            "FAST"
 
         );
 
     }
 
-    pdf.save("trotzdem-wahr-workbook.pdf");
+    document.body.classList.remove("rendering");
+
+    pdf.save(
+
+        "trotzdem-wahr-workbook.pdf"
+
+    );
 
 }
 
@@ -1426,25 +1411,13 @@ async function generatePDF(){
    INITIALISIERUNG
 ========================================================== */
 
-function init(){
+async function init(){
 
     loadWorkbook();
 
     renderWorkbook();
 
-    const button = document.getElementById("downloadPdf");
-
-    if(button){
-
-        button.addEventListener(
-
-            "click",
-
-            generatePDF
-
-        );
-
-    }
+    await document.fonts.ready;
 
 }
 
