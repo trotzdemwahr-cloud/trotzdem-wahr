@@ -500,9 +500,13 @@ function createPage(
 
     ${createHeader(step)}
 
-    ${createTitle(number,title,quote)}
+    <div class="page-top">
 
-    ${intro}
+        ${createTitle(number,title,quote)}
+
+        ${intro}
+
+    </div>
 
     <section class="reflection">
 
