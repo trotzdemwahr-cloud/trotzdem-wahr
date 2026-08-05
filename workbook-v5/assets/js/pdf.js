@@ -317,7 +317,7 @@ function createIntro(title,text){
 
     <p>
 
-        ${escapeHTML(text).replace(/\n/g,"<br><br>")}
+        ${escapeHTML(text).replace(/\n/g,"<br>")}
 
     </p>
 
