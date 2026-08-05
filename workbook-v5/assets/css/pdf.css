@@ -168,14 +168,24 @@ body{
 }
 
 .chapter-heading{
+
     font-family:"Cormorant Garamond",serif;
-    font-size:19pt;
+
     color:var(--text);
+
     font-weight:700;
+
     margin:0;
+
     line-height:1;
+
     overflow:hidden;
+
+    white-space:normal;
+
 }
+
+
 
 .chapter-quote{
     font-style:italic;
@@ -213,16 +223,16 @@ body{
     color:var(--primary);
     line-height:1;
 }
-
 .intro-card p{
-    font-size:8.4pt;
-    line-height:1.25;
+
     color:var(--text);
-    display:-webkit-box;
-    -webkit-line-clamp:5;
-    -webkit-box-orient:vertical;
+
+    line-height:1.25;
+
     overflow:hidden;
+
     white-space:normal;
+
 }
 /* ==========================================================
    REFLEXIONSBEREICH
@@ -362,13 +372,19 @@ body{
 }
 
 .answer{
-    width:100%;
-    font-size:8pt;
-    line-height:1.22;
+
     color:var(--text);
+
+    line-height:1.22;
+
+    overflow:hidden;
+
     white-space:normal;
+
     word-break:break-word;
+
     overflow-wrap:anywhere;
+
 }
 
 .answer.empty{
@@ -488,14 +504,15 @@ body{
 }
 
 .psychology-card p{
-    font-size:8pt;
-    line-height:1.2;
+
     color:var(--text);
-    display:-webkit-box;
-    -webkit-box-orient:vertical;
-    -webkit-line-clamp:4;
+
+    line-height:1.2;
+
     overflow:hidden;
+
     white-space:normal;
+
 }
 
 
@@ -529,14 +546,15 @@ body{
 }
 
 .takeaway-text{
-    font-size:8pt;
+
     color:var(--text);
+
     line-height:1.2;
-    display:-webkit-box;
-    -webkit-box-orient:vertical;
-    -webkit-line-clamp:2;
+
     overflow:hidden;
+
     white-space:normal;
+
 }
 
 
