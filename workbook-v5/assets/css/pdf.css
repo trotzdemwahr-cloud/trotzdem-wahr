@@ -16,25 +16,16 @@
 }
 
 html{
-
     background:#d8d8d8;
-
 }
 
 body{
-
     font-family:"Inter",sans-serif;
-
     background:#d8d8d8;
-
     color:#36454F;
-
     display:flex;
-
     justify-content:center;
-
     padding:40px;
-
 }
 
 
@@ -43,27 +34,16 @@ body{
 ========================================================== */
 
 :root{
-
     --background:#F7F4EF;
-
     --card:#FFFFFF;
-
     --primary:#6F8D87;
-
     --secondary:#DCCFB9;
-
     --accent:#A8B9A5;
-
     --text:#36454F;
-
     --muted:#6D757C;
-
     --border:#DDD7CD;
-
     --shadow:0 8px 24px rgba(0,0,0,.08);
-
     --radius:16px;
-
 }
 
 
@@ -72,15 +52,10 @@ body{
 ========================================================== */
 
 #pdfDocument{
-
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
     gap:24px;
-
 }
 
 
@@ -89,21 +64,13 @@ body{
 ========================================================== */
 
 .pdf-page{
-
     position:relative;
-
     width:210mm;
-
     height:297mm;
-
     overflow:hidden;
-
     background:var(--background);
-
     box-shadow:var(--shadow);
-
     page-break-after:always;
-
 }
 
 
@@ -112,112 +79,68 @@ body{
 ========================================================== */
 
 .pdf-inner{
-
     width:190mm;
-
     height:277mm;
-
     margin:10mm;
-
     display:flex;
-
     flex-direction:column;
-
+    min-height:0;
 }
 
 .page-top{
-
     display:flex;
-
     flex-direction:column;
-
-    gap:2mm;
-
+    gap:1.5mm;
     flex-shrink:0;
-
+    min-height:0;
 }
-
 /* ==========================================================
    HEADER
 ========================================================== */
 
-
 .pdf-header{
-
-    height:18mm;
-
+    height:16mm;
     display:flex;
-
     justify-content:space-between;
-
     align-items:flex-start;
-
     border-bottom:1px solid var(--border);
-
     padding-bottom:0;
-
+    flex-shrink:0;
 }
 
-
-
 .pdf-logo{
-
     font-family:"Cormorant Garamond",serif;
-
-    font-size:22pt;
-
+    font-size:20pt;
     font-weight:700;
-
     color:var(--primary);
-
     letter-spacing:.5px;
-
 }
 
 .pdf-progress{
-
     width:55mm;
-
     display:flex;
-
     flex-direction:column;
-
     align-items:flex-end;
-
-    gap:3mm;
-
+    gap:2.5mm;
 }
 
 .pdf-progress-text{
-
-    font-size:9pt;
-
+    font-size:8.5pt;
     color:var(--muted);
-
 }
 
 .pdf-progress-track{
-
     width:100%;
-
     height:4mm;
-
     background:#E8E3DA;
-
     border-radius:999px;
-
     overflow:hidden;
-
 }
 
 .pdf-progress-fill{
-
     height:100%;
-
     background:var(--primary);
-
     border-radius:999px;
-
 }
 
 
@@ -226,63 +149,41 @@ body{
 ========================================================== */
 
 .pdf-title{
-
-    height:26mm;
-
+    height:21mm;
     flex-shrink:0;
-
     display:flex;
-
     flex-direction:column;
-
     justify-content:center;
-
-    gap:1mm;
-
+    gap:0.5mm;
+    min-height:0;
 }
 
 .chapter-number{
-
-    font-size:10pt;
-
+    font-size:9pt;
     color:var(--primary);
-
     font-weight:700;
-
     text-transform:uppercase;
-
     letter-spacing:1px;
-
+    line-height:1;
 }
 
 .chapter-heading{
-
     font-family:"Cormorant Garamond",serif;
-
-    font-size:22pt;
-
+    font-size:19pt;
     color:var(--text);
-
     font-weight:700;
-
     margin:0;
-
-    line-height:1.02;
-
+    line-height:1;
+    overflow:hidden;
 }
 
 .chapter-quote{
-
     font-style:italic;
-
     color:var(--muted);
-
-    font-size:9pt;
-
+    font-size:8pt;
     margin-top:0;
-
-    line-height:1.2;
-
+    line-height:1.1;
+    overflow:hidden;
 }
 
 
@@ -291,112 +192,101 @@ body{
 ========================================================== */
 
 .intro-card{
-
-    height:30mm;
-
+    height:26mm;
     flex-shrink:0;
-
+    overflow:hidden;
     background:var(--card);
-
     border:1px solid var(--border);
-
     border-radius:var(--radius);
-
-    padding:6mm 8mm;
-
+    padding:4mm 6mm;
     display:flex;
-
     flex-direction:column;
-
     justify-content:center;
-
-    gap:3mm;
-
+    gap:2mm;
     margin-top:0;
-
+    min-height:0;
 }
 
 .intro-card h2{
-
     font-family:"Cormorant Garamond",serif;
-
-    font-size:15pt;
-
+    font-size:13pt;
     color:var(--primary);
-
+    line-height:1;
 }
 
 .intro-card p{
-
-    font-size:9.5pt;
-
-    line-height:1.45;
-
+    font-size:8.4pt;
+    line-height:1.25;
     color:var(--text);
-
+    display:-webkit-box;
+    -webkit-line-clamp:5;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    white-space:normal;
 }
-
-
-
-
 /* ==========================================================
    REFLEXIONSBEREICH
 ========================================================== */
 
 .reflection{
-
-    height:148mm;
-
+    flex:1 1 auto;
+    min-height:0;
     display:flex;
-
     flex-direction:column;
-
-    gap:4mm;
-
+    gap:3mm;
     margin-top:0;
-
+    overflow:hidden;
 }
 
 
 /* ==========================================================
    REFLEXIONSLAYOUTS
 ========================================================== */
+
+.layout-arrive,
+.layout-self,
+.layout-understand,
+.layout-recognize,
+.layout-strength,
+.layout-forward{
+    display:flex;
+    flex-direction:column;
+    gap:3mm;
+    min-height:0;
+    overflow:hidden;
+}
+
 .layout-arrive .reflection-row,
-
 .layout-self .reflection-row,
-
 .layout-understand .reflection-row,
-
 .layout-recognize .reflection-row,
+.layout-strength .reflection-row,
+.layout-forward .reflection-row{
+    height:46mm;
+    flex-shrink:0;
+}
 
-.layout-strength .reflection-row{
-
-    height:50mm;
-
+.reflection-row{
+    display:flex;
+    gap:3mm;
+    width:100%;
+    min-height:0;
 }
 
 .reflection-column{
-
     flex:1;
-
     display:flex;
-
     flex-direction:column;
-
-    gap:4mm;
-
+    gap:2.5mm;
+    min-height:0;
 }
 
 .reflection-full{
-
     width:100%;
-
     display:flex;
-
     flex-direction:column;
-
-    gap:4mm;
-
+    gap:2.5mm;
+    min-height:0;
 }
 
 
@@ -405,43 +295,31 @@ body{
 ========================================================== */
 
 .pdf-card{
-
     background:var(--card);
-
     border:1px solid var(--border);
-
     border-radius:var(--radius);
-
-    padding:5mm;
-
+    padding:4mm;
     display:flex;
-
     flex-direction:column;
-
-    gap:3mm;
-
+    gap:2mm;
+    overflow:hidden;
+    min-height:0;
 }
 
 .pdf-card h3{
-
     font-family:"Cormorant Garamond",serif;
-
-    font-size:16pt;
-
+    font-size:14pt;
     color:var(--primary);
-
     font-weight:700;
-
+    line-height:1;
+    overflow:hidden;
 }
 
 .pdf-card label{
-
-    font-size:9pt;
-
+    font-size:8pt;
     color:var(--muted);
-
-    line-height:1.35;
-
+    line-height:1.2;
+    overflow:hidden;
 }
 
 
@@ -450,82 +328,19 @@ body{
 ========================================================== */
 
 .card-small{
-
-    height:50mm;
-
+    height:46mm;
 }
 
 .card-medium{
-
     height:70mm;
-
 }
 
 .card-large{
-
     height:81mm;
-
 }
 
 .card-full{
-
-    height:68mm;
-
-}
-
-
-/* ==========================================================
-   CHIP CONTAINER
-========================================================== */
-
-.chips{
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:3mm;
-
-    margin-top:2mm;
-
-}
-
-
-/* ==========================================================
-   CHIP
-========================================================== */
-
-.chip{
-
-    background:#EEF2EF;
-
-    border:1px solid #D7DED8;
-
-    color:var(--text);
-
-    border-radius:999px;
-
-    padding:2.2mm 4mm;
-
-    font-size:8.5pt;
-
-    line-height:1.2;
-
-    white-space:nowrap;
-
-}
-
-
-/* ==========================================================
-   RADIO CHIP
-========================================================== */
-
-.chip.radio{
-
-    background:#E7EFEA;
-
-    border-color:#C8D8CF;
-
+    height:56mm;
 }
 
 
@@ -534,239 +349,76 @@ body{
 ========================================================== */
 
 .answer-box{
-
     flex:1;
-
     width:100%;
-
     border:1px solid var(--border);
-
     border-radius:12px;
-
     background:#FCFBF8;
-
-    padding:3mm;
-
+    padding:2.5mm;
     overflow:hidden;
-
     display:flex;
-
     align-items:flex-start;
-
+    min-height:0;
 }
-
-
-
-
-/* ==========================================================
-   ANTWORTTEXT
-========================================================== */
 
 .answer{
-
     width:100%;
-
-    font-size:9pt;
-
-    line-height:1.55;
-
+    font-size:8pt;
+    line-height:1.22;
     color:var(--text);
-
-    white-space:pre-wrap;
-
+    white-space:normal;
     word-break:break-word;
-
     overflow-wrap:anywhere;
-
 }
-
-
-/* ==========================================================
-   LEERE FELDER
-========================================================== */
 
 .answer.empty{
-
     color:#A3AAA8;
-
     font-style:italic;
-
 }
 
+.pdf-card.card-small .answer{
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:3;
+    overflow:hidden;
+}
 
+.card-full .answer,
+.card-insight .answer,
+.card-next .answer,
+.card-future .answer{
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:4;
+    overflow:hidden;
+}
 /* ==========================================================
-   LISTEN
+   CHIPS
 ========================================================== */
 
-.answer-list{
-
+.chips{
     display:flex;
-
-    flex-direction:column;
-
+    flex-wrap:wrap;
     gap:2mm;
-
+    margin-top:1mm;
+    max-height:100%;
+    overflow:hidden;
 }
 
-.answer-item{
-
-    display:flex;
-
-    align-items:flex-start;
-
-    gap:2mm;
-
-    font-size:9pt;
-
-    line-height:1.45;
-
+.chip{
+    background:#EEF2EF;
+    border:1px solid #D7DED8;
     color:var(--text);
-
+    border-radius:999px;
+    padding:1.5mm 3mm;
+    font-size:7.5pt;
+    line-height:1.1;
+    white-space:nowrap;
 }
 
-.answer-item::before{
-
-    content:"•";
-
-    color:var(--primary);
-
-    font-weight:700;
-
-}
-
-
-/* ==========================================================
-   KAPITEL 1
-========================================================== */
-
-.layout-arrive{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:6mm;
-
-}
-
-.layout-arrive .reflection-row{
-
-    height:58mm;
-
-}
-
-.layout-arrive .reflection-full{
-
-    flex:1;
-
-}
-
-
-/* ==========================================================
-   KAPITEL 2
-========================================================== */
-
-.layout-self{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:6mm;
-
-}
-
-.layout-self .reflection-row{
-
-    height:58mm;
-
-}
-
-.layout-self .reflection-full{
-
-    flex:1;
-
-}
-
-
-/* ==========================================================
-   KAPITEL 3
-========================================================== */
-
-.layout-understand{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:6mm;
-
-}
-
-.layout-understand .reflection-row{
-
-    height:58mm;
-
-}
-
-.layout-understand .reflection-full{
-
-    flex:1;
-
-}
-
-
-/* ==========================================================
-   KAPITEL 4
-========================================================== */
-
-.layout-recognize{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:6mm;
-
-}
-
-.layout-recognize .reflection-row{
-
-    height:58mm;
-
-}
-
-.layout-recognize .reflection-full{
-
-    flex:1;
-
-}
-
-
-/* ==========================================================
-   KAPITEL 5
-========================================================== */
-
-.layout-strength{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:6mm;
-
-}
-
-.layout-strength .reflection-row{
-
-    height:58mm;
-
-}
-
-.layout-strength .reflection-full{
-
-    flex:1;
-
+.chip.radio{
+    background:#E7EFEA;
+    border-color:#C8D8CF;
 }
 
 
@@ -775,85 +427,75 @@ body{
 ========================================================== */
 
 .layout-forward{
-
     display:flex;
-
     flex-direction:column;
-
-    gap:4mm;
-
-}
-
-.layout-forward .reflection-row{
-
-    height:50mm;
-
+    gap:3mm;
+    min-height:0;
+    overflow:hidden;
 }
 
 .layout-forward .card-insight,
-
 .layout-forward .card-next{
-
-    height:26mm;
-
+    height:22mm;
 }
 
 .layout-forward .card-future{
+    height:28mm;
+}
 
-    height:34mm;
+.layout-forward .card-insight .answer,
+.layout-forward .card-next .answer{
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    overflow:hidden;
+}
 
+.layout-forward .card-future .answer{
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:3;
+    overflow:hidden;
 }
 
 
 /* ==========================================================
    PSYCHOLOGIE
 ========================================================== */
+
 .psychology-card{
-
-    height:24mm;
-
+    height:18mm;
     margin-top:0;
-
+    overflow:hidden;
     background:#EEF4F2;
-
     border:1px solid #D8E3DF;
-
     border-radius:var(--radius);
-
-    padding:4mm 6mm;
-
+    padding:3mm 5mm;
     display:flex;
-
     flex-direction:column;
-
     justify-content:center;
-
-    gap:2mm;
-
+    gap:1mm;
+    min-height:0;
 }
 
 .psychology-badge{
-
-    font-size:8pt;
-
+    font-size:7pt;
     font-weight:700;
-
     letter-spacing:.8px;
-
     text-transform:uppercase;
-
     color:var(--primary);
-
+    line-height:1;
 }
 
 .psychology-card p{
-
-    font-size:9pt;
-
-    line-height:1.45;
-
+    font-size:8pt;
+    line-height:1.2;
     color:var(--text);
-
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:4;
+    overflow:hidden;
+    white-space:normal;
 }
 
 
@@ -862,53 +504,39 @@ body{
 ========================================================== */
 
 .takeaway-card{
-
-    height:10mm;
-
+    height:8mm;
     margin-top:0;
-
+    overflow:hidden;
     background:#F8F6F1;
-
     border:1px solid var(--border);
-
     border-left:4px solid var(--primary);
-
     border-radius:12px;
-
     display:flex;
-
     align-items:center;
-
-    padding:0 6mm;
-
-    gap:3mm;
-
+    padding:0 5mm;
+    gap:2mm;
+    min-height:0;
 }
 
 .takeaway-title{
-
-    font-size:8pt;
-
+    font-size:7.5pt;
     font-weight:700;
-
     color:var(--primary);
-
     text-transform:uppercase;
-
     letter-spacing:.8px;
-
     white-space:nowrap;
-
+    line-height:1;
 }
 
 .takeaway-text{
-
-    font-size:9pt;
-
+    font-size:8pt;
     color:var(--text);
-
-    line-height:1.35;
-
+    line-height:1.2;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    overflow:hidden;
+    white-space:normal;
 }
 
 
@@ -917,47 +545,33 @@ body{
 ========================================================== */
 
 .pdf-footer{
-
-    height:6mm;
-
+    height:5mm;
     margin-top:auto;
-
     border-top:1px solid var(--border);
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:flex-end;
-
     font-size:8pt;
-
     color:var(--muted);
-
     padding-top:0;
-
+    flex-shrink:0;
 }
 
 .footer-left{
-
     font-family:"Cormorant Garamond",serif;
-
-    font-size:11pt;
-
+    font-size:10pt;
     color:var(--primary);
-
+    line-height:1;
 }
 
 .footer-center{
-
     font-weight:500;
-
+    line-height:1;
 }
 
 .footer-right{
-
     text-align:right;
-
+    line-height:1;
 }
 
 
@@ -966,99 +580,62 @@ body{
 ========================================================== */
 
 .cover-page{
-
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
     background:var(--background);
-
 }
 
 .cover-wrapper{
-
     width:170mm;
-
     height:240mm;
-
     display:flex;
-
     flex-direction:column;
-
     justify-content:center;
-
     align-items:center;
-
     text-align:center;
-
     gap:8mm;
-
+    min-height:0;
 }
 
 .cover-logo{
-
     font-family:"Cormorant Garamond",serif;
-
     font-size:38pt;
-
     color:var(--primary);
-
     font-weight:700;
-
+    line-height:1;
 }
 
 .cover-workbook{
-
     font-size:18pt;
-
     letter-spacing:4px;
-
     text-transform:uppercase;
-
     color:var(--muted);
-
+    line-height:1;
 }
 
 .cover-subtitle{
-
     width:120mm;
-
     font-size:13pt;
-
     line-height:1.7;
-
     color:var(--text);
-
 }
 
 .cover-quote{
-
     margin-top:18mm;
-
     width:120mm;
-
     font-style:italic;
-
     font-size:11pt;
-
     color:var(--muted);
-
     line-height:1.7;
-
 }
 
 .cover-url{
-
     margin-top:auto;
-
     font-size:10pt;
-
     color:var(--primary);
-
     letter-spacing:.6px;
-
+    line-height:1;
 }
 
 
@@ -1067,93 +644,59 @@ body{
 ========================================================== */
 
 .final-page{
-
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
 }
 
 .final-wrapper{
-
     width:170mm;
-
     height:235mm;
-
     display:flex;
-
     flex-direction:column;
-
     justify-content:center;
-
     align-items:center;
-
     text-align:center;
-
+    min-height:0;
 }
 
 .final-title{
-
     font-family:"Cormorant Garamond",serif;
-
     font-size:34pt;
-
     color:var(--primary);
-
     margin-bottom:8mm;
-
+    line-height:1;
 }
 
 .final-text{
-
     width:125mm;
-
     font-size:11pt;
-
     line-height:1.8;
-
     color:var(--text);
-
 }
 
 .final-quote{
-
     margin-top:16mm;
-
     width:120mm;
-
     font-style:italic;
-
     color:var(--muted);
-
     font-size:11pt;
-
     line-height:1.7;
-
 }
 
 .final-thanks{
-
     margin-top:18mm;
-
     font-family:"Cormorant Garamond",serif;
-
     font-size:22pt;
-
     color:var(--primary);
-
+    line-height:1;
 }
 
 .final-url{
-
     margin-top:auto;
-
     font-size:10pt;
-
     color:var(--primary);
-
+    line-height:1;
 }
 
 
@@ -1162,21 +705,15 @@ body{
 ========================================================== */
 
 .text-center{
-
     text-align:center;
-
 }
 
 .mt-auto{
-
     margin-top:auto;
-
 }
 
 .hidden{
-
     display:none;
-
 }
 
 
@@ -1185,13 +722,9 @@ body{
 ========================================================== */
 
 .rendering{
-
     image-rendering:high-quality;
-
     -webkit-font-smoothing:antialiased;
-
     text-rendering:optimizeLegibility;
-
 }
 
 
@@ -1200,44 +733,27 @@ body{
 ========================================================== */
 
 @page{
-
     size:A4 portrait;
-
     margin:0;
-
 }
 
 @media print{
-
     html,
     body{
-
         margin:0;
-
         padding:0;
-
         background:#FFFFFF;
-
     }
 
     #pdfDocument{
-
         gap:0;
-
     }
 
     .pdf-page{
-
         margin:0;
-
         box-shadow:none;
-
         page-break-after:always;
-
         page-break-inside:avoid;
-
         break-after:page;
-
     }
-
 }
