@@ -142,7 +142,7 @@ body{
 
     border-bottom:1px solid var(--border);
 
-    padding-bottom:5mm;
+    padding-bottom:0mm;
 
 }
 
@@ -317,7 +317,7 @@ body{
 
 .reflection{
 
-    height:145mm;
+    height:139mm;
 
     display:flex;
 
@@ -325,7 +325,7 @@ body{
 
     gap:6mm;
 
-    margin-top:6mm;
+    margin-top:0mm;
 
 }
 /* ==========================================================
@@ -778,9 +778,9 @@ body{
 
 .psychology-card{
 
-    height:28mm;
+    height:26mm;
 
-    margin-top:6mm;
+    margin-top:2mm;
 
     background:#EEF4F2;
 
@@ -831,9 +831,9 @@ body{
 
 .takeaway-card{
 
-    height:14mm;
+    height:12mm;
 
-    margin-top:4mm;
+    margin-top:2mm;
 
     background:#F8F6F1;
 
@@ -902,7 +902,7 @@ body{
 
     color:var(--muted);
 
-    padding-top:2mm;
+    padding-top:0mm;
 
 }
 
