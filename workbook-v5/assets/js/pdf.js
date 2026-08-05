@@ -113,7 +113,52 @@ function escapeHTML(text){
 
 }
 
+function fitTextToBox(el, minPx = 6.5, stepPx = 0.25){
+    if(!el) return;
 
+    const computed = window.getComputedStyle(el);
+    const originalPx = parseFloat(computed.fontSize);
+
+    if(Number.isNaN(originalPx)) return;
+
+    el.style.fontSize = originalPx + "px";
+
+    let current = originalPx;
+    while(current > minPx){
+        if(el.scrollHeight <= el.clientHeight && el.scrollWidth <= el.clientWidth){
+            break;
+        }
+        current -= stepPx;
+        el.style.fontSize = current + "px";
+    }
+}
+
+function fitPageTexts(page){
+    const selectors = [
+        ".chapter-heading",
+        ".chapter-quote",
+        ".intro-card h2",
+        ".intro-card p",
+        ".pdf-card h3",
+        ".pdf-card label",
+        ".answer",
+        ".psychology-badge",
+        ".psychology-card p",
+        ".takeaway-title",
+        ".takeaway-text",
+        ".footer-left",
+        ".footer-center",
+        ".footer-right"
+    ];
+
+    selectors.forEach(selector => {
+        page.querySelectorAll(selector).forEach(el => fitTextToBox(el));
+    });
+}
+
+function fitAllPages(){
+    document.querySelectorAll(".pdf-page").forEach(page => fitPageTexts(page));
+}
 /* ==========================================================
    LEERER PLATZHALTER
 ========================================================== */
@@ -140,9 +185,7 @@ function placeholder(){
 function textAnswer(value){
 
     if(!value){
-
         return placeholder();
-
     }
 
     return `
@@ -154,7 +197,6 @@ function textAnswer(value){
 </div>
 
 `;
-
 }
 
 
@@ -324,7 +366,6 @@ function createIntro(title,text){
 </section>
 
 `;
-
 }
 
 
@@ -1320,6 +1361,10 @@ async function generatePDF(){
 
     await wait(300);
 
+   fitAllPages();
+
+
+
     const { jsPDF } = window.jspdf;
 
     const pdf = new jsPDF({
@@ -1422,6 +1467,8 @@ async function init(){
     renderWorkbook();
 
     await document.fonts.ready;
+
+    fitAllPages();
 
 }
 
