@@ -185,11 +185,9 @@ function fitAnswerBox(box){
 
     }
 
-    /*
-       Antworten dürfen bis auf 5,5 px verkleinert werden. Dadurch bleiben
-       auch längere Workbook-Eingaben vollständig auf derselben A4-Seite.
-    */
-    fitTextToBox(content,5.5,0.15);
+    /* Nur zu lange Antworten werden kleiner – kurze Antworten bleiben
+       unverändert. Die sehr kleine Untergrenze verhindert abgeschnittenen Text. */
+    fitTextToBox(content,3.5,0.15);
 
 }
 
@@ -1538,9 +1536,11 @@ async function init(){
 
     fitAllPages();
 
+    /* Standardmäßig wird direkt exportiert. Mit ?download=0 kann bei Bedarf
+       lediglich die Vorschau geöffnet werden. */
     const shouldDownload =
         new URLSearchParams(window.location.search)
-            .get("download") === "1";
+            .get("download") !== "0";
 
     if(shouldDownload){
 
