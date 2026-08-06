@@ -233,6 +233,10 @@ body{
 
     white-space:normal;
 
+    flex:1;
+
+    min-height:0;
+
 }
 /* ==========================================================
    REFLEXIONSBEREICH
@@ -367,7 +371,7 @@ body{
     padding:2.5mm;
     overflow:hidden;
     display:flex;
-    align-items:flex-start;
+    align-items:stretch;
     min-height:0;
 }
 
@@ -375,11 +379,19 @@ body{
 
     color:var(--text);
 
+    width:100%;
+
+    flex:1 1 auto;
+
+    min-height:0;
+
+    font-size:9pt;
+
     line-height:1.22;
 
     overflow:hidden;
 
-    white-space:normal;
+    white-space:pre-wrap;
 
     word-break:break-word;
 
@@ -392,33 +404,22 @@ body{
     font-style:italic;
 }
 
-.pdf-card.card-small .answer{
-    display:-webkit-box;
-    -webkit-box-orient:vertical;
-    -webkit-line-clamp:3;
-    overflow:hidden;
-}
-
-.card-full .answer,
-.card-insight .answer,
-.card-next .answer,
-.card-future .answer{
-    display:-webkit-box;
-    -webkit-box-orient:vertical;
-    -webkit-line-clamp:4;
-    overflow:hidden;
-}
 /* ==========================================================
    CHIPS
 ========================================================== */
 
 .chips{
     display:flex;
+    width:100%;
+    flex:1 1 auto;
+    min-height:0;
     flex-wrap:wrap;
-    gap:2mm;
-    margin-top:1mm;
+    gap:.35em;
+    margin:0;
     max-height:100%;
     overflow:hidden;
+    font-size:9pt;
+    line-height:1.1;
 }
 
 .chip{
@@ -426,10 +427,11 @@ body{
     border:1px solid #D7DED8;
     color:var(--text);
     border-radius:999px;
-    padding:1.5mm 3mm;
-    font-size:7.5pt;
+    padding:.25em .6em;
+    font-size:inherit;
     line-height:1.1;
-    white-space:nowrap;
+    white-space:normal;
+    overflow-wrap:anywhere;
 }
 
 .chip.radio{
@@ -458,22 +460,6 @@ body{
 .layout-forward .card-future{
     height:28mm;
 }
-
-.layout-forward .card-insight .answer,
-.layout-forward .card-next .answer{
-    display:-webkit-box;
-    -webkit-box-orient:vertical;
-    -webkit-line-clamp:2;
-    overflow:hidden;
-}
-
-.layout-forward .card-future .answer{
-    display:-webkit-box;
-    -webkit-box-orient:vertical;
-    -webkit-line-clamp:3;
-    overflow:hidden;
-}
-
 
 /* ==========================================================
    PSYCHOLOGIE
@@ -512,6 +498,10 @@ body{
     overflow:hidden;
 
     white-space:normal;
+
+    flex:1;
+
+    min-height:0;
 
 }
 
@@ -554,6 +544,12 @@ body{
     overflow:hidden;
 
     white-space:normal;
+
+    flex:1;
+
+    min-width:0;
+
+    min-height:0;
 
 }
 
