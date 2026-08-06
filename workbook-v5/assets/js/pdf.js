@@ -41,12 +41,24 @@ function loadWorkbook(){
     const saved =
         localStorage.getItem(STORAGE_KEY);
 
-    if(saved){
+    if(!saved){
+
+        workbookData = {};
+
+        return;
+
+    }
+
+    try{
+
+        const parsed = JSON.parse(saved);
 
         workbookData =
-            JSON.parse(saved);
+            parsed && typeof parsed === "object" ? parsed : {};
 
-    }else{
+    }catch(error){
+
+        console.warn("Workbook-Daten konnten nicht gelesen werden.",error);
 
         workbookData = {};
 
@@ -113,27 +125,77 @@ function escapeHTML(text){
 
 }
 
-function fitTextToBox(el, minPx = 6.5, stepPx = 0.25){
-    if(!el) return;
+function hasOverflow(el){
 
-    const computed = window.getComputedStyle(el);
-    const originalPx = parseFloat(computed.fontSize);
+    const tolerance = 1;
 
-    if(Number.isNaN(originalPx)) return;
+    return el.scrollHeight > el.clientHeight + tolerance ||
+        el.scrollWidth > el.clientWidth + tolerance;
 
-    el.style.fontSize = originalPx + "px";
-
-    let current = originalPx;
-    while(current > minPx){
-        if(el.scrollHeight <= el.clientHeight && el.scrollWidth <= el.clientWidth){
-            break;
-        }
-        current -= stepPx;
-        el.style.fontSize = current + "px";
-    }
 }
 
+
+function fitTextToBox(el, minPx = 5, stepPx = 0.2){
+
+    if(!el || !el.clientHeight || !el.clientWidth){
+
+        return;
+
+    }
+
+    if(!el.dataset.baseFontSize){
+
+        el.dataset.baseFontSize =
+            window.getComputedStyle(el).fontSize;
+
+    }
+
+    const originalPx =
+        parseFloat(el.dataset.baseFontSize);
+
+    if(Number.isNaN(originalPx)){
+
+        return;
+
+    }
+
+    el.style.fontSize = `${originalPx}px`;
+
+    let current = originalPx;
+
+    while(hasOverflow(el) && current > minPx){
+
+        current = Math.max(minPx,current - stepPx);
+
+        el.style.fontSize = `${current}px`;
+
+    }
+
+}
+
+
+function fitAnswerBox(box){
+
+    const content =
+        box.querySelector(":scope > .answer, :scope > .chips");
+
+    if(!content){
+
+        return;
+
+    }
+
+    /*
+       Antworten dürfen bis auf 5,5 px verkleinert werden. Dadurch bleiben
+       auch längere Workbook-Eingaben vollständig auf derselben A4-Seite.
+    */
+    fitTextToBox(content,5.5,0.15);
+
+}
+
+
 function fitPageTexts(page){
+
     const selectors = [
         ".chapter-heading",
         ".chapter-quote",
@@ -141,7 +203,6 @@ function fitPageTexts(page){
         ".intro-card p",
         ".pdf-card h3",
         ".pdf-card label",
-        ".answer",
         ".psychology-badge",
         ".psychology-card p",
         ".takeaway-title",
@@ -152,8 +213,15 @@ function fitPageTexts(page){
     ];
 
     selectors.forEach(selector => {
-        page.querySelectorAll(selector).forEach(el => fitTextToBox(el));
+
+        page.querySelectorAll(selector).forEach(el =>
+            fitTextToBox(el)
+        );
+
     });
+
+    page.querySelectorAll(".answer-box").forEach(fitAnswerBox);
+
 }
 
 function fitAllPages(){
@@ -1469,6 +1537,16 @@ async function init(){
     await document.fonts.ready;
 
     fitAllPages();
+
+    const shouldDownload =
+        new URLSearchParams(window.location.search)
+            .get("download") === "1";
+
+    if(shouldDownload){
+
+        await generatePDF();
+
+    }
 
 }
 
